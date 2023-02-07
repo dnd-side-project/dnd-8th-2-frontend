@@ -32,6 +32,9 @@ extension ReetPlaceTBC {
     
     /// 탭바 스타일 설정
     private func configureTabBarStyle() {
+        
+        print("halop")
+        
         tabBar.backgroundColor = .white
         tabBar.isTranslucent = false
         
