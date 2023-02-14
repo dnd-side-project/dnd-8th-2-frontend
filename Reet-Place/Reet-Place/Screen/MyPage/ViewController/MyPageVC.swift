@@ -13,9 +13,13 @@ import RxCocoa
 import Then
 import SnapKit
 
-class MyPageVC: BaseViewController {
+class MyPageVC: BaseVerticalScrollViewController {
   
   // MARK: - UI components
+  
+//  let scrollView = UIScrollView()
+//
+//  let contentView = UIView()
   
   let stackView = UIStackView()
     .then {
@@ -32,11 +36,11 @@ class MyPageVC: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    view.addSubview(stackView)
+    contentView.addSubview(stackView)
     stackView.snp.makeConstraints {
-      $0.top.leading.equalTo(view.safeAreaLayoutGuide).offset(8.0)
-      $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-8.0)
-      $0.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide).offset(-8.0)
+      $0.top.leading.equalToSuperview().offset(8.0)
+      $0.trailing.equalToSuperview().offset(-8.0)
+      $0.bottom.lessThanOrEqualToSuperview().offset(-8.0)
     }
     
     ReetButtonStyle.allCases.forEach { style in
@@ -65,6 +69,15 @@ class MyPageVC: BaseViewController {
           .disposed(by: bag)
       }
     }
+    
+    AssetFonts.allCases.forEach { font in
+      let label = BaseLabel(font: font,
+                            text: "\(font.rawValue)\nNext Line \(font.rawValue)")
+      label.numberOfLines = .zero
+      label.backgroundColor = .lightGray
+      stackView.addArrangedSubview(label)
+    }
+    
   }
   
   // MARK: - Functions
