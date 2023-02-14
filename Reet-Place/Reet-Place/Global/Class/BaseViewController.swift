@@ -26,7 +26,11 @@ class BaseViewController: UIViewController {
     let keyboardWillShow = NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
     let keyboardWillHide = NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
     
-    let bag = DisposeBag()
+    var bag = DisposeBag()
+  
+    deinit {
+      bag = DisposeBag()
+    }
     
     // MARK: - Life Cycle
     

@@ -58,12 +58,21 @@ class ReetButton: UIButton {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: - Overrides
+  
   override var isEnabled: Bool {
     didSet {
       configureButton(with: titleLabel?.text,
                       for: style)
     }
   }
+  
+  override func setTitle(_ title: String?, for state: UIControl.State) {
+    super.setTitle(title, for: state)
+    configureTitleLabel(with: title, for: state)
+  }
+  
+  // MARK: - Configures
   
   private func configureButton(with title: String?,
                                for style: ReetButtonStyle,
@@ -104,6 +113,10 @@ class ReetButton: UIButton {
     
     setTitle(title, for: .normal)
     
+    setTitle(title, for: .highlighted)
+    
+    setTitle(title, for: .disabled)
+    
     // Configures background colors
     
     setBackgroundColor(style.defaultBackgroundColor,
@@ -115,20 +128,33 @@ class ReetButton: UIButton {
     setBackgroundColor(style.disabledBackgroundColor,
                        for: .disabled)
     
-    // Configure title colors
-    
-    setTitleColor(style.defaultTitleColor, for: .normal)
-    
-    setTitleColor(style.defaultTitleColor, for: .highlighted)
-    
-    setTitleColor(style.disabledTitleColor, for: .disabled)
-    
     // Configures corner
     
     layer.cornerRadius = 4.0
     layer.masksToBounds = true
     
     configureBorder()
+  }
+  
+  /// Configures title with attributed string
+  private func configureTitleLabel(with title: String?, for state: UIControl.State) {
+    let safeTitle = title ?? .empty
+    
+    var color: UIColor {
+      switch state {
+      case .disabled:
+        return style.disabledTitleColor
+      default:
+        return style.defaultTitleColor
+      }
+    }
+    
+    let normalAttrTitle = NSMutableAttributedString(string: safeTitle)
+    normalAttrTitle.setAttr(with: .buttonSmall,
+                                  alignment: .center,
+                                  color: color)
+    setAttributedTitle(normalAttrTitle,
+                       for: state)
   }
   
   /// Configures border of oulined button
