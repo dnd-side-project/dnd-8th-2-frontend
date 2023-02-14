@@ -56,6 +56,13 @@
 		A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E122996A84B00DF2A65 /* ButtonDefaultColorProvider.swift */; };
 		A4917E152996A88000DF2A65 /* ButtonActiveColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E142996A88000DF2A65 /* ButtonActiveColorProvider.swift */; };
 		A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E162996A8B300DF2A65 /* ButtonDisabledColorProvider.swift */; };
+		A4AABE6B299BC0A600BA9D37 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */; };
+		A4AABE6D299BC0BC00BA9D37 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */; };
+		A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */; };
+		A4AABE71299BCBAD00BA9D37 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE70299BCBAD00BA9D37 /* BaseLabel.swift */; };
+		A4AABE73299BD04C00BA9D37 /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE72299BD04C00BA9D37 /* NSMutableAttributedString+.swift */; };
+		A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE74299BD3CE00BA9D37 /* String+Ext.swift */; };
+		A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE76299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift */; };
 		E790867F6AF1E4352F1605CA /* Pods_Reet_Place.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75B835821C35237DF51F34A9 /* Pods_Reet_Place.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +120,13 @@
 		A4917E122996A84B00DF2A65 /* ButtonDefaultColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDefaultColorProvider.swift; sourceTree = "<group>"; };
 		A4917E142996A88000DF2A65 /* ButtonActiveColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActiveColorProvider.swift; sourceTree = "<group>"; };
 		A4917E162996A8B300DF2A65 /* ButtonDisabledColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDisabledColorProvider.swift; sourceTree = "<group>"; };
+		A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFonts.swift; sourceTree = "<group>"; };
+		A4AABE70299BCBAD00BA9D37 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
+		A4AABE72299BD04C00BA9D37 /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
+		A4AABE74299BD3CE00BA9D37 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		A4AABE76299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVerticalScrollViewController.swift; sourceTree = "<group>"; };
 		DB1E425FF106AB5AB18DEA46 /* Pods-Reet-Place.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reet-Place.debug.xcconfig"; path = "Target Support Files/Pods-Reet-Place/Pods-Reet-Place.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,21 +161,23 @@
 		3C2AED172990B3C200E36342 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				3C2AED182990B3C200E36342 /* UserDefaults+.swift */,
 				3C2AED242990B3C200E36342 /* Date+.swift */,
 				3C2AED192990B3C200E36342 /* Int+.swift */,
-				3C2AED1D2990B3C200E36342 /* UIString+.swift */,
-				3C2AF0DC29914CAA00E36342 /* UIFont+.swift */,
-				3C2AED262990B3C200E36342 /* UIColor+.swift */,
-				3C2AED1B2990B3C200E36342 /* UITextView+.swift */,
-				3C2AED232990B3C200E36342 /* UITextField+.swift */,
-				3C2AED1C2990B3C200E36342 /* UIView+.swift */,
-				3C2AED1E2990B3C200E36342 /* UIStackView+.swift */,
-				3C2AED1F2990B3C200E36342 /* UIViewController+.swift */,
-				3C2AED202990B3C200E36342 /* UILabel+.swift */,
+				A4AABE72299BD04C00BA9D37 /* NSMutableAttributedString+.swift */,
+				A4AABE74299BD3CE00BA9D37 /* String+Ext.swift */,
 				3C2AED212990B3C200E36342 /* UIButton+.swift */,
-				3C2AED222990B3C200E36342 /* UIScrollView+.swift */,
+				3C2AED262990B3C200E36342 /* UIColor+.swift */,
+				3C2AF0DC29914CAA00E36342 /* UIFont+.swift */,
 				3C2AED252990B3C200E36342 /* UIImage+.swift */,
+				3C2AED202990B3C200E36342 /* UILabel+.swift */,
+				3C2AED222990B3C200E36342 /* UIScrollView+.swift */,
+				3C2AED1E2990B3C200E36342 /* UIStackView+.swift */,
+				3C2AED1D2990B3C200E36342 /* UIString+.swift */,
+				3C2AED232990B3C200E36342 /* UITextField+.swift */,
+				3C2AED1B2990B3C200E36342 /* UITextView+.swift */,
+				3C2AED1C2990B3C200E36342 /* UIView+.swift */,
+				3C2AED1F2990B3C200E36342 /* UIViewController+.swift */,
+				3C2AED182990B3C200E36342 /* UserDefaults+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -169,9 +185,10 @@
 		3C2AED272990B3C200E36342 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
-				3C2AF0D62991397100E36342 /* NavigationType.swift */,
-				3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */,
 				A4917E012996A4D300DF2A65 /* AssetColors.swift */,
+				A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */,
+				3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */,
+				3C2AF0D62991397100E36342 /* NavigationType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -209,12 +226,14 @@
 		3C2AED482990B3C200E36342 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				3C2AED492990B3C200E36342 /* BaseViewController.swift */,
-				3C2AED4A2990B3C200E36342 /* BaseTableViewCell.swift */,
-				3C2AED4B2990B3C200E36342 /* BaseViewModel.swift */,
 				3C2AED4C2990B3C200E36342 /* BaseCollectionViewCell.swift */,
+				A4AABE70299BCBAD00BA9D37 /* BaseLabel.swift */,
 				3C2AED4D2990B3C200E36342 /* BaseNavigationController.swift */,
+				3C2AED4A2990B3C200E36342 /* BaseTableViewCell.swift */,
+				A4AABE76299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift */,
 				3C2AED4E2990B3C200E36342 /* BaseView.swift */,
+				3C2AED492990B3C200E36342 /* BaseViewController.swift */,
+				3C2AED4B2990B3C200E36342 /* BaseViewModel.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -222,7 +241,9 @@
 		3C2AED4F2990B3C200E36342 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */,
 				3C2AED522990B3C200E36342 /* Pretendard-Medium.otf */,
+				A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */,
 				3C2AED552990B3C200E36342 /* Pretendard-SemiBold.otf */,
 			);
 			path = Font;
@@ -585,6 +606,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C2AED8D2990B3C300E36342 /* Pretendard-SemiBold.otf in Resources */,
+				A4AABE6D299BC0BC00BA9D37 /* Pretendard-Regular.otf in Resources */,
+				A4AABE6B299BC0A600BA9D37 /* Pretendard-Bold.otf in Resources */,
 				3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */,
 				3C2AED8A2990B3C300E36342 /* Pretendard-Medium.otf in Resources */,
 				3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */,
@@ -640,11 +663,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4AABE73299BD04C00BA9D37 /* NSMutableAttributedString+.swift in Sources */,
 				A4917E092996A6B200DF2A65 /* ReetButtonStyle.swift in Sources */,
 				3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */,
 				3C2AED782990B3C200E36342 /* Output.swift in Sources */,
 				3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */,
 				3C2AED862990B3C300E36342 /* BaseNavigationController.swift in Sources */,
+				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */,
 				3C2AED592990B3C200E36342 /* Int+.swift in Sources */,
 				3C2AED7F2990B3C300E36342 /* PaddingLabel.swift in Sources */,
@@ -660,6 +685,8 @@
 				3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */,
 				3C2AED7A2990B3C300E36342 /* Loadable.swift in Sources */,
 				3C2AED5E2990B3C200E36342 /* UIStackView+.swift in Sources */,
+				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
+				A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
 				3C2AED772990B3C200E36342 /* URLResource.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
@@ -685,6 +712,7 @@
 				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
 				3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */,
+				A4AABE71299BCBAD00BA9D37 /* BaseLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
