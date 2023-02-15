@@ -18,14 +18,18 @@ class AllBookmarkButton: UIButton {
     
     let style: AllButtonStyle
     
-    let leftAllLabel = UILabel()
+    let leftAllLabel = BaseLabel(font: AssetFonts.subtitle2, text: "ALL")
         .then {
-            $0.text = "ALL"
-            $0.textColor = .white
+            $0.textColor = AssetColors.white
+            $0.letterSpacing = AssetFonts.subtitle2.letterSpacingMultiplier - 1
             $0.textAlignment = .center
-            $0.font = .boldSystemFont(ofSize: 14)
             $0.layer.cornerRadius = 8
             $0.layer.masksToBounds = true
+        }
+    
+    let allTitleLabel = BaseLabel(font: AssetFonts.subtitle1, text: "전체보기")
+        .then {
+            $0.letterSpacing = AssetFonts.subtitle1.letterSpacingMultiplier - 1
         }
     
     let countLabel = UILabel()
@@ -78,14 +82,7 @@ class AllBookmarkButton: UIButton {
         }
         
         stackView.addArrangedSubview(leftAllLabel)
-        
-        
-        if let titleLabel = titleLabel {
-            titleLabel.font = .boldSystemFont(ofSize: 16)
-            stackView.addArrangedSubview(titleLabel)
-        }
-        setTitle("전체보기", for: .normal)
-        setTitleColor(.black, for: .normal)
+        stackView.addArrangedSubview(allTitleLabel)
         
         countLabel.text = String(count)
         stackView.addArrangedSubview(countLabel)

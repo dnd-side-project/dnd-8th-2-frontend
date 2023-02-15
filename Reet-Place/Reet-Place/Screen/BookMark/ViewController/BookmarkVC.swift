@@ -22,7 +22,7 @@ class BookmarkVC: BaseViewController {
             $0.text = "BookmarkVC"
         }
     
-    let allBookmarkBtn = AllBookmarkButton(count: 99)
+    let allBookmarkBtn = AllBookmarkButton(count: 21)
     
     
     // MARK: - Variables and Properties
