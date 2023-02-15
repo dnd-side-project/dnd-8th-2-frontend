@@ -24,6 +24,7 @@ class BookmarkVC: BaseViewController {
     
     let allBookmarkBtn = AllBookmarkButton(count: 21)
     
+    let emptyBookmarkView = EmptyBookmarkView()
     
     // MARK: - Variables and Properties
     
@@ -51,6 +52,12 @@ class BookmarkVC: BaseViewController {
                 self.navigationController?.pushViewController(bookmarkListVC, animated: true)
             })
             .disposed(by: bag)
+        
+        view.addSubview(emptyBookmarkView)
+        emptyBookmarkView.snp.makeConstraints {
+            $0.center.equalTo(view)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
     }
     
     override func configureView() {

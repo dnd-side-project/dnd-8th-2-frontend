@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */; };
 		0E912304299C96030023EA59 /* BookmarkListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912303299C96030023EA59 /* BookmarkListVC.swift */; };
+		0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */; };
 		0ECA6B42299A97CE00238DEA /* BookmarkNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
@@ -91,6 +92,7 @@
 /* Begin PBXFileReference section */
 		0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBookmarkButton.swift; sourceTree = "<group>"; };
 		0E912303299C96030023EA59 /* BookmarkListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListVC.swift; sourceTree = "<group>"; };
+		0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBookmarkView.swift; sourceTree = "<group>"; };
 		0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNC.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */,
+				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				A4D09EC8299F984A004DEE97 /* UserInfoVC.swift in Sources */,
 				3C2AF0CF2990D98400E36342 /* MapVC.swift in Sources */,
 				A417F66F299E8710005E6DA7 /* ModelUser.swift in Sources */,
+				0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */,
 				3C2AED722990B3C200E36342 /* APIError.swift in Sources */,
 				A4EFC097299E5DF000B066AF /* NavigationBar.swift in Sources */,
 				3C2AED842990B3C300E36342 /* BaseViewModel.swift in Sources */,
