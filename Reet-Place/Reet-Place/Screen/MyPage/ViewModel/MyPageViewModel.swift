@@ -9,6 +9,7 @@ import Foundation
 
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 final class MyPageViewModel: BaseViewModel {
     var input: Input = Input()
@@ -24,11 +25,25 @@ final class MyPageViewModel: BaseViewModel {
     }
     
     struct Output {
-        let authToken = BehaviorRelay(value: KeychainManager.shared.read(for: .authToken))
+        private let authToken = BehaviorRelay(value: KeychainManager.shared.read(for: .authToken))
         
-        var isValidAuthToken: Observable<Bool> {
+        private var isValidAuthToken: Observable<Bool> {
             // TODO: Auth token validation
             authToken.map { $0 != nil }
+        }
+        
+        private var mypageMenu: Observable<Array<MyPageMenu>> {
+            isValidAuthToken.map {
+                $0 ? MyPageMenu.authenticated : MyPageMenu.unAuthenticated
+            }
+        }
+        
+        var mypageMenuDataSources: Observable<Array<MyPageMenuDataSource>> {
+            mypageMenu.map {
+                [
+                    MyPageMenuDataSource(items: $0)
+                ]
+            }
         }
     }
     
