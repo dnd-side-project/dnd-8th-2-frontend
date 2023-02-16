@@ -29,7 +29,7 @@ class LoginVC: BaseNavigationViewController {
         }
     
     override var alias: String {
-        "LoginView"
+        "MyPageDefault"
     }
     
     override func configureView() {

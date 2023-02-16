@@ -20,7 +20,7 @@ class MyPageVC: BaseViewController {
     // MARK: - Variables and Properties
     
     override var alias: String {
-        "MyPageDefault"
+        "MyPageTab"
     }
     
     private let viewModel = MyPageViewModel()
