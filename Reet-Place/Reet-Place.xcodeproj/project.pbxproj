@@ -74,6 +74,7 @@
 		A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EFC0A0299E715900B066AF /* MyPageMenu.swift */; };
 		A4EFC0A3299E724E00B066AF /* ForegroundColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EFC0A2299E724E00B066AF /* ForegroundColorProvider.swift */; };
 		A4EFC0A6299E750500B066AF /* MyPageMenuDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EFC0A5299E750500B066AF /* MyPageMenuDataSource.swift */; };
+		A4EFC0A9299E7D9600B066AF /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EFC0A8299E7D9600B066AF /* MyPageViewModel.swift */; };
 		E790867F6AF1E4352F1605CA /* Pods_Reet_Place.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75B835821C35237DF51F34A9 /* Pods_Reet_Place.framework */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +152,7 @@
 		A4EFC0A0299E715900B066AF /* MyPageMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenu.swift; sourceTree = "<group>"; };
 		A4EFC0A2299E724E00B066AF /* ForegroundColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundColorProvider.swift; sourceTree = "<group>"; };
 		A4EFC0A5299E750500B066AF /* MyPageMenuDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuDataSource.swift; sourceTree = "<group>"; };
+		A4EFC0A8299E7D9600B066AF /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		DB1E425FF106AB5AB18DEA46 /* Pods-Reet-Place.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reet-Place.debug.xcconfig"; path = "Target Support Files/Pods-Reet-Place/Pods-Reet-Place.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -358,19 +360,12 @@
 		3C2AEF8E2990CAB200E36342 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				A4EFC0A7299E7D8E00B066AF /* ViewModel */,
 				3C2AEFAE2990CAB200E36342 /* View */,
 				3C2AEFB42990CAB200E36342 /* ViewController */,
-				3C2AEF8F2990CAB200E36342 /* ViewModel */,
 				3C2AEF9E2990CAB200E36342 /* Model */,
 			);
 			path = MyPage;
-			sourceTree = "<group>";
-		};
-		3C2AEF8F2990CAB200E36342 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3C2AEF9E2990CAB200E36342 /* Model */ = {
@@ -614,6 +609,14 @@
 			path = Datasource;
 			sourceTree = "<group>";
 		};
+		A4EFC0A7299E7D8E00B066AF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4EFC0A8299E7D9600B066AF /* MyPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		FF1ADCF102C7CF18C04B7C27 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +788,7 @@
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C2AED622990B3C200E36342 /* UIScrollView+.swift in Sources */,
+				A4EFC0A9299E7D9600B066AF /* MyPageViewModel.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				A4EFC08B299E488500B066AF /* LoginVC.swift in Sources */,
 				3C2AF0CF2990D98400E36342 /* MapVC.swift in Sources */,

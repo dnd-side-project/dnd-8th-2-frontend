@@ -1,5 +1,5 @@
 //
-//  LoginViewModel.swift
+//  MyPageViewModel.swift
 //  Reet-Place
 //
 //  Created by Aaron Lee on 2023/02/16.
@@ -9,9 +9,8 @@ import Foundation
 
 import RxSwift
 import RxCocoa
-import RxDataSources
 
-final class LoginViewModel: BaseViewModel {
+final class MyPageViewModel: BaseViewModel {
     var input: Input = Input()
     
     var output: Output = Output()
@@ -25,14 +24,11 @@ final class LoginViewModel: BaseViewModel {
     }
     
     struct Output {
-        private var mypageMenu = BehaviorRelay(value: MyPageMenu.unAuthenticated)
+        let authToken = BehaviorRelay(value: KeychainManager.shared.read(for: .authToken))
         
-        var mypageMenuDataSources: Observable<Array<MyPageMenuDataSource>> {
-            mypageMenu.map {
-                [
-                    MyPageMenuDataSource(items: $0)
-                ]
-            }
+        var isValidAuthToken: Observable<Bool> {
+            // TODO: Auth token validation
+            authToken.map { $0 != nil }
         }
     }
     

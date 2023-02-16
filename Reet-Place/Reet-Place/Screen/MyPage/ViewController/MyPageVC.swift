@@ -20,10 +20,10 @@ class MyPageVC: BaseViewController {
     // MARK: - Variables and Properties
     
     override var alias: String {
-        "MyPageView"
+        "MyPageDefault"
     }
     
-    private let viewModel = LoginViewModel()
+    private let viewModel = MyPageViewModel()
     
     var loginVC: LoginVC?
     
@@ -31,22 +31,27 @@ class MyPageVC: BaseViewController {
     
     override func configureView() {
         super.configureView()
-        
-        guard let authToken = viewModel.output.authToken.value else {
-            // TODO: JWT Expired Check
-            
-            loginVC = LoginVC()
-            embed(with: loginVC!)
-            
-            return
-        }
-        
-        // TODO: Show User Info
-        print(authToken)
     }
     
     override func layoutView() {
         super.layoutView()
+    }
+    
+    override func bindOutput() {
+        super.bindOutput()
+        
+        viewModel.output.isValidAuthToken
+            .withUnretained(self)
+            .bind(onNext: { owner, isValid in
+                if isValid {
+                    print("TODO: SHOW USER INFO")
+                    return
+                }
+                
+                owner.loginVC = LoginVC()
+                owner.embed(with: owner.loginVC!)
+            })
+            .disposed(by: bag)
     }
     
     // MARK: - Functions
