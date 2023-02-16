@@ -25,8 +25,6 @@ class MyPageVC: BaseViewController {
     
     private let viewModel = MyPageViewModel()
     
-    var loginVC: LoginVC?
-    
     // MARK: - Life Cycle
     
     override func configureView() {
@@ -48,8 +46,10 @@ class MyPageVC: BaseViewController {
                     return
                 }
                 
-                owner.loginVC = LoginVC()
-                owner.embed(with: owner.loginVC!)
+                let loginVC = LoginVC()
+                let navC = UINavigationController(rootViewController: loginVC)
+                navC.navigationBar.isHidden = true
+                owner.embed(with: navC)
             })
             .disposed(by: bag)
     }
