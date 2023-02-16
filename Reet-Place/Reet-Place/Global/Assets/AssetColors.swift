@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AssetColors {
+struct AssetColors {
   // Primary
   static let primary50 = UIColor(named: "Primary50")!
   static let primary100 = UIColor(named: "Primary100")!

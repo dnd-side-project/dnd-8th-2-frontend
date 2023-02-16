@@ -12,6 +12,13 @@ class BaseLabel: UILabel {
   private let alignment: NSTextAlignment?
   private let color: UIColor?
   
+  /// AttributedText가 적용된 Label
+  /// - Parameters:
+  ///   - frame: default is `.zero`
+  ///   - font: Font style
+  ///   - text: Contents
+  ///   - alignment: Alignment of label
+  ///   - color: Text color
   init(frame: CGRect = .zero,
        font: AssetFonts,
        text: String?,

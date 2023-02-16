@@ -38,10 +38,8 @@ extension NSMutableAttributedString {
     }
     
     // Letter spacing
-    let letterSpacingRange = NSRange(location: .zero, length: string.count - 1)
-    
     addAttribute(.kern,
                  value: font.letterSpacingMultiplier - 1.0,
-                 range: letterSpacingRange)
+                 range: range)
   }
 }
