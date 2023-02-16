@@ -103,6 +103,7 @@ class LoginVC: BaseNavigationViewController {
             }
             
             cell.titleLabel.text = menu.description
+            cell.titleLabel.textColor = menu.foregroundColor
             
             return cell
         }
