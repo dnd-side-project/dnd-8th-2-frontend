@@ -28,9 +28,6 @@ class AllBookmarkButton: UIButton {
         }
     
     let allTitleLabel = BaseLabel(font: AssetFonts.subtitle1, text: "전체보기")
-        .then {
-            $0.letterSpacing = AssetFonts.subtitle1.letterSpacingMultiplier - 1
-        }
     
     let countLabel = UILabel()
         .then {

@@ -17,14 +17,19 @@ class BookmarkVC: BaseViewController {
     
     // MARK: - UI components
     
-    let label = UILabel()
-        .then {
-            $0.text = "BookmarkVC"
-        }
+    let bookmarkTypeCV: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 16
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+                
+        return collectionView
+    }()
     
     let allBookmarkBtn = AllBookmarkButton(count: 21)
     
     let emptyBookmarkView = EmptyBookmarkView()
+    let requestLoginView = RequestLoginView()
     
     // MARK: - Variables and Properties
     
@@ -33,36 +38,12 @@ class BookmarkVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(label)
-        label.snp.makeConstraints {
-            $0.center.equalTo(view)
-        }
-        
-        view.addSubview(allBookmarkBtn)
-        allBookmarkBtn.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(96)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(76)
-        }
-        
-        allBookmarkBtn.rx.tap
-            .bind(onNext: {
-                print("allBookmarkBtn Pressed!")
-                let bookmarkListVC = BookmarkListVC()
-                self.navigationController?.pushViewController(bookmarkListVC, animated: true)
-            })
-            .disposed(by: bag)
-        
-        view.addSubview(emptyBookmarkView)
-        emptyBookmarkView.snp.makeConstraints {
-            $0.center.equalTo(view)
-            $0.leading.trailing.equalToSuperview().inset(20)
-        }
     }
     
     override func configureView() {
         super.configureView()
         
+        configureContentView()
     }
     
     override func layoutView() {
@@ -71,7 +52,35 @@ class BookmarkVC: BaseViewController {
         configureLayout()
     }
     
+    override func bindRx() {
+        super.bindRx()
+        
+    }
+    
+    override func bindInput() {
+        bindBtn()
+    }
+    
+    override func bindOutput() {}
+    
     // MARK: - Functions
+    
+}
+
+// MARK: - Configure
+
+extension BookmarkVC {
+    
+    private func configureContentView() {
+        view.addSubviews([allBookmarkBtn,
+                          emptyBookmarkView,
+                          requestLoginView,
+                          bookmarkTypeCV])
+        
+        bookmarkTypeCV.register(BookmarkTypeCVC.self, forCellWithReuseIdentifier: BookmarkTypeCVC.className)
+        bookmarkTypeCV.delegate = self
+        bookmarkTypeCV.dataSource = self
+    }
     
 }
 
@@ -82,6 +91,94 @@ extension BookmarkVC {
     
     private func configureLayout() {
         
+        allBookmarkBtn.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(96)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(76)
+        }
+        
+        
+        emptyBookmarkView.snp.makeConstraints {
+            $0.center.equalTo(bookmarkTypeCV.snp.center)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        requestLoginView.snp.makeConstraints {
+            $0.center.equalTo(bookmarkTypeCV.snp.center)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        bookmarkTypeCV.snp.makeConstraints {
+            $0.top.equalTo(allBookmarkBtn.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        emptyBookmarkView.isHidden = false
+        requestLoginView.isHidden = false
+        
     }
     
+}
+
+// MARK: - Input
+
+extension BookmarkVC {
+    private func bindBtn() {
+        allBookmarkBtn.rx.tap
+            .bind(onNext: {
+                let bookmarkListVC = BookmarkListVC()
+                self.navigationController?.pushViewController(bookmarkListVC, animated: true)
+            })
+            .disposed(by: bag)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension BookmarkVC: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let bookmarkListVC = BookmarkListVC()
+        self.navigationController?.pushViewController(bookmarkListVC, animated: true)
+    }
+    
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension BookmarkVC: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
+                
+        return cell
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension BookmarkVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = (UIScreen.main.bounds.width - (20 * 2) - 16) / 2
+        let cellHeight = cellWidth / 4 * 5 + 29
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+  }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        let spacingSize = 16
+        
+        return CGFloat(spacingSize)
+    }
 }

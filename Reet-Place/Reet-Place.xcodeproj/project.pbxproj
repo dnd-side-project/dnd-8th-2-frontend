@@ -10,6 +10,8 @@
 		0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */; };
 		0E912304299C96030023EA59 /* BookmarkListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912303299C96030023EA59 /* BookmarkListVC.swift */; };
 		0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */; };
+		0E91230A299E6E080023EA59 /* RequestLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912309299E6E080023EA59 /* RequestLoginView.swift */; };
+		0E91230D299E7ECD0023EA59 /* BookmarkTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */; };
 		0ECA6B42299A97CE00238DEA /* BookmarkNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
@@ -93,6 +95,8 @@
 		0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBookmarkButton.swift; sourceTree = "<group>"; };
 		0E912303299C96030023EA59 /* BookmarkListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListVC.swift; sourceTree = "<group>"; };
 		0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBookmarkView.swift; sourceTree = "<group>"; };
+		0E912309299E6E080023EA59 /* RequestLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoginView.swift; sourceTree = "<group>"; };
+		0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTypeCVC.swift; sourceTree = "<group>"; };
 		0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNC.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -193,8 +197,17 @@
 			children = (
 				0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
+				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0E91230B299E7E860023EA59 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		3C2AED162990B3C200E36342 /* Global */ = {
@@ -351,6 +364,7 @@
 		3C2AEF2B2990CAB200E36342 /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
+				0E91230B299E7E860023EA59 /* Cell */,
 				0E9122FE299BF1390023EA59 /* View */,
 				3C2AEF572990CAB200E36342 /* ViewController */,
 				3C2AEF2C2990CAB200E36342 /* ViewModel */,
@@ -773,6 +787,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E91230A299E6E080023EA59 /* RequestLoginView.swift in Sources */,
 				A4AABE73299BD04C00BA9D37 /* NSMutableAttributedString+.swift in Sources */,
 				A4D09ECC299F9C51004DEE97 /* IconProvider.swift in Sources */,
 				A4917E092996A6B200DF2A65 /* ReetButtonStyle.swift in Sources */,
@@ -821,6 +836,7 @@
 				3C2AED8E2990B3C300E36342 /* Service.swift in Sources */,
 				3C2AF0D12990DFAC00E36342 /* BookmarkVC.swift in Sources */,
 				3C2AED5D2990B3C200E36342 /* UIString+.swift in Sources */,
+				0E91230D299E7ECD0023EA59 /* BookmarkTypeCVC.swift in Sources */,
 				3C2AED5F2990B3C200E36342 /* UIViewController+.swift in Sources */,
 				3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */,
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
