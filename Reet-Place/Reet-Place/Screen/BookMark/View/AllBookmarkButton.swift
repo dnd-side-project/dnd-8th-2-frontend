@@ -18,7 +18,8 @@ class AllBookmarkButton: UIButton {
     
     let style: AllButtonStyle
     
-    let leftAllLabel = BaseLabel(font: AssetFonts.subtitle2, text: "ALL")
+    let leftAllLabel = BaseLabel(font: AssetFonts.subtitle2,
+                                 text: "ALL")
         .then {
             $0.textColor = AssetColors.white
             $0.letterSpacing = AssetFonts.subtitle2.letterSpacingMultiplier - 1
@@ -27,7 +28,8 @@ class AllBookmarkButton: UIButton {
             $0.layer.masksToBounds = true
         }
     
-    let allTitleLabel = BaseLabel(font: AssetFonts.subtitle1, text: "전체보기")
+    let allTitleLabel = BaseLabel(font: AssetFonts.subtitle1,
+                                  text: "전체보기")
     
     let countLabel = UILabel()
         .then {

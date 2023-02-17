@@ -13,20 +13,23 @@ import SnapKit
 class RequestLoginView: BaseView {
     // MARK: - UI components
     
-    let titleLabel = BaseLabel(font: AssetFonts.h4, text: "로그인하고, 지도를 완성시켜보세요!")
+    let titleLabel = BaseLabel(font: AssetFonts.h4,
+                               text: "로그인하고, 지도를 완성시켜보세요!")
         .then {
             $0.textColor = AssetColors.black
             $0.textAlignment = .center
         }
     
-    let contentLabel = BaseLabel(font: AssetFonts.body2, text: "숨겨진 장소를 나만의 약속으로!\n지금 로그인하고 나만의 지도를 완성시켜보세요")
+    let contentLabel = BaseLabel(font: AssetFonts.body2,
+                                 text: "숨겨진 장소를 나만의 약속으로!\n지금 로그인하고 나만의 지도를 완성시켜보세요")
         .then {
             $0.textColor = AssetColors.gray500
             $0.numberOfLines = .zero
             $0.textAlignment = .center
         }
     
-    let aroundMeBtn = ReetButton(with: "로그인하기", for: ReetButtonStyle.primary)
+    let aroundMeBtn = ReetButton(with: "로그인하기",
+                                 for: ReetButtonStyle.primary)
     
     let stackView = UIStackView()
         .then {

@@ -12,7 +12,6 @@
 		0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */; };
 		0E91230A299E6E080023EA59 /* RequestLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912309299E6E080023EA59 /* RequestLoginView.swift */; };
 		0E91230D299E7ECD0023EA59 /* BookmarkTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */; };
-		0ECA6B42299A97CE00238DEA /* BookmarkNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -97,7 +96,6 @@
 		0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBookmarkView.swift; sourceTree = "<group>"; };
 		0E912309299E6E080023EA59 /* RequestLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoginView.swift; sourceTree = "<group>"; };
 		0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTypeCVC.swift; sourceTree = "<group>"; };
-		0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNC.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 			children = (
 				3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */,
 				0E912303299C96030023EA59 /* BookmarkListVC.swift */,
-				0ECA6B41299A97CE00238DEA /* BookmarkNC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
