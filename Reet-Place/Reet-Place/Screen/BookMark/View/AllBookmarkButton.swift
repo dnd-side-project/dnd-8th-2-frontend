@@ -29,18 +29,21 @@ class AllBookmarkButton: UIButton {
         }
     
     let allTitleLabel = BaseLabel(font: AssetFonts.subtitle1,
-                                  text: "전체보기")
+                                  text: "전체보기",
+                                  alignment: .left,
+                                  color: AssetColors.black)
+        .then {
+            $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        }
     
     let countLabel = UILabel()
         .then {
             $0.textAlignment = .right
         }
     
-    let rightArrow = UIImageView()
+    let rightImageView = UIImageView(image: AssetsImages.chevronRight52)
         .then {
-            $0.tintColor = AssetColors.gray500
             $0.contentMode = .scaleAspectFit
-            $0.image = UIImage(systemName: "chevron.right")
         }
     
     private let stackView = UIStackView()
@@ -83,9 +86,13 @@ class AllBookmarkButton: UIButton {
         stackView.addArrangedSubview(leftAllLabel)
         stackView.addArrangedSubview(allTitleLabel)
         
-        countLabel.text = String(count)
         stackView.addArrangedSubview(countLabel)
-        stackView.addArrangedSubview(rightArrow)
+        countLabel.text = String(count)
+        
+        stackView.addArrangedSubview(rightImageView)
+        rightImageView.snp.makeConstraints {
+            $0.width.equalTo(rightImageView.snp.height)
+        }
         
         
         stackView.setCustomSpacing(16.0, after: leftAllLabel)
@@ -113,7 +120,7 @@ class AllBookmarkButton: UIButton {
             setBackgroundColor(AssetColors.gray100, for: .normal)
             leftAllLabel.backgroundColor = AssetColors.gray500
             countLabel.textColor = AssetColors.gray500
-            rightArrow.isHidden = true
+            rightImageView.isHidden = true
             self.isEnabled = false
         }
         

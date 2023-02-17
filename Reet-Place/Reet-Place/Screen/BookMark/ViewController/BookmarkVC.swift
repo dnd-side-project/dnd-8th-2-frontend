@@ -13,7 +13,7 @@ import RxCocoa
 import Then
 import SnapKit
 
-class BookmarkVC: BaseViewController {
+class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
@@ -29,7 +29,12 @@ class BookmarkVC: BaseViewController {
     let allBookmarkBtn = AllBookmarkButton(count: 21)
     
     let emptyBookmarkView = EmptyBookmarkView()
+    
     let requestLoginView = RequestLoginView()
+    
+    override var alias: String {
+        "Bookmark"
+    }
     
     // MARK: - Variables and Properties
     
@@ -77,6 +82,9 @@ extension BookmarkVC {
                           requestLoginView,
                           bookmarkTypeCV])
         
+        title = "북마크"
+        navigationBar.style = .default
+        
         bookmarkTypeCV.register(BookmarkTypeCVC.self, forCellWithReuseIdentifier: BookmarkTypeCVC.className)
         bookmarkTypeCV.delegate = self
         bookmarkTypeCV.dataSource = self
@@ -92,8 +100,8 @@ extension BookmarkVC {
     private func configureLayout() {
         
         allBookmarkBtn.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(96)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(76)
         }
         
@@ -126,8 +134,8 @@ extension BookmarkVC {
     private func bindBtn() {
         allBookmarkBtn.rx.tap
             .bind(onNext: {
-                let bookmarkListVC = BookmarkListVC()
-                self.navigationController?.pushViewController(bookmarkListVC, animated: true)
+                let bookmarkAllVC = BookmarkAllVC()
+                self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
             })
             .disposed(by: bag)
     }
@@ -142,8 +150,8 @@ extension BookmarkVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let bookmarkListVC = BookmarkListVC()
-        self.navigationController?.pushViewController(bookmarkListVC, animated: true)
+        let bookmarkAllVC = BookmarkAllVC()
+        self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
     }
     
 }
@@ -174,7 +182,7 @@ extension BookmarkVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-  }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         let spacingSize = 16
