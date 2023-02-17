@@ -20,7 +20,17 @@ class MyPageVC: BaseNavigationViewController {
     
     private let viewModel = MyPageViewModel()
     
+    private let stackView = UIStackView()
+        .then {
+            $0.spacing = .zero
+            $0.distribution = .fill
+            $0.alignment = .fill
+            $0.axis = .vertical
+        }
+    
     private let loginView = LoginView()
+    
+    private let userProfileView = UserProfileView()
     
     private let tableView = UITableView(frame: .zero, style: .plain)
         .then {
@@ -38,20 +48,17 @@ class MyPageVC: BaseNavigationViewController {
         title = "MyPage".localized
         navigationBar.style = .default
         
-        view.addSubview(loginView)
-        view.addSubview(tableView)
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(loginView)
+        stackView.addArrangedSubview(userProfileView)
+        stackView.addArrangedSubview(tableView)
     }
     
     override func layoutView() {
         super.layoutView()
         
-        loginView.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(loginView.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -89,6 +96,26 @@ class MyPageVC: BaseNavigationViewController {
     
     override func bindOutput() {
         super.bindOutput()
+        
+        // 로그인 유무
+        
+        viewModel.output.isAuthenticated
+            .withUnretained(self)
+            .bind(onNext: { owner, isAuthenticated in
+                owner.loginView.isHidden = isAuthenticated
+                owner.userProfileView.isHidden = !isAuthenticated
+            })
+            .disposed(by: bag)
+        
+        // 유저 프로필
+        
+        viewModel.output.user
+            .compactMap { $0 }
+            .withUnretained(self)
+            .bind(onNext: { owner, user in
+                owner.userProfileView.configureProfile(with: user)
+            })
+            .disposed(by: bag)
         
         // Bind menu
         

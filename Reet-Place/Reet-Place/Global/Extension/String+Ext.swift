@@ -8,11 +8,23 @@
 import Foundation
 
 extension String {
-  static var empty: Self {
-    ""
-  }
-  
-  var localized: Self {
-    NSLocalizedString(self, comment: .empty)
-  }
+    static var empty: Self {
+        ""
+    }
+    
+    var localized: Self {
+        NSLocalizedString(self, comment: .empty)
+    }
+    
+    
+}
+
+extension Optional where Wrapped == String {
+    var url: URL? {
+        guard let self = self else{
+            return nil
+        }
+        
+        return URL(string: self)
+    }
 }

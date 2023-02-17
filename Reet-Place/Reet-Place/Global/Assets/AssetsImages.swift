@@ -18,4 +18,6 @@ struct AssetsImages {
     static let chevronRight24 = UIImage(named: "ChevronRight24")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight52 = UIImage(named: "ChevronRight52")?.withRenderingMode(.alwaysOriginal)
     
+    static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")?.withRenderingMode(.alwaysOriginal)
+    
 }
