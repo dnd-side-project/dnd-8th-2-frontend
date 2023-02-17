@@ -27,13 +27,13 @@ final class MyPageViewModel: BaseViewModel {
     struct Output {
         private let authToken = BehaviorRelay(value: KeychainManager.shared.read(for: .authToken))
         
-        private var isValidAuthToken: Observable<Bool> {
+        var isAuthenticated: Observable<Bool> {
             // TODO: Auth token validation
             authToken.map { $0 != nil }
         }
         
         private var mypageMenu: Observable<Array<MyPageMenu>> {
-            isValidAuthToken.map {
+            isAuthenticated.map {
                 $0 ? MyPageMenu.authenticated : MyPageMenu.unAuthenticated
             }
         }
@@ -45,6 +45,8 @@ final class MyPageViewModel: BaseViewModel {
                 ]
             }
         }
+        
+        var user: BehaviorRelay<ModelUser?> = BehaviorRelay(value: ModelUser.mock())
     }
     
     init() {
