@@ -81,8 +81,11 @@ class UserInfoVC: BaseNavigationViewController {
             cell.titleLabel.text = menu.description
             cell.titleLabel.textColor = menu.foregroundColor
             
-            if menu == .sns {
+            switch menu {
+            case .sns:
                 cell.infoLabel.text = self.viewModel.output.email
+            case .delete:
+                cell.rightImageView.isHidden = true
             }
             
             return cell
