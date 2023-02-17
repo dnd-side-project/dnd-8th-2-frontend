@@ -29,7 +29,7 @@ final class MyPageViewModel: BaseViewModel {
         
         var isAuthenticated: Observable<Bool> {
             // TODO: Auth token validation
-            authToken.map { $0 != nil }
+            authToken.map { $0 == nil }
         }
         
         private var mypageMenu: Observable<Array<MyPageMenu>> {

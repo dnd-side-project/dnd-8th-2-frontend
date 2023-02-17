@@ -20,4 +20,6 @@ struct AssetsImages {
     
     static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")?.withRenderingMode(.alwaysOriginal)
     
+    static let kakao = UIImage(named: "Kakao")?.withRenderingMode(.alwaysOriginal)
+    
 }

@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 import Then
 
+import RxSwift
+import RxCocoa
+
 
 class BaseNavigationViewController: BaseViewController {
     
@@ -45,5 +48,32 @@ class BaseNavigationViewController: BaseViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    override func bindInput() {
+        super.bindInput()
         
+        navigationBar.leftButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.backButtonTapped()
+            })
+            .disposed(by: bag)
+        
+        navigationBar.rightButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.backButtonTapped()
+            })
+            .disposed(by: bag)
+    }
+    
+    func backButtonTapped() {
+        guard let navC = navigationController else {
+            dismiss(animated: true)
+            return
+        }
+        
+        navC.popViewController(animated: true)
+    }
+    
 }

@@ -12,6 +12,8 @@ import Then
 
 class DefaultCategoryTVC: UITableViewCell {
     
+    static let defaultHeight: CGFloat = 56.0
+    
     let titleLabel = BaseLabel(font: .subtitle2,
                                text: nil,
                                alignment: .left,
@@ -25,7 +27,7 @@ class DefaultCategoryTVC: UITableViewCell {
             $0.contentMode = .scaleAspectFit
         }
     
-    private let stackView = UIStackView()
+    let stackView = UIStackView()
         .then {
             $0.spacing = 8.0
             $0.distribution = .fill
