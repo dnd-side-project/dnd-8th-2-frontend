@@ -11,4 +11,8 @@ extension String {
   static var empty: Self {
     ""
   }
+  
+  var localized: Self {
+    NSLocalizedString(self, comment: .empty)
+  }
 }

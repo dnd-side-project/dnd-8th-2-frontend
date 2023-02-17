@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Reet-Place
+
+  Created by Aaron Lee on 2023/02/16.
+  
+*/
+MyPage = "마이페이지";
+NeedToSignIn = "로그인이 필요합니다.";
+DoLogin = "로그인하기";
+DoQna = "문의하기";
+ServicePolicy = "이용 약관";
+PrivacyPoilcy = "개인정보 처리방침";
+UserInfo = "회원정보";
+Signout = "로그아웃";

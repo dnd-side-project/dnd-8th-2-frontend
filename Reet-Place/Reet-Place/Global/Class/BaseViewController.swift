@@ -28,6 +28,10 @@ class BaseViewController: UIViewController {
     
     var bag = DisposeBag()
   
+    var alias: String {
+      BaseViewController.className
+    }
+  
     deinit {
       bag = DisposeBag()
     }
@@ -53,7 +57,7 @@ class BaseViewController: UIViewController {
     // MARK: - Configure
     
     func configureView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = AssetColors.white
     }
     
     // MARK: - Layout

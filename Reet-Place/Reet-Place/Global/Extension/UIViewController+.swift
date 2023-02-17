@@ -84,4 +84,22 @@ extension UIViewController {
         present(alertController, animated: true)
     }
     
+    /// View Controller 안에 View Controller embed
+    /// - Parameter viewController: Child view controller
+    func embed(with viewController: UIViewController) {
+      addChild(viewController)
+      view.addSubview(viewController.view)
+      viewController.didMove(toParent: self)
+    }
+    
+    /// Embed된 View Controller 제거
+    /// - Parameter embededViewController: Embeded view controller
+    func remove(of embededViewController: UIViewController) {
+      guard children.contains(embededViewController) else { return }
+      
+      embededViewController.willMove(toParent: nil)
+      embededViewController.view.removeFromSuperview()
+      embededViewController.removeFromParent()
+    }
+      
 }

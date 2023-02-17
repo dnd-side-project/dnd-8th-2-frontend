@@ -2,83 +2,115 @@
 //  MyPageVC.swift
 //  Reet-Place
 //
-//  Created by Kim HeeJae on 2023/02/04.
+//  Created by Aaron Lee on 2023/02/16.
 //
 
 import UIKit
 
+import SnapKit
+import Then
+
 import RxSwift
 import RxCocoa
+import RxDataSources
 
-import Then
-import SnapKit
+fileprivate let tableViewCellIdentifier = "myPageMenuTableViewCell"
 
-class MyPageVC: BaseVerticalScrollViewController {
-  
-  // MARK: - UI components
-  
-//  let scrollView = UIScrollView()
-//
-//  let contentView = UIView()
-  
-  let stackView = UIStackView()
-    .then {
-      $0.alignment = .fill
-      $0.distribution = .fill
-      $0.axis = .vertical
-      $0.spacing = 8.0
-    }
-  
-  // MARK: - Variables and Properties
-  
-  // MARK: - Life Cycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
+class MyPageVC: BaseNavigationViewController {
     
-    contentView.addSubview(stackView)
-    stackView.snp.makeConstraints {
-      $0.top.leading.equalToSuperview().offset(8.0)
-      $0.trailing.equalToSuperview().offset(-8.0)
-      $0.bottom.lessThanOrEqualToSuperview().offset(-8.0)
+    private let viewModel = MyPageViewModel()
+    
+    private let loginView = LoginView()
+    
+    private let tableView = UITableView(frame: .zero, style: .plain)
+        .then {
+            $0.rowHeight = 52.0
+            $0.separatorStyle = .none
+        }
+    
+    override var alias: String {
+        "MyPage"
     }
     
-    ReetButtonStyle.allCases.forEach { style in
-      let btn1 = ReetButton(with: "\(style.rawValue.capitalized)",
-                            for: style,
-                            left: UIImage(systemName: "heart.circle"),
-                            right: UIImage(systemName: "heart.circle"))
-      stackView.addArrangedSubview(btn1)
-      
-      let btn2 = ReetButton(with: "\(style.rawValue.capitalized) Disabled",
-                            for: style,
-                            left: UIImage(systemName: "heart.fill"),
-                            right: UIImage(systemName: "heart.fill"))
-      btn2.isEnabled = false
-      stackView.addArrangedSubview(btn2)
-      
-      [btn1, btn2].forEach { btn in
-        btn.snp.makeConstraints {
-          $0.height.equalTo(48.0)
+    override func configureView() {
+        super.configureView()
+        
+        title = "MyPage".localized
+        navigationBar.style = .default
+        
+        view.addSubview(loginView)
+        view.addSubview(tableView)
+    }
+    
+    override func layoutView() {
+        super.layoutView()
+        
+        loginView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
         
-        btn.rx.tap
-          .bind(onNext: {
-            print("Pressed!")
-          })
-          .disposed(by: bag)
-      }
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(loginView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        tableView.register(DefaultCategoryTVC.self,
+                           forCellReuseIdentifier: tableViewCellIdentifier)
     }
     
-    AssetFonts.allCases.forEach { font in
-      let label = BaseLabel(font: font,
-                            text: "\(font.rawValue)\nNext Line \(font.rawValue)")
-      label.numberOfLines = .zero
-      label.backgroundColor = .lightGray
-      stackView.addArrangedSubview(label)
+    override func bindDependency() {
+        super.bindDependency()
     }
     
-  }
-  
-  // MARK: - Functions
+    override func bindInput() {
+        super.bindInput()
+        
+        loginView.loginButton.rx.tap
+            .bind(onNext: {
+                print("TODO: Do Login")
+            })
+            .disposed(by: bag)
+        
+        tableView.rx.modelSelected(MyPageMenu.self)
+            .withUnretained(self)
+            .bind(onNext: { owner, menu in
+                print("TODO: Go To \(menu.description)")
+            })
+            .disposed(by: bag)
+        
+        tableView.rx.itemSelected
+            .withUnretained(self)
+            .bind(onNext: { owner, indexPath in
+                owner.tableView.deselectRow(at: indexPath, animated: true)
+            })
+            .disposed(by: bag)
+    }
+    
+    override func bindOutput() {
+        super.bindOutput()
+        
+        // Bind menu
+        
+        let dataSource = RxTableViewSectionedReloadDataSource<MyPageMenuDataSource> { _,
+            tableView,
+            indexPath,
+            menu in
+            guard let cell = tableView
+                .dequeueReusableCell(withIdentifier: tableViewCellIdentifier,
+                                     for: indexPath) as? DefaultCategoryTVC else {
+                fatalError("No such cells named DefaultCategoryTVC")
+            }
+            
+            cell.titleLabel.text = menu.description
+            cell.titleLabel.textColor = menu.foregroundColor
+            
+            return cell
+        }
+        
+        viewModel.output.mypageMenuDataSources
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+    }
+    
 }

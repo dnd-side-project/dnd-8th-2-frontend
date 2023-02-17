@@ -18,11 +18,6 @@ extension NSMutableAttributedString {
                  value: font.font,
                  range: range)
     
-    // Letter spacing
-    addAttribute(.kern,
-                 value: font.letterSpacingMultiplier,
-                 range: range)
-    
     // Line height
     let paragraph = NSMutableParagraphStyle()
     paragraph.lineSpacing = font.lineHeightMultiplier
@@ -41,5 +36,10 @@ extension NSMutableAttributedString {
                    value: color,
                    range: range)
     }
+    
+    // Letter spacing
+    addAttribute(.kern,
+                 value: font.letterSpacingMultiplier - 1.0,
+                 range: range)
   }
 }

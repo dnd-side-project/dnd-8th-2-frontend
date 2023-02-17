@@ -10,3 +10,9 @@ protocol Service {
     var apiSession: APIService { get }
     
 }
+
+extension Service {
+  var authToken: String? {
+    KeychainManager.shared.read(for: .authToken)
+  }
+}

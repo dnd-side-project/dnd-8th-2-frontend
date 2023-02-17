@@ -56,10 +56,13 @@ extension ReetPlaceTBC {
     }
     
     private func makeTabVC(toAddVC: UIViewController, tabBarTitle: String, tabBarImage: UIImage?, tabBarSelectedImage: UIImage?) -> UIViewController {
-        toAddVC.tabBarItem = UITabBarItem(title: tabBarTitle, image: tabBarImage?.withRenderingMode(.alwaysOriginal), selectedImage: tabBarSelectedImage?.withRenderingMode(.alwaysOriginal))
-        toAddVC.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -0.5)
+        let navC = UINavigationController(rootViewController: toAddVC)
+        navC.navigationBar.isHidden = true
         
-        return toAddVC
+        navC.tabBarItem = UITabBarItem(title: tabBarTitle, image: tabBarImage?.withRenderingMode(.alwaysOriginal), selectedImage: tabBarSelectedImage?.withRenderingMode(.alwaysOriginal))
+        navC.tabBarItem.imageInsets = UIEdgeInsets(top: -0.5, left: -0.5, bottom: -0.5, right: -0.5)
+        
+        return navC
     }
     
     /// 최초 실행시 시작 탭 위치 지정
