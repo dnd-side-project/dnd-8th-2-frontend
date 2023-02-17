@@ -13,3 +13,6 @@ ServicePolicy = "이용 약관";
 PrivacyPoilcy = "개인정보 처리방침";
 UserInfo = "회원정보";
 Signout = "로그아웃";
+UserInfoTitle = "회원 정보";
+ConnectSNS = "SNS 연동";
+DeleteAccount = "탈퇴하기";

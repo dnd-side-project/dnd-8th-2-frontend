@@ -82,7 +82,27 @@ class MyPageVC: BaseNavigationViewController {
         tableView.rx.modelSelected(MyPageMenu.self)
             .withUnretained(self)
             .bind(onNext: { owner, menu in
-                print("TODO: Go To \(menu.description)")
+                switch menu {
+                case .qna:
+                    print("TODO: Go To \(menu.description)")
+                    
+                case .servicePolicy:
+                    print("TODO: Go To \(menu.description)")
+                    
+                case .privacyPoilcy:
+                    print("TODO: Go To \(menu.description)")
+                    
+                case .userInfo:
+                    let vc = UserInfoVC()
+                    vc.viewModel.output.user
+                        .accept(owner.viewModel.output.user.value)
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
+                    
+                case .signout:
+                    print("TODO: Go To \(menu.description)")
+                }
             })
             .disposed(by: bag)
         
@@ -102,8 +122,10 @@ class MyPageVC: BaseNavigationViewController {
         viewModel.output.isAuthenticated
             .withUnretained(self)
             .bind(onNext: { owner, isAuthenticated in
-                owner.loginView.isHidden = isAuthenticated
-                owner.userProfileView.isHidden = !isAuthenticated
+                DispatchQueue.main.async {
+                    owner.loginView.isHidden = isAuthenticated
+                    owner.userProfileView.isHidden = !isAuthenticated
+                }
             })
             .disposed(by: bag)
         
@@ -113,7 +135,9 @@ class MyPageVC: BaseNavigationViewController {
             .compactMap { $0 }
             .withUnretained(self)
             .bind(onNext: { owner, user in
-                owner.userProfileView.configureProfile(with: user)
+                DispatchQueue.main.async {
+                    owner.userProfileView.configureProfile(with: user)
+                }
             })
             .disposed(by: bag)
         
