@@ -1,5 +1,5 @@
 //
-//  MapVC.swift
+//  HomeVC.swift
 //  Reet-Place
 //
 //  Created by Kim HeeJae on 2023/02/04.
@@ -13,13 +13,13 @@ import RxCocoa
 import Then
 import SnapKit
 
-class MapVC: BaseViewController {
+class HomeVC: BaseViewController {
     
     // MARK: - UI components
     
     let label = UILabel()
         .then {
-            $0.text = "MapVC"
+            $0.text = "HomeVC"
         }
     
     // MARK: - Variables and Properties
