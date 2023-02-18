@@ -111,8 +111,6 @@ extension BookmarkAllVC: UITableViewDataSource {
         cell.configureCell(with: cardInfo)
         
         cell.toggleAction = {
-            print("reloadRows!")
-            
             var card = self.viewModel.cardList.value
             card[indexPath.row].infoHidden = !card[indexPath.row].infoHidden
             self.viewModel.cardList.accept(card)

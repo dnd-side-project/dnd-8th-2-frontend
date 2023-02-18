@@ -80,15 +80,18 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.alignment = .center
             $0.axis = .horizontal
         }
+    
     let groupIconImageView = UIImageView()
         .then {
             $0.contentMode = .scaleAspectFit
         }
+    
     let moreBtn = UIButton(type: .system)
     
     
     // 2. 등록된 정보, 토글 버튼 들어가는 StackView
     let registeredView = UIView()
+    
     let registeredStackView = UIStackView()
         .then {
             $0.spacing = 4.0
@@ -96,10 +99,12 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.alignment = .fill
             $0.axis = .horizontal
         }
+    
     let registeredLabel = BaseAttributedLabel(font: .caption,
                                               text: "등록된 정보 (4)",
                                               alignment: .left,
                                               color: AssetColors.primary500)
+    
     let toggleImageView = UIImageView(image: AssetsImages.chevronRight52)
         .then {
             $0.contentMode = .scaleAspectFit
@@ -114,18 +119,27 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.alignment = .fill
             $0.axis = .vertical
         }
-    let withPeopleView = WithPeopleView()
     
+    let withPeopleView = WithPeopleView()
+    let firstUrlView = RelatedUrlView()
+    let secondUrlView = RelatedUrlView()
+    let thirdUrlView = RelatedUrlView()
+    
+    
+    // 4. border
     let border = UIView()
         .then {
             $0.backgroundColor = AssetColors.gray300
         }
 
+    
     // MARK: - Variables and Properties
     
     var toggleAction: (() -> Void) = {}
     
     var opened: Bool = false
+    
+    var urlView: [RelatedUrlView] = []
     
     var bag = DisposeBag()
     
@@ -156,14 +170,23 @@ class BookmarkCardTVC: BaseTableViewCell {
             withPeopleView.isHidden = false
         }
         
+        for (index, url) in cardInfo.relatedUrl.enumerated() {
+            urlView[index].urlLabel.text = url
+            urlView[index].isHidden = false
+        }
+        
     }
 }
 
 extension BookmarkCardTVC {
     
     private func configureContentView() {
-        contentView.addSubviews([mainStackView, border])
         
+        urlView.append(firstUrlView)
+        urlView.append(secondUrlView)
+        urlView.append(thirdUrlView)
+        
+        contentView.addSubviews([mainStackView, border])
         
         mainStackView.addArrangedSubview(infoView)
         
@@ -186,7 +209,14 @@ extension BookmarkCardTVC {
         
         mainStackView.addArrangedSubview(toggleStackView)
         toggleStackView.addArrangedSubview(withPeopleView)
+        toggleStackView.addArrangedSubview(firstUrlView)
+        toggleStackView.addArrangedSubview(secondUrlView)
+        toggleStackView.addArrangedSubview(thirdUrlView)
+        
         withPeopleView.isHidden = true
+        urlView.forEach {
+            $0.isHidden = true
+        }
         
         registeredStackView.rx.tapGesture()
             .when(.recognized)
@@ -194,6 +224,7 @@ extension BookmarkCardTVC {
                 self.toggleAction()
             })
             .disposed(by: bag)
+        
     }
     
 }
@@ -250,7 +281,11 @@ extension BookmarkCardTVC {
             $0.height.equalTo(30)
         }
         
-
+        urlView.forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(30)
+            }
+        }
     }
  
 }
