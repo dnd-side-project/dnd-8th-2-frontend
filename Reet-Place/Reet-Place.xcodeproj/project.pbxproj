@@ -49,7 +49,6 @@
 		3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */; };
 		3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBB298FEAB20057D813 /* Assets.xcassets */; };
 		3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */; };
-		A417F66C299E8530005E6DA7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417F66B299E8530005E6DA7 /* UserProfileView.swift */; };
 		A417F66F299E8710005E6DA7 /* ModelUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417F66E299E8710005E6DA7 /* ModelUser.swift */; };
 		A4917E022996A4D300DF2A65 /* AssetColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E012996A4D300DF2A65 /* AssetColors.swift */; };
 		A4917E072996A5E900DF2A65 /* ReetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E062996A5E900DF2A65 /* ReetButton.swift */; };
@@ -57,6 +56,7 @@
 		A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E122996A84B00DF2A65 /* ButtonDefaultColorProvider.swift */; };
 		A4917E152996A88000DF2A65 /* ButtonActiveColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E142996A88000DF2A65 /* ButtonActiveColorProvider.swift */; };
 		A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E162996A8B300DF2A65 /* ButtonDisabledColorProvider.swift */; };
+		A49515F129A0764400A12EE1 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49515F029A0764400A12EE1 /* UserProfileView.swift */; };
 		A4AABE6B299BC0A600BA9D37 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */; };
 		A4AABE6D299BC0BC00BA9D37 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */; };
 		A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */; };
@@ -132,7 +132,6 @@
 		3CEC2FBE298FEAB20057D813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CEC2FC0298FEAB20057D813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75B835821C35237DF51F34A9 /* Pods_Reet_Place.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reet_Place.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A417F66B299E8530005E6DA7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserProfileView.swift; path = ../../../../../../../UserProfileView.swift; sourceTree = "<group>"; };
 		A417F66E299E8710005E6DA7 /* ModelUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelUser.swift; sourceTree = "<group>"; };
 		A4917E012996A4D300DF2A65 /* AssetColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetColors.swift; sourceTree = "<group>"; };
 		A4917E062996A5E900DF2A65 /* ReetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetButton.swift; sourceTree = "<group>"; };
@@ -140,6 +139,7 @@
 		A4917E122996A84B00DF2A65 /* ButtonDefaultColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDefaultColorProvider.swift; sourceTree = "<group>"; };
 		A4917E142996A88000DF2A65 /* ButtonActiveColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonActiveColorProvider.swift; sourceTree = "<group>"; };
 		A4917E162996A8B300DF2A65 /* ButtonDisabledColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDisabledColorProvider.swift; sourceTree = "<group>"; };
+		A49515F029A0764400A12EE1 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFonts.swift; sourceTree = "<group>"; };
@@ -577,7 +577,7 @@
 			isa = PBXGroup;
 			children = (
 				A4EFC09A299E6C9900B066AF /* LoginView.swift */,
-				A417F66B299E8530005E6DA7 /* UserProfileView.swift */,
+				A49515F029A0764400A12EE1 /* UserProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -788,6 +788,7 @@
 				3C2AED5C2990B3C200E36342 /* UIView+.swift in Sources */,
 				3C2AF0DD29914CAA00E36342 /* UIFont+.swift in Sources */,
 				A4917E022996A4D300DF2A65 /* AssetColors.swift in Sources */,
+				A49515F129A0764400A12EE1 /* UserProfileView.swift in Sources */,
 				3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */,
 				3C2AED7A2990B3C300E36342 /* Loadable.swift in Sources */,
 				A4EFC09B299E6C9900B066AF /* LoginView.swift in Sources */,
@@ -824,7 +825,6 @@
 				A4917E072996A5E900DF2A65 /* ReetButton.swift in Sources */,
 				3C2AED792990B3C200E36342 /* Input.swift in Sources */,
 				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
-				A417F66C299E8530005E6DA7 /* UserProfileView.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
 				3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */,
 				A4AABE71299BCBAD00BA9D37 /* BaseLabel.swift in Sources */,
