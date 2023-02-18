@@ -19,11 +19,10 @@ class AllBookmarkButton: UIButton {
     let style: AllButtonStyle
     
     let leftAllLabel = BaseAttributedLabel(font: AssetFonts.subtitle2,
-                                 text: "ALL")
+                                           text: "ALL",
+                                           alignment: .center,
+                                           color: AssetColors.white)
         .then {
-            $0.textColor = AssetColors.white
-            $0.letterSpacing = AssetFonts.subtitle2.letterSpacingMultiplier - 1
-            $0.textAlignment = .center
             $0.layer.cornerRadius = 8
             $0.layer.masksToBounds = true
         }
