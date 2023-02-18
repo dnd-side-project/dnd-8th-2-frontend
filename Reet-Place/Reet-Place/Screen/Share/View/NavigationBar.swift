@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class NavigationBar: UIView {
-    let titleLabel = BaseAttributedLabel(font: .h3, text: nil)
+    let titleLabel = BaseAttributedLabel(font: .h4, text: nil)
     
     let leftButton = UIButton(type: .system)
         .then {
