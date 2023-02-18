@@ -114,7 +114,7 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.alignment = .fill
             $0.axis = .vertical
         }
-    
+    let withPeopleView = WithPeopleView()
     
     let border = UIView()
         .then {
@@ -132,7 +132,36 @@ class BookmarkCardTVC: BaseTableViewCell {
     // MARK: - Life Cycle
     override func configureView() {
         super.configureView()
-                
+        
+        configureContentView()
+    }
+    
+    override func layoutView() {
+        super.layoutView()
+
+        configureLayout()
+    }
+
+    // MARK: - Function
+    
+    func configureCell(with cardInfo: BookmarkCardModel) {
+        placeNameLabel.text = cardInfo.placeName
+        categoryLabel.text = cardInfo.categoryName
+        addressLabel.text = cardInfo.address
+        registeredLabel.text = "등록된 정보 (\(cardInfo.infoCount))"
+        toggleStackView.isHidden = cardInfo.infoHidden
+        
+        if !cardInfo.withPeople.isEmpty {
+            withPeopleView.peopleLabel.text = cardInfo.withPeople
+            withPeopleView.isHidden = false
+        }
+        
+    }
+}
+
+extension BookmarkCardTVC {
+    
+    private func configureContentView() {
         contentView.addSubviews([mainStackView, border])
         
         
@@ -156,17 +185,8 @@ class BookmarkCardTVC: BaseTableViewCell {
         registeredStackView.addArrangedSubview(toggleImageView)
         
         mainStackView.addArrangedSubview(toggleStackView)
-        
-        for _ in 1...3 {
-            let urlView = UIView()
-            urlView.backgroundColor = AssetColors.primary50
-            urlView.layer.cornerRadius = 2.0
-            urlView.snp.makeConstraints {
-                $0.height.equalTo(30)
-            }
-            toggleStackView.addArrangedSubview(urlView)
-            
-        }
+        toggleStackView.addArrangedSubview(withPeopleView)
+        withPeopleView.isHidden = true
         
         registeredStackView.rx.tapGesture()
             .when(.recognized)
@@ -174,25 +194,8 @@ class BookmarkCardTVC: BaseTableViewCell {
                 self.toggleAction()
             })
             .disposed(by: bag)
-        
     }
     
-    override func layoutView() {
-        super.layoutView()
-
-        configureLayout()
-        
-    }
-
-    // MARK: - Function
-    
-    func configureCell(with cardInfo: BookmarkCardModel) {
-        placeNameLabel.text = cardInfo.placeName
-        categoryLabel.text = cardInfo.categoryName
-        addressLabel.text = cardInfo.address
-        registeredLabel.text = "등록된 정보 (\(cardInfo.infoCount))"
-        toggleStackView.isHidden = cardInfo.infoHidden
-    }
 }
 
 extension BookmarkCardTVC {
@@ -241,6 +244,10 @@ extension BookmarkCardTVC {
         }
         toggleImageView.snp.makeConstraints {
             $0.width.equalTo(toggleImageView.snp.height)
+        }
+        
+        withPeopleView.snp.makeConstraints {
+            $0.height.equalTo(30)
         }
         
 

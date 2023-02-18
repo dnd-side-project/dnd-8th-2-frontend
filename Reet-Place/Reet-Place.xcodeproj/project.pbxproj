@@ -17,6 +17,7 @@
 		0EA432DD29A0A91B00C4D47F /* BookmarkCardTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432DC29A0A91B00C4D47F /* BookmarkCardTVC.swift */; };
 		0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */; };
 		0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */; };
+		0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E429A136A700C4D47F /* WithPeopleView.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -106,6 +107,7 @@
 		0EA432DC29A0A91B00C4D47F /* BookmarkCardTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardTVC.swift; sourceTree = "<group>"; };
 		0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardModel.swift; sourceTree = "<group>"; };
 		0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardListVM.swift; sourceTree = "<group>"; };
+		0EA432E429A136A700C4D47F /* WithPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPeopleView.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			children = (
 				0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
+				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
 				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
 			);
 			path = View;
@@ -856,6 +859,7 @@
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C2AED622990B3C200E36342 /* UIScrollView+.swift in Sources */,
+				0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */,
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
