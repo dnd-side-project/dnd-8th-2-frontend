@@ -150,8 +150,20 @@ extension BookmarkVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let bookmarkAllVC = BookmarkAllVC()
-        self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
+        
+        switch indexPath.row {
+        case 0:
+            let bookmarkWishlistVC = BookmarkWishlistVC()
+            self.navigationController?.pushViewController(bookmarkWishlistVC, animated: true)
+        case 1:
+            let bookmarkHistoryVC = BookmarkHistoryVC()
+            self.navigationController?.pushViewController(bookmarkHistoryVC, animated: true)
+        default:
+            let bookmarkAllVC = BookmarkAllVC()
+            self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
+        }
+        
+        
     }
     
 }
@@ -162,7 +174,17 @@ extension BookmarkVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
-                
+        
+        if indexPath.row == 0 {
+            cell.titleLabel.text = "가고싶어요"
+            cell.countLabel.text = "17"
+        }
+        
+        if indexPath.row == 1 {
+            cell.titleLabel.text = "다녀왔어요"
+            cell.countLabel.text = "4"
+        }
+        
         return cell
     }
     

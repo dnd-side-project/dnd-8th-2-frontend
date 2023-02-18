@@ -1,8 +1,8 @@
 //
-//  BookmarkAllVC.swift
+//  BookmarkHistoryVC.swift
 //  Reet-Place
 //
-//  Created by 김태현 on 2023/02/17.
+//  Created by 김태현 on 2023/02/18.
 //
 
 import UIKit
@@ -13,17 +13,17 @@ import RxCocoa
 import SnapKit
 import Then
 
-class BookmarkAllVC: BaseNavigationViewController {
+class BookmarkHistoryVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
     private let label = UILabel()
         .then {
-            $0.text = "BookmarkAllVC"
+            $0.text = "BookmarkHistoryVC"
         }
     
     override var alias: String {
-        "BookmarkAll"
+        "BookmarkHistory"
     }
     
     
@@ -58,12 +58,12 @@ class BookmarkAllVC: BaseNavigationViewController {
 
 // MARK: - Configure
 
-extension BookmarkAllVC {
+extension BookmarkHistoryVC {
     
     private func configureContentView() {
         view.addSubview(label)
         
-        title = "전체보기"
+        title = "다녀왔어요"
         navigationBar.style = .left
     }
     
@@ -72,7 +72,7 @@ extension BookmarkAllVC {
 
 // MARK: - Layout
 
-extension BookmarkAllVC {
+extension BookmarkHistoryVC {
     
     private func configureLayout() {
         label.snp.makeConstraints {

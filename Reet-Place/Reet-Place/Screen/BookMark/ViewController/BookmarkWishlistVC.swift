@@ -1,8 +1,8 @@
 //
-//  BookmarkAllVC.swift
+//  BookmarkWishlistVC.swift
 //  Reet-Place
 //
-//  Created by 김태현 on 2023/02/17.
+//  Created by 김태현 on 2023/02/18.
 //
 
 import UIKit
@@ -13,17 +13,17 @@ import RxCocoa
 import SnapKit
 import Then
 
-class BookmarkAllVC: BaseNavigationViewController {
+class BookmarkWishlistVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
     private let label = UILabel()
         .then {
-            $0.text = "BookmarkAllVC"
+            $0.text = "BookmarkWishlistVC"
         }
     
     override var alias: String {
-        "BookmarkAll"
+        "BookmarkWishlist"
     }
     
     
@@ -58,12 +58,12 @@ class BookmarkAllVC: BaseNavigationViewController {
 
 // MARK: - Configure
 
-extension BookmarkAllVC {
+extension BookmarkWishlistVC {
     
     private func configureContentView() {
         view.addSubview(label)
         
-        title = "전체보기"
+        title = "가고싶어요"
         navigationBar.style = .left
     }
     
@@ -72,12 +72,11 @@ extension BookmarkAllVC {
 
 // MARK: - Layout
 
-extension BookmarkAllVC {
+extension BookmarkWishlistVC {
     
     private func configureLayout() {
         label.snp.makeConstraints {
             $0.center.equalTo(view)
         }
     }
-    
 }
