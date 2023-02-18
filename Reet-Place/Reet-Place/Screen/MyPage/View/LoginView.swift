@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class LoginView: UIView {
-    let titleLabel = BaseLabel(font: .h4,
+    let titleLabel = BaseAttributedLabel(font: .h4,
                                text: "NeedToSignIn".localized,
                                alignment: .center,
                                color: AssetColors.gray500)

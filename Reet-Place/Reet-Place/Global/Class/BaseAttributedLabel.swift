@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseLabel: UILabel {
+class BaseAttributedLabel: UILabel {
   private let reetFont: AssetFonts
   private let alignment: NSTextAlignment?
   private let color: UIColor?

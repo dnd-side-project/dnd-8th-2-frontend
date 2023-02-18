@@ -16,12 +16,12 @@ class UserProfileView: UIView {
     
     let imageView = UIImageView(image: AssetsImages.profilePlaceholder)
     
-    let nameLabel = BaseLabel(font: .h4,
+    let nameLabel = BaseAttributedLabel(font: .h4,
                               text: nil,
                               alignment: .left,
                               color: AssetColors.black)
     
-    let idLabel = BaseLabel(font: .body2,
+    let idLabel = BaseAttributedLabel(font: .body2,
                             text: nil,
                             alignment: .left,
                             color: AssetColors.gray500)
