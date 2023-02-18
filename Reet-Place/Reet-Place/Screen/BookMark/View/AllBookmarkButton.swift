@@ -18,7 +18,7 @@ class AllBookmarkButton: UIButton {
     
     let style: AllButtonStyle
     
-    let leftAllLabel = BaseLabel(font: AssetFonts.subtitle2,
+    let leftAllLabel = BaseAttributedLabel(font: AssetFonts.subtitle2,
                                  text: "ALL")
         .then {
             $0.textColor = AssetColors.white
@@ -28,7 +28,7 @@ class AllBookmarkButton: UIButton {
             $0.layer.masksToBounds = true
         }
     
-    let allTitleLabel = BaseLabel(font: AssetFonts.subtitle1,
+    let allTitleLabel = BaseAttributedLabel(font: AssetFonts.subtitle1,
                                   text: "전체보기",
                                   alignment: .left,
                                   color: AssetColors.black)

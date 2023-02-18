@@ -13,14 +13,14 @@ import SnapKit
 class EmptyBookmarkView: BaseView {
     // MARK: - UI components
     
-    let titleLabel = BaseLabel(font: AssetFonts.h4,
+    let titleLabel = BaseAttributedLabel(font: AssetFonts.h4,
                                text: "북마크를 생성해보세요!")
         .then {
             $0.textColor = AssetColors.black
             $0.textAlignment = .center
         }
     
-    let contentLabel = BaseLabel(font: AssetFonts.body2,
+    let contentLabel = BaseAttributedLabel(font: AssetFonts.body2,
                                  text: "특별한 장소를 저장하고,\n나만의 지도를 채워보세요.")
         .then {
             $0.textColor = AssetColors.gray500

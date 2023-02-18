@@ -14,7 +14,7 @@ class DefaultCategoryTVC: UITableViewCell {
     
     static let defaultHeight: CGFloat = 56.0
     
-    let titleLabel = BaseLabel(font: .subtitle2,
+    let titleLabel = BaseAttributedLabel(font: .subtitle2,
                                text: nil,
                                alignment: .left,
                                color: AssetColors.black)

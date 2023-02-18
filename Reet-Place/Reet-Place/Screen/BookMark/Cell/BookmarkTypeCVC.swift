@@ -21,12 +21,12 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
             $0.layer.masksToBounds = true
         }
     
-    let titleLabel = BaseLabel(font: AssetFonts.subtitle2, text: "가고싶어요", color: AssetColors.black)
+    let titleLabel = BaseAttributedLabel(font: AssetFonts.subtitle2, text: "가고싶어요", color: AssetColors.black)
         .then {
             $0.textAlignment = .left
         }
     
-    let countLabel = BaseLabel(font: AssetFonts.body2, text: "17", color: AssetColors.primary500)
+    let countLabel = BaseAttributedLabel(font: AssetFonts.body2, text: "17", color: AssetColors.primary500)
         .then {
             $0.textAlignment = .right
         }

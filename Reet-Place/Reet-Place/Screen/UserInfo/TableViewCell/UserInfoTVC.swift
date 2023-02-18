@@ -11,7 +11,7 @@ import Then
 import SnapKit
 
 class UserInfoTVC: DefaultCategoryTVC {
-    let infoLabel = BaseLabel(font: .body2,
+    let infoLabel = BaseAttributedLabel(font: .body2,
                               text: nil,
                               alignment: .center,
                               color: AssetColors.gray500)

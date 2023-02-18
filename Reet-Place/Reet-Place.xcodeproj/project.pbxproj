@@ -67,7 +67,7 @@
 		A4AABE6B299BC0A600BA9D37 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */; };
 		A4AABE6D299BC0BC00BA9D37 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */; };
 		A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */; };
-		A4AABE71299BCBAD00BA9D37 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE70299BCBAD00BA9D37 /* BaseLabel.swift */; };
+		A4AABE71299BCBAD00BA9D37 /* BaseAttributedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE70299BCBAD00BA9D37 /* BaseAttributedLabel.swift */; };
 		A4AABE73299BD04C00BA9D37 /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE72299BD04C00BA9D37 /* NSMutableAttributedString+.swift */; };
 		A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE74299BD3CE00BA9D37 /* String+Ext.swift */; };
 		A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AABE76299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift */; };
@@ -157,7 +157,7 @@
 		A4AABE6A299BC0A600BA9D37 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		A4AABE6C299BC0BC00BA9D37 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		A4AABE6E299BC0D400BA9D37 /* AssetFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetFonts.swift; sourceTree = "<group>"; };
-		A4AABE70299BCBAD00BA9D37 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
+		A4AABE70299BCBAD00BA9D37 /* BaseAttributedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAttributedLabel.swift; sourceTree = "<group>"; };
 		A4AABE72299BD04C00BA9D37 /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
 		A4AABE74299BD3CE00BA9D37 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		A4AABE76299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVerticalScrollViewController.swift; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				3C2AED4C2990B3C200E36342 /* BaseCollectionViewCell.swift */,
-				A4AABE70299BCBAD00BA9D37 /* BaseLabel.swift */,
+				A4AABE70299BCBAD00BA9D37 /* BaseAttributedLabel.swift */,
 				3C2AED4D2990B3C200E36342 /* BaseNavigationController.swift */,
 				A4EFC098299E608500B066AF /* BaseNavigationViewController.swift */,
 				3C2AED4A2990B3C200E36342 /* BaseTableViewCell.swift */,
@@ -863,7 +863,7 @@
 				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
 				3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */,
-				A4AABE71299BCBAD00BA9D37 /* BaseLabel.swift in Sources */,
+				A4AABE71299BCBAD00BA9D37 /* BaseAttributedLabel.swift in Sources */,
 				A4EFC0A3299E724E00B066AF /* ForegroundColorProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
