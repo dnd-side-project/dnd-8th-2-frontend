@@ -20,6 +20,8 @@ class BookmarkAllVC: BaseNavigationViewController {
         "BookmarkAll"
     }
     
+    private let filterView = BookmarkFilterView()
+    
     private let tableView = UITableView(frame: .zero, style: .plain)
         .then {
             $0.rowHeight = UITableView.automaticDimension
@@ -67,7 +69,7 @@ extension BookmarkAllVC {
         navigationBar.style = .left
         
         view.addSubview(tableView)
-        
+        view.addSubview(filterView)
     }
     
 }
@@ -78,8 +80,14 @@ extension BookmarkAllVC {
 extension BookmarkAllVC {
     
     private func configureLayout() {
-        tableView.snp.makeConstraints {
+        filterView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(40)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(filterView.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         

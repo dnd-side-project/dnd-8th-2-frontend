@@ -17,8 +17,8 @@ struct AssetsImages {
     static let cardWishChip20 = UIImage(named: "CardWishChip20")?.withRenderingMode(.alwaysOriginal)
     static let cardThreeStar14 = UIImage(named: "CardThreeStar14")?.withRenderingMode(.alwaysOriginal)
     static let cardTwoStar14 = UIImage(named: "CardTwoStar14")?.withRenderingMode(.alwaysOriginal)
-    static let expandLess16 = UIImage(named: "ExpandLess16")?.withRenderingMode(.alwaysOriginal)
-    static let expandMore16 = UIImage(named: "ExpandMore16")?.withRenderingMode(.alwaysOriginal)
+    static let expandLess16 = UIImage(named: "ExpandLess16")?.withRenderingMode(.alwaysTemplate)
+    static let expandMore16 = UIImage(named: "ExpandMore16")?.withRenderingMode(.alwaysTemplate)
     static let cardMenu24 = UIImage(named: "CardMenu24")?.withRenderingMode(.alwaysOriginal)
     
     static let cancel48 = UIImage(named: "Cancel48")?.withRenderingMode(.alwaysOriginal)

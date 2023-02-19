@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036929A201F400A5456E /* BookmarkFilterView.swift */; };
 		0E8CA698299FC63300F98C15 /* BookmarkAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */; };
 		0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */; };
 		0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E67036929A201F400A5456E /* BookmarkFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkFilterView.swift; sourceTree = "<group>"; };
 		0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAllVC.swift; sourceTree = "<group>"; };
 		0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBookmarkButton.swift; sourceTree = "<group>"; };
 		0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBookmarkView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */,
+				0E67036929A201F400A5456E /* BookmarkFilterView.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
 				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
 				0EA432E629A13EBE00C4D47F /* RelatedUrlView.swift */,
@@ -847,6 +850,7 @@
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
+				0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */,
 				3C2AED772990B3C200E36342 /* URLResource.swift in Sources */,
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,

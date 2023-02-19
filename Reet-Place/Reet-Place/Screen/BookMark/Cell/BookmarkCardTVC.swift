@@ -230,10 +230,12 @@ class BookmarkCardTVC: BaseTableViewCell {
         bindBtn()
         registeredLabel.textColor = AssetColors.primary500
         expandMoreImageView.image = AssetsImages.expandMore16
+        expandMoreImageView.tintColor = AssetColors.primary500
     }
     func deactivateBtn() {
         registeredLabel.textColor = AssetColors.gray300
         expandMoreImageView.image = AssetsImages.expandLess16
+        expandMoreImageView.tintColor = AssetColors.gray300
     }
 }
 
@@ -287,7 +289,7 @@ extension BookmarkCardTVC {
     private func configureLayout() {
         contentBorder.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(0.5)
         }
         
         mainStackView.snp.makeConstraints {
