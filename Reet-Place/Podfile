@@ -18,6 +18,8 @@ target 'Reet-Place' do
   pod 'Then'
   pod 'Kingfisher', '~> 7.0'
 
+  # Map SDK
+  pod 'NMapsMap'
 end
 
 post_install do |installer|

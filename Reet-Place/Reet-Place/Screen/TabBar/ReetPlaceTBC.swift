@@ -45,7 +45,7 @@ extension ReetPlaceTBC {
     
     /// 탭별 VC 설정
     private func configureTabVC() {
-        let tabMap = makeTabVC(toAddVC: MapVC(), tabBarTitle: "map", tabBarImage: AssetsImages.map, tabBarSelectedImage: AssetsImages.map)
+        let tabMap = makeTabVC(toAddVC: HomeVC(), tabBarTitle: "Home", tabBarImage: AssetsImages.map, tabBarSelectedImage: AssetsImages.map)
         let tabBookmark = makeTabVC(toAddVC: BookmarkVC(), tabBarTitle: "bookmark", tabBarImage: AssetsImages.bookmark, tabBarSelectedImage: AssetsImages.bookmark)
         let tabMyPage = makeTabVC(toAddVC: MyPageVC(), tabBarTitle: "myPage", tabBarImage: AssetsImages.myPage, tabBarSelectedImage: AssetsImages.myPage)
         

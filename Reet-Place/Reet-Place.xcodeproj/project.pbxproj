@@ -46,13 +46,13 @@
 		3C2AED8D2990B3C300E36342 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3C2AED552990B3C200E36342 /* Pretendard-SemiBold.otf */; };
 		3C2AED8E2990B3C300E36342 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED572990B3C200E36342 /* Service.swift */; };
 		3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0CC2990D6BC00E36342 /* ReetPlaceTBC.swift */; };
-		3C2AF0CF2990D98400E36342 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0CE2990D98400E36342 /* MapVC.swift */; };
 		3C2AF0D12990DFAC00E36342 /* BookmarkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */; };
 		3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D42990F7C200E36342 /* AuthInterceptor.swift */; };
 		3C2AF0D72991397100E36342 /* NavigationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D62991397100E36342 /* NavigationType.swift */; };
 		3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D829913FF000E36342 /* SceneDelegate.swift */; };
 		3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */; };
 		3C2AF0DD29914CAA00E36342 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DC29914CAA00E36342 /* UIFont+.swift */; };
+		3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBADD3C29A090E7005855B1 /* HomeVC.swift */; };
 		3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */; };
 		3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBB298FEAB20057D813 /* Assets.xcassets */; };
 		3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */; };
@@ -132,13 +132,13 @@
 		3C2AED552990B3C200E36342 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		3C2AED572990B3C200E36342 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3C2AF0CC2990D6BC00E36342 /* ReetPlaceTBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReetPlaceTBC.swift; sourceTree = "<group>"; };
-		3C2AF0CE2990D98400E36342 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVC.swift; sourceTree = "<group>"; };
 		3C2AF0D42990F7C200E36342 /* AuthInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		3C2AF0D62991397100E36342 /* NavigationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationType.swift; sourceTree = "<group>"; };
 		3C2AF0D829913FF000E36342 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsImages.swift; sourceTree = "<group>"; };
 		3C2AF0DC29914CAA00E36342 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		3CBADD3C29A090E7005855B1 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3CE41BF2782741A8F3679072 /* Pods-Reet-Place.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reet-Place.release.xcconfig"; path = "Target Support Files/Pods-Reet-Place/Pods-Reet-Place.release.xcconfig"; sourceTree = "<group>"; };
 		3CEC2FAF298FEAAF0057D813 /* Reet-Place.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reet-Place.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -344,8 +344,8 @@
 		3C2AEF282990CAB200E36342 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				3CBADD3729A090E7005855B1 /* Home */,
 				3C2AEF2B2990CAB200E36342 /* BookMark */,
-				3C2AEFBF2990CAB200E36342 /* Map */,
 				A4EFC081299E483E00B066AF /* MyPage */,
 				3C2AEFFF2990CAB300E36342 /* Share */,
 				A4917E032996A5D800DF2A65 /* Shared */,
@@ -400,46 +400,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		3C2AEFBF2990CAB200E36342 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				3C2AEFD72990CAB300E36342 /* View */,
-				3C2AEFDF2990CAB300E36342 /* ViewController */,
-				3C2AEFC02990CAB200E36342 /* ViewModel */,
-				3C2AEFCA2990CAB300E36342 /* Model */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		3C2AEFC02990CAB200E36342 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		3C2AEFCA2990CAB300E36342 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		3C2AEFD72990CAB300E36342 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		3C2AEFDF2990CAB300E36342 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				3C2AF0CE2990D98400E36342 /* MapVC.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		3C2AEFFF2990CAB300E36342 /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +423,46 @@
 				A4EFC096299E5DF000B066AF /* NavigationBar.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3CBADD3729A090E7005855B1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				3CBADD3829A090E7005855B1 /* ViewModel */,
+				3CBADD3929A090E7005855B1 /* Model */,
+				3CBADD3A29A090E7005855B1 /* View */,
+				3CBADD3B29A090E7005855B1 /* ViewController */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3CBADD3829A090E7005855B1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3CBADD3929A090E7005855B1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3CBADD3A29A090E7005855B1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CBADD3B29A090E7005855B1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3CBADD3C29A090E7005855B1 /* HomeVC.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		3CEC2FA6298FEAAF0057D813 = {
@@ -849,7 +849,6 @@
 				0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */,
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
 				A4D09EC8299F984A004DEE97 /* UserInfoVC.swift in Sources */,
-				3C2AF0CF2990D98400E36342 /* MapVC.swift in Sources */,
 				A417F66F299E8710005E6DA7 /* ModelUser.swift in Sources */,
 				0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */,
 				3C2AED722990B3C200E36342 /* APIError.swift in Sources */,
@@ -859,6 +858,7 @@
 				3C2AED872990B3C300E36342 /* BaseView.swift in Sources */,
 				3C2AED852990B3C300E36342 /* BaseCollectionViewCell.swift in Sources */,
 				A4917E072996A5E900DF2A65 /* ReetButton.swift in Sources */,
+				3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */,
 				3C2AED792990B3C200E36342 /* Input.swift in Sources */,
 				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
