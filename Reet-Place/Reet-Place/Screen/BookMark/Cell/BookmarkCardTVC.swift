@@ -199,7 +199,7 @@ class BookmarkCardTVC: BaseTableViewCell {
         
         registeredLabel.text = "등록된 정보 (\(cardInfo.infoCount))"
         toggleStackView.isHidden = cardInfo.infoHidden
-        
+                
         if cardInfo.infoCount != 0 {
             activateBtn()
         } else {

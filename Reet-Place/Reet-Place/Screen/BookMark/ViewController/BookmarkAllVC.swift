@@ -38,7 +38,7 @@ class BookmarkAllVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.getWishList()
+        viewModel.getAllList()
     }
     
     override func configureView() {

@@ -16,26 +16,29 @@ import Then
 class BookmarkHistoryVC: BaseNavigationViewController {
     
     // MARK: - UI components
-    
-    private let label = UILabel()
-        .then {
-            $0.text = "BookmarkHistoryVC"
-        }
-    
     override var alias: String {
         "BookmarkHistory"
     }
     
+    private let filterView = BookmarkFilterView()
+    
+    private let tableView = UITableView(frame: .zero, style: .plain)
+        .then {
+            $0.rowHeight = UITableView.automaticDimension
+            $0.separatorStyle = .none
+            $0.showsVerticalScrollIndicator = false
+        }
     
     // MARK: - Variables and Properties
     
+    private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        viewModel.getHistoryList()
     }
     
     override func configureView() {
@@ -61,10 +64,11 @@ class BookmarkHistoryVC: BaseNavigationViewController {
 extension BookmarkHistoryVC {
     
     private func configureContentView() {
-        view.addSubview(label)
-        
         title = "다녀왔어요"
         navigationBar.style = .left
+        
+        view.addSubview(tableView)
+        view.addSubview(filterView)
     }
     
 }
@@ -75,9 +79,51 @@ extension BookmarkHistoryVC {
 extension BookmarkHistoryVC {
     
     private func configureLayout() {
-        label.snp.makeConstraints {
-            $0.center.equalTo(view)
+        filterView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(40)
         }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(filterView.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(BookmarkCardTVC.self, forCellReuseIdentifier: BookmarkCardTVC.className)
     }
     
+}
+
+
+extension BookmarkHistoryVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        50.0
+    }
+}
+
+extension BookmarkHistoryVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.cardList.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
+        cell.selectionStyle = .none
+        
+        let cardInfo = viewModel.cardList.value[indexPath.row]
+        
+        cell.configureCell(with: cardInfo)
+        
+        cell.toggleAction = {
+            var card = self.viewModel.cardList.value
+            card[indexPath.row].infoHidden = !card[indexPath.row].infoHidden
+            self.viewModel.cardList.accept(card)
+            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .automatic)
+        }
+        
+        return cell
+    }
 }
