@@ -20,6 +20,7 @@ struct AssetsImages {
     static let expandLess16 = UIImage(named: "ExpandLess16")?.withRenderingMode(.alwaysTemplate)
     static let expandMore16 = UIImage(named: "ExpandMore16")?.withRenderingMode(.alwaysTemplate)
     static let cardMenu24 = UIImage(named: "CardMenu24")?.withRenderingMode(.alwaysOriginal)
+    static let chevronRight28 = UIImage(named: "ChevronRight28")?.withRenderingMode(.alwaysOriginal)
     
     static let cancel48 = UIImage(named: "Cancel48")?.withRenderingMode(.alwaysOriginal)
     static let chevronLeft48 = UIImage(named: "ChevronLeft48")?.withRenderingMode(.alwaysOriginal)

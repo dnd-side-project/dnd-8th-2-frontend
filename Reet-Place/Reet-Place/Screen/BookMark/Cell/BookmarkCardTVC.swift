@@ -156,6 +156,7 @@ class BookmarkCardTVC: BaseTableViewCell {
         super.configureView()
         
         configureContentView()
+        bindBtn()
     }
     
     override func layoutView() {
@@ -227,12 +228,12 @@ class BookmarkCardTVC: BaseTableViewCell {
     }
     
     func activateBtn() {
-        bindBtn()
         registeredLabel.textColor = AssetColors.primary500
         expandMoreImageView.image = AssetsImages.expandMore16
         expandMoreImageView.tintColor = AssetColors.primary500
     }
     func deactivateBtn() {
+        registeredStackView.isUserInteractionEnabled = false
         registeredLabel.textColor = AssetColors.gray300
         expandMoreImageView.image = AssetsImages.expandLess16
         expandMoreImageView.tintColor = AssetColors.gray300

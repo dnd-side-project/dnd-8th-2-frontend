@@ -40,7 +40,7 @@ class AllBookmarkButton: UIButton {
             $0.textAlignment = .right
         }
     
-    let rightImageView = UIImageView(image: AssetsImages.chevronRight52)
+    let rightImageView = UIImageView(image: AssetsImages.chevronRight28)
         .then {
             $0.contentMode = .scaleAspectFit
         }
@@ -95,7 +95,7 @@ class AllBookmarkButton: UIButton {
         
         
         stackView.setCustomSpacing(16.0, after: leftAllLabel)
-        stackView.setCustomSpacing(16.0, after: countLabel)
+        stackView.setCustomSpacing(8.0, after: countLabel)
         
         
         stackView.snp.makeConstraints {
