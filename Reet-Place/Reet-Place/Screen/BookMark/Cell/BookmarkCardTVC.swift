@@ -56,7 +56,7 @@ class BookmarkCardTVC: BaseTableViewCell {
     // 1-2. 별, 주소 들어가는 StackView
     let addressStackView = UIStackView()
         .then {
-            $0.spacing = 4.0
+            $0.spacing = 8.0
             $0.distribution = .fill
             $0.alignment = .center
             $0.axis = .horizontal
@@ -65,6 +65,11 @@ class BookmarkCardTVC: BaseTableViewCell {
     let starImageView = UIImageView()
         .then {
             $0.contentMode = .scaleAspectFit
+        }
+    
+    let addressBorder = UIView()
+        .then {
+            $0.backgroundColor = AssetColors.gray300
         }
     
     let addressLabel = BaseAttributedLabel(font: .caption,
@@ -86,7 +91,10 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.contentMode = .scaleAspectFit
         }
     
-    let moreBtn = UIButton(type: .system)
+    let cardMenuBtn = UIButton(type: .system)
+        .then {
+            $0.setImage(AssetsImages.cardMenu24, for: .normal)
+        }
     
     
     // 2. 등록된 정보, 토글 버튼 들어가는 StackView
@@ -96,16 +104,16 @@ class BookmarkCardTVC: BaseTableViewCell {
         .then {
             $0.spacing = 4.0
             $0.distribution = .fill
-            $0.alignment = .fill
+            $0.alignment = .center
             $0.axis = .horizontal
         }
     
     let registeredLabel = BaseAttributedLabel(font: .caption,
-                                              text: "등록된 정보 (4)",
+                                              text: nil,
                                               alignment: .left,
                                               color: AssetColors.primary500)
     
-    let toggleImageView = UIImageView(image: AssetsImages.chevronRight52)
+    let expandMoreImageView = UIImageView(image: AssetsImages.expandMore16)
         .then {
             $0.contentMode = .scaleAspectFit
         }
@@ -126,8 +134,8 @@ class BookmarkCardTVC: BaseTableViewCell {
     let thirdUrlView = RelatedUrlView()
     
     
-    // 4. border
-    let border = UIView()
+    // 4. cell border
+    let contentBorder = UIView()
         .then {
             $0.backgroundColor = AssetColors.gray300
         }
@@ -155,6 +163,15 @@ class BookmarkCardTVC: BaseTableViewCell {
 
         configureLayout()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        urlView.forEach {
+            $0.urlLabel.text = nil
+            $0.isHidden = true
+        }
+    }
 
     // MARK: - Function
     
@@ -162,8 +179,31 @@ class BookmarkCardTVC: BaseTableViewCell {
         placeNameLabel.text = cardInfo.placeName
         categoryLabel.text = cardInfo.categoryName
         addressLabel.text = cardInfo.address
+        
+        switch cardInfo.starCount {
+        case 3:
+            starImageView.image = AssetsImages.cardThreeStar14
+        case 2:
+            starImageView.image = AssetsImages.cardTwoStar14
+        default:
+            starImageView.image = AssetsImages.cardThreeStar14
+        }
+        
+        if cardInfo.groupType == "가고싶어요" {
+            groupIconImageView.image = AssetsImages.cardWishChip20
+        }
+        if cardInfo.groupType == "다녀왔어요" {
+            groupIconImageView.image = AssetsImages.cardHistoryChip20
+        }
+        
         registeredLabel.text = "등록된 정보 (\(cardInfo.infoCount))"
         toggleStackView.isHidden = cardInfo.infoHidden
+        
+        if cardInfo.infoCount != 0 {
+            activateBtn()
+        } else {
+            deactivateBtn()
+        }
         
         if !cardInfo.withPeople.isEmpty {
             withPeopleView.peopleLabel.text = cardInfo.withPeople
@@ -176,6 +216,25 @@ class BookmarkCardTVC: BaseTableViewCell {
         }
         
     }
+    
+    func bindBtn() {
+        registeredStackView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.toggleAction()
+            })
+            .disposed(by: bag)
+    }
+    
+    func activateBtn() {
+        bindBtn()
+        registeredLabel.textColor = AssetColors.primary500
+        expandMoreImageView.image = AssetsImages.expandMore16
+    }
+    func deactivateBtn() {
+        registeredLabel.textColor = AssetColors.gray300
+        expandMoreImageView.image = AssetsImages.expandLess16
+    }
 }
 
 extension BookmarkCardTVC {
@@ -186,7 +245,7 @@ extension BookmarkCardTVC {
         urlView.append(secondUrlView)
         urlView.append(thirdUrlView)
         
-        contentView.addSubviews([mainStackView, border])
+        contentView.addSubviews([mainStackView, contentBorder])
         
         mainStackView.addArrangedSubview(infoView)
         
@@ -195,17 +254,18 @@ extension BookmarkCardTVC {
         placeNameStackView.addArrangedSubview(categoryLabel)
         
         addressStackView.addArrangedSubview(starImageView)
+        addressStackView.addArrangedSubview(addressBorder)
         addressStackView.addArrangedSubview(addressLabel)
         
         iconStackView.addArrangedSubview(groupIconImageView)
-        iconStackView.addArrangedSubview(moreBtn)
+        iconStackView.addArrangedSubview(cardMenuBtn)
         
         
         mainStackView.addArrangedSubview(registeredView)
         registeredView.addSubview(registeredStackView)
         
         registeredStackView.addArrangedSubview(registeredLabel)
-        registeredStackView.addArrangedSubview(toggleImageView)
+        registeredStackView.addArrangedSubview(expandMoreImageView)
         
         mainStackView.addArrangedSubview(toggleStackView)
         toggleStackView.addArrangedSubview(withPeopleView)
@@ -218,13 +278,6 @@ extension BookmarkCardTVC {
             $0.isHidden = true
         }
         
-        registeredStackView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.toggleAction()
-            })
-            .disposed(by: bag)
-        
     }
     
 }
@@ -232,7 +285,7 @@ extension BookmarkCardTVC {
 extension BookmarkCardTVC {
     
     private func configureLayout() {
-        border.snp.makeConstraints {
+        contentBorder.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
@@ -253,6 +306,13 @@ extension BookmarkCardTVC {
             $0.leading.equalTo(infoView.snp.leading)
             $0.height.equalTo(24)
         }
+        
+        addressBorder.snp.makeConstraints {
+            $0.height.equalTo(8)
+            $0.width.equalTo(1)
+        }
+        
+        
         addressStackView.snp.makeConstraints {
             $0.bottom.equalTo(infoView.snp.bottom)
             $0.leading.equalTo(infoView.snp.leading)
@@ -273,8 +333,8 @@ extension BookmarkCardTVC {
             $0.leading.equalTo(registeredView.snp.leading)
             $0.bottom.equalTo(registeredView.snp.bottom)
         }
-        toggleImageView.snp.makeConstraints {
-            $0.width.equalTo(toggleImageView.snp.height)
+        expandMoreImageView.snp.makeConstraints {
+            $0.width.equalTo(expandMoreImageView.snp.height)
         }
         
         withPeopleView.snp.makeConstraints {

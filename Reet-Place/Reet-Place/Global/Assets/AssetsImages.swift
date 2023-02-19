@@ -13,6 +13,14 @@ struct AssetsImages {
     static let bookmark = UIImage(named: "bookmark")
     static let myPage = UIImage(named: "myPage")
     
+    static let cardHistoryChip20 = UIImage(named: "CardHistoryChip20")?.withRenderingMode(.alwaysOriginal)
+    static let cardWishChip20 = UIImage(named: "CardWishChip20")?.withRenderingMode(.alwaysOriginal)
+    static let cardThreeStar14 = UIImage(named: "CardThreeStar14")?.withRenderingMode(.alwaysOriginal)
+    static let cardTwoStar14 = UIImage(named: "CardTwoStar14")?.withRenderingMode(.alwaysOriginal)
+    static let expandLess16 = UIImage(named: "ExpandLess16")?.withRenderingMode(.alwaysOriginal)
+    static let expandMore16 = UIImage(named: "ExpandMore16")?.withRenderingMode(.alwaysOriginal)
+    static let cardMenu24 = UIImage(named: "CardMenu24")?.withRenderingMode(.alwaysOriginal)
+    
     static let cancel48 = UIImage(named: "Cancel48")?.withRenderingMode(.alwaysOriginal)
     static let chevronLeft48 = UIImage(named: "ChevronLeft48")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight24 = UIImage(named: "ChevronRight24")?.withRenderingMode(.alwaysOriginal)

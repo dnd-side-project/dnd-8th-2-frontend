@@ -24,6 +24,7 @@ class BookmarkAllVC: BaseNavigationViewController {
         .then {
             $0.rowHeight = UITableView.automaticDimension
             $0.separatorStyle = .none
+            $0.showsVerticalScrollIndicator = false
         }
     
     // MARK: - Variables and Properties
