@@ -168,6 +168,9 @@ class BookmarkCardTVC: BaseTableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        withPeopleView.peopleLabel.text = nil
+        withPeopleView.isHidden = true
+        
         urlView.forEach {
             $0.urlLabel.text = nil
             $0.isHidden = true
@@ -295,7 +298,7 @@ extension BookmarkCardTVC {
         
         mainStackView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
-            $0.bottom.equalToSuperview().offset(-16)
+            $0.bottom.equalToSuperview().offset(-16).priority(.low)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
         }
