@@ -10,10 +10,8 @@ import UIKit
 import Then
 import SnapKit
 
-class RelatedUrlView: BaseView {
-    
-    // MARK: - UI components
-    
+class RelatedUrlButton: UIButton {
+        
     let urlLabel = BaseAttributedLabel(font: AssetFonts.caption,
                                           text: nil,
                                           alignment: .left,
@@ -22,23 +20,25 @@ class RelatedUrlView: BaseView {
             $0.lineBreakMode = .byTruncatingTail
         }
     
-    // MARK: - Variables and Properties
         
-    // MARK: - Life Cycle
-    
-    // MARK: - Functions
-    
-    override func configureView() {
-        super.configureView()
+    override init(frame: CGRect = .zero) {
         
-        self.backgroundColor = AssetColors.gray100
-        self.layer.cornerRadius = 2.0
-
-        addSubview(urlLabel)
+        super.init(frame: frame)
+        
+        configureButton()
     }
     
-    override func layoutView() {
-        super.layoutView()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    private func configureButton() {
+        setBackgroundColor(AssetColors.gray100, for: .normal)
+        setBackgroundColor(AssetColors.gray200, for: .highlighted)
+        layer.cornerRadius = 2.0
+        
+        addSubview(urlLabel)
         
         urlLabel.snp.makeConstraints {
             $0.centerY.equalTo(self.snp.centerY)
@@ -46,5 +46,6 @@ class RelatedUrlView: BaseView {
             $0.trailing.equalToSuperview().offset(-8)
         }
     }
+
     
 }

@@ -129,9 +129,9 @@ class BookmarkCardTVC: BaseTableViewCell {
         }
     
     let withPeopleView = WithPeopleView()
-    let firstUrlView = RelatedUrlView()
-    let secondUrlView = RelatedUrlView()
-    let thirdUrlView = RelatedUrlView()
+    let firstUrlView = RelatedUrlButton()
+    let secondUrlView = RelatedUrlButton()
+    let thirdUrlView = RelatedUrlButton()
     
     
     // 4. cell border
@@ -147,7 +147,7 @@ class BookmarkCardTVC: BaseTableViewCell {
     
     var opened: Bool = false
     
-    var urlView: [RelatedUrlView] = []
+    var urlView: [RelatedUrlButton] = []
     
     var bag = DisposeBag()
     
