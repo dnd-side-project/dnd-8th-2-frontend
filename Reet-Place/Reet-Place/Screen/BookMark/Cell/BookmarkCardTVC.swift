@@ -168,6 +168,8 @@ class BookmarkCardTVC: BaseTableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        registeredStackView.isUserInteractionEnabled = true
+        
         withPeopleView.peopleLabel.text = nil
         withPeopleView.isHidden = true
         
