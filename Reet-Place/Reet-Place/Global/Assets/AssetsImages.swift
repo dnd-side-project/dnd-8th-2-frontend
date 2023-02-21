@@ -22,6 +22,10 @@ struct AssetsImages {
     static let cardMenu24 = UIImage(named: "CardMenu24")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight28 = UIImage(named: "ChevronRight28")?.withRenderingMode(.alwaysOriginal)
     
+    static let filter16 = UIImage(named: "Filter16")?.withRenderingMode(.alwaysOriginal)
+    static let map20 = UIImage(named: "Map20")?.withRenderingMode(.alwaysOriginal)
+    static let directionTool20 = UIImage(named: "DirectionTool20")?.withRenderingMode(.alwaysOriginal)
+    
     static let cancel48 = UIImage(named: "Cancel48")?.withRenderingMode(.alwaysOriginal)
     static let chevronLeft48 = UIImage(named: "ChevronLeft48")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight24 = UIImage(named: "ChevronRight24")?.withRenderingMode(.alwaysOriginal)
