@@ -74,7 +74,7 @@ class ReetFAB: UIButton {
         
         layer.shadowColor = CGColor(red: 23.0 / 255.0, green: 23.0 / 255.0, blue: 23.0 / 255.0, alpha: 1)
         layer.shadowOpacity = 0.4
-        layer.shadowRadius = 6.0
+        layer.shadowRadius = 8.0
         layer.shadowOffset = CGSize(width: 0, height: 2.0)
         layer.masksToBounds = false
         translatesAutoresizingMaskIntoConstraints = false

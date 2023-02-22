@@ -29,9 +29,13 @@ class BookmarkWishlistVC: BaseNavigationViewController {
             $0.showsVerticalScrollIndicator = false
         }
     
+    private let viewOnMapBtn = ReetFAB(fabSize: .large, title: "지도로 보기", fabImage: .map)
+    
+    
     // MARK: - Variables and Properties
     
     private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
+    
     
     // MARK: - Life Cycle
     
@@ -67,8 +71,7 @@ extension BookmarkWishlistVC {
         title = "가고싶어요"
         navigationBar.style = .left
         
-        view.addSubview(tableView)
-        view.addSubview(filterView)
+        view.addSubviews([tableView, filterView, viewOnMapBtn])
     }
     
 }
@@ -88,6 +91,12 @@ extension BookmarkWishlistVC {
         tableView.snp.makeConstraints {
             $0.top.equalTo(filterView.snp.bottom)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        viewOnMapBtn.snp.makeConstraints {
+            $0.bottom.equalTo(tableView.snp.bottom).offset(-20)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(40)
         }
         
         tableView.delegate = self

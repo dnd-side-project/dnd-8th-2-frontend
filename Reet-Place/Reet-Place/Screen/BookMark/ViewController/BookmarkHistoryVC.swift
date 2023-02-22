@@ -36,6 +36,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     
     private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
     
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -70,9 +71,7 @@ extension BookmarkHistoryVC {
         title = "다녀왔어요"
         navigationBar.style = .left
         
-        view.addSubview(tableView)
-        view.addSubview(filterView)
-        view.addSubview(viewOnMapBtn)
+        view.addSubviews([tableView, filterView, viewOnMapBtn])
     }
     
 }

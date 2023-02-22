@@ -208,6 +208,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E26EAE629A6670500FAB171 /* ReetFAB */ = {
+			isa = PBXGroup;
+			children = (
+				0E67036D29A3CBBC00A5456E /* ReetFAB.swift */,
+			);
+			path = ReetFAB;
+			sourceTree = "<group>";
+		};
 		0E9122FE299BF1390023EA59 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,7 +223,6 @@
 				0E67036929A201F400A5456E /* BookmarkFilterView.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
 				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
-				0E67036D29A3CBBC00A5456E /* ReetFAB.swift */,
 				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
 				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
 			);
@@ -543,6 +550,7 @@
 		A4917E042996A5DC00DF2A65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0E26EAE629A6670500FAB171 /* ReetFAB */,
 				A4917E052996A5DF00DF2A65 /* ReetButton */,
 			);
 			path = View;
