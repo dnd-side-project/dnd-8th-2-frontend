@@ -23,10 +23,6 @@ class ReetFAB: UIButton {
         case directionTool
     }
     
-    let size: FABsize
-    
-    let image: FABimage
-    
     let iconImageView = UIImageView()
         .then {
             $0.contentMode = .scaleAspectFit
@@ -41,6 +37,15 @@ class ReetFAB: UIButton {
         }
     
     private let innerView = UIView()
+    
+    
+    let size: FABsize
+    
+    let image: FABimage
+    
+    let smallHeight: CGFloat = 32.0
+    let largeHeight: CGFloat = 40.0
+    
     
     init(frame: CGRect = .zero,
          fabSize: FABsize,
@@ -85,16 +90,17 @@ class ReetFAB: UIButton {
         
         switch fabSize {
         case .small:
-            innerView.layer.cornerRadius = 16
             setSmallButton(title: title, fabImage: fabImage)
         case .large:
-            innerView.layer.cornerRadius = 20
             setLargeButton(title: title, fabImage: fabImage)
         }
     
     }
     
     private func setSmallButton(title: String?, fabImage: FABimage) {
+        
+        frame.size.height = smallHeight
+        innerView.layer.cornerRadius = smallHeight / 2
         
         if let title = title {
             let fabLabel = BaseAttributedLabel(font: AssetFonts.buttonSmall, text: title, alignment: .center, color: AssetColors.gray700)
@@ -105,6 +111,7 @@ class ReetFAB: UIButton {
         stackView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(8)
             $0.bottom.trailing.equalToSuperview().offset(-8)
+            $0.height.equalTo(16.0)
         }
                 
         switch fabImage {
@@ -115,10 +122,13 @@ class ReetFAB: UIButton {
         case .map:
             iconImageView.image = AssetsImages.map20
         }
-        
+
     }
     
     private func setLargeButton(title: String?, fabImage: FABimage) {
+        
+        frame.size.height = largeHeight
+        innerView.layer.cornerRadius = largeHeight / 2
         
         if let title = title {
             let fabLabel = BaseAttributedLabel(font: AssetFonts.buttonLarge, text: title, alignment: .center, color: AssetColors.gray700)
@@ -129,6 +139,7 @@ class ReetFAB: UIButton {
         stackView.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(10)
             $0.bottom.trailing.equalToSuperview().offset(-10)
+            $0.height.equalTo(20.0)
         }
                 
         switch fabImage {

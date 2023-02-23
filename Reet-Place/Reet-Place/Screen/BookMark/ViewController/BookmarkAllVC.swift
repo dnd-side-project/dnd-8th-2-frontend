@@ -97,7 +97,6 @@ extension BookmarkAllVC {
         viewOnMapBtn.snp.makeConstraints {
             $0.bottom.equalTo(tableView.snp.bottom).offset(-20)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(40)
         }
         
         tableView.delegate = self
