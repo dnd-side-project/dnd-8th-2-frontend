@@ -31,6 +31,7 @@ class BookmarkAllVC: BaseNavigationViewController {
     
     private let viewOnMapBtn = ReetFAB(fabSize: .large, title: "지도로 보기", fabImage: .map)
     
+    private let bottomSheetVC = ReetBottomSheet()
     
     // MARK: - Variables and Properties
     
@@ -59,7 +60,10 @@ class BookmarkAllVC: BaseNavigationViewController {
     
     // MARK: - Functions
     
-    
+    @objc func test() {
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        self.present(bottomSheetVC, animated: false)
+    }
 }
 
 
@@ -73,6 +77,8 @@ extension BookmarkAllVC {
         navigationBar.style = .left
         
         view.addSubviews([tableView, filterView, viewOnMapBtn])
+        
+        viewOnMapBtn.addTarget(self, action: #selector(test), for: .touchUpInside)
     }
     
 }

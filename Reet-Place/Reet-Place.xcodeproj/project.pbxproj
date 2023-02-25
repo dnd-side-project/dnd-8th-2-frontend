@@ -21,6 +21,7 @@
 		0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */; };
 		0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E429A136A700C4D47F /* WithPeopleView.swift */; };
 		0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */; };
+		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -114,6 +115,7 @@
 		0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardListVM.swift; sourceTree = "<group>"; };
 		0EA432E429A136A700C4D47F /* WithPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPeopleView.swift; sourceTree = "<group>"; };
 		0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedUrlButton.swift; sourceTree = "<group>"; };
+		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -252,6 +254,14 @@
 				0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0EFE7C3429AA46B90051E72D /* ReetBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */,
+			);
+			path = ReetBottomSheet;
 			sourceTree = "<group>";
 		};
 		3C2AED162990B3C200E36342 /* Global */ = {
@@ -550,6 +560,7 @@
 		A4917E042996A5DC00DF2A65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0EFE7C3429AA46B90051E72D /* ReetBottomSheet */,
 				0E26EAE629A6670500FAB171 /* ReetFAB */,
 				A4917E052996A5DF00DF2A65 /* ReetButton */,
 			);
@@ -873,6 +884,7 @@
 				3C2AF0D12990DFAC00E36342 /* BookmarkVC.swift in Sources */,
 				3C2AED5D2990B3C200E36342 /* UIString+.swift in Sources */,
 				0E91230D299E7ECD0023EA59 /* BookmarkTypeCVC.swift in Sources */,
+				0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */,
 				3C2AED5F2990B3C200E36342 /* UIViewController+.swift in Sources */,
 				3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */,
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
