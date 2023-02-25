@@ -52,7 +52,12 @@
 		3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D829913FF000E36342 /* SceneDelegate.swift */; };
 		3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */; };
 		3C2AF0DD29914CAA00E36342 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DC29914CAA00E36342 /* UIFont+.swift */; };
+		3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C976C7E29AA3F860002F8A7 /* CaseIterable+.swift */; };
 		3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBADD3C29A090E7005855B1 /* HomeVC.swift */; };
+		3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */; };
+		3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979929A9041700C0D2FE /* TabBarView.swift */; };
+		3CBE979C29A904EF00C0D2FE /* ReetTabBarItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979B29A904EF00C0D2FE /* ReetTabBarItemButton.swift */; };
+		3CBE979E29A90A5800C0D2FE /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979D29A90A5800C0D2FE /* TabBarItem.swift */; };
 		3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */; };
 		3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBB298FEAB20057D813 /* Assets.xcassets */; };
 		3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */; };
@@ -138,7 +143,12 @@
 		3C2AF0D829913FF000E36342 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsImages.swift; sourceTree = "<group>"; };
 		3C2AF0DC29914CAA00E36342 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		3C976C7E29AA3F860002F8A7 /* CaseIterable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+.swift"; sourceTree = "<group>"; };
 		3CBADD3C29A090E7005855B1 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPlaceTabBarVC.swift; sourceTree = "<group>"; };
+		3CBE979929A9041700C0D2FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		3CBE979B29A904EF00C0D2FE /* ReetTabBarItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTabBarItemButton.swift; sourceTree = "<group>"; };
+		3CBE979D29A90A5800C0D2FE /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		3CE41BF2782741A8F3679072 /* Pods-Reet-Place.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reet-Place.release.xcconfig"; path = "Target Support Files/Pods-Reet-Place/Pods-Reet-Place.release.xcconfig"; sourceTree = "<group>"; };
 		3CEC2FAF298FEAAF0057D813 /* Reet-Place.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reet-Place.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -251,6 +261,7 @@
 				3C2AED1C2990B3C200E36342 /* UIView+.swift */,
 				3C2AED1F2990B3C200E36342 /* UIViewController+.swift */,
 				3C2AED182990B3C200E36342 /* UserDefaults+.swift */,
+				3C976C7E29AA3F860002F8A7 /* CaseIterable+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -260,6 +271,7 @@
 			children = (
 				A4D09EC9299F9BAB004DEE97 /* AccountProviderType.swift */,
 				3C2AF0D62991397100E36342 /* NavigationType.swift */,
+				3CBE979D29A90A5800C0D2FE /* TabBarItem.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -344,12 +356,12 @@
 		3C2AEF282990CAB200E36342 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				3C2AEF292990CAB200E36342 /* TabBar */,
 				3CBADD3729A090E7005855B1 /* Home */,
 				3C2AEF2B2990CAB200E36342 /* BookMark */,
 				A4EFC081299E483E00B066AF /* MyPage */,
 				3C2AEFFF2990CAB300E36342 /* Share */,
 				A4917E032996A5D800DF2A65 /* Shared */,
-				3C2AEF292990CAB200E36342 /* TabBar */,
 				A4D09EC5299F9839004DEE97 /* UserInfo */,
 			);
 			path = Screen;
@@ -358,6 +370,8 @@
 		3C2AEF292990CAB200E36342 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				3CBE979729A9036F00C0D2FE /* View */,
+				3CBE979829A9038800C0D2FE /* ViewController */,
 				3C2AF0CC2990D6BC00E36342 /* ReetPlaceTBC.swift */,
 			);
 			path = TabBar;
@@ -461,6 +475,23 @@
 			isa = PBXGroup;
 			children = (
 				3CBADD3C29A090E7005855B1 /* HomeVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3CBE979729A9036F00C0D2FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CBE979929A9041700C0D2FE /* TabBarView.swift */,
+				3CBE979B29A904EF00C0D2FE /* ReetTabBarItemButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CBE979829A9038800C0D2FE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -803,6 +834,7 @@
 				3C2AED862990B3C300E36342 /* BaseNavigationController.swift in Sources */,
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */,
+				3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */,
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageViewModel.swift in Sources */,
 				3C2AED592990B3C200E36342 /* Int+.swift in Sources */,
@@ -810,8 +842,10 @@
 				3C2AED7F2990B3C300E36342 /* PaddingLabel.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
+				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
 				3C2AED752990B3C200E36342 /* APISession.swift in Sources */,
+				3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */,
 				3C2AED832990B3C300E36342 /* BaseTableViewCell.swift in Sources */,
 				3C2AED822990B3C300E36342 /* BaseViewController.swift in Sources */,
 				3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */,
@@ -845,6 +879,7 @@
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C2AED622990B3C200E36342 /* UIScrollView+.swift in Sources */,
+				3CBE979E29A90A5800C0D2FE /* TabBarItem.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */,
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
@@ -854,6 +889,7 @@
 				3C2AED722990B3C200E36342 /* APIError.swift in Sources */,
 				A4EFC097299E5DF000B066AF /* NavigationBar.swift in Sources */,
 				3C2AED842990B3C300E36342 /* BaseViewModel.swift in Sources */,
+				3CBE979C29A904EF00C0D2FE /* ReetTabBarItemButton.swift in Sources */,
 				A4917E152996A88000DF2A65 /* ButtonActiveColorProvider.swift in Sources */,
 				3C2AED872990B3C300E36342 /* BaseView.swift in Sources */,
 				3C2AED852990B3C300E36342 /* BaseCollectionViewCell.swift in Sources */,
@@ -894,6 +930,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -954,6 +991,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
