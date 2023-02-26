@@ -24,6 +24,7 @@
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
 		0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */; };
 		0EFE7C3A29AA60880051E72D /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* ToggleButton.swift */; };
+		0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -125,6 +126,7 @@
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTypeButton.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */,
 				0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */,
 				0EFE7C3929AA60880051E72D /* ToggleButton.swift */,
+				0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */,
 				0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */,
 				0EA432DA29A089F300C4D47F /* BookmarkHistoryVC.swift */,
 			);
@@ -881,6 +884,7 @@
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */,
 				3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */,
+				0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */,
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageViewModel.swift in Sources */,
 				3C2AED592990B3C200E36342 /* Int+.swift in Sources */,
