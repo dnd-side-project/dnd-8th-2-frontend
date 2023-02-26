@@ -11,7 +11,8 @@ struct AssetsImages {
     
     // Home
     static let search = UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal)
-
+    static let cancelContained = UIImage(named: "CancelContained")?.withRenderingMode(.alwaysOriginal)
+    
     // MY
     static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")?.withRenderingMode(.alwaysOriginal)
     
