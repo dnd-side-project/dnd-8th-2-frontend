@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036929A201F400A5456E /* BookmarkFilterView.swift */; };
+		0E67036E29A3CBBC00A5456E /* ReetFAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036D29A3CBBC00A5456E /* ReetFAB.swift */; };
 		0E8CA698299FC63300F98C15 /* BookmarkAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */; };
 		0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */; };
 		0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */; };
@@ -14,6 +16,11 @@
 		0E91230D299E7ECD0023EA59 /* BookmarkTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */; };
 		0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */; };
 		0EA432DB29A089F300C4D47F /* BookmarkHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432DA29A089F300C4D47F /* BookmarkHistoryVC.swift */; };
+		0EA432DD29A0A91B00C4D47F /* BookmarkCardTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432DC29A0A91B00C4D47F /* BookmarkCardTVC.swift */; };
+		0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */; };
+		0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */; };
+		0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E429A136A700C4D47F /* WithPeopleView.swift */; };
+		0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -93,6 +100,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E67036929A201F400A5456E /* BookmarkFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkFilterView.swift; sourceTree = "<group>"; };
+		0E67036D29A3CBBC00A5456E /* ReetFAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFAB.swift; sourceTree = "<group>"; };
 		0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAllVC.swift; sourceTree = "<group>"; };
 		0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBookmarkButton.swift; sourceTree = "<group>"; };
 		0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBookmarkView.swift; sourceTree = "<group>"; };
@@ -100,6 +109,11 @@
 		0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTypeCVC.swift; sourceTree = "<group>"; };
 		0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkWishlistVC.swift; sourceTree = "<group>"; };
 		0EA432DA29A089F300C4D47F /* BookmarkHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkHistoryVC.swift; sourceTree = "<group>"; };
+		0EA432DC29A0A91B00C4D47F /* BookmarkCardTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardTVC.swift; sourceTree = "<group>"; };
+		0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardModel.swift; sourceTree = "<group>"; };
+		0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardListVM.swift; sourceTree = "<group>"; };
+		0EA432E429A136A700C4D47F /* WithPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPeopleView.swift; sourceTree = "<group>"; };
+		0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedUrlButton.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -194,11 +208,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E26EAE629A6670500FAB171 /* ReetFAB */ = {
+			isa = PBXGroup;
+			children = (
+				0E67036D29A3CBBC00A5456E /* ReetFAB.swift */,
+			);
+			path = ReetFAB;
+			sourceTree = "<group>";
+		};
 		0E9122FE299BF1390023EA59 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */,
+				0E67036929A201F400A5456E /* BookmarkFilterView.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
+				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
+				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
 				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
 			);
 			path = View;
@@ -208,8 +233,25 @@
 			isa = PBXGroup;
 			children = (
 				0E91230C299E7ECC0023EA59 /* BookmarkTypeCVC.swift */,
+				0EA432DC29A0A91B00C4D47F /* BookmarkCardTVC.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		0EA432DE29A10F0900C4D47F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0EA432E129A112BC00C4D47F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3C2AED162990B3C200E36342 /* Global */ = {
@@ -366,27 +408,13 @@
 		3C2AEF2B2990CAB200E36342 /* BookMark */ = {
 			isa = PBXGroup;
 			children = (
+				0EA432E129A112BC00C4D47F /* ViewModel */,
+				0EA432DE29A10F0900C4D47F /* Model */,
 				0E91230B299E7E860023EA59 /* Cell */,
 				0E9122FE299BF1390023EA59 /* View */,
 				3C2AEF572990CAB200E36342 /* ViewController */,
-				3C2AEF2C2990CAB200E36342 /* ViewModel */,
-				3C2AEF392990CAB200E36342 /* Model */,
 			);
 			path = BookMark;
-			sourceTree = "<group>";
-		};
-		3C2AEF2C2990CAB200E36342 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		3C2AEF392990CAB200E36342 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3C2AEF572990CAB200E36342 /* ViewController */ = {
@@ -522,6 +550,7 @@
 		A4917E042996A5DC00DF2A65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0E26EAE629A6670500FAB171 /* ReetFAB */,
 				A4917E052996A5DF00DF2A65 /* ReetButton */,
 			);
 			path = View;
@@ -811,8 +840,10 @@
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
+				0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */,
 				3C2AED752990B3C200E36342 /* APISession.swift in Sources */,
 				3C2AED832990B3C300E36342 /* BaseTableViewCell.swift in Sources */,
+				0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */,
 				3C2AED822990B3C300E36342 /* BaseViewController.swift in Sources */,
 				3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */,
 				0EA432DB29A089F300C4D47F /* BookmarkHistoryVC.swift in Sources */,
@@ -830,10 +861,12 @@
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
+				0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */,
 				3C2AED772990B3C200E36342 /* URLResource.swift in Sources */,
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
+				0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */,
 				3C2AED612990B3C200E36342 /* UIButton+.swift in Sources */,
 				3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */,
 				3C2AED8E2990B3C300E36342 /* Service.swift in Sources */,
@@ -845,16 +878,19 @@
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C2AED622990B3C200E36342 /* UIScrollView+.swift in Sources */,
+				0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */,
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
 				A4D09EC8299F984A004DEE97 /* UserInfoVC.swift in Sources */,
 				A417F66F299E8710005E6DA7 /* ModelUser.swift in Sources */,
+				0EA432DD29A0A91B00C4D47F /* BookmarkCardTVC.swift in Sources */,
 				0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */,
 				3C2AED722990B3C200E36342 /* APIError.swift in Sources */,
 				A4EFC097299E5DF000B066AF /* NavigationBar.swift in Sources */,
 				3C2AED842990B3C300E36342 /* BaseViewModel.swift in Sources */,
 				A4917E152996A88000DF2A65 /* ButtonActiveColorProvider.swift in Sources */,
+				0E67036E29A3CBBC00A5456E /* ReetFAB.swift in Sources */,
 				3C2AED872990B3C300E36342 /* BaseView.swift in Sources */,
 				3C2AED852990B3C300E36342 /* BaseCollectionViewCell.swift in Sources */,
 				A4917E072996A5E900DF2A65 /* ReetButton.swift in Sources */,
