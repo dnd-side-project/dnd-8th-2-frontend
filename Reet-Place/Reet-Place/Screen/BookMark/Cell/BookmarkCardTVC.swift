@@ -204,12 +204,8 @@ class BookmarkCardTVC: BaseTableViewCell {
         
         registeredLabel.text = "등록된 정보 (\(cardInfo.infoCount))"
         toggleStackView.isHidden = cardInfo.infoHidden
-                
-        if cardInfo.infoCount != 0 {
-            activateBtn()
-        } else {
-            deactivateBtn()
-        }
+        
+        cardInfo.infoCount != 0 ? activateBtn() : deactivateBtn()
         
         if !cardInfo.withPeople.isEmpty {
             withPeopleView.peopleLabel.text = cardInfo.withPeople
@@ -249,37 +245,40 @@ extension BookmarkCardTVC {
     
     private func configureContentView() {
         
-        urlView.append(firstUrlView)
-        urlView.append(secondUrlView)
-        urlView.append(thirdUrlView)
+        [firstUrlView, secondUrlView, thirdUrlView].forEach {
+            urlView.append($0)
+        }
         
         contentView.addSubviews([mainStackView, contentBorder])
         
         mainStackView.addArrangedSubview(infoView)
         
         infoView.addSubviews([placeNameStackView, addressStackView, iconStackView])
-        placeNameStackView.addArrangedSubview(placeNameLabel)
-        placeNameStackView.addArrangedSubview(categoryLabel)
+        [placeNameLabel, categoryLabel].forEach {
+            placeNameStackView.addArrangedSubview($0)
+        }
+
+        [starImageView, addressBorder, addressLabel].forEach {
+            addressStackView.addArrangedSubview($0)
+        }
+
+        [groupIconImageView, cardMenuBtn].forEach {
+            iconStackView.addArrangedSubview($0)
+        }
         
-        addressStackView.addArrangedSubview(starImageView)
-        addressStackView.addArrangedSubview(addressBorder)
-        addressStackView.addArrangedSubview(addressLabel)
-        
-        iconStackView.addArrangedSubview(groupIconImageView)
-        iconStackView.addArrangedSubview(cardMenuBtn)
-        
-        
-        mainStackView.addArrangedSubview(registeredView)
         registeredView.addSubview(registeredStackView)
         
-        registeredStackView.addArrangedSubview(registeredLabel)
-        registeredStackView.addArrangedSubview(expandMoreImageView)
+        [registeredLabel, expandMoreImageView].forEach {
+            registeredStackView.addArrangedSubview($0)
+        }
         
-        mainStackView.addArrangedSubview(toggleStackView)
-        toggleStackView.addArrangedSubview(withPeopleView)
-        toggleStackView.addArrangedSubview(firstUrlView)
-        toggleStackView.addArrangedSubview(secondUrlView)
-        toggleStackView.addArrangedSubview(thirdUrlView)
+        [registeredView, toggleStackView].forEach {
+            mainStackView.addArrangedSubview($0)
+        }
+        
+        [withPeopleView, firstUrlView, secondUrlView, thirdUrlView].forEach {
+            toggleStackView.addArrangedSubview($0)
+        }
         
         withPeopleView.isHidden = true
         urlView.forEach {

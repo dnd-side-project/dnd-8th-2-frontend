@@ -63,16 +63,17 @@ class BookmarkFilterView: BaseView {
     
     override func configureView() {
         super.configureView()
-        
-        addSubview(starFilterStackView)
-        starFilterStackView.addArrangedSubview(starFilterLabel)
-        starFilterStackView.addArrangedSubview(starExpanMoreImageView)
-        
-        addSubview(recentFilterStackView)
-        recentFilterStackView.addArrangedSubview(recentFilterLabel)
-        recentFilterStackView.addArrangedSubview(recentExpanMoreImageView)
-        
-        addSubview(contentBorder)
+
+        addSubviews([starFilterStackView, recentFilterStackView, contentBorder])
+
+        [starFilterLabel, starExpanMoreImageView].forEach {
+            starFilterStackView.addArrangedSubview($0)
+        }
+
+        [recentFilterLabel, recentExpanMoreImageView].forEach {
+            recentFilterStackView.addArrangedSubview($0)
+        }
+
     }
     
     override func layoutView() {

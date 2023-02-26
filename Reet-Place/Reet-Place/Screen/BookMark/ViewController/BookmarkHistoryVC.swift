@@ -129,7 +129,6 @@ extension BookmarkHistoryVC: UITableViewDataSource {
             var card = self.viewModel.cardList.value
             card[indexPath.row].infoHidden = !card[indexPath.row].infoHidden
             self.viewModel.cardList.accept(card)
-//            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .automatic)
             tableView.reloadData()
         }
         
