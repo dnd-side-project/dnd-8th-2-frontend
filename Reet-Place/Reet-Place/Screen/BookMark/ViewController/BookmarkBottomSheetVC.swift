@@ -61,17 +61,17 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     override func configureView() {
         super.configureView()
         
-        sheetStyle = .h480
+        sheetStyle = .h600
+
+        view.addSubviews([placeNameView, saveBtn, selectStackView])
         
-        view.addSubview(placeNameView)
-        view.addSubview(saveBtn)
-        view.addSubview(selectStackView)
-        
-        placeNameView.addSubview(placeNameLabel)
-        placeNameView.addSubview(addressStackView)
-        addressStackView.addArrangedSubview(addressLabel)
-        addressStackView.addArrangedSubview(addressBorder)
-        addressStackView.addArrangedSubview(categoryLabel)
+        [placeNameLabel, addressStackView].forEach {
+            placeNameView.addSubview($0)
+        }
+
+        [addressLabel, addressBorder, categoryLabel].forEach {
+            addressStackView.addArrangedSubview($0)
+        }
         
         selectStackView.addArrangedSubview(toggleBtn)
     }
@@ -115,7 +115,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
         saveBtn.snp.makeConstraints {
             $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
-            $0.top.equalTo(bottomSheetView.snp.top).offset(396)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(516)
         }
     }
     

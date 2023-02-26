@@ -48,11 +48,9 @@ class ToggleButton: BaseView {
         layer.masksToBounds = true
         
         addSubview(stackView)
-        stackView.addArrangedSubview(oneStarBtn)
-        stackView.addArrangedSubview(twoStarBtn)
-        stackView.addArrangedSubview(threeStarBtn)
         
         [oneStarBtn, twoStarBtn, threeStarBtn].forEach {
+            stackView.addArrangedSubview($0)
             $0.titleLabel?.font = AssetFonts.subtitle2.font
             $0.setTitleColor(AssetColors.gray500, for: .normal)
             $0.setTitleColor(AssetColors.primary500, for: .highlighted)
