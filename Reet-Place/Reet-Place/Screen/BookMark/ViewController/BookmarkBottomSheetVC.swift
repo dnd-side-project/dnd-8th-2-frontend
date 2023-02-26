@@ -52,6 +52,8 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.axis = .vertical
         }
     
+    let selectTypeBtn = SelectTypeButton()
+    
     let toggleBtn = ToggleButton()
     
     let saveBtn = ReetButton(with: "저장하기",
@@ -73,7 +75,9 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             addressStackView.addArrangedSubview($0)
         }
         
-        selectStackView.addArrangedSubview(toggleBtn)
+        [selectTypeBtn, toggleBtn].forEach {
+            selectStackView.addArrangedSubview($0)
+        }
     }
     
     override func layoutView() {
@@ -105,6 +109,10 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.top.equalTo(placeNameView.snp.bottom).offset(16)
             $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
+        }
+        
+        selectTypeBtn.snp.makeConstraints {
+            $0.height.equalTo(40)
         }
         
         toggleBtn.snp.makeConstraints {

@@ -38,6 +38,7 @@ class ToggleButton: BaseView {
             $0.setTitle("★★★", for: .normal)
         }
     
+    var selectedTag: Int = 1
     
     override func configureView() {
         super.configureView()
@@ -79,6 +80,8 @@ class ToggleButton: BaseView {
         [oneStarBtn, twoStarBtn, threeStarBtn].forEach {
             $0.isSelected = false
         }
+        
+        selectedTag = sender.tag
         
         switch sender.tag {
         case 1:
