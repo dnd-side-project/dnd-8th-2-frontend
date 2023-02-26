@@ -31,7 +31,7 @@ class BookmarkAllVC: BaseNavigationViewController {
     
     private let viewOnMapBtn = ReetFAB(fabSize: .large, title: "지도로 보기", fabImage: .map)
     
-    private let bottomSheetVC = ReetBottomSheet()
+    private let bottomSheetVC = BookmarkBottomSheetVC()
     
     // MARK: - Variables and Properties
     

@@ -9,6 +9,8 @@ import UIKit
 
 import SnapKit
 import Then
+import RxSwift
+import RxGesture
 
 class ReetBottomSheet: BaseViewController {
     
@@ -86,10 +88,6 @@ class ReetBottomSheet: BaseViewController {
         }
     }
     
-    @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        dismissBottomSheet()
-    }
-    
     private func dismissBottomSheet() {
         bottomSheetView.snp.updateConstraints {
             $0.height.equalTo(0)
@@ -119,10 +117,13 @@ extension ReetBottomSheet {
         bottomSheetView.addSubview(sheetBar)
         
         dimmedView.alpha = 0.0
-
-        let dimmedTap = UITapGestureRecognizer(target: self, action: #selector(dimmedViewTapped))
-        dimmedView.addGestureRecognizer(dimmedTap)
-        dimmedView.isUserInteractionEnabled = true
+        
+        dimmedView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.dismissBottomSheet()
+            })
+            .disposed(by: bag)
         
         configureShadow()
     }
