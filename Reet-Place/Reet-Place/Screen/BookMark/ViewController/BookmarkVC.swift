@@ -26,7 +26,7 @@ class BookmarkVC: BaseNavigationViewController {
         return collectionView
     }()
     
-    let allBookmarkBtn = AllBookmarkButton(count: 21)
+    let allBookmarkBtn = AllBookmarkButton(count: 12)
     
     let emptyBookmarkView = EmptyBookmarkView()
     
@@ -177,7 +177,7 @@ extension BookmarkVC: UICollectionViewDataSource {
         
         if indexPath.row == 0 {
             cell.titleLabel.text = "가고싶어요"
-            cell.countLabel.text = "17"
+            cell.countLabel.text = "8"
         }
         
         if indexPath.row == 1 {
