@@ -9,10 +9,20 @@ import UIKit
 
 struct AssetsImages {
     
-    static let map = UIImage(named: "map")
-    static let bookmark = UIImage(named: "bookmark")
-    static let myPage = UIImage(named: "myPage")
+    // Home
+    static let search = UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal)
+
+    // MY
+    static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")?.withRenderingMode(.alwaysOriginal)
     
+    static let kakao = UIImage(named: "Kakao")?.withRenderingMode(.alwaysOriginal)
+    
+    // TabBar
+    static let home = UIImage(named: "Map")?.withRenderingMode(.alwaysOriginal)
+    static let bookmark = UIImage(named: "Bookmark")?.withRenderingMode(.alwaysOriginal)
+    static let my = UIImage(named: "Person")?.withRenderingMode(.alwaysOriginal)
+    
+    // NavigationBar
     static let cardHistoryChip20 = UIImage(named: "CardHistoryChip20")?.withRenderingMode(.alwaysOriginal)
     static let cardWishChip20 = UIImage(named: "CardWishChip20")?.withRenderingMode(.alwaysOriginal)
     static let cardThreeStar14 = UIImage(named: "CardThreeStar14")?.withRenderingMode(.alwaysOriginal)
@@ -30,9 +40,5 @@ struct AssetsImages {
     static let chevronLeft48 = UIImage(named: "ChevronLeft48")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight24 = UIImage(named: "ChevronRight24")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight52 = UIImage(named: "ChevronRight52")?.withRenderingMode(.alwaysOriginal)
-    
-    static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")?.withRenderingMode(.alwaysOriginal)
-    
-    static let kakao = UIImage(named: "Kakao")?.withRenderingMode(.alwaysOriginal)
     
 }

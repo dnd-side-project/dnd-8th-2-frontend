@@ -5,14 +5,25 @@
   Created by Aaron Lee on 2023/02/16.
   
 */
-MyPage = "마이페이지";
+
+// Login
 NeedToSignIn = "로그인이 필요합니다.";
 DoLogin = "로그인하기";
+
+// HOME
+SearchByDistrict = "시/군/구로 검색";
+
+// MY
+MyPage = "마이페이지";
+
 DoQna = "문의하기";
 ServicePolicy = "이용 약관";
 PrivacyPoilcy = "개인정보 처리방침";
 UserInfo = "회원정보";
 Signout = "로그아웃";
+
+// MY - UserInfo
 UserInfoTitle = "회원 정보";
+
 ConnectSNS = "SNS 연동";
 DeleteAccount = "탈퇴하기";

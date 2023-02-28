@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class ReetPlaceTBC: UITabBarController {
     
     // MARK: - UI components
@@ -20,43 +23,14 @@ class ReetPlaceTBC: UITabBarController {
         
         configureTabBarStyle()
         configureTabVC()
+        
         setStartTabIndex(index: 0)
     }
     
     // MARK: - Functions
-}
-
-// MARK: - ReetPlace TabBarController
-
-extension ReetPlaceTBC {
-    
-    /// 탭바 스타일 설정
-    private func configureTabBarStyle() {
-        tabBar.backgroundColor = .white
-        tabBar.isTranslucent = false
-        
-        tabBar.tintColor = .main
-        tabBar.unselectedItemTintColor = .lightGray
-        
-        tabBar.layer.shadowColor = UIColor.lightGray.cgColor
-        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBar.layer.shadowOpacity = 0.3
-    }
-    
-    /// 탭별 VC 설정
-    private func configureTabVC() {
-        let tabMap = makeTabVC(toAddVC: HomeVC(), tabBarTitle: "Home", tabBarImage: AssetsImages.map, tabBarSelectedImage: AssetsImages.map)
-        let tabBookmark = makeTabVC(toAddVC: BookmarkVC(), tabBarTitle: "bookmark", tabBarImage: AssetsImages.bookmark, tabBarSelectedImage: AssetsImages.bookmark)
-        let tabMyPage = makeTabVC(toAddVC: MyPageVC(), tabBarTitle: "myPage", tabBarImage: AssetsImages.myPage, tabBarSelectedImage: AssetsImages.myPage)
-        
-        let tabs =  [tabMap, tabBookmark, tabMyPage]
-        
-        // VC에 루트로 설정
-        self.setViewControllers(tabs, animated: false)
-    }
     
     private func makeTabVC(toAddVC: UIViewController, tabBarTitle: String, tabBarImage: UIImage?, tabBarSelectedImage: UIImage?) -> UIViewController {
-        let navC = UINavigationController(rootViewController: toAddVC)
+        let navC = BaseNavigationController(rootViewController: toAddVC)
         navC.navigationBar.isHidden = true
         
         navC.tabBarItem = UITabBarItem(title: tabBarTitle, image: tabBarImage?.withRenderingMode(.alwaysOriginal), selectedImage: tabBarSelectedImage?.withRenderingMode(.alwaysOriginal))
@@ -68,6 +42,35 @@ extension ReetPlaceTBC {
     /// 최초 실행시 시작 탭 위치 지정
     private func setStartTabIndex(index: Int) {
         selectedIndex = index
+    }
+    
+}
+
+// MARK: - Configure
+
+extension ReetPlaceTBC {
+    
+    /// 탭바 스타일 설정
+    private func configureTabBarStyle() {
+        tabBar.backgroundColor = .white
+        tabBar.isTranslucent = false
+        
+        let appearance = UITabBarAppearance()
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.font: AssetFonts.tooltip.font, .foregroundColor: AssetColors.gray500]
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.font: AssetFonts.tooltip.font, .foregroundColor: AssetColors.primary500]
+        tabBar.standardAppearance = appearance
+    }
+    
+    /// 탭별 VC 설정
+    private func configureTabVC() {
+        let tabMap = makeTabVC(toAddVC: HomeVC(), tabBarTitle: "Home", tabBarImage: AssetsImages.home, tabBarSelectedImage: AssetsImages.home)
+        let tabBookmark = makeTabVC(toAddVC: BookmarkVC(), tabBarTitle: "bookmark", tabBarImage: AssetsImages.bookmark, tabBarSelectedImage: AssetsImages.bookmark)
+        let tabMyPage = makeTabVC(toAddVC: MyPageVC(), tabBarTitle: "myPage", tabBarImage: AssetsImages.my, tabBarSelectedImage: AssetsImages.my)
+        
+        let tabs =  [tabMap, tabBookmark, tabMyPage]
+        
+        // VC에 루트로 설정
+        self.setViewControllers(tabs, animated: false)
     }
     
 }
