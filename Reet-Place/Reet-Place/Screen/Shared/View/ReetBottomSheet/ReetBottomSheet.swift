@@ -40,6 +40,9 @@ class ReetBottomSheet: BaseViewController {
             $0.isUserInteractionEnabled = false
         }
     
+    
+    // MARK: - Variables and Properties
+    
     var sheetStyle: SheetStyle = .h160
     
     var sheetHeight: CGFloat {

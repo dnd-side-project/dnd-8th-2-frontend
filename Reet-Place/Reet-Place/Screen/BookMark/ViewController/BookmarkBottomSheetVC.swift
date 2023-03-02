@@ -18,6 +18,10 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // MARK: - UI components
     
+    override var alias: String {
+        "BookmarkBottomSheet"
+    }
+    
     // Place Name, address, category 들어가는 View
     let placeNameView = UIView()
         .then {
@@ -148,20 +152,12 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     override func bindRx() {
         super.bindRx()
         
-        bindBtn()
+        bindAddBtn()
+        bindKeyboard()
     }
     
     
     // MARK: - Functions
-    
-    func bindBtn() {
-        addBtn.rx.tap
-            .bind { [weak self] _ in
-                guard let self = self else { return }
-                self.addUrl()
-            }
-            .disposed(by: bag)
-    }
     
     func addUrl() {
         if secondUrl.isHidden {
@@ -269,6 +265,52 @@ extension BookmarkBottomSheetVC {
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
             $0.top.equalTo(bottomSheetView.snp.top).offset(516)
         }
+    }
+    
+}
+
+
+// MARK: - Bind
+
+extension BookmarkBottomSheetVC {
+    
+    private func bindKeyboard() {
+        keyboardWillShow
+            .compactMap { $0.userInfo }
+            .map { userInfo -> CGFloat in
+                return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+            }
+            .subscribe(onNext: { [weak self] keyboardHeight in
+                guard let self = self else { return }
+                self.bottomSheetView.snp.updateConstraints {
+                    $0.height.equalTo(self.sheetHeight + keyboardHeight - 170)
+                }
+                self.view.layoutIfNeeded()
+            })
+            .disposed(by: bag)
+        
+        keyboardWillHide
+            .compactMap { $0.userInfo }
+            .map { userInfo -> CGFloat in
+                return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+            }
+            .subscribe(onNext: { [weak self] keyboardHeight in
+                guard let self = self else { return }
+                self.bottomSheetView.snp.updateConstraints {
+                    $0.height.equalTo(self.sheetHeight)
+                }
+                self.view.layoutIfNeeded()
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindAddBtn() {
+        addBtn.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                self.addUrl()
+            }
+            .disposed(by: bag)
     }
     
 }
