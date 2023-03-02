@@ -11,6 +11,8 @@ import Then
 
 class SelectTypeButton: BaseView {
     
+    // MARK: - UI components
+    
     let stackView = UIStackView()
         .then {
             $0.spacing = 8.0
@@ -32,27 +34,18 @@ class SelectTypeButton: BaseView {
             $0.setTitle("다녀왔어요", for: .normal)
         }
     
+    
+    // MARK: - Variables and Properties
+    
     var selectedTag: Int = 1
+    
+    
+    // MARK: - Life Cycle
     
     override func configureView() {
         super.configureView()
         
-        addSubview(stackView)
-        
-        [wishBtn, historyBtn].forEach {
-            stackView.addArrangedSubview($0)
-            $0.layer.cornerRadius = 4.0
-            $0.layer.masksToBounds = true
-            
-            $0.titleLabel?.font = AssetFonts.buttonSmall.font
-            $0.setTitleColor(AssetColors.gray500, for: .normal)
-            $0.setTitleColor(AssetColors.gray500, for: .highlighted)
-            $0.setBackgroundColor(AssetColors.gray100, for: .normal)
-            $0.setBackgroundColor(AssetColors.gray100, for: .highlighted)
-            
-            $0.addTarget(self, action: #selector(selectType), for: .touchUpInside)
-        }
-        
+        configureContentView()
         configureWishBtn()
         configureHistoryBtn()
     }
@@ -60,10 +53,11 @@ class SelectTypeButton: BaseView {
     override func layoutView() {
         super.layoutView()
         
-        stackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+        configureLayout()
     }
+    
+    
+    // MARK: - Functions
     
     @objc func selectType(_ sender: UIButton) {
         [wishBtn, historyBtn].forEach {
@@ -88,6 +82,46 @@ class SelectTypeButton: BaseView {
     
 }
 
+
+// MARK: - Configure
+
+extension SelectTypeButton {
+    
+    private func configureContentView() {
+        addSubview(stackView)
+        
+        [wishBtn, historyBtn].forEach {
+            stackView.addArrangedSubview($0)
+            $0.layer.cornerRadius = 4.0
+            $0.layer.masksToBounds = true
+            
+            $0.titleLabel?.font = AssetFonts.buttonSmall.font
+            $0.setTitleColor(AssetColors.gray500, for: .normal)
+            $0.setTitleColor(AssetColors.gray500, for: .highlighted)
+            $0.setBackgroundColor(AssetColors.gray100, for: .normal)
+            $0.setBackgroundColor(AssetColors.gray100, for: .highlighted)
+            
+            $0.addTarget(self, action: #selector(selectType), for: .touchUpInside)
+        }
+    }
+    
+}
+
+
+// MARK: - Layout
+
+extension SelectTypeButton {
+    
+    private func configureLayout() {
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+}
+
+
+// MARK: - Configure Button
+
 extension SelectTypeButton {
     
     func configureWishBtn() {
@@ -97,8 +131,8 @@ extension SelectTypeButton {
         wishBtn.setTitleColor(AssetColors.black, for: [.selected, .highlighted])
         wishBtn.setTitleColor(AssetColors.black, for: .selected)
         
-        wishBtn.setBackgroundColor(AssetColors.primary50, for: [.selected, .highlighted])
-        wishBtn.setBackgroundColor(AssetColors.primary50, for: .selected)
+        wishBtn.setBackgroundImage(AssetsImages.radialGradient, for: [.selected, .highlighted])
+        wishBtn.setBackgroundImage(AssetsImages.radialGradient, for: .selected)
     }
     
     func configureHistoryBtn() {
