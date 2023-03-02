@@ -17,7 +17,7 @@ import RxCocoa
 
 protocol BookmarkCardAction {
     func infoToggle(index: Int)
-    func showMenu()
+    func showMenu(index: Int)
 }
 
 class BookmarkCardTVC: BaseTableViewCell {
@@ -220,10 +220,13 @@ class BookmarkCardTVC: BaseTableViewCell {
             withPeopleView.isHidden = false
         }
         
-        for (index, url) in cardInfo.relatedUrl.enumerated() {
-            urlView[index].urlLabel.text = url
-            urlView[index].isHidden = false
+        for (index, url) in [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].enumerated() {
+            if let url = url {
+                urlView[index].urlLabel.text = url
+                urlView[index].isHidden = false
+            }
         }
+        
         
     }
     
@@ -381,8 +384,9 @@ extension BookmarkCardTVC {
     private func bindMenuBtn() {
         cardMenuBtn.rx.tap
             .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.showMenu()
+                guard let self = self,
+                      let index = self.index else { return }
+                self.delegate?.showMenu(index: index)
             })
             .disposed(by: bag)
     }

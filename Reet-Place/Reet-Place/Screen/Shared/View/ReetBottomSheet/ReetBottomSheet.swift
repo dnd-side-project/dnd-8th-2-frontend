@@ -126,7 +126,8 @@ extension ReetBottomSheet {
         
         dimmedView.rx.tapGesture()
             .when(.recognized)
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)

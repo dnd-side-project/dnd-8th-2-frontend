@@ -25,7 +25,6 @@ class SelectTypeButton: BaseView {
         .then {
             $0.tag = 1
             $0.setTitle("가고싶어요", for: .normal)
-            $0.isSelected = true
         }
     
     let historyBtn = UIButton()

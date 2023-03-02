@@ -70,7 +70,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     let selectTypeBtn = SelectTypeButton()
     
     // 별 개수 선택
-    let toggleBtn = ToggleButton()
+    let starToggleBtn = ToggleButton()
     
     // 함께할 사람들
     let withPeopleTitle = BaseAttributedLabel(font: .subtitle2,
@@ -135,6 +135,8 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // MARK: - Variables and Properties
     
+    var urlField : [ReetTextField] = []
+    
     // MARK: - Life Cycle
     
     override func configureView() {
@@ -194,7 +196,7 @@ extension BookmarkBottomSheetVC {
             addressStackView.addArrangedSubview($0)
         }
         
-        [selectTypeBtn, toggleBtn, withPeopleTitle, withPeopleTextField, urlTitle, urlStackView].forEach {
+        [selectTypeBtn, starToggleBtn, withPeopleTitle, withPeopleTextField, urlTitle, urlStackView].forEach {
             selectStackView.addArrangedSubview($0)
         }
         
@@ -206,6 +208,49 @@ extension BookmarkBottomSheetVC {
             urlStackView.addArrangedSubview($0)
         }
         
+    }
+    
+    func configureSheetData(with cardInfo: BookmarkCardModel) {
+        placeNameLabel.text = cardInfo.placeName
+        addressLabel.text = cardInfo.address
+        categoryLabel.text = cardInfo.categoryName
+        
+        [firstUrl, secondUrl, thirdUrl].forEach {
+            urlField.append($0)
+        }
+        
+        if cardInfo.groupType == "가고싶어요" {
+            selectTypeBtn.wishBtn.isSelected = true
+        } else {
+            selectTypeBtn.historyBtn.isSelected = true
+        }
+        
+        switch cardInfo.starCount {
+        case 1:
+            starToggleBtn.oneStarBtn.isSelected = true
+        case 2:
+            starToggleBtn.twoStarBtn.isSelected = true
+        case 3:
+            starToggleBtn.threeStarBtn.isSelected = true
+        default:
+            starToggleBtn.threeStarBtn.isSelected = true
+        }
+        
+        if !cardInfo.withPeople.isEmpty {
+            withPeopleTextField.text = cardInfo.withPeople
+        }
+        
+        for (index, url) in [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].enumerated() {
+            if let url = url {
+                urlField[index].text = url
+                urlField[index].isHidden = false
+                
+                if index == 3 {
+                    addBtn.isHidden = true
+                }
+            }
+        }
+
     }
     
 }
@@ -244,7 +289,7 @@ extension BookmarkBottomSheetVC {
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
         }
         
-        [selectTypeBtn, toggleBtn, withPeopleTextField, firstUrl, secondUrl, thirdUrl].forEach {
+        [selectTypeBtn, starToggleBtn, withPeopleTextField, firstUrl, secondUrl, thirdUrl].forEach {
             $0.snp.makeConstraints {
                 $0.height.equalTo(40)
             }

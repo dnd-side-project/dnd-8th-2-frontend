@@ -25,7 +25,7 @@ class ToggleButton: BaseView {
         .then {
             $0.tag = 1
             $0.setTitle("★", for: .normal)
-            $0.isSelected = true
+//            $0.isSelected = true
         }
     
     let twoStarBtn = UIButton()
