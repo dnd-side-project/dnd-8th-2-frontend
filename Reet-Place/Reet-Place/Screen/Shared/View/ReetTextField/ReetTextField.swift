@@ -65,6 +65,9 @@ class ReetTextField: UITextField {
     
 }
 
+
+// MARK: - Custom Clear Button
+
 extension ReetTextField {
     
     private func setClearBtn() {
@@ -84,10 +87,12 @@ extension ReetTextField {
         addTarget(self, action: #selector(clearBtnIfNeeded), for: .editingChanged)
     }
     
+    // 글자가 입력되었을 때만 표시되도록
     @objc private func clearBtnIfNeeded() {
         rightView?.isHidden = text?.isEmpty ?? true
     }
     
+    // clear
     @objc private func clearField(_ sender: AnyObject) {
         text = .empty
         becomeFirstResponder()

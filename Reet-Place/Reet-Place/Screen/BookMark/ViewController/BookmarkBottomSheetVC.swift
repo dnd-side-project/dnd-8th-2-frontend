@@ -219,11 +219,9 @@ extension BookmarkBottomSheetVC {
             urlField.append($0)
         }
         
-        if cardInfo.groupType == "가고싶어요" {
-            selectTypeBtn.wishBtn.isSelected = true
-        } else {
-            selectTypeBtn.historyBtn.isSelected = true
-        }
+        cardInfo.groupType == "가고싶어요"
+        ? selectTypeBtn.selectType(selectTypeBtn.wishBtn)
+        : selectTypeBtn.selectType(selectTypeBtn.historyBtn)
         
         switch cardInfo.starCount {
         case 1:
