@@ -25,6 +25,8 @@
 		0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */; };
 		0EFE7C3A29AA60880051E72D /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* ToggleButton.swift */; };
 		0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */; };
+		0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3E29B05D310051E72D /* ReetTextField.swift */; };
+		0EFE7C4129B05D3D0051E72D /* ReetTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -127,6 +129,8 @@
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTypeButton.swift; sourceTree = "<group>"; };
+		0EFE7C3E29B05D310051E72D /* ReetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextField.swift; sourceTree = "<group>"; };
+		0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextFieldStyle.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -278,6 +282,15 @@
 				0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */,
 			);
 			path = ReetBottomSheet;
+			sourceTree = "<group>";
+		};
+		0EFE7C3D29B05D1F0051E72D /* ReetTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0EFE7C3E29B05D310051E72D /* ReetTextField.swift */,
+				0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */,
+			);
+			path = ReetTextField;
 			sourceTree = "<group>";
 		};
 		3C2AED162990B3C200E36342 /* Global */ = {
@@ -600,6 +613,7 @@
 		A4917E042996A5DC00DF2A65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0EFE7C3D29B05D1F0051E72D /* ReetTextField */,
 				0EFE7C3429AA46B90051E72D /* ReetBottomSheet */,
 				0E26EAE629A6670500FAB171 /* ReetFAB */,
 				A4917E052996A5DF00DF2A65 /* ReetButton */,
@@ -913,6 +927,7 @@
 				3C2AED7A2990B3C300E36342 /* Loadable.swift in Sources */,
 				A4EFC09B299E6C9900B066AF /* LoginView.swift in Sources */,
 				3C2AED5E2990B3C200E36342 /* UIStackView+.swift in Sources */,
+				0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */,
 				A4EFC099299E608500B066AF /* BaseNavigationViewController.swift in Sources */,
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */,
@@ -923,6 +938,7 @@
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
 				0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */,
+				0EFE7C4129B05D3D0051E72D /* ReetTextFieldStyle.swift in Sources */,
 				3C2AED612990B3C200E36342 /* UIButton+.swift in Sources */,
 				3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */,
 				3C2AED8E2990B3C300E36342 /* Service.swift in Sources */,

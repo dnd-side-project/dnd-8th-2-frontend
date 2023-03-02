@@ -113,7 +113,7 @@ class ReetBottomSheet: BaseViewController {
 
 extension ReetBottomSheet {
     
-    func configureContentView() {
+    private func configureContentView() {
         view.backgroundColor = UIColor.clear
         
         view.addSubviews([dimmedView, bottomSheetView])
@@ -131,7 +131,7 @@ extension ReetBottomSheet {
         configureShadow()
     }
     
-    func configureShadow() {
+    private func configureShadow() {
         view.layer.shadowColor = CGColor(red: 23.0 / 255.0, green: 23.0 / 255.0, blue: 23.0 / 255.0, alpha: 1)
         view.layer.shadowOpacity = 0.4
         view.layer.shadowRadius = 16.0
@@ -146,7 +146,7 @@ extension ReetBottomSheet {
 
 extension ReetBottomSheet {
     
-    func configureLayout() {
+    private func configureLayout() {
         dimmedView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

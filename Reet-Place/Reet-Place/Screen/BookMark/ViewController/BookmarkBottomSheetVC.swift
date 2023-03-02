@@ -16,6 +16,9 @@ import RxCocoa
 
 class BookmarkBottomSheetVC: ReetBottomSheet {
     
+    // MARK: - UI components
+    
+    // Place Name, address, category 들어가는 View
     let placeNameView = UIView()
         .then {
             $0.backgroundColor = AssetColors.white
@@ -25,6 +28,8 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
                                         text: "Place Name",
                                         alignment: .left,
                                         color: AssetColors.black)
+    
+    // address, border, category 들어가는 stackView
     let addressStackView = UIStackView()
         .then {
             $0.spacing = 8.0
@@ -48,6 +53,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
                                             alignment: .center,
                                             color: AssetColors.gray700)
     
+    // 아래 선택지들 들어가는 stackView
     let selectStackView = UIStackView()
         .then {
             $0.spacing = 12.0
@@ -56,35 +62,29 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.axis = .vertical
         }
     
+    // 가고싶어요, 다녀왔어요
     let selectTypeBtn = SelectTypeButton()
     
+    // 별 개수 선택
     let toggleBtn = ToggleButton()
     
+    // 함께할 사람들
     let withPeopleTitle = BaseAttributedLabel(font: .subtitle2,
                                               text: "함께할 사람들",
                                               alignment: .left,
                                               color: AssetColors.gray700)
     
-    let withPeopleTextField = UITextField()
-        .then {
-            $0.font = AssetFonts.body2.font
-            $0.layer.borderColor = AssetColors.gray300.cgColor
-            $0.layer.borderWidth = 1.0
-            $0.layer.cornerRadius = 4.0
-            $0.layer.masksToBounds = true
-            $0.clearButtonMode = .whileEditing
-            $0.attributedPlaceholder = NSAttributedString(
-                string: "ex) 최나은, 박신영, 이다정",
-                attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray500]
-            )
-            $0.addLeftPadding(padding: 12)
-        }
+    let withPeopleTextField = ReetTextField(style: .normal,
+                                            placeholderString: "ex) 최나은, 박신영, 이다정",
+                                            textString: nil)
     
+    // 관련 URL
     let urlTitle = BaseAttributedLabel(font: .subtitle2,
                                               text: "URL",
                                               alignment: .left,
                                               color: AssetColors.gray700)
     
+    // URL 들어가는 stackView, 첫번째 url 제외하고 숨김
     let urlStackView = UIStackView()
         .then {
             $0.spacing = 4.0
@@ -93,51 +93,25 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.axis = .vertical
         }
     
-    let firstUrl = UITextField()
+    let firstUrl = ReetTextField(style: .normal,
+                                 placeholderString: "장소와 관련된 URL을 추가해주세요. (선택)",
+                                 textString: nil)
+    
+    let secondUrl = ReetTextField(style: .normal,
+                                  placeholderString: "장소와 관련된 URL을 추가해주세요. (선택)",
+                                  textString: nil)
         .then {
-            $0.font = AssetFonts.body2.font
-            $0.layer.borderColor = AssetColors.gray300.cgColor
-            $0.layer.borderWidth = 1.0
-            $0.layer.cornerRadius = 4.0
-            $0.layer.masksToBounds = true
-            $0.clearButtonMode = .whileEditing
-            $0.attributedPlaceholder = NSAttributedString(
-                string: "장소와 관련된 URL을 추가해주세요. (선택)",
-                attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray500]
-            )
-            $0.addLeftPadding(padding: 12)
-        }
-    let secondUrl = UITextField()
-        .then {
-            $0.font = AssetFonts.body2.font
-            $0.layer.borderColor = AssetColors.gray300.cgColor
-            $0.layer.borderWidth = 1.0
-            $0.layer.cornerRadius = 4.0
-            $0.layer.masksToBounds = true
-            $0.clearButtonMode = .whileEditing
-            $0.attributedPlaceholder = NSAttributedString(
-                string: "장소와 관련된 URL을 추가해주세요. (선택)",
-                attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray500]
-            )
-            $0.addLeftPadding(padding: 12)
-            $0.isHidden = true
-        }
-    let thirdUrl = UITextField()
-        .then {
-            $0.font = AssetFonts.body2.font
-            $0.layer.borderColor = AssetColors.gray300.cgColor
-            $0.layer.borderWidth = 1.0
-            $0.layer.cornerRadius = 4.0
-            $0.layer.masksToBounds = true
-            $0.clearButtonMode = .whileEditing
-            $0.attributedPlaceholder = NSAttributedString(
-                string: "장소와 관련된 URL을 추가해주세요. (선택)",
-                attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray500]
-            )
-            $0.addLeftPadding(padding: 12)
             $0.isHidden = true
         }
     
+    let thirdUrl = ReetTextField(style: .normal,
+                                 placeholderString: "장소와 관련된 URL을 추가해주세요. (선택)",
+                                 textString: nil)
+        .then {
+            $0.isHidden = true
+        }
+    
+    // URL 추가 버튼
     let addBtn = UIButton()
         .then {
             $0.setTitle("+", for: .normal)
@@ -150,13 +124,68 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.layer.masksToBounds = true
         }
     
+    // 저장하기 버튼
     let saveBtn = ReetButton(with: "저장하기",
                              for: ReetButtonStyle.primary)
     
     
+    // MARK: - Variables and Properties
+    
+    // MARK: - Life Cycle
+    
     override func configureView() {
         super.configureView()
         
+        configureContentView()
+    }
+    
+    override func layoutView() {
+        super.layoutView()
+        
+        configureLayout()
+    }
+    
+    override func bindRx() {
+        super.bindRx()
+        
+        bindBtn()
+    }
+    
+    
+    // MARK: - Functions
+    
+    func bindBtn() {
+        addBtn.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                self.addUrl()
+            }
+            .disposed(by: bag)
+    }
+    
+    func addUrl() {
+        if secondUrl.isHidden {
+            secondUrl.isHidden = false
+            view.layoutIfNeeded()
+            return
+        }
+        
+        if thirdUrl.isHidden {
+            thirdUrl.isHidden = false
+            addBtn.isHidden = true
+            view.layoutIfNeeded()
+            return
+        }
+    }
+    
+}
+
+
+// MARK: - Configure
+
+extension BookmarkBottomSheetVC {
+    
+    private func configureContentView() {
         sheetStyle = .h600
 
         view.addSubviews([placeNameView, saveBtn, selectStackView])
@@ -172,19 +201,25 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
         [selectTypeBtn, toggleBtn, withPeopleTitle, withPeopleTextField, urlTitle, urlStackView].forEach {
             selectStackView.addArrangedSubview($0)
         }
-        selectStackView.setCustomSpacing(4.0, after: withPeopleTitle)
-        selectStackView.setCustomSpacing(4.0, after: urlTitle)
+        
+        [withPeopleTitle, urlTitle].forEach {
+            selectStackView.setCustomSpacing(4.0, after: $0)
+        }
         
         [firstUrl, secondUrl, thirdUrl, addBtn].forEach {
             urlStackView.addArrangedSubview($0)
         }
         
-        bindBtn()
     }
     
-    override func layoutView() {
-        super.layoutView()
-        
+}
+
+
+// MARK: - Layout
+
+extension BookmarkBottomSheetVC {
+    
+    private func configureLayout() {
         placeNameView.snp.makeConstraints {
             $0.top.equalTo(bottomSheetView.snp.top).offset(23)
             $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
@@ -234,31 +269,6 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
             $0.top.equalTo(bottomSheetView.snp.top).offset(516)
         }
-    }
-    
-    func bindBtn() {
-        addBtn.rx.tap
-            .bind { [weak self] _ in
-                guard let self = self else { return }
-                self.addUrl()
-            }
-            .disposed(by: bag)
-    }
-    
-    func addUrl() {
-        if secondUrl.isHidden {
-            secondUrl.isHidden = false
-            view.layoutIfNeeded()
-            return
-        }
-        
-        if thirdUrl.isHidden {
-            thirdUrl.isHidden = false
-            addBtn.isHidden = true
-            view.layoutIfNeeded()
-            return
-        }
-        
     }
     
 }

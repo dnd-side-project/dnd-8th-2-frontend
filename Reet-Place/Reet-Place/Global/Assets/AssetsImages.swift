@@ -41,4 +41,6 @@ struct AssetsImages {
     static let chevronRight24 = UIImage(named: "ChevronRight24")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight52 = UIImage(named: "ChevronRight52")?.withRenderingMode(.alwaysOriginal)
     
+    // TextField
+    static let cancelContained24 = UIImage(named: "CancelContained24")?.withRenderingMode(.alwaysTemplate)
 }
