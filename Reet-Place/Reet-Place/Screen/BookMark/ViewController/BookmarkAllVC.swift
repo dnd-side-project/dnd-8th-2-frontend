@@ -72,13 +72,10 @@ class BookmarkAllVC: BaseNavigationViewController {
 extension BookmarkAllVC {
     
     private func configureContentView() {
-        
         title = "전체보기"
         navigationBar.style = .left
         
         view.addSubviews([tableView, filterView, viewOnMapBtn])
-        
-        viewOnMapBtn.addTarget(self, action: #selector(test), for: .touchUpInside)
     }
     
 }
@@ -114,11 +111,17 @@ extension BookmarkAllVC {
     
 }
 
+
+// MARK: - UITableViewDelegate
+
 extension BookmarkAllVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
 }
+
+
+// MARK: - UITableViewDataSource
 
 extension BookmarkAllVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,15 +135,28 @@ extension BookmarkAllVC: UITableViewDataSource {
         let cardInfo = viewModel.cardList.value[indexPath.row]
         
         cell.configureCell(with: cardInfo)
-        
-        cell.toggleAction = {
-            var card = self.viewModel.cardList.value
-            card[indexPath.row].infoHidden = !card[indexPath.row].infoHidden
-            self.viewModel.cardList.accept(card)
-            tableView.reloadData()
-        }
+        cell.index = indexPath.row
+        cell.delegate = self
         
         return cell
     }
 }
 
+
+// MARK: - BookmarkCardAction Delegate
+
+extension BookmarkAllVC: BookmarkCardAction {
+    
+    func infoToggle(index: Int) {
+        var card = viewModel.cardList.value
+        card[index].infoHidden = !card[index].infoHidden
+        viewModel.cardList.accept(card)
+        tableView.reloadData()
+    }
+    
+    func showMenu() {
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        present(bottomSheetVC, animated: false)
+    }
+
+}

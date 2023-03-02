@@ -7,15 +7,17 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 import RxSwift
 import RxCocoa
 
-import SnapKit
-import Then
 
 class BookmarkWishlistVC: BaseNavigationViewController {
     
     // MARK: - UI components
+    
     override var alias: String {
         "BookmarkWishlist"
     }
@@ -30,6 +32,8 @@ class BookmarkWishlistVC: BaseNavigationViewController {
         }
     
     private let viewOnMapBtn = ReetFAB(fabSize: .large, title: "지도로 보기", fabImage: .map)
+    
+    private let bottomSheetVC = BookmarkBottomSheetVC()
     
     
     // MARK: - Variables and Properties
@@ -105,11 +109,17 @@ extension BookmarkWishlistVC {
     
 }
 
+
+// MARK: - UITableViewDelegate
+
 extension BookmarkWishlistVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
 }
+
+
+// MARK: - UITableViewDataSource
 
 extension BookmarkWishlistVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -123,14 +133,28 @@ extension BookmarkWishlistVC: UITableViewDataSource {
         let cardInfo = viewModel.cardList.value[indexPath.row]
         
         cell.configureCell(with: cardInfo)
-        
-        cell.toggleAction = {
-            var card = self.viewModel.cardList.value
-            card[indexPath.row].infoHidden = !card[indexPath.row].infoHidden
-            self.viewModel.cardList.accept(card)
-            tableView.reloadData()
-        }
+        cell.index = indexPath.row
+        cell.delegate = self
         
         return cell
     }
+}
+
+
+// MARK: - BookmarkCardAction Delegate
+
+extension BookmarkWishlistVC: BookmarkCardAction {
+    
+    func infoToggle(index: Int) {
+        var card = viewModel.cardList.value
+        card[index].infoHidden = !card[index].infoHidden
+        viewModel.cardList.accept(card)
+        tableView.reloadData()
+    }
+    
+    func showMenu() {
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        present(bottomSheetVC, animated: false)
+    }
+
 }
