@@ -23,7 +23,7 @@
 		0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
 		0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */; };
-		0EFE7C3A29AA60880051E72D /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* ToggleButton.swift */; };
+		0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* StarToggleButton.swift */; };
 		0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */; };
 		0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3E29B05D310051E72D /* ReetTextField.swift */; };
 		0EFE7C4129B05D3D0051E72D /* ReetTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */; };
@@ -127,7 +127,7 @@
 		0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedUrlButton.swift; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
-		0EFE7C3929AA60880051E72D /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		0EFE7C3929AA60880051E72D /* StarToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarToggleButton.swift; sourceTree = "<group>"; };
 		0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTypeButton.swift; sourceTree = "<group>"; };
 		0EFE7C3E29B05D310051E72D /* ReetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextField.swift; sourceTree = "<group>"; };
 		0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextFieldStyle.swift; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 				3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */,
 				0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */,
 				0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */,
-				0EFE7C3929AA60880051E72D /* ToggleButton.swift */,
+				0EFE7C3929AA60880051E72D /* StarToggleButton.swift */,
 				0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */,
 				0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */,
 				0EA432DA29A089F300C4D47F /* BookmarkHistoryVC.swift */,
@@ -908,7 +908,7 @@
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
-				0EFE7C3A29AA60880051E72D /* ToggleButton.swift in Sources */,
+				0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */,
 				0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */,
 				3C2AED752990B3C200E36342 /* APISession.swift in Sources */,
 				3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */,

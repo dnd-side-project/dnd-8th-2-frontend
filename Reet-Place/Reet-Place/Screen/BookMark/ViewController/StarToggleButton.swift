@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ToggleButton: BaseView {
+class StarToggleButton: BaseView {
     
     // MARK: - UI components
     
@@ -25,7 +25,6 @@ class ToggleButton: BaseView {
         .then {
             $0.tag = 1
             $0.setTitle("★", for: .normal)
-//            $0.isSelected = true
         }
     
     let twoStarBtn = UIButton()
@@ -91,7 +90,7 @@ class ToggleButton: BaseView {
 
 // MARK: - Configure
 
-extension ToggleButton {
+extension StarToggleButton {
     
     private func configureContentView() {
         layer.cornerRadius = 4.0
@@ -127,7 +126,7 @@ extension ToggleButton {
 
 // MARK: - Layout
 
-extension ToggleButton {
+extension StarToggleButton {
     
     private func configureLayout() {
         stackView.snp.makeConstraints {

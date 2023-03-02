@@ -70,7 +70,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     let selectTypeBtn = SelectTypeButton()
     
     // 별 개수 선택
-    let starToggleBtn = ToggleButton()
+    let starToggleBtn = StarToggleButton()
     
     // 함께할 사람들
     let withPeopleTitle = BaseAttributedLabel(font: .subtitle2,
