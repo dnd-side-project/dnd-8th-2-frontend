@@ -49,7 +49,7 @@ extension UIView {
                                .layerMinXMinYCorner]
     }
     
-    /// UIView에 Reet style Shadow 추가
+    /// UIView에 Reet-style Shadow 추가
     func addShadow(opacity: Float? = 0.4) {
         layer.shadowColor = CGColor(red: 23.0 / 255.0, green: 23.0 / 255.0, blue: 23.0 / 255.0, alpha: 1)
         layer.shadowOpacity = 0.4
