@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 import SnapKit
 import Then
@@ -25,6 +26,10 @@ class PlaceBottomSheet: ReetBottomSheet {
         }
     
     private let saveBookmarkButton = ReetButton(with: "SaveBookmark".localized, for: .outlined, left: AssetsImages.addFolder)
+    
+    // MARK: - Variables and Properties
+    
+    var mock: BookmarkCardModel?
     
     // MARK: - Life Cycle
     
@@ -54,6 +59,11 @@ extension PlaceBottomSheet {
     
     func configurePlaceBottomSheet() {
         sheetStyle = .h185
+    }
+    
+    func configurePlaceInformation(placeInfo: BookmarkCardModel) {
+        mock = placeInfo
+        placeInformationView.configurePlaceInfomation(placeName: placeInfo.placeName, address: placeInfo.address, category: placeInfo.categoryName)
     }
     
 }
@@ -88,12 +98,28 @@ extension PlaceBottomSheet {
 extension PlaceBottomSheet {
     
     private func bindButton() {
+        linkButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                guard let url = URL(string: self.mock?.relLink1 ?? .empty) else { return }
+                let safariViewController = SFSafariViewController(url: url)
+                safariViewController.preferredBarTintColor = AssetColors.white
+                safariViewController.preferredControlTintColor = AssetColors.primary500
+                self.present(safariViewController, animated: true)
+            })
+            .disposed(by: bag)
+        
         saveBookmarkButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
                 let bottomSheetVC = BookmarkBottomSheetVC()
+                guard let data = self.mock else { return }
+                bottomSheetVC.configureSheetData(with: data)
+                
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 self.present(bottomSheetVC, animated: true)
             })

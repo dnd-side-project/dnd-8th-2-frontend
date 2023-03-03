@@ -74,6 +74,10 @@ class HomeVC: BaseViewController {
     
     private let viewmodel = HomeVM()
     
+    // dummy data
+    // TODO: - DummyData 지우기
+    private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -119,21 +123,68 @@ extension HomeVC {
     private func configureMapView() {
         mapView.touchDelegate = self
         
-        let marker = NMFMarker()
-        marker.position = NMGLatLng(lat: 37.35838205147338, lng: 127.1052659318825)
-        marker.position = NMGLatLng(lat:37.5453577, lng:126.9525465)
-        marker.mapView = mapView
-        
-        marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-            let bottemSheet = PlaceBottomSheet()
-            bottemSheet.modalPresentationStyle = .overFullScreen
-            self.present(bottemSheet, animated: true)
+        // 더미 마커값 생성
+        // 네이버 본사, 서울ICT이노베이션
+        [NMGLatLng(lat: 37.35838205147338, lng: 127.1052659318825),
+         NMGLatLng(lat:37.5453577, lng:126.9525465)].forEach {
+            let marker = NMFMarker()
+            marker.position = $0 as! NMGLatLng
+            marker.mapView = mapView
             
-            return true
+            let image = NMFOverlayImage(name: "MarkerExtendedWishlist")
+            marker.iconImage = image
+            
+            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                let bottemSheet = PlaceBottomSheet()
+                bottemSheet.modalPresentationStyle = .overFullScreen
+                self.present(bottemSheet, animated: true)
+                
+                return true
+            }
+            
+            viewModel.getAllList()
+            
+            // 서울ICT이노베이션 근처 장소 2곳
+            [NMGLatLng(lat: 37.54349189922267, lng: 126.9482621178211),
+             NMGLatLng(lat: 37.54196065990934, lng: 126.9485339154298)].forEach {
+                let marker = NMFMarker()
+                marker.position = $0
+                marker.mapView = mapView
+                
+                let image = NMFOverlayImage(name: "MarkerRoundDefault")
+                marker.iconImage = image
+                
+                marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                    let bottomSheetVC = PlaceBottomSheet()
+                    let cardInfo = self.viewModel.cardList.value[1]
+                    bottomSheetVC.configurePlaceInformation(placeInfo: cardInfo)
+                    
+                    bottomSheetVC.modalPresentationStyle = .overFullScreen
+                    self.present(bottomSheetVC, animated: true)
+                    
+                    return true
+                }
+            }
+            
+            // 서울ICT이노베이션 근처 둥록한 장소 1곳
+            [NMGLatLng(lat: 37.54388888223204, lng: 126.9536265356963)].forEach {
+               let marker = NMFMarker()
+                marker.position = $0 as! NMGLatLng
+               marker.mapView = mapView
+               
+               let image = NMFOverlayImage(name: "MarkerRoundDidVisit")
+               marker.iconImage = image
+               
+               marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                   let bottomSheetVC = PlaceBottomSheet()
+                   bottomSheetVC.modalPresentationStyle = .overFullScreen
+                   self.present(bottomSheetVC, animated: true)
+                   
+                   return true
+               }
+           }
+                
         }
-        
-        let image = NMFOverlayImage(name: "Marker")
-        marker.iconImage = image
     }
     
     private func configureSearchTextField() {
