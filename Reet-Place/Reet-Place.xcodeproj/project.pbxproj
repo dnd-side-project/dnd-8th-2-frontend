@@ -283,6 +283,7 @@
 		0EFE7C3429AA46B90051E72D /* ReetBottomSheet */ = {
 			isa = PBXGroup;
 			children = (
+				3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */,
 				3CB5CCF129B1CF9A00B82DB7 /* PlaceInformationView.swift */,
 				0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */,
 			);
@@ -540,7 +541,6 @@
 			isa = PBXGroup;
 			children = (
 				3CBADD3C29A090E7005855B1 /* HomeVC.swift */,
-				3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
