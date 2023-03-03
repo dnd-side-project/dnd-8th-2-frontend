@@ -47,6 +47,13 @@ class BaseViewController: UIViewController {
         hideKeyboard()
     }
     
+    // MARK: - Override
+    
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        viewControllerToPresent.modalPresentationStyle = .overFullScreen
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
     // MARK: - Functions
     
     func setTBCtoRootVC() {
