@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CancelContained@1x.png",
+      "filename" : "Marker@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "CancelContained@2x.png",
+      "filename" : "Marker@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "CancelContained@3x.png",
+      "filename" : "Marker@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
