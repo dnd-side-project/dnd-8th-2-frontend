@@ -15,6 +15,11 @@ import RxGesture
 import RxCocoa
 
 
+protocol BookmarkCardAction {
+    func infoToggle(index: Int)
+    func showMenu(index: Int)
+}
+
 class BookmarkCardTVC: BaseTableViewCell {
     
     // MARK: - UI components
@@ -143,20 +148,23 @@ class BookmarkCardTVC: BaseTableViewCell {
     
     // MARK: - Variables and Properties
     
-    var toggleAction: (() -> Void) = {}
+    var delegate: BookmarkCardAction?
     
-    var opened: Bool = false
+    var index: Int?
     
     var urlView: [RelatedUrlButton] = []
     
     var bag = DisposeBag()
     
+    
     // MARK: - Life Cycle
+    
     override func configureView() {
         super.configureView()
         
         configureContentView()
-        bindBtn()
+        bindToggle()
+        bindMenuBtn()
     }
     
     override func layoutView() {
@@ -212,20 +220,14 @@ class BookmarkCardTVC: BaseTableViewCell {
             withPeopleView.isHidden = false
         }
         
-        for (index, url) in cardInfo.relatedUrl.enumerated() {
-            urlView[index].urlLabel.text = url
-            urlView[index].isHidden = false
+        for (index, url) in [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].enumerated() {
+            if let url = url {
+                urlView[index].urlLabel.text = url
+                urlView[index].isHidden = false
+            }
         }
         
-    }
-    
-    func bindBtn() {
-        registeredStackView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.toggleAction()
-            })
-            .disposed(by: bag)
+        
     }
     
     func activateBtn() {
@@ -240,6 +242,9 @@ class BookmarkCardTVC: BaseTableViewCell {
         expandMoreImageView.tintColor = AssetColors.gray300
     }
 }
+
+
+// MARK: - Configure
 
 extension BookmarkCardTVC {
     
@@ -289,6 +294,9 @@ extension BookmarkCardTVC {
     
 }
 
+
+// MARK: - Layout
+
 extension BookmarkCardTVC {
     
     private func configureLayout() {
@@ -325,6 +333,7 @@ extension BookmarkCardTVC {
             $0.leading.equalTo(infoView.snp.leading)
             $0.height.equalTo(14)
         }
+        
         iconStackView.snp.makeConstraints {
             $0.top.equalTo(infoView.snp.top)
             $0.trailing.equalTo(infoView.snp.trailing)
@@ -355,4 +364,31 @@ extension BookmarkCardTVC {
         }
     }
  
+}
+
+// MARK: - Bind
+
+extension BookmarkCardTVC {
+    
+    private func bindToggle() {
+        registeredStackView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self,
+                      let index = self.index else { return }
+                self.delegate?.infoToggle(index: index)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindMenuBtn() {
+        cardMenuBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self,
+                      let index = self.index else { return }
+                self.delegate?.showMenu(index: index)
+            })
+            .disposed(by: bag)
+    }
+    
 }

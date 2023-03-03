@@ -7,15 +7,17 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 import RxSwift
 import RxCocoa
 
-import SnapKit
-import Then
 
 class BookmarkHistoryVC: BaseNavigationViewController {
     
     // MARK: - UI components
+    
     override var alias: String {
         "BookmarkHistory"
     }
@@ -106,11 +108,16 @@ extension BookmarkHistoryVC {
 }
 
 
+// MARK: - UITableViewDelegate
+
 extension BookmarkHistoryVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
 }
+
+
+// MARK: - UITableViewDataSource
 
 extension BookmarkHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -124,14 +131,32 @@ extension BookmarkHistoryVC: UITableViewDataSource {
         let cardInfo = viewModel.cardList.value[indexPath.row]
         
         cell.configureCell(with: cardInfo)
-        
-        cell.toggleAction = {
-            var card = self.viewModel.cardList.value
-            card[indexPath.row].infoHidden = !card[indexPath.row].infoHidden
-            self.viewModel.cardList.accept(card)
-            tableView.reloadData()
-        }
+        cell.index = indexPath.row
+        cell.delegate = self
         
         return cell
     }
+}
+
+
+// MARK: - BookmarkCardAction Delegate
+
+extension BookmarkHistoryVC: BookmarkCardAction {
+    
+    func infoToggle(index: Int) {
+        var card = viewModel.cardList.value
+        card[index].infoHidden = !card[index].infoHidden
+        viewModel.cardList.accept(card)
+        tableView.reloadData()
+    }
+    
+    func showMenu(index: Int) {
+        let bottomSheetVC = BookmarkBottomSheetVC()
+        let cardInfo = viewModel.cardList.value[index]
+        bottomSheetVC.configureSheetData(with: cardInfo)
+        
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        present(bottomSheetVC, animated: false)
+    }
+
 }
