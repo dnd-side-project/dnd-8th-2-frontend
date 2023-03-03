@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Marker@1x.png",
+      "filename" : "MarkerRoundDefault@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Marker@2x.png",
+      "filename" : "MarkerRoundDefault@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Marker@3x.png",
+      "filename" : "MarkerRoundDefault@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
