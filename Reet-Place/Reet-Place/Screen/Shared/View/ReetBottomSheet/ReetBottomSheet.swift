@@ -100,7 +100,7 @@ class ReetBottomSheet: BaseViewController {
         }
     }
     
-    private func dismissBottomSheet() {
+    func dismissBottomSheet() {
         bottomSheetView.snp.updateConstraints {
             $0.height.equalTo(0)
         }
