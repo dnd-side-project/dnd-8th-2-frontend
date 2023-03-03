@@ -296,6 +296,13 @@ extension BookmarkBottomSheetVC {
                 self.addUrl()
             }
             .disposed(by: bag)
+        
+        saveBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.dismissBottomSheet()
+            })
+            .disposed(by: bag)
     }
     
 }

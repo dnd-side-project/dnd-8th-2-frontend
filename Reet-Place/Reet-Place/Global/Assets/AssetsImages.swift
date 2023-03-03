@@ -42,6 +42,9 @@ struct AssetsImages {
     static let chevronRight24 = UIImage(named: "ChevronRight24")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight52 = UIImage(named: "ChevronRight52")?.withRenderingMode(.alwaysOriginal)
     
+    // Bookmark
+    static let chevronRight20 = UIImage(named: "ChevronRight20")!.withRenderingMode(.alwaysTemplate)
+    
     // Bottom Sheet
     static let link = UIImage(named: "Link")?.withRenderingMode(.alwaysOriginal)
     static let addFolder = UIImage(named: "AddFolder")?.withRenderingMode(.alwaysOriginal)
