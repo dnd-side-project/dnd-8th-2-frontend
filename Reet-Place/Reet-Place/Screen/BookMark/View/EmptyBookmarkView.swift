@@ -11,6 +11,7 @@ import Then
 import SnapKit
 
 class EmptyBookmarkView: BaseView {
+    
     // MARK: - UI components
     
     let titleLabel = BaseAttributedLabel(font: AssetFonts.h4,
@@ -64,9 +65,9 @@ class EmptyBookmarkView: BaseView {
             $0.height.equalTo(48.0)
         }
         
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(contentLabel)
-        stackView.addArrangedSubview(aroundMeBtn)
+        [titleLabel, contentLabel, aroundMeBtn].forEach {
+            stackView.addArrangedSubview($0)
+        }
         
         stackView.setCustomSpacing(12.0, after: titleLabel)
         stackView.setCustomSpacing(40.0, after: contentLabel)

@@ -16,7 +16,7 @@ class TabBarView: BaseView {
     
     private let borderView = BaseView()
         .then {
-            $0.backgroundColor = AssetColors.black
+            $0.backgroundColor = AssetColors.gray300
         }
     
     let tabBarStackView = UIStackView()

@@ -27,6 +27,7 @@
 		0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */; };
 		0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3E29B05D310051E72D /* ReetTextField.swift */; };
 		0EFE7C4129B05D3D0051E72D /* ReetTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */; };
+		0EFE7C4329B1F6590051E72D /* InduceBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C4229B1F6590051E72D /* InduceBookmarkView.swift */; };
 		3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED182990B3C200E36342 /* UserDefaults+.swift */; };
 		3C2AED592990B3C200E36342 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED192990B3C200E36342 /* Int+.swift */; };
 		3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED1B2990B3C200E36342 /* UITextView+.swift */; };
@@ -140,6 +141,7 @@
 		0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTypeButton.swift; sourceTree = "<group>"; };
 		0EFE7C3E29B05D310051E72D /* ReetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextField.swift; sourceTree = "<group>"; };
 		0EFE7C4029B05D3D0051E72D /* ReetTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextFieldStyle.swift; sourceTree = "<group>"; };
+		0EFE7C4229B1F6590051E72D /* InduceBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InduceBookmarkView.swift; sourceTree = "<group>"; };
 		3C2AED182990B3C200E36342 /* UserDefaults+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		3C2AED192990B3C200E36342 /* Int+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		3C2AED1B2990B3C200E36342 /* UITextView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				0E67036929A201F400A5456E /* BookmarkFilterView.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
 				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
+				0EFE7C4229B1F6590051E72D /* InduceBookmarkView.swift */,
 				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
 				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
 			);
@@ -1004,6 +1007,7 @@
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C2AED622990B3C200E36342 /* UIScrollView+.swift in Sources */,
 				3CBE979E29A90A5800C0D2FE /* TabBarItem.swift in Sources */,
+				0EFE7C4329B1F6590051E72D /* InduceBookmarkView.swift in Sources */,
 				0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */,

@@ -40,8 +40,7 @@ class WithPeopleView: BaseView {
         self.backgroundColor = AssetColors.primary50
         self.layer.cornerRadius = 2.0
         
-        addSubview(withLabel)
-        addSubview(peopleLabel)
+        addSubviews([withLabel, peopleLabel])
         
     }
     

@@ -40,7 +40,7 @@ class AllBookmarkButton: UIButton {
             $0.textAlignment = .right
         }
     
-    let rightImageView = UIImageView(image: AssetsImages.chevronRight28)
+    let rightImageView = UIImageView(image: AssetsImages.chevronRight20)
         .then {
             $0.contentMode = .scaleAspectFit
         }
@@ -49,7 +49,7 @@ class AllBookmarkButton: UIButton {
         .then {
             $0.isUserInteractionEnabled = false
             $0.distribution = .fill
-            $0.alignment = .fill
+            $0.alignment = .center
             $0.axis = .horizontal
         }
     
@@ -79,28 +79,25 @@ class AllBookmarkButton: UIButton {
         addSubview(stackView)
 
         leftAllLabel.snp.makeConstraints {
-            $0.height.width.equalTo(36)
+            $0.height.width.equalTo(36.0)
         }
         
-        stackView.addArrangedSubview(leftAllLabel)
-        stackView.addArrangedSubview(allTitleLabel)
-        
-        stackView.addArrangedSubview(countLabel)
+        [leftAllLabel, allTitleLabel, countLabel, rightImageView].forEach {
+            stackView.addArrangedSubview($0)
+        }
+
         countLabel.text = String(count)
         
-        stackView.addArrangedSubview(rightImageView)
         rightImageView.snp.makeConstraints {
             $0.width.equalTo(rightImageView.snp.height)
         }
         
-        
         stackView.setCustomSpacing(16.0, after: leftAllLabel)
         stackView.setCustomSpacing(8.0, after: countLabel)
         
-        
         stackView.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(20)
-            $0.bottom.trailing.equalToSuperview().offset(-20)
+            $0.top.leading.equalToSuperview().offset(20.0)
+            $0.bottom.trailing.equalToSuperview().offset(-20.0)
         }
     
         
@@ -113,13 +110,19 @@ class AllBookmarkButton: UIButton {
             setBackgroundColor(AssetColors.primary50, for: .highlighted)
             setBackgroundColor(AssetColors.primary50, for: .disabled)
             leftAllLabel.backgroundColor = AssetColors.primary500
+            
             countLabel.textColor = AssetColors.primary500
+            rightImageView.tintColor = AssetColors.gray500
+            
             self.isEnabled = true
         case .disabled:
             setBackgroundColor(AssetColors.gray100, for: .normal)
-            leftAllLabel.backgroundColor = AssetColors.gray500
-            countLabel.textColor = AssetColors.gray500
-            rightImageView.isHidden = true
+            leftAllLabel.backgroundColor = AssetColors.gray300
+            
+            allTitleLabel.textColor = AssetColors.gray300
+            countLabel.textColor = AssetColors.gray300
+            rightImageView.tintColor = AssetColors.gray300
+            
             self.isEnabled = false
         }
         

@@ -32,6 +32,8 @@ class BookmarkVC: BaseNavigationViewController {
     
     let requestLoginView = RequestLoginView()
     
+    let induceBookmarkView = InduceBookmarkView()
+    
     override var alias: String {
         "Bookmark"
     }
@@ -80,7 +82,8 @@ extension BookmarkVC {
         view.addSubviews([allBookmarkBtn,
                           emptyBookmarkView,
                           requestLoginView,
-                          bookmarkTypeCV])
+                          bookmarkTypeCV,
+                          induceBookmarkView])
         
         title = "북마크"
         navigationBar.style = .default
@@ -118,7 +121,13 @@ extension BookmarkVC {
         
         bookmarkTypeCV.snp.makeConstraints {
             $0.top.equalTo(allBookmarkBtn.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(270.0)
+        }
+        
+        induceBookmarkView.snp.makeConstraints {
+            $0.top.equalTo(bookmarkTypeCV.snp.bottom).offset(40.0)
+            $0.leading.trailing.equalToSuperview()
         }
         
         emptyBookmarkView.isHidden = false
