@@ -27,3 +27,6 @@ UserInfoTitle = "회원 정보";
 
 ConnectSNS = "SNS 연동";
 DeleteAccount = "탈퇴하기";
+
+// Bottom Sheet
+SaveBookmark = "저장하기";

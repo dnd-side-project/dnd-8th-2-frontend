@@ -76,6 +76,8 @@
 		3C976C8129AA61110002F8A7 /* PlaceCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C976C8029AA61110002F8A7 /* PlaceCategoryList.swift */; };
 		3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCEB29B0C3C000B82DB7 /* ReetFABSize.swift */; };
 		3CB5CCEE29B0DD0200B82DB7 /* ReetFABImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCED29B0DD0200B82DB7 /* ReetFABImage.swift */; };
+		3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */; };
+		3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCF129B1CF9A00B82DB7 /* PlaceInformationView.swift */; };
 		3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBADD3C29A090E7005855B1 /* HomeVC.swift */; };
 		3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */; };
 		3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979929A9041700C0D2FE /* TabBarView.swift */; };
@@ -190,6 +192,8 @@
 		3C976C8029AA61110002F8A7 /* PlaceCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategoryList.swift; sourceTree = "<group>"; };
 		3CB5CCEB29B0C3C000B82DB7 /* ReetFABSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFABSize.swift; sourceTree = "<group>"; };
 		3CB5CCED29B0DD0200B82DB7 /* ReetFABImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFABImage.swift; sourceTree = "<group>"; };
+		3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceBottomSheet.swift; sourceTree = "<group>"; };
+		3CB5CCF129B1CF9A00B82DB7 /* PlaceInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInformationView.swift; sourceTree = "<group>"; };
 		3CBADD3C29A090E7005855B1 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPlaceTabBarVC.swift; sourceTree = "<group>"; };
 		3CBE979929A9041700C0D2FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -302,6 +306,8 @@
 		0EFE7C3429AA46B90051E72D /* ReetBottomSheet */ = {
 			isa = PBXGroup;
 			children = (
+				3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */,
+				3CB5CCF129B1CF9A00B82DB7 /* PlaceInformationView.swift */,
 				0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */,
 			);
 			path = ReetBottomSheet;
@@ -954,6 +960,8 @@
 				3C2AED592990B3C200E36342 /* Int+.swift in Sources */,
 				A4D09ECA299F9BAB004DEE97 /* AccountProviderType.swift in Sources */,
 				3C2AED7F2990B3C300E36342 /* PaddingLabel.swift in Sources */,
+				3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */,
+				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
 				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,

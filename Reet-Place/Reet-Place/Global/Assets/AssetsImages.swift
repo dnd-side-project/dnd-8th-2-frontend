@@ -45,6 +45,10 @@ struct AssetsImages {
     // Bookmark
     static let chevronRight20 = UIImage(named: "ChevronRight20")!.withRenderingMode(.alwaysTemplate)
     
+    // Bottom Sheet
+    static let link = UIImage(named: "Link")?.withRenderingMode(.alwaysOriginal)
+    static let addFolder = UIImage(named: "AddFolder")?.withRenderingMode(.alwaysOriginal)
+    
     // TextField
     static let cancelContained24 = UIImage(named: "CancelContained24")?.withRenderingMode(.alwaysTemplate)
     
