@@ -49,7 +49,7 @@ class NavigationBar: UIView {
     
     private let borderView = UIView()
         .then {
-            $0.backgroundColor = AssetColors.black
+            $0.backgroundColor = AssetColors.gray300
         }
     
     required init?(coder: NSCoder) {
