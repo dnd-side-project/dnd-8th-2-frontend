@@ -71,15 +71,10 @@ extension CategoryChipButton {
         
         contentEdgeInsets = UIEdgeInsets(top: 8.0, left: 12.0, bottom: 8.0, right: 12.0)
         
-        configureTitleColor(title: title, state: .normal)
-        configureTitleColor(title: title, state: .highlighted)
-        configureTitleColor(title: title, state: .selected)
-        configureTitleColor(title: title, state: .disabled)
-        
-        configureBackgroundColor(state: .normal)
-        configureBackgroundColor(state: .highlighted)
-        configureBackgroundColor(state: .selected)
-        configureBackgroundColor(state: .disabled)
+        [UIControl.State.normal, .highlighted, .selected, .disabled].forEach {
+            configureTitleColor(title: title, state: $0)
+            configureBackgroundColor(state: $0)
+        }
         
         configureBorderColor(state: .normal)
     }
