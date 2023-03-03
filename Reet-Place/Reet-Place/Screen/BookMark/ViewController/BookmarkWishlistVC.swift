@@ -29,7 +29,7 @@ class BookmarkWishlistVC: BaseNavigationViewController {
             $0.showsVerticalScrollIndicator = false
         }
     
-    private let viewOnMapBtn = ReetFAB(fabSize: .large, title: "지도로 보기", fabImage: .map)
+    private let viewOnMapBtn = ReetFAB(size: .extended(.large), title: "지도로 보기", image: .map)
     
     
     // MARK: - Variables and Properties
