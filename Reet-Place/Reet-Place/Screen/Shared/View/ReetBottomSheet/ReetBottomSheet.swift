@@ -16,6 +16,8 @@ class ReetBottomSheet: BaseViewController {
     
     enum SheetStyle {
         case h160
+        case h185
+        case h241
         case h420
         case h480
         case h600
@@ -49,6 +51,10 @@ class ReetBottomSheet: BaseViewController {
         switch sheetStyle {
         case .h160:
             return 160.0
+        case .h185:
+            return 185.0
+        case .h241:
+            return 241.0
         case .h420:
             return 420.0
         case .h480:
