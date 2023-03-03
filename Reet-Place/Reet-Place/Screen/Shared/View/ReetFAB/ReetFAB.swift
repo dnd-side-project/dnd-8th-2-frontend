@@ -12,50 +12,44 @@ import SnapKit
 
 class ReetFAB: UIButton {
     
-    enum FABsize: String {
-        case small
-        case large
-    }
+    // MARK: - UI components
     
-    enum FABimage: String {
-        case map
-        case filter
-        case directionTool
-    }
-    
-    let iconImageView = UIImageView()
+    private let innerView = UIView()
+        .then {
+            $0.isUserInteractionEnabled = false
+            $0.backgroundColor = AssetColors.white
+            $0.clipsToBounds = true
+            
+            $0.addShadow()
+            
+            $0.layer.masksToBounds = false
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    private let iconImageView = UIImageView()
         .then {
             $0.contentMode = .scaleAspectFit
         }
-    
     private let stackView = UIStackView()
         .then {
-            $0.isUserInteractionEnabled = false
+            $0.axis = .horizontal
             $0.distribution = .fill
             $0.alignment = .center
-            $0.axis = .horizontal
+            
+            $0.isUserInteractionEnabled = false
         }
     
-    private let innerView = UIView()
+    // MARK: - Variables and Properties
     
-    
-    let size: FABsize
-    
-    let image: FABimage
-    
-    let smallHeight: CGFloat = 32.0
-    let largeHeight: CGFloat = 40.0
-    
+    // MARK: - Life Cycle
     
     init(frame: CGRect = .zero,
-         fabSize: FABsize,
+         size: ReetFABSize,
          title: String?,
-         fabImage: FABimage) {
-        self.size = fabSize
-        self.image = fabImage
+         image: ReetFABImage) {
         super.init(frame: frame)
         
-        configureButton(fabSize: fabSize, title: title, fabImage: fabImage)
+        configureButton(fabSize: size, fabTitle: title, fabImage: image)
+        configureLayout(fabSize: size)
     }
     
     required init?(coder: NSCoder) {
@@ -68,91 +62,55 @@ class ReetFAB: UIButton {
         }
     }
     
-    private func configureButton(fabSize: FABsize, title: String?, fabImage: FABimage) {
-        addSubview(innerView)
-        innerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        innerView.isUserInteractionEnabled = false
-        innerView.backgroundColor = AssetColors.white
-        innerView.clipsToBounds = true
+    // MARK: - Functions
+}
+
+// MARK: - Configure
+
+extension ReetFAB {
+    
+    private func configureButton(fabSize: ReetFABSize, fabTitle: String?, fabImage: ReetFABImage) {
+        innerView.layer.cornerRadius = fabSize.height / 2
+        iconImageView.image = fabImage.image
         
-        layer.shadowColor = CGColor(red: 23.0 / 255.0, green: 23.0 / 255.0, blue: 23.0 / 255.0, alpha: 1)
-        layer.shadowOpacity = 0.4
-        layer.shadowRadius = 8.0
-        layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        layer.masksToBounds = false
-        translatesAutoresizingMaskIntoConstraints = false
+        if let title = fabTitle {
+            let fabLabel = BaseAttributedLabel(font: fabSize.titleFont, text: title, alignment: .center, color: AssetColors.gray700)
+            stackView.addArrangedSubview(fabLabel)
+            stackView.spacing = fabSize.titleSpacing
+        }
+    }
+    
+}
+
+// MARK: - Layout
+
+extension ReetFAB {
+    
+    private func configureLayout(fabSize: ReetFABSize) {
+        addSubview(innerView)
         
         innerView.addSubview(stackView)
-        stackView.addArrangedSubview(iconImageView)
-        
-        
-        switch fabSize {
-        case .small:
-            setSmallButton(title: title, fabImage: fabImage)
-        case .large:
-            setLargeButton(title: title, fabImage: fabImage)
-        }
-    
-    }
-    
-    private func setSmallButton(title: String?, fabImage: FABimage) {
-        
-        frame.size.height = smallHeight
-        innerView.layer.cornerRadius = smallHeight / 2
-        
-        if let title = title {
-            let fabLabel = BaseAttributedLabel(font: AssetFonts.buttonSmall, text: title, alignment: .center, color: AssetColors.gray700)
-            stackView.addArrangedSubview(fabLabel)
-            stackView.spacing = 6.0
+        [iconImageView].forEach {
+            stackView.addArrangedSubview($0)
         }
         
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(fabSize.height)
+        }
+        
+        innerView.snp.makeConstraints {
+            $0.edges.equalTo(self)
+        }
         stackView.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(8)
-            $0.bottom.trailing.equalToSuperview().offset(-8)
-            $0.height.equalTo(16.0)
+            $0.centerY.equalTo(innerView)
+            
+            $0.leading.equalTo(innerView).offset(fabSize.horizontalOffset)
+            $0.trailing.equalTo(innerView).offset(-fabSize.horizontalOffset)
         }
-                
-        switch fabImage {
-        case .filter:
-            iconImageView.image = AssetsImages.filter16
-        case .directionTool:
-            iconImageView.image = AssetsImages.directionTool20
-        case .map:
-            iconImageView.image = AssetsImages.map20
+        iconImageView.snp.makeConstraints {
+            $0.width.height.equalTo(fabSize.imageHeight)
         }
-
     }
-    
-    private func setLargeButton(title: String?, fabImage: FABimage) {
-        
-        frame.size.height = largeHeight
-        innerView.layer.cornerRadius = largeHeight / 2
-        
-        if let title = title {
-            let fabLabel = BaseAttributedLabel(font: AssetFonts.buttonLarge, text: title, alignment: .center, color: AssetColors.gray700)
-            stackView.addArrangedSubview(fabLabel)
-            stackView.spacing = 8.0
-        }
-        
-        stackView.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(10)
-            $0.bottom.trailing.equalToSuperview().offset(-10)
-            $0.height.equalTo(20.0)
-        }
-                
-        switch fabImage {
-        case .filter:
-            iconImageView.image = AssetsImages.filter16
-        case .directionTool:
-            iconImageView.image = AssetsImages.directionTool20
-        case .map:
-            iconImageView.image = AssetsImages.map20
-        }
-        
-    }
-    
-    
     
 }

@@ -10,8 +10,8 @@ import UIKit
 extension Date {
     
     /// Date에서 특정 component를 반환
-    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
-        return calendar.component(component, from: self)
+    func getDateComponent(targetComponent: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(targetComponent, from: self)
     }
     
     /// Convert UTC (or GMT) to local time

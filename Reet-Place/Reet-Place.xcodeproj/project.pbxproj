@@ -65,9 +65,18 @@
 		3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D829913FF000E36342 /* SceneDelegate.swift */; };
 		3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */; };
 		3C2AF0DD29914CAA00E36342 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DC29914CAA00E36342 /* UIFont+.swift */; };
+		3C423F2929AAEA90003B7B7D /* CategoryChipCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F2829AAEA90003B7B7D /* CategoryChipCVC.swift */; };
+		3C423F2B29AAF649003B7B7D /* CategoryChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F2A29AAF649003B7B7D /* CategoryChipButton.swift */; };
+		3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F2D29AAF734003B7B7D /* CategoryChipStyle.swift */; };
+		3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F3129AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift */; };
+		3C423F3429AB1DD9003B7B7D /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F3329AB1DD9003B7B7D /* HomeVM.swift */; };
+		3C8A5DAA29ADCE8B007C4395 /* CategoryFilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */; };
 		3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C976C7E29AA3F860002F8A7 /* CaseIterable+.swift */; };
 		3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */; };
 		3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCF129B1CF9A00B82DB7 /* PlaceInformationView.swift */; };
+		3C976C8129AA61110002F8A7 /* PlaceCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C976C8029AA61110002F8A7 /* PlaceCategoryList.swift */; };
+		3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCEB29B0C3C000B82DB7 /* ReetFABSize.swift */; };
+		3CB5CCEE29B0DD0200B82DB7 /* ReetFABImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5CCED29B0DD0200B82DB7 /* ReetFABImage.swift */; };
 		3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBADD3C29A090E7005855B1 /* HomeVC.swift */; };
 		3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */; };
 		3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979929A9041700C0D2FE /* TabBarView.swift */; };
@@ -171,9 +180,18 @@
 		3C2AF0D829913FF000E36342 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3C2AF0DA29914A8C00E36342 /* AssetsImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsImages.swift; sourceTree = "<group>"; };
 		3C2AF0DC29914CAA00E36342 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		3C423F2829AAEA90003B7B7D /* CategoryChipCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChipCVC.swift; sourceTree = "<group>"; };
+		3C423F2A29AAF649003B7B7D /* CategoryChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChipButton.swift; sourceTree = "<group>"; };
+		3C423F2D29AAF734003B7B7D /* CategoryChipStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChipStyle.swift; sourceTree = "<group>"; };
+		3C423F3129AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategoryListDataSource.swift; sourceTree = "<group>"; };
+		3C423F3329AB1DD9003B7B7D /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterCVC.swift; sourceTree = "<group>"; };
 		3C976C7E29AA3F860002F8A7 /* CaseIterable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+.swift"; sourceTree = "<group>"; };
 		3CB5CCEF29B1BB7500B82DB7 /* PlaceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceBottomSheet.swift; sourceTree = "<group>"; };
 		3CB5CCF129B1CF9A00B82DB7 /* PlaceInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInformationView.swift; sourceTree = "<group>"; };
+		3C976C8029AA61110002F8A7 /* PlaceCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategoryList.swift; sourceTree = "<group>"; };
+		3CB5CCEB29B0C3C000B82DB7 /* ReetFABSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFABSize.swift; sourceTree = "<group>"; };
+		3CB5CCED29B0DD0200B82DB7 /* ReetFABImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFABImage.swift; sourceTree = "<group>"; };
 		3CBADD3C29A090E7005855B1 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3CBE979129A8703200C0D2FE /* ReetPlaceTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPlaceTabBarVC.swift; sourceTree = "<group>"; };
 		3CBE979929A9041700C0D2FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -238,6 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				0E67036D29A3CBBC00A5456E /* ReetFAB.swift */,
+				3CB5CCEB29B0C3C000B82DB7 /* ReetFABSize.swift */,
+				3CB5CCED29B0DD0200B82DB7 /* ReetFABImage.swift */,
 			);
 			path = ReetFAB;
 			sourceTree = "<group>";
@@ -505,9 +525,28 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3C423F2729AAEA7C003B7B7D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3C423F2829AAEA90003B7B7D /* CategoryChipCVC.swift */,
+				3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		3C423F2C29AAF717003B7B7D /* CategoryChipButton */ = {
+			isa = PBXGroup;
+			children = (
+				3C423F2A29AAF649003B7B7D /* CategoryChipButton.swift */,
+				3C423F2D29AAF734003B7B7D /* CategoryChipStyle.swift */,
+			);
+			path = CategoryChipButton;
+			sourceTree = "<group>";
+		};
 		3CBADD3729A090E7005855B1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3C423F2729AAEA7C003B7B7D /* Cell */,
 				3CBADD3829A090E7005855B1 /* ViewModel */,
 				3CBADD3929A090E7005855B1 /* Model */,
 				3CBADD3A29A090E7005855B1 /* View */,
@@ -519,6 +558,7 @@
 		3CBADD3829A090E7005855B1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3C423F3329AB1DD9003B7B7D /* HomeVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -526,6 +566,7 @@
 		3CBADD3929A090E7005855B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3C976C8029AA61110002F8A7 /* PlaceCategoryList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -622,6 +663,7 @@
 				0EFE7C3D29B05D1F0051E72D /* ReetTextField */,
 				0EFE7C3429AA46B90051E72D /* ReetBottomSheet */,
 				0E26EAE629A6670500FAB171 /* ReetFAB */,
+				3C423F2C29AAF717003B7B7D /* CategoryChipButton */,
 				A4917E052996A5DF00DF2A65 /* ReetButton */,
 			);
 			path = View;
@@ -759,6 +801,7 @@
 			children = (
 				A4EFC0A5299E750500B066AF /* MyPageMenuDataSource.swift */,
 				A4D09ED3299F9EC4004DEE97 /* UserInfoMenuDataSource.swift */,
+				3C423F3129AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift */,
 			);
 			path = Datasource;
 			sourceTree = "<group>";
@@ -895,11 +938,15 @@
 				A4D09ECC299F9C51004DEE97 /* IconProvider.swift in Sources */,
 				A4917E092996A6B200DF2A65 /* ReetButtonStyle.swift in Sources */,
 				0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */,
+				3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */,
 				3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */,
+				3C423F2929AAEA90003B7B7D /* CategoryChipCVC.swift in Sources */,
 				3C2AED782990B3C200E36342 /* Output.swift in Sources */,
+				3C8A5DAA29ADCE8B007C4395 /* CategoryFilterCVC.swift in Sources */,
 				A4D09ED2299F9DDB004DEE97 /* UserInfoViewModel.swift in Sources */,
 				A4EFC0A6299E750500B066AF /* MyPageMenuDataSource.swift in Sources */,
 				3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */,
+				3CB5CCEE29B0DD0200B82DB7 /* ReetFABImage.swift in Sources */,
 				3C2AED862990B3C300E36342 /* BaseNavigationController.swift in Sources */,
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */,
@@ -913,8 +960,10 @@
 				3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */,
 				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
+				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
+				3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
 				0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */,
 				0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */,
@@ -943,7 +992,9 @@
 				0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */,
 				3C2AED772990B3C200E36342 /* URLResource.swift in Sources */,
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
+				3C423F2B29AAF649003B7B7D /* CategoryChipButton.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
+				3C976C8129AA61110002F8A7 /* PlaceCategoryList.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
 				0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */,
 				0EFE7C4129B05D3D0051E72D /* ReetTextFieldStyle.swift in Sources */,
@@ -983,6 +1034,7 @@
 				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
 				3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */,
+				3C423F3429AB1DD9003B7B7D /* HomeVM.swift in Sources */,
 				A4AABE71299BCBAD00BA9D37 /* BaseAttributedLabel.swift in Sources */,
 				A4EFC0A3299E724E00B066AF /* ForegroundColorProvider.swift in Sources */,
 			);
