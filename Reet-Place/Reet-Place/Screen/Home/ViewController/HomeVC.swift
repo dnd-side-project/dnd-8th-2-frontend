@@ -31,6 +31,8 @@ class HomeVC: BaseViewController {
                 attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray500]
             )
             $0.addLeftPadding(padding: 16)
+            $0.rightViewMode = .whileEditing
+            
             $0.layer.cornerRadius = 8
             $0.addShadow()
         }
@@ -46,7 +48,7 @@ class HomeVC: BaseViewController {
     
     private let placeCategoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         .then {
-            $0.backgroundColor = .yellow
+            $0.backgroundColor = .clear
             
             let layout = UICollectionViewFlowLayout()
                 .then {
@@ -60,6 +62,7 @@ class HomeVC: BaseViewController {
             $0.collectionViewLayout = layout
             
             $0.showsHorizontalScrollIndicator = false
+            $0.clipsToBounds = false
             
             $0.register(CategoryFilterCVC.self, forCellWithReuseIdentifier: CategoryFilterCVC.className)
             $0.register(CategoryChipCVC.self, forCellWithReuseIdentifier: CategoryChipCVC.className)
@@ -78,17 +81,11 @@ class HomeVC: BaseViewController {
         
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-////        placeCategoryCollectionView.invalidateIntrinsicContentSize()
-//    }
-    
     override func configureView() {
         super.configureView()
         
         configureMapView()
-        configureCollectionView()
+        configureSearchTextField()
     }
     
     override func layoutView() {
@@ -124,18 +121,32 @@ extension HomeVC {
         
         let marker = NMFMarker()
         marker.position = NMGLatLng(lat: 37.35838205147338, lng: 127.1052659318825)
+        marker.position = NMGLatLng(lat:37.5453577, lng:126.9525465)
         marker.mapView = mapView
         
+        marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+            let bottemSheet = PlaceBottomSheet()
+            bottemSheet.modalPresentationStyle = .overFullScreen
+            self.present(bottemSheet, animated: true)
+            
+            return true
+        }
         
         let image = NMFOverlayImage(name: "Marker")
         marker.iconImage = image
     }
     
-    private func configureCollectionView() {
-        _ = placeCategoryCollectionView
-            .then {
-                $0.backgroundColor = .clear
+    private func configureSearchTextField() {
+        let rightPaddingView = UIView()
+        rightPaddingView.snp.makeConstraints {
+            $0.width.equalTo(16.0 + 28.0 + 10.0 + 20.0)
         }
+        
+        _ = searchTextField
+            .then {
+                $0.rightView = rightPaddingView
+                $0.rightViewMode = .always
+            }
     }
     
 }
@@ -159,8 +170,8 @@ extension HomeVC {
             $0.height.equalTo(44)
             
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.left.equalTo(mapView.snp.left).offset(20.0)
-            $0.right.equalTo(mapView.snp.right).offset(-20.0)
+            $0.leading.equalTo(mapView.snp.leading).offset(20.0)
+            $0.trailing.equalTo(mapView.snp.trailing).offset(-20.0)
         }
         cancelButton.snp.makeConstraints {
             $0.width.height.equalTo(24.0)
@@ -212,7 +223,8 @@ extension HomeVC {
     
     private func bindButton() {
         searchButton.rx.tap
-            .bind(onNext: {
+            .bind(onNext: { [weak self] in
+                guard let self = self else { return }
                 print("TODO: - Search Place API to be call")
             })
             .disposed(by: bag)
@@ -229,9 +241,13 @@ extension HomeVC {
         
         currentPositionButton.rx.tap
             .asDriver()
-            .drive(onNext: {
-                print("TODO: - located mapView current position")
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                // 서울 프론트원 좌표
+                self.mapView.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat:37.5453577, lng:126.9525465)))
             })
+            .disposed(by: bag)
     }
     
     private func bindTextField() {
@@ -293,6 +309,12 @@ extension HomeVC: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         print(latlng)
+    }
+    
+    func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
+        print("tapedd")
+        
+        return true
     }
     
 }
