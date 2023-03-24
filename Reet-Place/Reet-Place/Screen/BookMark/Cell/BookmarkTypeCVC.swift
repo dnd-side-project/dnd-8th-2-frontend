@@ -21,12 +21,26 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
             $0.layer.masksToBounds = true
         }
     
-    let titleLabel = BaseAttributedLabel(font: AssetFonts.subtitle2, text: "가고싶어요", color: AssetColors.black)
+    let stackView = UIStackView()
+        .then {
+            $0.spacing = 10.0
+            $0.distribution = .fill
+            $0.alignment = .fill
+            $0.axis = .horizontal
+        }
+    
+    let titleLabel = BaseAttributedLabel(font: AssetFonts.subtitle2,
+                                         text: "가고싶어요",
+                                         alignment: .left,
+                                         color: AssetColors.black)
         .then {
             $0.textAlignment = .left
         }
     
-    let countLabel = BaseAttributedLabel(font: AssetFonts.body2, text: "17", color: AssetColors.primary500)
+    let countLabel = BaseAttributedLabel(font: AssetFonts.body2,
+                                         text: "17",
+                                         alignment: .left,
+                                         color: AssetColors.gray500)
         .then {
             $0.textAlignment = .right
         }
@@ -38,12 +52,35 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
     override func configureView() {
         super.configureView()
         
-        addSubviews([thumbnailImageView, titleLabel, countLabel])
+        configureContentView()
     }
     
     override func layoutView() {
         super.layoutView()
         
+        configureLayout()
+    }
+
+    // MARK: - Function
+    
+}
+
+// MARK: - Configure
+
+extension BookmarkTypeCVC {
+    
+    private func configureContentView() {
+        addSubviews([thumbnailImageView, titleLabel, countLabel])
+    }
+    
+}
+
+
+// MARK: - Layout
+
+extension BookmarkTypeCVC {
+    
+    private func configureLayout() {
         titleLabel.snp.makeConstraints {
             $0.bottom.leading.equalToSuperview()
         }
@@ -54,10 +91,8 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
         
         thumbnailImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(titleLabel.snp.top).offset(-8)
+            $0.bottom.equalTo(titleLabel.snp.top).offset(-12)
         }
     }
-
-    // MARK: - Function
     
 }

@@ -122,11 +122,11 @@ extension BookmarkVC {
         bookmarkTypeCV.snp.makeConstraints {
             $0.top.equalTo(allBookmarkBtn.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(270.0)
+            $0.height.equalTo(450.0)
         }
         
         induceBookmarkView.snp.makeConstraints {
-            $0.top.equalTo(bookmarkTypeCV.snp.bottom).offset(40.0)
+            $0.top.equalTo(bookmarkTypeCV.snp.bottom).offset(24.0)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -204,8 +204,10 @@ extension BookmarkVC: UICollectionViewDataSource {
 extension BookmarkVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = (UIScreen.main.bounds.width - (20 * 2) - 16) / 2
-        let cellHeight = cellWidth / 4 * 5 + 29
+//        let cellWidth = (UIScreen.main.bounds.width - (20 * 2) - 16) / 2
+        let cellWidth = UIScreen.main.bounds.width - 40
+//        let cellHeight = cellWidth / 4 * 5 + 29
+        let cellHeight = 160.0 + 12.0 + 21.0
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -216,7 +218,7 @@ extension BookmarkVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let spacingSize = 16
+        let spacingSize = 24
         
         return CGFloat(spacingSize)
     }
