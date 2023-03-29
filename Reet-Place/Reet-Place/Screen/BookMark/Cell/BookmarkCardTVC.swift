@@ -33,6 +33,14 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.axis = .vertical
         }
     
+    let thumbnailImageView = UIImageView()
+        .then {
+            $0.backgroundColor = AssetColors.gray300
+            $0.contentMode = .scaleAspectFill
+            $0.layer.cornerRadius = 4.0
+            $0.layer.masksToBounds = true
+        }
+    
     // 1. 장소 정보 들어가는 View
     let infoView = UIView()
         .then {
@@ -132,8 +140,16 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.alignment = .fill
             $0.axis = .vertical
         }
-    
+    let withPeopleLabel = BaseAttributedLabel(font: .caption,
+                                              text: "함께할 사람들",
+                                              alignment: .left,
+                                              color: AssetColors.gray700)
     let withPeopleView = WithPeopleView()
+    
+    let relatedUrlLabel = BaseAttributedLabel(font: .caption,
+                                              text: "참고링크",
+                                              alignment: .left,
+                                              color: AssetColors.gray700)
     let firstUrlView = RelatedUrlButton()
     let secondUrlView = RelatedUrlButton()
     let thirdUrlView = RelatedUrlButton()
@@ -179,7 +195,10 @@ class BookmarkCardTVC: BaseTableViewCell {
         registeredStackView.isUserInteractionEnabled = true
         
         withPeopleView.peopleLabel.text = nil
-        withPeopleView.isHidden = true
+
+        [withPeopleLabel, withPeopleView, relatedUrlLabel].forEach {
+            $0.isHidden = true
+        }
         
         urlView.forEach {
             $0.urlLabel.text = nil
@@ -217,16 +236,17 @@ class BookmarkCardTVC: BaseTableViewCell {
         
         if !cardInfo.withPeople.isEmpty {
             withPeopleView.peopleLabel.text = cardInfo.withPeople
+            withPeopleLabel.isHidden = false
             withPeopleView.isHidden = false
         }
         
         for (index, url) in [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].enumerated() {
             if let url = url {
                 urlView[index].urlLabel.text = url
+                relatedUrlLabel.isHidden = false
                 urlView[index].isHidden = false
             }
         }
-        
         
     }
     
@@ -235,12 +255,14 @@ class BookmarkCardTVC: BaseTableViewCell {
         expandMoreImageView.image = AssetsImages.expandMore16
         expandMoreImageView.tintColor = AssetColors.primary500
     }
+    
     func deactivateBtn() {
         registeredStackView.isUserInteractionEnabled = false
         registeredLabel.textColor = AssetColors.gray300
         expandMoreImageView.image = AssetsImages.expandLess16
         expandMoreImageView.tintColor = AssetColors.gray300
     }
+    
 }
 
 
@@ -256,9 +278,12 @@ extension BookmarkCardTVC {
         
         contentView.addSubviews([mainStackView, contentBorder])
         
-        mainStackView.addArrangedSubview(infoView)
+        [thumbnailImageView, infoView, registeredView, toggleStackView].forEach {
+            mainStackView.addArrangedSubview($0)
+        }
         
         infoView.addSubviews([placeNameStackView, addressStackView, iconStackView])
+        
         [placeNameLabel, categoryLabel].forEach {
             placeNameStackView.addArrangedSubview($0)
         }
@@ -277,11 +302,7 @@ extension BookmarkCardTVC {
             registeredStackView.addArrangedSubview($0)
         }
         
-        [registeredView, toggleStackView].forEach {
-            mainStackView.addArrangedSubview($0)
-        }
-        
-        [withPeopleView, firstUrlView, secondUrlView, thirdUrlView].forEach {
+        [withPeopleLabel, withPeopleView, relatedUrlLabel, firstUrlView, secondUrlView, thirdUrlView].forEach {
             toggleStackView.addArrangedSubview($0)
         }
         
@@ -310,6 +331,10 @@ extension BookmarkCardTVC {
             $0.bottom.equalToSuperview().offset(-16).priority(.low)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
+        }
+        
+        thumbnailImageView.snp.makeConstraints {
+            $0.height.equalTo(96)
         }
         
         infoView.snp.makeConstraints {
@@ -349,8 +374,15 @@ extension BookmarkCardTVC {
             $0.leading.equalTo(registeredView.snp.leading)
             $0.bottom.equalTo(registeredView.snp.bottom)
         }
+        
         expandMoreImageView.snp.makeConstraints {
             $0.width.equalTo(expandMoreImageView.snp.height)
+        }
+        
+        [withPeopleLabel, relatedUrlLabel].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(14)
+            }
         }
         
         withPeopleView.snp.makeConstraints {
@@ -362,6 +394,8 @@ extension BookmarkCardTVC {
                 $0.height.equalTo(30)
             }
         }
+        
+        toggleStackView.setCustomSpacing(12.0, after: withPeopleView)
     }
  
 }
