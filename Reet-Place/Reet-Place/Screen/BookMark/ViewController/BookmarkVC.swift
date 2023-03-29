@@ -127,7 +127,7 @@ extension BookmarkVC {
         
         induceBookmarkView.snp.makeConstraints {
             $0.top.equalTo(bookmarkTypeCV.snp.bottom).offset(24.0)
-            $0.leading.trailing.equalToSuperview()
+            $0.bottom.leading.trailing.equalToSuperview()
         }
         
         emptyBookmarkView.isHidden = false
@@ -142,9 +142,17 @@ extension BookmarkVC {
 extension BookmarkVC {
     private func bindBtn() {
         allBookmarkBtn.rx.tap
-            .bind(onNext: {
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
                 let bookmarkAllVC = BookmarkAllVC()
                 self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
+            })
+            .disposed(by: bag)
+        
+        induceBookmarkView.goBookmarkBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                print("TODO: - Go to the Home Tab")
             })
             .disposed(by: bag)
     }

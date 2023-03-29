@@ -24,7 +24,7 @@ class InduceBookmarkView: BaseView {
                                     alignment: .center,
                                     color: AssetColors.gray500)
     
-    let btnView = UIView()
+    let goBookmarkBtn = UIButton(type: .system)
     
     let stackView = UIStackView()
         .then {
@@ -32,6 +32,7 @@ class InduceBookmarkView: BaseView {
             $0.distribution = .fill
             $0.alignment = .fill
             $0.axis = .horizontal
+            $0.isUserInteractionEnabled = false
         }
     
     let bookmarkImage = UIImageView(image: AssetsImages.bookmark)
@@ -39,20 +40,21 @@ class InduceBookmarkView: BaseView {
             $0.contentMode = .scaleAspectFit
         }
     
-    let goBookmarkLabel = BaseAttributedLabel(font: AssetFonts.buttonSmall, text: "북마크 하러 가기", alignment: .center, color: AssetColors.black)
+    let goBookmarkLabel = BaseAttributedLabel(font: AssetFonts.buttonSmall,
+                                              text: "북마크 하러 가기",
+                                              alignment: .center,
+                                              color: AssetColors.black)
     
     
     // MARK: - Variables and Properties
     
-    let bag = DisposeBag()
-        
+    
     // MARK: - Life Cycle
     
     override func configureView() {
         super.configureView()
         
         configureContentView()
-        bindBtn()
     }
     
     override func layoutView() {
@@ -69,9 +71,9 @@ class InduceBookmarkView: BaseView {
 extension InduceBookmarkView {
     
     private func configureContentView() {
-        addSubviews([title, btnView])
+        addSubviews([title, goBookmarkBtn])
         
-        btnView.addSubview(stackView)
+        goBookmarkBtn.addSubview(stackView)
         
         [bookmarkImage, goBookmarkLabel].forEach {
             stackView.addArrangedSubview($0)
@@ -91,7 +93,7 @@ extension InduceBookmarkView {
             $0.centerX.equalToSuperview()
         }
         
-        btnView.snp.makeConstraints {
+        goBookmarkBtn.snp.makeConstraints {
             $0.height.equalTo(48)
             $0.width.equalTo(144)
             $0.top.equalTo(title.snp.bottom)
@@ -99,18 +101,9 @@ extension InduceBookmarkView {
         }
         
         stackView.snp.makeConstraints {
-            $0.top.leading.equalTo(btnView).offset(16.0)
-            $0.bottom.trailing.equalTo(btnView).offset(-16.0)
+            $0.top.leading.equalTo(goBookmarkBtn).offset(16.0)
+            $0.bottom.trailing.equalTo(goBookmarkBtn).offset(-16.0)
         }
     }
     
-}
-
-extension InduceBookmarkView {
-
-    private func bindBtn() {
-
-        
-    }
-
 }
