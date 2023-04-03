@@ -37,6 +37,12 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     // 가고싶어요, 다녀왔어요
     let selectTypeBtn = SelectTypeButton()
     
+    // 릿플 점수
+    let starTitle = BaseAttributedLabel(font: .subtitle2,
+                                        text: "릿플 점수",
+                                        alignment: .left,
+                                        color: AssetColors.gray700)
+    
     // 별 개수 선택
     let starToggleBtn = StarToggleButton()
     
@@ -96,10 +102,31 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             $0.layer.masksToBounds = true
         }
     
-    // 저장하기 버튼
-    let saveBtn = ReetButton(with: "저장하기",
-                             for: ReetButtonStyle.primary)
+    // 수정하기 버튼
+    let modifyBtn = ReetButton(with: "수정하기",
+                               for: ReetButtonStyle.secondary)
     
+    // 해제하기 버튼
+    let deleteBtn = UIButton(type: .system)
+    
+    let deleteStackView = UIStackView()
+        .then {
+            $0.spacing = 4.0
+            $0.distribution = .fill
+            $0.alignment = .fill
+            $0.axis = .horizontal
+            $0.isUserInteractionEnabled = false
+        }
+    
+    let deleteImage = UIImageView(image: AssetsImages.delete)
+        .then {
+            $0.contentMode = .scaleAspectFit
+        }
+    
+    let deleteLabel = BaseAttributedLabel(font: .buttonSmall,
+                                          text: "해제하기",
+                                          alignment: .left,
+                                          color: AssetColors.error)
     
     // MARK: - Variables and Properties
     
@@ -122,7 +149,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     override func bindRx() {
         super.bindRx()
         
-        bindAddBtn()
+        bindBtn()
         bindKeyboard()
     }
     
@@ -154,10 +181,20 @@ extension BookmarkBottomSheetVC {
     private func configureContentView() {
         sheetStyle = .h600
 
-        view.addSubviews([placeInformationView, saveBtn, selectStackView])
+        view.addSubviews([placeInformationView, modifyBtn, selectStackView, deleteBtn])
         
-        [selectTypeBtn, starToggleBtn, withPeopleTitle, withPeopleTextField, urlTitle, urlStackView].forEach {
+        [selectTypeBtn,
+         starTitle,
+         starToggleBtn,
+         withPeopleTitle,
+         withPeopleTextField,
+         urlTitle,
+         urlStackView].forEach {
             selectStackView.addArrangedSubview($0)
+        }
+        
+        [starTitle].forEach {
+            selectStackView.setCustomSpacing(5.0, after: $0)
         }
         
         [withPeopleTitle, urlTitle].forEach {
@@ -168,6 +205,11 @@ extension BookmarkBottomSheetVC {
             urlStackView.addArrangedSubview($0)
         }
         
+        deleteBtn.addSubview(deleteStackView)
+        
+        [deleteImage, deleteLabel].forEach {
+            deleteStackView.addArrangedSubview($0)
+        }
     }
     
     func configureSheetData(with cardInfo: BookmarkCardModel) {
@@ -245,10 +287,23 @@ extension BookmarkBottomSheetVC {
             $0.height.equalTo(28)
         }
         
-        saveBtn.snp.makeConstraints {
+        modifyBtn.snp.makeConstraints {
             $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
-            $0.top.equalTo(bottomSheetView.snp.top).offset(516)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(476)
+        }
+        
+        deleteBtn.snp.makeConstraints {
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
+            $0.top.equalTo(modifyBtn.snp.bottom).offset(8)
+            $0.height.equalTo(48)
+        }
+        
+        deleteStackView.snp.makeConstraints {
+            $0.height.equalTo(16)
+            $0.centerX.equalTo(deleteBtn.snp.centerX)
+            $0.centerY.equalTo(deleteBtn.snp.centerY)
         }
     }
     
@@ -268,7 +323,7 @@ extension BookmarkBottomSheetVC {
             .subscribe(onNext: { [weak self] keyboardHeight in
                 guard let self = self else { return }
                 self.bottomSheetView.snp.updateConstraints {
-                    $0.height.equalTo(self.sheetHeight + keyboardHeight - 170)
+                    $0.height.equalTo(self.sheetHeight + keyboardHeight - 130)
                 }
                 self.view.layoutIfNeeded()
             })
@@ -289,7 +344,7 @@ extension BookmarkBottomSheetVC {
             .disposed(by: bag)
     }
     
-    private func bindAddBtn() {
+    private func bindBtn() {
         addBtn.rx.tap
             .bind { [weak self] _ in
                 guard let self = self else { return }
@@ -297,9 +352,18 @@ extension BookmarkBottomSheetVC {
             }
             .disposed(by: bag)
         
-        saveBtn.rx.tap
+        modifyBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
+                print("TODO: - Modify Bookmark API to be call")
+                self.dismissBottomSheet()
+            })
+            .disposed(by: bag)
+        
+        deleteBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                print("TODO: - Delete Bookmark API to be call")
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)
