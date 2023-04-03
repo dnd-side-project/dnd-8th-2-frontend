@@ -152,7 +152,8 @@ extension BookmarkVC {
         induceBookmarkView.goBookmarkBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                print("TODO: - Go to the Home Tab")
+                guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
+                root.activeTabBarItem(targetItemType: .home)
             })
             .disposed(by: bag)
     }
