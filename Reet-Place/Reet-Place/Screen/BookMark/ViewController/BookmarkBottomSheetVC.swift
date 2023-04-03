@@ -179,7 +179,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
 extension BookmarkBottomSheetVC {
     
     private func configureContentView() {
-        sheetStyle = .h600
+        sheetStyle = .h616
 
         view.addSubviews([placeInformationView, modifyBtn, selectStackView, deleteBtn])
         
