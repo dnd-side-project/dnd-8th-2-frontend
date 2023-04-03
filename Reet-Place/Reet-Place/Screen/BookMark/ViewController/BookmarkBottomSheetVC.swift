@@ -128,9 +128,16 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
                                           alignment: .left,
                                           color: AssetColors.error)
     
+    let saveBtn = ReetButton(with: "저장하기",
+                             for: ReetButtonStyle.primary)
+    
+    
     // MARK: - Variables and Properties
     
     var urlField : [ReetTextField] = []
+    
+    var isBookmarking = true
+    
     
     // MARK: - Life Cycle
     
@@ -181,7 +188,7 @@ extension BookmarkBottomSheetVC {
     private func configureContentView() {
         sheetStyle = .h616
 
-        view.addSubviews([placeInformationView, modifyBtn, selectStackView, deleteBtn])
+        view.addSubviews([placeInformationView, modifyBtn, selectStackView, deleteBtn, saveBtn])
         
         [selectTypeBtn,
          starTitle,
@@ -210,10 +217,17 @@ extension BookmarkBottomSheetVC {
         [deleteImage, deleteLabel].forEach {
             deleteStackView.addArrangedSubview($0)
         }
+        
+        modifyBtn.isHidden = !isBookmarking
+        deleteBtn.isHidden = !isBookmarking
+        saveBtn.isHidden = isBookmarking
+        
     }
     
     func configureSheetData(with cardInfo: BookmarkCardModel) {
-        placeInformationView.configurePlaceInfomation(placeName: cardInfo.placeName, address: cardInfo.address, category: cardInfo.categoryName)
+        placeInformationView.configurePlaceInfomation(placeName: cardInfo.placeName,
+                                                      address: cardInfo.address,
+                                                      category: cardInfo.categoryName)
         
         [firstUrl, secondUrl, thirdUrl].forEach {
             urlField.append($0)
@@ -305,6 +319,12 @@ extension BookmarkBottomSheetVC {
             $0.centerX.equalTo(deleteBtn.snp.centerX)
             $0.centerY.equalTo(deleteBtn.snp.centerY)
         }
+        
+        saveBtn.snp.makeConstraints {
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(532)
+        }
     }
     
 }
@@ -364,6 +384,14 @@ extension BookmarkBottomSheetVC {
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 print("TODO: - Delete Bookmark API to be call")
+                self.dismissBottomSheet()
+            })
+            .disposed(by: bag)
+        
+        saveBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                print("TODO: - Save Bookmark API to be call")
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)
