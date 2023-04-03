@@ -83,10 +83,12 @@ extension BookmarkTypeCVC {
     private func configureLayout() {
         titleLabel.snp.makeConstraints {
             $0.bottom.leading.equalToSuperview()
+            $0.height.equalTo(21)
         }
         
         countLabel.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview()
+            $0.height.equalTo(21)
         }
         
         thumbnailImageView.snp.makeConstraints {

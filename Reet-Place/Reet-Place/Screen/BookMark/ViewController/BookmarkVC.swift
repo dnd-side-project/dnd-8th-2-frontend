@@ -40,6 +40,8 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
+    let cvHeight = ((UIScreen.main.bounds.width - 40) / 2 + 33) * 2 + 40 + 24
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -122,7 +124,7 @@ extension BookmarkVC {
         bookmarkTypeCV.snp.makeConstraints {
             $0.top.equalTo(allBookmarkBtn.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(450.0)
+            $0.height.equalTo(cvHeight)
         }
         
         induceBookmarkView.snp.makeConstraints {
@@ -213,10 +215,8 @@ extension BookmarkVC: UICollectionViewDataSource {
 extension BookmarkVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-//        let cellWidth = (UIScreen.main.bounds.width - (20 * 2) - 16) / 2
         let cellWidth = UIScreen.main.bounds.width - 40
-//        let cellHeight = cellWidth / 4 * 5 + 29
-        let cellHeight = 160.0 + 12.0 + 21.0
+        let cellHeight = cellWidth / 2 + 33
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -226,7 +226,7 @@ extension BookmarkVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         let spacingSize = 24
         
         return CGFloat(spacingSize)

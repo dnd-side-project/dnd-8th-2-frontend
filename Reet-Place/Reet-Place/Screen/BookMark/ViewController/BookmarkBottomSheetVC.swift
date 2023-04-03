@@ -366,10 +366,10 @@ extension BookmarkBottomSheetVC {
     
     private func bindBtn() {
         addBtn.rx.tap
-            .bind { [weak self] _ in
+            .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.addUrl()
-            }
+            })
             .disposed(by: bag)
         
         modifyBtn.rx.tap
