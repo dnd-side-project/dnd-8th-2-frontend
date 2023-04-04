@@ -196,13 +196,11 @@ extension BookmarkVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
         
         if indexPath.row == 0 {
-            cell.titleLabel.text = "가고싶어요"
-            cell.countLabel.text = "8"
+            cell.configureData(type: "wish", count: 8)
         }
         
         if indexPath.row == 1 {
-            cell.titleLabel.text = "다녀왔어요"
-            cell.countLabel.text = "4"
+            cell.configureData(type: "visit", count: 4)
         }
         
         return cell

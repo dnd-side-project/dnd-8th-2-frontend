@@ -29,8 +29,13 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
             $0.axis = .horizontal
         }
     
+    let titleImage = UIImageView(image: AssetsImages.markerRoundWishlist21)
+        .then {
+            $0.contentMode = .scaleAspectFit
+        }
+    
     let titleLabel = BaseAttributedLabel(font: AssetFonts.subtitle2,
-                                         text: "가고싶어요",
+                                         text: .empty,
                                          alignment: .left,
                                          color: AssetColors.black)
         .then {
@@ -38,7 +43,7 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
         }
     
     let countLabel = BaseAttributedLabel(font: AssetFonts.body2,
-                                         text: "17",
+                                         text: .empty,
                                          alignment: .left,
                                          color: AssetColors.gray500)
         .then {
@@ -63,6 +68,20 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
 
     // MARK: - Function
     
+    func configureData(type: String, count: Int) {
+        switch type {
+        case "wish":
+            titleLabel.text = "가고싶어요"
+            titleImage.image = AssetsImages.markerRoundWishlist21
+        case "visit":
+            titleLabel.text = "다녀왔어요"
+            titleImage.image = AssetsImages.markerRoundDidVisit21
+        default:
+            break
+        }
+        
+        countLabel.text = String(count)
+    }
 }
 
 // MARK: - Configure
@@ -70,7 +89,12 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
 extension BookmarkTypeCVC {
     
     private func configureContentView() {
-        addSubviews([thumbnailImageView, titleLabel, countLabel])
+        addSubviews([thumbnailImageView, stackView, countLabel])
+        
+        [titleImage, titleLabel].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        
     }
     
 }
@@ -81,7 +105,7 @@ extension BookmarkTypeCVC {
 extension BookmarkTypeCVC {
     
     private func configureLayout() {
-        titleLabel.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.bottom.leading.equalToSuperview()
             $0.height.equalTo(21)
         }
