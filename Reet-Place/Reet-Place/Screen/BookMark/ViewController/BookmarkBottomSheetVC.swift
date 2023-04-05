@@ -43,6 +43,11 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
                                         alignment: .left,
                                         color: AssetColors.gray700)
     
+    let starDesc = BaseAttributedLabel(font: .caption,
+                                       text: .empty,
+                                       alignment: .left,
+                                       color: AssetColors.gray500)
+    
     // 별 개수 선택
     let starToggleBtn = StarToggleButton()
     
@@ -192,6 +197,7 @@ extension BookmarkBottomSheetVC {
         
         [selectTypeBtn,
          starTitle,
+         starDesc,
          starToggleBtn,
          withPeopleTitle,
          withPeopleTextField,
@@ -200,7 +206,7 @@ extension BookmarkBottomSheetVC {
             selectStackView.addArrangedSubview($0)
         }
         
-        [starTitle].forEach {
+        [starTitle, starDesc].forEach {
             selectStackView.setCustomSpacing(5.0, after: $0)
         }
         
@@ -232,6 +238,8 @@ extension BookmarkBottomSheetVC {
         [firstUrl, secondUrl, thirdUrl].forEach {
             urlField.append($0)
         }
+        
+        selectTypeBtn.delegate = self
         
         cardInfo.groupType == "가고싶어요"
         ? selectTypeBtn.selectType(selectTypeBtn.wishBtn)
@@ -395,6 +403,22 @@ extension BookmarkBottomSheetVC {
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)
+    }
+    
+}
+
+
+extension BookmarkBottomSheetVC: TypeSelectAction {
+    
+    func typeChange(type: Int) {
+        switch type {
+        case 1:
+            starDesc.text = "가고싶은 기대감을 릿플 점수로 표현해주세요!"
+        case 2:
+            starDesc.text = "다녀온 이후의 만족도를 릿플 점수로 표현해주세요!"
+        default:
+            starDesc.text = "가고싶은 기대감을 릿플 점수로 표현해주세요!"
+        }
     }
     
 }

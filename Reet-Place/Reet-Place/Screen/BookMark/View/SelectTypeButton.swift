@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol TypeSelectAction {
+    func typeChange(type: Int)
+}
+
 class SelectTypeButton: BaseView {
     
     // MARK: - UI components
@@ -38,6 +42,8 @@ class SelectTypeButton: BaseView {
     
     var selectedTag: Int = 1
     
+    var delegate: TypeSelectAction?
+    
     
     // MARK: - Life Cycle
     
@@ -66,6 +72,8 @@ class SelectTypeButton: BaseView {
         }
         
         selectedTag = sender.tag
+        
+        delegate?.typeChange(type: selectedTag)
         
         switch sender.tag {
         case 1:
