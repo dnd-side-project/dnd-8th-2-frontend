@@ -55,7 +55,7 @@ class ReetPlaceTabBarVC: BaseViewController {
         activeTabBarItem(targetItemType: .home)
     }
     
-    private func activeTabBarItem(targetItemType: TabBarItem) {
+    func activeTabBarItem(targetItemType: TabBarItem) {
         // Set button status
         tabBarView.tabBarStackView.arrangedSubviews.forEach {
             guard let subButton = $0 as? ReetTabBarItemButton else { return }

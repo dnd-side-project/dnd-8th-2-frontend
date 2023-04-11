@@ -44,10 +44,14 @@ struct AssetsImages {
     
     // Bookmark
     static let chevronRight20 = UIImage(named: "ChevronRight20")!.withRenderingMode(.alwaysTemplate)
+    static let markerRoundWishlist21 = UIImage(named: "MarkerRoundWishlist21")!.withRenderingMode(.alwaysOriginal)
+    
+    static let markerRoundDidVisit21 = UIImage(named: "MarkerRoundDidVisit21")!.withRenderingMode(.alwaysOriginal)
     
     // Bottom Sheet
     static let link = UIImage(named: "Link")?.withRenderingMode(.alwaysOriginal)
     static let addFolder = UIImage(named: "AddFolder")?.withRenderingMode(.alwaysOriginal)
+    static let delete = UIImage(named: "Delete16")?.withRenderingMode(.alwaysOriginal)
     
     // TextField
     static let cancelContained24 = UIImage(named: "CancelContained24")?.withRenderingMode(.alwaysTemplate)

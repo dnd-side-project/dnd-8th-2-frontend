@@ -21,6 +21,7 @@ class ReetBottomSheet: BaseViewController {
         case h420
         case h480
         case h600
+        case h616
     }
     
     let dimmedView = UIView()
@@ -61,6 +62,8 @@ class ReetBottomSheet: BaseViewController {
             return 480.0
         case .h600:
             return 600.0
+        case .h616:
+            return 616.0
         }
     }
     

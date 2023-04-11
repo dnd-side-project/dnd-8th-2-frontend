@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol TypeSelectAction {
+    func typeChange(type: Int)
+}
+
 class SelectTypeButton: BaseView {
     
     // MARK: - UI components
@@ -37,6 +41,8 @@ class SelectTypeButton: BaseView {
     // MARK: - Variables and Properties
     
     var selectedTag: Int = 1
+    
+    var delegate: TypeSelectAction?
     
     
     // MARK: - Life Cycle
@@ -67,13 +73,17 @@ class SelectTypeButton: BaseView {
         
         selectedTag = sender.tag
         
+        delegate?.typeChange(type: selectedTag)
+        
         switch sender.tag {
         case 1:
             wishBtn.isSelected = true
-            wishBtn.layer.borderColor = AssetColors.black.cgColor
+            wishBtn.layer.borderColor = AssetColors.primary500.cgColor
             wishBtn.layer.borderWidth = 2.0
         case 2:
             historyBtn.isSelected = true
+            historyBtn.layer.borderColor = AssetColors.gray800.cgColor
+            historyBtn.layer.borderWidth = 2.0
         default:
             fatalError()
         }
@@ -127,22 +137,22 @@ extension SelectTypeButton {
         wishBtn.layer.borderColor = AssetColors.black.cgColor
         wishBtn.layer.borderWidth = 2.0
         
-        wishBtn.setTitleColor(AssetColors.black, for: [.selected, .highlighted])
-        wishBtn.setTitleColor(AssetColors.black, for: .selected)
+        wishBtn.setTitleColor(AssetColors.primary500, for: [.selected, .highlighted])
+        wishBtn.setTitleColor(AssetColors.primary500, for: .selected)
         
-        wishBtn.setBackgroundImage(AssetsImages.radialGradient, for: [.selected, .highlighted])
-        wishBtn.setBackgroundImage(AssetsImages.radialGradient, for: .selected)
+        wishBtn.setBackgroundColor(AssetColors.primary50, for: [.selected, .highlighted])
+        wishBtn.setBackgroundColor(AssetColors.primary50, for: .selected)
     }
     
     func configureHistoryBtn() {
-        historyBtn.layer.borderColor = AssetColors.gray300.cgColor
+        historyBtn.layer.borderColor = AssetColors.gray800.cgColor
         historyBtn.layer.borderWidth = 1.0
         
-        historyBtn.setTitleColor(AssetColors.white, for: [.selected, .highlighted])
-        historyBtn.setTitleColor(AssetColors.white, for: .selected)
+        historyBtn.setTitleColor(AssetColors.gray800, for: [.selected, .highlighted])
+        historyBtn.setTitleColor(AssetColors.gray800, for: .selected)
         
-        historyBtn.setBackgroundColor(AssetColors.black, for: [.selected, .highlighted])
-        historyBtn.setBackgroundColor(AssetColors.black, for: .selected)
+        historyBtn.setBackgroundColor(AssetColors.gray100, for: [.selected, .highlighted])
+        historyBtn.setBackgroundColor(AssetColors.gray100, for: .selected)
     }
     
 }

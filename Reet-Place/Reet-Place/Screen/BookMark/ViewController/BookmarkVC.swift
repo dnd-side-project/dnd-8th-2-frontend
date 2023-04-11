@@ -40,6 +40,8 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
+    let cvHeight = ((UIScreen.main.bounds.width - 40) / 2 + 33) * 2 + 40 + 24
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -122,12 +124,12 @@ extension BookmarkVC {
         bookmarkTypeCV.snp.makeConstraints {
             $0.top.equalTo(allBookmarkBtn.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(270.0)
+            $0.height.equalTo(cvHeight)
         }
         
         induceBookmarkView.snp.makeConstraints {
-            $0.top.equalTo(bookmarkTypeCV.snp.bottom).offset(40.0)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(bookmarkTypeCV.snp.bottom).offset(24.0)
+            $0.bottom.leading.trailing.equalToSuperview()
         }
         
         emptyBookmarkView.isHidden = false
@@ -142,9 +144,18 @@ extension BookmarkVC {
 extension BookmarkVC {
     private func bindBtn() {
         allBookmarkBtn.rx.tap
-            .bind(onNext: {
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
                 let bookmarkAllVC = BookmarkAllVC()
                 self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
+            })
+            .disposed(by: bag)
+        
+        induceBookmarkView.goBookmarkBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
+                root.activeTabBarItem(targetItemType: .home)
             })
             .disposed(by: bag)
     }
@@ -185,13 +196,11 @@ extension BookmarkVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
         
         if indexPath.row == 0 {
-            cell.titleLabel.text = "가고싶어요"
-            cell.countLabel.text = "8"
+            cell.configureData(type: "wish", count: 8)
         }
         
         if indexPath.row == 1 {
-            cell.titleLabel.text = "다녀왔어요"
-            cell.countLabel.text = "4"
+            cell.configureData(type: "visit", count: 4)
         }
         
         return cell
@@ -204,8 +213,8 @@ extension BookmarkVC: UICollectionViewDataSource {
 extension BookmarkVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = (UIScreen.main.bounds.width - (20 * 2) - 16) / 2
-        let cellHeight = cellWidth / 4 * 5 + 29
+        let cellWidth = UIScreen.main.bounds.width - 40
+        let cellHeight = cellWidth / 2 + 33
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -215,8 +224,8 @@ extension BookmarkVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let spacingSize = 16
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        let spacingSize = 24
         
         return CGFloat(spacingSize)
     }

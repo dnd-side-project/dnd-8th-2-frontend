@@ -273,6 +273,8 @@
 				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
 				0EFE7C4229B1F6590051E72D /* InduceBookmarkView.swift */,
 				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
+				0EFE7C3929AA60880051E72D /* StarToggleButton.swift */,
+				0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */,
 				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
 			);
 			path = View;
@@ -495,8 +497,6 @@
 				3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */,
 				0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */,
 				0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */,
-				0EFE7C3929AA60880051E72D /* StarToggleButton.swift */,
-				0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */,
 				0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */,
 				0EA432DA29A089F300C4D47F /* BookmarkHistoryVC.swift */,
 			);
