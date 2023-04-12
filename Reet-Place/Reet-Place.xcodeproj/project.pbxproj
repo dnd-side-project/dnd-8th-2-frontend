@@ -21,6 +21,7 @@
 		0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */; };
 		0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E429A136A700C4D47F /* WithPeopleView.swift */; };
 		0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */; };
+		0EAD37DA29E6F13600C3EA38 /* BookmarkVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
 		0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */; };
 		0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* StarToggleButton.swift */; };
@@ -137,6 +138,7 @@
 		0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardListVM.swift; sourceTree = "<group>"; };
 		0EA432E429A136A700C4D47F /* WithPeopleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithPeopleView.swift; sourceTree = "<group>"; };
 		0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedUrlButton.swift; sourceTree = "<group>"; };
+		0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVM.swift; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* StarToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarToggleButton.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */,
+				0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1036,6 +1039,7 @@
 				3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */,
 				3C2AED792990B3C200E36342 /* Input.swift in Sources */,
 				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
+				0EAD37DA29E6F13600C3EA38 /* BookmarkVM.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
 				3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */,
 				3C423F3429AB1DD9003B7B7D /* HomeVM.swift in Sources */,

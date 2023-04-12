@@ -26,7 +26,7 @@ class BookmarkVC: BaseNavigationViewController {
         return collectionView
     }()
     
-    let allBookmarkBtn = AllBookmarkButton(count: 12)
+    var allBookmarkBtn = AllBookmarkButton(count: 12)
     
     let emptyBookmarkView = EmptyBookmarkView()
     
@@ -40,6 +40,8 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
+    private let viewModel = BookmarkVM()
+    
     let cvHeight = ((UIScreen.main.bounds.width - 40) / 2 + 33) * 2 + 40 + 24
     
     // MARK: - Life Cycle
@@ -47,6 +49,12 @@ class BookmarkVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.getBookmarkMock()
     }
     
     override func configureView() {
@@ -67,14 +75,22 @@ class BookmarkVC: BaseNavigationViewController {
     }
     
     override func bindInput() {
+        super.bindInput()
+        
         bindBtn()
     }
     
-    override func bindOutput() {}
+    override func bindOutput() {
+        super.bindOutput()
+        
+        bindBookmark()
+    }
+    
     
     // MARK: - Functions
     
 }
+
 
 // MARK: - Configure
 
@@ -161,6 +177,43 @@ extension BookmarkVC {
     }
 }
 
+
+// MARK: - Output
+
+extension BookmarkVC {
+    
+    private func bindBookmark() {
+        viewModel.output.BookmarkAllCnt
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                let allCnt = self.viewModel.output.BookmarkAllCnt.value
+                
+                self.allBookmarkBtn.configureButton(for: allCnt > 0 ? .active : .disabled,
+                                                    count: allCnt)
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.BookmarkWishlistCnt
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.bookmarkTypeCV.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.BookmarkHistoryCnt
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.bookmarkTypeCV.reloadData()
+                }
+            })
+            .disposed(by: bag)
+    }
+}
+
+
 // MARK: - UICollectionViewDelegate
 
 extension BookmarkVC: UICollectionViewDelegate {
@@ -195,12 +248,15 @@ extension BookmarkVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
         
+        let wishCnt = viewModel.output.BookmarkWishlistCnt.value
+        let historyCnt = viewModel.output.BookmarkHistoryCnt.value
+        
         if indexPath.row == 0 {
-            cell.configureData(type: "wish", count: 8)
+            cell.configureData(type: "wish", count: wishCnt)
         }
         
         if indexPath.row == 1 {
-            cell.configureData(type: "visit", count: 4)
+            cell.configureData(type: "visit", count: historyCnt)
         }
         
         return cell
@@ -211,6 +267,7 @@ extension BookmarkVC: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension BookmarkVC: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = UIScreen.main.bounds.width - 40
@@ -229,4 +286,5 @@ extension BookmarkVC: UICollectionViewDelegateFlowLayout {
         
         return CGFloat(spacingSize)
     }
+    
 }
