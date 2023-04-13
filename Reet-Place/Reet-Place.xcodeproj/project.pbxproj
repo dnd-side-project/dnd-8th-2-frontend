@@ -270,14 +270,11 @@
 			isa = PBXGroup;
 			children = (
 				0E9122FF299BF1450023EA59 /* AllBookmarkButton.swift */,
-				0E67036929A201F400A5456E /* BookmarkFilterView.swift */,
 				0E912305299D3FF40023EA59 /* EmptyBookmarkView.swift */,
-				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
 				0EFE7C4229B1F6590051E72D /* InduceBookmarkView.swift */,
-				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
-				0EFE7C3929AA60880051E72D /* StarToggleButton.swift */,
-				0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */,
 				0E912309299E6E080023EA59 /* RequestLoginView.swift */,
+				0EAD37DC29E7C7DD00C3EA38 /* BookmarkCard */,
+				0EAD37DB29E7C79200C3EA38 /* BookmarkBottomSheet */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +303,25 @@
 				0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0EAD37DB29E7C79200C3EA38 /* BookmarkBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				0EFE7C3929AA60880051E72D /* StarToggleButton.swift */,
+				0EFE7C3B29ABBC870051E72D /* SelectTypeButton.swift */,
+			);
+			path = BookmarkBottomSheet;
+			sourceTree = "<group>";
+		};
+		0EAD37DC29E7C7DD00C3EA38 /* BookmarkCard */ = {
+			isa = PBXGroup;
+			children = (
+				0E67036929A201F400A5456E /* BookmarkFilterView.swift */,
+				0EA432E429A136A700C4D47F /* WithPeopleView.swift */,
+				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
+			);
+			path = BookmarkCard;
 			sourceTree = "<group>";
 		};
 		0EFE7C3429AA46B90051E72D /* ReetBottomSheet */ = {
@@ -500,8 +516,8 @@
 				3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */,
 				0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */,
 				0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */,
-				0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */,
 				0EA432DA29A089F300C4D47F /* BookmarkHistoryVC.swift */,
+				0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
