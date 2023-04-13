@@ -121,14 +121,14 @@ extension BookmarkHistoryVC: UITableViewDelegate {
 
 extension BookmarkHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.cardList.value.count
+        viewModel.output.cardList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
         cell.selectionStyle = .none
         
-        let cardInfo = viewModel.cardList.value[indexPath.row]
+        let cardInfo = viewModel.output.cardList.value[indexPath.row]
         
         cell.configureCell(with: cardInfo)
         cell.index = indexPath.row
@@ -144,15 +144,15 @@ extension BookmarkHistoryVC: UITableViewDataSource {
 extension BookmarkHistoryVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
-        var card = viewModel.cardList.value
+        var card = viewModel.output.cardList.value
         card[index].infoHidden = !card[index].infoHidden
-        viewModel.cardList.accept(card)
+        viewModel.output.cardList.accept(card)
         tableView.reloadData()
     }
     
     func showMenu(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC()
-        let cardInfo = viewModel.cardList.value[index]
+        let cardInfo = viewModel.output.cardList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         
         bottomSheetVC.modalPresentationStyle = .overFullScreen
