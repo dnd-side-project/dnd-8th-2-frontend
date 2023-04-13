@@ -44,6 +44,11 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewModel.getHistoryList()
     }
     
@@ -57,6 +62,17 @@ class BookmarkHistoryVC: BaseNavigationViewController {
         super.layoutView()
         
         configureLayout()
+    }
+    
+    override func bindInput() {
+        super.bindInput()
+        
+    }
+    
+    override func bindOutput() {
+        super.bindOutput()
+        
+        bindBookmarkHistory()
     }
     
     // MARK: - Functions
@@ -103,6 +119,25 @@ extension BookmarkHistoryVC {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(BookmarkCardTVC.self, forCellReuseIdentifier: BookmarkCardTVC.className)
+    }
+    
+}
+
+
+// MARK: - Output
+
+extension BookmarkHistoryVC {
+    
+    private func bindBookmarkHistory() {
+        viewModel.output.cardList
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
     }
     
 }

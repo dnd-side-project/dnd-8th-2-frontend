@@ -42,6 +42,11 @@ class BookmarkAllVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewModel.getAllList()
     }
     
@@ -55,6 +60,17 @@ class BookmarkAllVC: BaseNavigationViewController {
         super.layoutView()
         
         configureLayout()
+    }
+    
+    override func bindInput() {
+        super.bindInput()
+        
+    }
+    
+    override func bindOutput() {
+        super.bindOutput()
+        
+        bindBookmarkAll()
     }
     
     // MARK: - Functions
@@ -102,6 +118,25 @@ extension BookmarkAllVC {
         tableView.register(BookmarkCardTVC.self, forCellReuseIdentifier: BookmarkCardTVC.className)
         
         
+    }
+    
+}
+
+
+// MARK: - Output
+
+extension BookmarkAllVC {
+    
+    private func bindBookmarkAll() {
+        viewModel.output.cardList
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
     }
     
 }

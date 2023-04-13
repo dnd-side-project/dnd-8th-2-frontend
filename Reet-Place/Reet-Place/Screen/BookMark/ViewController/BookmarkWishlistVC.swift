@@ -44,6 +44,11 @@ class BookmarkWishlistVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewModel.getWishList()
     }
     
@@ -57,6 +62,17 @@ class BookmarkWishlistVC: BaseNavigationViewController {
         super.layoutView()
         
         configureLayout()
+    }
+    
+    override func bindInput() {
+        super.bindInput()
+        
+    }
+    
+    override func bindOutput() {
+        super.bindOutput()
+        
+        bindBookmarkWishList()
     }
     
     // MARK: - Functions
@@ -105,6 +121,24 @@ extension BookmarkWishlistVC {
         tableView.register(BookmarkCardTVC.self, forCellReuseIdentifier: BookmarkCardTVC.className)
     }
     
+}
+
+
+// MARK: - Output
+
+extension BookmarkWishlistVC {
+    
+    private func bindBookmarkWishList() {
+        viewModel.output.cardList
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+    }
 }
 
 
