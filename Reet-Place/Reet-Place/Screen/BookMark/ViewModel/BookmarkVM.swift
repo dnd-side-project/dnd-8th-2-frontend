@@ -21,8 +21,16 @@ final class BookmarkVM: BaseViewModel {
     struct Input { }
     
     struct Output {
+        private let authToken = BehaviorRelay(value: KeychainManager.shared.read(for: .authToken))
+        
+        var isAuthenticated: Observable<Bool> {
+            authToken.map { $0 != nil }
+        }
+        
         var BookmarkAllCnt = BehaviorRelay<Int>(value: 0)
+        
         var BookmarkWishlistCnt = BehaviorRelay<Int>(value: 0)
+        
         var BookmarkHistoryCnt = BehaviorRelay<Int>(value: 0)
     }
     

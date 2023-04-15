@@ -84,6 +84,7 @@ class BookmarkVC: BaseNavigationViewController {
         super.bindOutput()
         
         bindBookmark()
+        bindType()
     }
     
     
@@ -174,6 +175,8 @@ extension BookmarkVC {
                 root.activeTabBarItem(targetItemType: .home)
             })
             .disposed(by: bag)
+        
+        
     }
 }
 
@@ -211,6 +214,23 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
     }
+    
+    private func bindType() {
+        viewModel.output.isAuthenticated
+            .withUnretained(self)
+            .bind(onNext: { owner, isAuthenticated in
+                DispatchQueue.main.async {
+                    owner.allBookmarkBtn.isHidden = !isAuthenticated
+                    owner.bookmarkTypeCV.isHidden = !isAuthenticated
+                    owner.emptyBookmarkView.isHidden = !isAuthenticated
+                    owner.induceBookmarkView.isHidden = !isAuthenticated
+                    
+                    owner.requestLoginView.isHidden = isAuthenticated
+                }
+            })
+            .disposed(by: bag)
+    }
+    
 }
 
 
