@@ -176,7 +176,13 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
-        
+        emptyBookmarkView.aroundMeBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
+                root.activeTabBarItem(targetItemType: .home)
+            })
+            .disposed(by: bag)
     }
 }
 
@@ -226,6 +232,17 @@ extension BookmarkVC {
                     owner.induceBookmarkView.isHidden = !isAuthenticated
                     
                     owner.requestLoginView.isHidden = isAuthenticated
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.isEmptyBookmark
+            .withUnretained(self)
+            .bind(onNext: { owner, isEmptyBookmark in
+                DispatchQueue.main.async {
+                    owner.bookmarkTypeCV.isHidden = isEmptyBookmark
+                    owner.induceBookmarkView.isHidden = isEmptyBookmark
+                    owner.emptyBookmarkView.isHidden = !isEmptyBookmark
                 }
             })
             .disposed(by: bag)
