@@ -13,6 +13,8 @@ import RxCocoa
 import Then
 import SnapKit
 
+import Kingfisher
+
 class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - UI components
@@ -44,6 +46,9 @@ class BookmarkVC: BaseNavigationViewController {
     
     let cvHeight = ((UIScreen.main.bounds.width - 40) / 2 + 33) * 2 + 40 + 24
     
+    var wishListInfo: TypeInfo?
+    var historyInfo: TypeInfo?
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -54,6 +59,7 @@ class BookmarkVC: BaseNavigationViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        removeCache()
         viewModel.getBookmarkMock()
     }
     
@@ -90,6 +96,17 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - Functions
     
+    private func removeCache() {
+        
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache {
+            print("clearDiskCache Done")
+        }
+        
+        ImageCache.default.cleanExpiredMemoryCache()
+        ImageCache.default.cleanExpiredDiskCache()
+        
+    }
 }
 
 
@@ -202,18 +219,22 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
-        viewModel.output.BookmarkWishlistCnt
-            .subscribe(onNext: { [weak self] _ in
+        viewModel.output.BookmarkWishlistInfo
+            .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }
+                self.wishListInfo = data
+                
                 DispatchQueue.main.async {
                     self.bookmarkTypeCV.reloadData()
                 }
             })
             .disposed(by: bag)
         
-        viewModel.output.BookmarkHistoryCnt
-            .subscribe(onNext: { [weak self] _ in
+        viewModel.output.BookmarkHistoryInfo
+            .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }
+                self.historyInfo = data
+                
                 DispatchQueue.main.async {
                     self.bookmarkTypeCV.reloadData()
                 }
@@ -285,15 +306,15 @@ extension BookmarkVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
         
-        let wishCnt = viewModel.output.BookmarkWishlistCnt.value
-        let historyCnt = viewModel.output.BookmarkHistoryCnt.value
+        guard let wishListInfo = wishListInfo,
+              let historyInfo = historyInfo else { return cell }
         
         if indexPath.row == 0 {
-            cell.configureData(type: "wish", count: wishCnt)
+            cell.configureData(typeInfo: wishListInfo)
         }
         
         if indexPath.row == 1 {
-            cell.configureData(type: "visit", count: historyCnt)
+            cell.configureData(typeInfo: historyInfo)
         }
         
         return cell

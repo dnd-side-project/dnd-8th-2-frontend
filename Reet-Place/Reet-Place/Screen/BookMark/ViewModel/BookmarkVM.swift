@@ -33,9 +33,9 @@ final class BookmarkVM: BaseViewModel {
         
         var BookmarkAllCnt = BehaviorRelay<Int>(value: 0)
         
-        var BookmarkWishlistCnt = BehaviorRelay<Int>(value: 0)
+        var BookmarkWishlistInfo = PublishRelay<TypeInfo>()
         
-        var BookmarkHistoryCnt = BehaviorRelay<Int>(value: 0)
+        var BookmarkHistoryInfo = PublishRelay<TypeInfo>()
     }
     
     init() {
@@ -72,12 +72,9 @@ extension BookmarkVM {
         BookmarkMainModel.getMock { [weak self] data in
             guard let self = self else { return }
             
-            let wishListCnt = data.bookmarkMainInfo[0].cnt
-            let historyCnt = data.bookmarkMainInfo[1].cnt
-            
-            self.output.BookmarkWishlistCnt.accept(wishListCnt)
-            self.output.BookmarkHistoryCnt.accept(historyCnt)
-            self.output.BookmarkAllCnt.accept(wishListCnt + historyCnt)
+            self.output.BookmarkAllCnt.accept(data.bookmarkMainInfo[0].cnt + data.bookmarkMainInfo[1].cnt)
+            self.output.BookmarkWishlistInfo.accept(data.bookmarkMainInfo[0])
+            self.output.BookmarkHistoryInfo.accept(data.bookmarkMainInfo[1])
         }
     }
     

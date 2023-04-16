@@ -68,19 +68,20 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
 
     // MARK: - Function
     
-    func configureData(type: String, count: Int) {
-        switch type {
-        case "wish":
+    func configureData(typeInfo: TypeInfo) {
+        switch typeInfo.type {
+        case "WANT":
             titleLabel.text = "가고싶어요"
             titleImage.image = AssetsImages.markerRoundWishlist21
-        case "visit":
+        case "GONE":
             titleLabel.text = "다녀왔어요"
             titleImage.image = AssetsImages.markerRoundDidVisit21
         default:
             break
         }
         
-        countLabel.text = String(count)
+        countLabel.text = String(typeInfo.cnt)
+        thumbnailImageView.setImage(with: typeInfo.thumbnailUrlString)
     }
 }
 
