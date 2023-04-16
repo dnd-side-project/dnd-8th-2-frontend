@@ -15,8 +15,8 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
     
     let thumbnailImageView = UIImageView()
         .then {
-            $0.backgroundColor = AssetColors.gray300
             $0.contentMode = .scaleAspectFill
+            $0.layer.borderColor = AssetColors.gray300.cgColor
             $0.layer.cornerRadius = 8.0
             $0.layer.masksToBounds = true
         }
@@ -81,8 +81,18 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
         }
         
         countLabel.text = String(typeInfo.cnt)
-        thumbnailImageView.setImage(with: typeInfo.thumbnailUrlString)
+        
+        if typeInfo.cnt > 0 {
+            thumbnailImageView.contentMode = .scaleAspectFill
+            thumbnailImageView.layer.borderWidth = 0.0
+            thumbnailImageView.setImage(with: typeInfo.thumbnailUrlString)
+        } else {
+            thumbnailImageView.contentMode = .scaleAspectFit
+            thumbnailImageView.layer.borderWidth = 1.0
+            thumbnailImageView.image = AssetsImages.noData160
+        }
     }
+    
 }
 
 // MARK: - Configure
