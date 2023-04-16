@@ -69,9 +69,16 @@ extension BookmarkVM: Output {
 extension BookmarkVM {
     
     func getBookmarkMock() {
-        output.BookmarkAllCnt.accept(12)
-        output.BookmarkWishlistCnt.accept(8)
-        output.BookmarkHistoryCnt.accept(4)
+        BookmarkMainModel.getMock { [weak self] data in
+            guard let self = self else { return }
+            
+            let wishListCnt = data.bookmarkMainInfo[0].cnt
+            let historyCnt = data.bookmarkMainInfo[1].cnt
+            
+            self.output.BookmarkWishlistCnt.accept(wishListCnt)
+            self.output.BookmarkHistoryCnt.accept(historyCnt)
+            self.output.BookmarkAllCnt.accept(wishListCnt + historyCnt)
+        }
     }
     
 }
