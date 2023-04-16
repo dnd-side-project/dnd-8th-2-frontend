@@ -281,12 +281,16 @@ extension BookmarkVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let wishListInfo = wishListInfo,
+              let historyInfo = historyInfo else { return }
         
         switch indexPath.row {
         case 0:
+            if wishListInfo.cnt == 0 { return }
             let bookmarkWishlistVC = BookmarkWishlistVC()
             self.navigationController?.pushViewController(bookmarkWishlistVC, animated: true)
         case 1:
+            if historyInfo.cnt == 0 { return }
             let bookmarkHistoryVC = BookmarkHistoryVC()
             self.navigationController?.pushViewController(bookmarkHistoryVC, animated: true)
         default:
