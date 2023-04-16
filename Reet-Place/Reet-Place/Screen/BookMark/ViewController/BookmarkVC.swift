@@ -99,8 +99,8 @@ class BookmarkVC: BaseNavigationViewController {
     private func removeCache() {
         
         ImageCache.default.clearMemoryCache()
-        ImageCache.default.clearDiskCache {
-            print("clearDiskCache Done")
+        ImageCache.default.clearDiskCache() {
+            print("TODO: - 임시 이미지 캐시 삭제 기능 삭제")
         }
         
         ImageCache.default.cleanExpiredMemoryCache()

@@ -391,7 +391,7 @@ extension BookmarkBottomSheetVC {
         deleteBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                print("TODO: - Delete Bookmark API to be call")
+                print("TODO: - Pop-up view will appear")
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)

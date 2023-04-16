@@ -295,8 +295,8 @@
 		0EA432DE29A10F0900C4D47F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */,
 				0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */,
+				0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
