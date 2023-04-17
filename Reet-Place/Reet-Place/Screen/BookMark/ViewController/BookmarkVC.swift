@@ -40,6 +40,7 @@ class BookmarkVC: BaseNavigationViewController {
         "Bookmark"
     }
     
+    
     // MARK: - Variables and Properties
     
     private let viewModel = BookmarkVM()
@@ -48,6 +49,7 @@ class BookmarkVC: BaseNavigationViewController {
     
     var wishListInfo: TypeInfo?
     var historyInfo: TypeInfo?
+    
     
     // MARK: - Life Cycle
     
@@ -96,6 +98,7 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - Functions
     
+    // 임시 이미지 캐시 삭제
     private func removeCache() {
         
         ImageCache.default.clearMemoryCache()
@@ -177,6 +180,7 @@ extension BookmarkVC {
 
 extension BookmarkVC {
     private func bindBtn() {
+        // 북마크 모두 보기
         allBookmarkBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -185,6 +189,7 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
+        // 북마크 하러 가기 버튼
         induceBookmarkView.goBookmarkBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -193,6 +198,7 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
+        // 북마크가 없을 때 -> 내 주변 둘러보기 버튼
         emptyBookmarkView.aroundMeBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -209,6 +215,7 @@ extension BookmarkVC {
 extension BookmarkVC {
     
     private func bindBookmark() {
+        // 북마크 All 개수
         viewModel.output.BookmarkAllCnt
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -219,6 +226,7 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
+        // 북마크 - 가고싶어요 개수, 이미지
         viewModel.output.BookmarkWishlistInfo
             .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }
@@ -230,6 +238,7 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
+        // 북마크 - 다녀왔어요 개수, 이미지
         viewModel.output.BookmarkHistoryInfo
             .subscribe(onNext: { [weak self] data in
                 guard let self = self else { return }
@@ -243,6 +252,7 @@ extension BookmarkVC {
     }
     
     private func bindType() {
+        // 로그인 여부 체크
         viewModel.output.isAuthenticated
             .withUnretained(self)
             .bind(onNext: { owner, isAuthenticated in
@@ -257,6 +267,7 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
+        // 북마크 개수가 0개인지 확인
         viewModel.output.isEmptyBookmark
             .withUnretained(self)
             .bind(onNext: { owner, isEmptyBookmark in

@@ -82,6 +82,7 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
         
         countLabel.text = String(typeInfo.cnt)
         
+        // 북마크가 없으면 기본 이미지 노출
         if typeInfo.cnt > 0 {
             thumbnailImageView.contentMode = .scaleAspectFill
             thumbnailImageView.layer.borderWidth = 0.0
