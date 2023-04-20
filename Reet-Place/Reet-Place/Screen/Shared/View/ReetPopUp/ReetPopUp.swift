@@ -41,12 +41,12 @@ class ReetPopUp: BaseViewController {
         }
     
     let popViewTitle = BaseAttributedLabel(font: .h4,
-                                          text: "북마크를 해제할까요?",
+                                           text: .empty,
                                           alignment: .center,
                                           color: AssetColors.black)
     
     let popViewDesc = BaseAttributedLabel(font: .body2,
-                                          text: "북마크를 해제하시면,\n입력하셨던 내용이 전부 사라집니다.",
+                                          text: .empty,
                                           alignment: .center,
                                           color: AssetColors.error)
         .then {
@@ -64,13 +64,29 @@ class ReetPopUp: BaseViewController {
     let cancelBtn = ReetButton(with: "취소",
                                for: ReetButtonStyle.outlined)
     
-    let confirmBtn = ReetButton(with: "해제",
+    let confirmBtn = ReetButton(with: .empty,
                                 for: ReetButtonStyle.secondary)
     
     
     // MARK: - Variables and Properties
     
     let popViewWidth = UIScreen.main.bounds.width - 40.0
+    
+    enum PopStyle {
+        case deleteBookmark
+        case withdrawal
+    }
+    
+    var popType: PopStyle = .deleteBookmark {
+        willSet {
+            switch newValue {
+            case .deleteBookmark:
+                setDeleteBookmark()
+            case .withdrawal:
+                setWithdrawal()
+            }
+        }
+    }
     
     
     // MARK: - Life Cycle
@@ -101,7 +117,31 @@ class ReetPopUp: BaseViewController {
     
     // MARK: - Functions
     
+    func setDeleteBookmark() {
+        popViewTitle.text = "북마크를 해제할까요?"
+        popViewTitle.font = AssetFonts.h4.font
+        
+        popViewDesc.text = "북마크를 해제하시면,\n입력하셨던 내용이 전부 사라집니다."
+        popViewDesc.font = AssetFonts.body2.font
+        popViewDesc.textColor = AssetColors.error
+        
+        confirmBtn.setTitle("해제", for: .normal)
+        confirmBtn.setTitle("해제", for: .highlighted)
+        confirmBtn.setTitle("해제", for: .disabled)
+    }
     
+    func setWithdrawal() {
+        popViewTitle.text = "정말 탈퇴하시겠어요?"
+        popViewTitle.font = AssetFonts.subtitle1.font
+        
+        popViewDesc.text = "탈퇴 이후 당신의 장소들은\n다시 복구되지 않아요."
+        popViewDesc.font = AssetFonts.body1.font
+        popViewDesc.textColor = AssetColors.black
+        
+        confirmBtn.setTitle("탈퇴", for: .normal)
+        confirmBtn.setTitle("탈퇴", for: .highlighted)
+        confirmBtn.setTitle("탈퇴", for: .disabled)
+    }
     
 }
 

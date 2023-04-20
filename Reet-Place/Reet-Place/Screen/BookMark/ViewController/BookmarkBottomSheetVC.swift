@@ -399,6 +399,7 @@ extension BookmarkBottomSheetVC {
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
+                self.popUp.popType = .deleteBookmark
                 self.popUp.modalPresentationStyle = .overFullScreen
                 self.present(self.popUp, animated: false)
             })
