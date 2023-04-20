@@ -136,6 +136,8 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     let saveBtn = ReetButton(with: "저장하기",
                              for: ReetButtonStyle.primary)
     
+    let popUp = ReetPopUp()
+    
     
     // MARK: - Variables and Properties
     
@@ -396,10 +398,22 @@ extension BookmarkBottomSheetVC {
         deleteBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                print("TODO: - Pop-up view will appear")
+                
+                self.popUp.modalPresentationStyle = .overFullScreen
+                self.present(self.popUp, animated: false)
+            })
+            .disposed(by: bag)
+        
+        // 팝업뷰 - 해제하기 버튼
+        popUp.confirmBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                print("TODO: - Delete Bookmark API to be call")
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)
+        
         
         // 저장하기 버튼
         saveBtn.rx.tap

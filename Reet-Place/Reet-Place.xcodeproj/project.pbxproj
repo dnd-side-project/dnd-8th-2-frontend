@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
+		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
 		0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036929A201F400A5456E /* BookmarkFilterView.swift */; };
 		0E67036E29A3CBBC00A5456E /* ReetFAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036D29A3CBBC00A5456E /* ReetFAB.swift */; };
 		0E8CA698299FC63300F98C15 /* BookmarkAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */; };
@@ -128,6 +129,7 @@
 /* Begin PBXFileReference section */
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
 		0E67036929A201F400A5456E /* BookmarkFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkFilterView.swift; sourceTree = "<group>"; };
 		0E67036D29A3CBBC00A5456E /* ReetFAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFAB.swift; sourceTree = "<group>"; };
 		0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAllVC.swift; sourceTree = "<group>"; };
@@ -268,6 +270,14 @@
 				3CB5CCED29B0DD0200B82DB7 /* ReetFABImage.swift */,
 			);
 			path = ReetFAB;
+			sourceTree = "<group>";
+		};
+		0E2D6F5229F1408E0053CD90 /* ReetPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */,
+			);
+			path = ReetPopUp;
 			sourceTree = "<group>";
 		};
 		0E9122FE299BF1390023EA59 /* View */ = {
@@ -688,6 +698,7 @@
 		A4917E042996A5DC00DF2A65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0E2D6F5229F1408E0053CD90 /* ReetPopUp */,
 				0EFE7C3D29B05D1F0051E72D /* ReetTextField */,
 				0EFE7C3429AA46B90051E72D /* ReetBottomSheet */,
 				0E26EAE629A6670500FAB171 /* ReetFAB */,
@@ -989,6 +1000,7 @@
 				3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */,
 				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
+				0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */,
 				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
