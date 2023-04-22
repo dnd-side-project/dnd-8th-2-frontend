@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIViewController {
     
@@ -102,4 +103,34 @@ extension UIViewController {
       embededViewController.removeFromParent()
     }
       
+    /// Toast Message 노출
+    func showToast(message: String) {
+        
+        let toastLabel = BaseAttributedLabel(font: .body2,
+                                             text: message,
+                                             alignment: .center,
+                                             color: AssetColors.white)
+        
+        view.addSubview(toastLabel)
+        
+        toastLabel.snp.makeConstraints {
+            $0.width.equalTo(335)
+            $0.height.equalTo(45)
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-70.0)
+        }
+        
+        toastLabel.backgroundColor = AssetColors.gray900.withAlphaComponent(0.8)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 4.0
+        toastLabel.clipsToBounds = true
+            
+        UIView.animate(withDuration: 0.5, delay: 2.0, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+        
+    }
+    
 }
