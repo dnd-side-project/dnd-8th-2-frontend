@@ -13,6 +13,8 @@ import RxCocoa
 import Then
 import SnapKit
 
+import Kingfisher
+
 class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - UI components
@@ -26,7 +28,7 @@ class BookmarkVC: BaseNavigationViewController {
         return collectionView
     }()
     
-    let allBookmarkBtn = AllBookmarkButton(count: 12)
+    var allBookmarkBtn = AllBookmarkButton(count: 12)
     
     let emptyBookmarkView = EmptyBookmarkView()
     
@@ -38,15 +40,29 @@ class BookmarkVC: BaseNavigationViewController {
         "Bookmark"
     }
     
+    
     // MARK: - Variables and Properties
     
+    private let viewModel = BookmarkVM()
+    
     let cvHeight = ((UIScreen.main.bounds.width - 40) / 2 + 33) * 2 + 40 + 24
+    
+    var wishListInfo: TypeInfo?
+    var historyInfo: TypeInfo?
+    
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        removeCache()
+        viewModel.getBookmarkMock()
     }
     
     override func configureView() {
@@ -67,14 +83,35 @@ class BookmarkVC: BaseNavigationViewController {
     }
     
     override func bindInput() {
+        super.bindInput()
+        
         bindBtn()
     }
     
-    override func bindOutput() {}
+    override func bindOutput() {
+        super.bindOutput()
+        
+        bindBookmark()
+        bindType()
+    }
+    
     
     // MARK: - Functions
     
+    // 임시 이미지 캐시 삭제
+    private func removeCache() {
+        
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache() {
+            print("TODO: - 임시 이미지 캐시 삭제 기능 삭제")
+        }
+        
+        ImageCache.default.cleanExpiredMemoryCache()
+        ImageCache.default.cleanExpiredDiskCache()
+        
+    }
 }
+
 
 // MARK: - Configure
 
@@ -143,6 +180,7 @@ extension BookmarkVC {
 
 extension BookmarkVC {
     private func bindBtn() {
+        // 북마크 모두 보기
         allBookmarkBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -151,7 +189,17 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
         
+        // 북마크 하러 가기 버튼
         induceBookmarkView.goBookmarkBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
+                root.activeTabBarItem(targetItemType: .home)
+            })
+            .disposed(by: bag)
+        
+        // 북마크가 없을 때 -> 내 주변 둘러보기 버튼
+        emptyBookmarkView.aroundMeBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
@@ -160,6 +208,80 @@ extension BookmarkVC {
             .disposed(by: bag)
     }
 }
+
+
+// MARK: - Output
+
+extension BookmarkVC {
+    
+    private func bindBookmark() {
+        // 북마크 All 개수
+        viewModel.output.BookmarkAllCnt
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                let allCnt = self.viewModel.output.BookmarkAllCnt.value
+                
+                self.allBookmarkBtn.configureButton(for: allCnt > 0 ? .active : .disabled,
+                                                    count: allCnt)
+            })
+            .disposed(by: bag)
+        
+        // 북마크 - 가고싶어요 개수, 이미지
+        viewModel.output.BookmarkWishlistInfo
+            .subscribe(onNext: { [weak self] data in
+                guard let self = self else { return }
+                self.wishListInfo = data
+                
+                DispatchQueue.main.async {
+                    self.bookmarkTypeCV.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        // 북마크 - 다녀왔어요 개수, 이미지
+        viewModel.output.BookmarkHistoryInfo
+            .subscribe(onNext: { [weak self] data in
+                guard let self = self else { return }
+                self.historyInfo = data
+                
+                DispatchQueue.main.async {
+                    self.bookmarkTypeCV.reloadData()
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindType() {
+        // 로그인 여부 체크
+        viewModel.output.isAuthenticated
+            .withUnretained(self)
+            .bind(onNext: { owner, isAuthenticated in
+                DispatchQueue.main.async {
+                    owner.allBookmarkBtn.isHidden = !isAuthenticated
+                    owner.bookmarkTypeCV.isHidden = !isAuthenticated
+                    owner.emptyBookmarkView.isHidden = !isAuthenticated
+                    owner.induceBookmarkView.isHidden = !isAuthenticated
+                    
+                    owner.requestLoginView.isHidden = isAuthenticated
+                }
+            })
+            .disposed(by: bag)
+        
+        // 북마크 개수가 0개인지 확인
+        viewModel.output.isEmptyBookmark
+            .withUnretained(self)
+            .bind(onNext: { owner, isEmptyBookmark in
+                DispatchQueue.main.async {
+                    owner.bookmarkTypeCV.isHidden = isEmptyBookmark
+                    owner.induceBookmarkView.isHidden = isEmptyBookmark
+                    owner.emptyBookmarkView.isHidden = !isEmptyBookmark
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
 
 // MARK: - UICollectionViewDelegate
 
@@ -170,12 +292,16 @@ extension BookmarkVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let wishListInfo = wishListInfo,
+              let historyInfo = historyInfo else { return }
         
         switch indexPath.row {
         case 0:
+            if wishListInfo.cnt == 0 { return }
             let bookmarkWishlistVC = BookmarkWishlistVC()
             self.navigationController?.pushViewController(bookmarkWishlistVC, animated: true)
         case 1:
+            if historyInfo.cnt == 0 { return }
             let bookmarkHistoryVC = BookmarkHistoryVC()
             self.navigationController?.pushViewController(bookmarkHistoryVC, animated: true)
         default:
@@ -195,12 +321,15 @@ extension BookmarkVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
         
+        guard let wishListInfo = wishListInfo,
+              let historyInfo = historyInfo else { return cell }
+        
         if indexPath.row == 0 {
-            cell.configureData(type: "wish", count: 8)
+            cell.configureData(typeInfo: wishListInfo)
         }
         
         if indexPath.row == 1 {
-            cell.configureData(type: "visit", count: 4)
+            cell.configureData(typeInfo: historyInfo)
         }
         
         return cell
@@ -211,6 +340,7 @@ extension BookmarkVC: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension BookmarkVC: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let cellWidth = UIScreen.main.bounds.width - 40
@@ -229,4 +359,5 @@ extension BookmarkVC: UICollectionViewDelegateFlowLayout {
         
         return CGFloat(spacingSize)
     }
+    
 }

@@ -42,6 +42,11 @@ class BookmarkAllVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewModel.getAllList()
     }
     
@@ -55,6 +60,17 @@ class BookmarkAllVC: BaseNavigationViewController {
         super.layoutView()
         
         configureLayout()
+    }
+    
+    override func bindInput() {
+        super.bindInput()
+        
+    }
+    
+    override func bindOutput() {
+        super.bindOutput()
+        
+        bindBookmarkAll()
     }
     
     // MARK: - Functions
@@ -107,6 +123,25 @@ extension BookmarkAllVC {
 }
 
 
+// MARK: - Output
+
+extension BookmarkAllVC {
+    
+    private func bindBookmarkAll() {
+        viewModel.output.cardList
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
+
 // MARK: - UITableViewDelegate
 
 extension BookmarkAllVC: UITableViewDelegate {
@@ -120,14 +155,14 @@ extension BookmarkAllVC: UITableViewDelegate {
 
 extension BookmarkAllVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.cardList.value.count
+        viewModel.output.cardList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
         cell.selectionStyle = .none
         
-        let cardInfo = viewModel.cardList.value[indexPath.row]
+        let cardInfo = viewModel.output.cardList.value[indexPath.row]
         
         cell.configureCell(with: cardInfo)
         cell.index = indexPath.row
@@ -143,15 +178,15 @@ extension BookmarkAllVC: UITableViewDataSource {
 extension BookmarkAllVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
-        var card = viewModel.cardList.value
+        var card = viewModel.output.cardList.value
         card[index].infoHidden = !card[index].infoHidden
-        viewModel.cardList.accept(card)
+        viewModel.output.cardList.accept(card)
         tableView.reloadData()
     }
     
     func showMenu(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC()
-        let cardInfo = viewModel.cardList.value[index]
+        let cardInfo = viewModel.output.cardList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         
         bottomSheetVC.modalPresentationStyle = .overFullScreen

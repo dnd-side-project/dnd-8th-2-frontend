@@ -9,17 +9,67 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class BookmarkCardListVM {
+final class BookmarkCardListVM: BaseViewModel {
     
-    var cardList: BehaviorRelay<Array<BookmarkCardModel>> = BehaviorRelay(value: [])
+    var input = Input()
+    var output = Output()
+    
+    var apiSession: APIService = APISession()
+    let apiError = PublishSubject<APIError>()
+    
+    var bag = DisposeBag()
+    
+    struct Input { }
+    
+    struct Output {
+        var cardList: BehaviorRelay<Array<BookmarkCardModel>> = BehaviorRelay(value: [])
+    }
+    
+    init() {
+        bindInput()
+        bindOutput()
+    }
+    
+    deinit {
+        bag = DisposeBag()
+    }
+    
+}
+
+
+// MARK: - Input
+
+extension BookmarkCardListVM: Input {
+    
+    func bindInput() {
+        
+    }
+    
+}
+
+
+// MARK: - Output
+
+extension BookmarkCardListVM: Output {
+    
+    func bindOutput() {
+        
+    }
+    
+}
+
+
+// MARK: - Networking
+
+extension BookmarkCardListVM {
     
     func getAllList() {
         BookmarkCardModel.allMock() { [weak self] cardList in
             guard let self = self else { return }
             
-            let list = self.cardList.value + cardList
+            let list = self.output.cardList.value + cardList
             
-            self.cardList.accept(list)
+            self.output.cardList.accept(list)
         }
     }
     
@@ -27,9 +77,9 @@ final class BookmarkCardListVM {
         BookmarkCardModel.wishMock() { [weak self] cardList in
             guard let self = self else { return }
             
-            let list = self.cardList.value + cardList
+            let list = self.output.cardList.value + cardList
             
-            self.cardList.accept(list)
+            self.output.cardList.accept(list)
         }
     }
     
@@ -37,10 +87,11 @@ final class BookmarkCardListVM {
         BookmarkCardModel.historyMock() { [weak self] cardList in
             guard let self = self else { return }
             
-            let list = self.cardList.value + cardList
+            let list = self.output.cardList.value + cardList
             
-            self.cardList.accept(list)
+            self.output.cardList.accept(list)
         }
     }
+    
     
 }

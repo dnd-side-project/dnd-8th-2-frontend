@@ -45,8 +45,8 @@ struct AssetsImages {
     // Bookmark
     static let chevronRight20 = UIImage(named: "ChevronRight20")!.withRenderingMode(.alwaysTemplate)
     static let markerRoundWishlist21 = UIImage(named: "MarkerRoundWishlist21")!.withRenderingMode(.alwaysOriginal)
-    
     static let markerRoundDidVisit21 = UIImage(named: "MarkerRoundDidVisit21")!.withRenderingMode(.alwaysOriginal)
+    static let noData160 = UIImage(named: "NoData160")!.withRenderingMode(.alwaysOriginal)
     
     // Bottom Sheet
     static let link = UIImage(named: "Link")?.withRenderingMode(.alwaysOriginal)

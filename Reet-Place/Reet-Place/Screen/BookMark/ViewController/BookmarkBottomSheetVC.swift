@@ -343,6 +343,7 @@ extension BookmarkBottomSheetVC {
 extension BookmarkBottomSheetVC {
     
     private func bindKeyboard() {
+        // 키보드가 올라올 때
         keyboardWillShow
             .compactMap { $0.userInfo }
             .map { userInfo -> CGFloat in
@@ -357,6 +358,7 @@ extension BookmarkBottomSheetVC {
             })
             .disposed(by: bag)
         
+        // 키보드가 내려갈 때
         keyboardWillHide
             .compactMap { $0.userInfo }
             .map { userInfo -> CGFloat in
@@ -373,6 +375,7 @@ extension BookmarkBottomSheetVC {
     }
     
     private func bindBtn() {
+        // 관련 url 추가
         addBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -380,6 +383,7 @@ extension BookmarkBottomSheetVC {
             })
             .disposed(by: bag)
         
+        // 수정하기 버튼
         modifyBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -388,14 +392,16 @@ extension BookmarkBottomSheetVC {
             })
             .disposed(by: bag)
         
+        // 삭제하기 버튼
         deleteBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                print("TODO: - Delete Bookmark API to be call")
+                print("TODO: - Pop-up view will appear")
                 self.dismissBottomSheet()
             })
             .disposed(by: bag)
         
+        // 저장하기 버튼
         saveBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }

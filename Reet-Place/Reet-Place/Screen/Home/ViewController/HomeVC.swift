@@ -148,7 +148,7 @@ extension HomeVC {
             [NMGLatLng(lat: 37.54349189922267, lng: 126.9482621178211),
              NMGLatLng(lat: 37.54196065990934, lng: 126.9485339154298)].forEach {
                 let marker = NMFMarker()
-                marker.position = $0
+                marker.position = $0 as! NMGLatLng
                 marker.mapView = mapView
                 
                 let image = NMFOverlayImage(name: "MarkerRoundDefault")
@@ -156,7 +156,7 @@ extension HomeVC {
                 
                 marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                     let bottomSheetVC = PlaceBottomSheet()
-                    let cardInfo = self.viewModel.cardList.value[1]
+                    let cardInfo = self.viewModel.output.cardList.value[1]
                     bottomSheetVC.configurePlaceInformation(placeInfo: cardInfo)
                     
                     bottomSheetVC.modalPresentationStyle = .overFullScreen

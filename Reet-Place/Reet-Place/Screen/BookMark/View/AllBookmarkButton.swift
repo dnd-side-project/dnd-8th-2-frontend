@@ -73,7 +73,7 @@ class AllBookmarkButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureButton(for style: AllButtonStyle, count: Int) {
+    func configureButton(for style: AllButtonStyle, count: Int) {
         
         // stackView 구성
         addSubview(stackView)
@@ -111,12 +111,15 @@ class AllBookmarkButton: UIButton {
             setBackgroundColor(AssetColors.primary50, for: .disabled)
             leftAllLabel.backgroundColor = AssetColors.primary500
             
+            allTitleLabel.textColor = AssetColors.black
             countLabel.textColor = AssetColors.primary500
             rightImageView.tintColor = AssetColors.gray500
             
             self.isEnabled = true
         case .disabled:
             setBackgroundColor(AssetColors.gray100, for: .normal)
+            setBackgroundColor(AssetColors.gray100, for: .highlighted)
+            setBackgroundColor(AssetColors.gray100, for: .disabled)
             leftAllLabel.backgroundColor = AssetColors.gray300
             
             allTitleLabel.textColor = AssetColors.gray300
