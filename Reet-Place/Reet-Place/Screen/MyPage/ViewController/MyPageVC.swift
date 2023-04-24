@@ -84,13 +84,22 @@ class MyPageVC: BaseNavigationViewController {
             .bind(onNext: { owner, menu in
                 switch menu {
                 case .qna:
-                    print("TODO: Go To \(menu.description)")
+                    let vc = SubmitQnaVC()
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
                     
                 case .servicePolicy:
-                    print("TODO: Go To \(menu.description)")
+                    let vc = ServicePolicyVC()
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
                     
                 case .privacyPoilcy:
-                    print("TODO: Go To \(menu.description)")
+                    let vc = PrivacyPolicyVC()
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
                     
                 case .userInfo:
                     let vc = UserInfoVC()
