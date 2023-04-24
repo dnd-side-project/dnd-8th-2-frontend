@@ -104,12 +104,14 @@ extension UIViewController {
     }
       
     /// Toast Message 노출
-    func showToast(message: String) {
+    func showToast(message: String, bottomViewHeight: Double) {
         
         let toastLabel = BaseAttributedLabel(font: .body2,
                                              text: message,
                                              alignment: .center,
                                              color: AssetColors.white)
+        
+        let paddingHeight = 20.0
         
         view.addSubview(toastLabel)
         
@@ -117,7 +119,7 @@ extension UIViewController {
             $0.width.equalTo(335)
             $0.height.equalTo(45)
             $0.centerX.equalTo(view.snp.centerX)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-70.0)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-(bottomViewHeight + paddingHeight))
         }
         
         toastLabel.backgroundColor = AssetColors.gray900.withAlphaComponent(0.8)
