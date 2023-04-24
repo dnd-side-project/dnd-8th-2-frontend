@@ -13,6 +13,7 @@
 		0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */; };
 		0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514129F6721900C44701 /* ServicePolicyVC.swift */; };
 		0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */; };
+		0E5A514629F675F300C44701 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514529F675F300C44701 /* DeleteAccountVC.swift */; };
 		0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036929A201F400A5456E /* BookmarkFilterView.swift */; };
 		0E67036E29A3CBBC00A5456E /* ReetFAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036D29A3CBBC00A5456E /* ReetFAB.swift */; };
 		0E8CA698299FC63300F98C15 /* BookmarkAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */; };
@@ -137,6 +138,7 @@
 		0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitQnaVC.swift; sourceTree = "<group>"; };
 		0E5A514129F6721900C44701 /* ServicePolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePolicyVC.swift; sourceTree = "<group>"; };
 		0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
+		0E5A514529F675F300C44701 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
 		0E67036929A201F400A5456E /* BookmarkFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkFilterView.swift; sourceTree = "<group>"; };
 		0E67036D29A3CBBC00A5456E /* ReetFAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFAB.swift; sourceTree = "<group>"; };
 		0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAllVC.swift; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				A4D09EC7299F984A004DEE97 /* UserInfoVC.swift */,
+				0E5A514529F675F300C44701 /* DeleteAccountVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1016,6 +1019,7 @@
 				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
 				0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */,
+				0E5A514629F675F300C44701 /* DeleteAccountVC.swift in Sources */,
 				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
