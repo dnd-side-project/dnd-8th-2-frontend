@@ -31,6 +31,7 @@
 		0EAD37DA29E6F13600C3EA38 /* BookmarkVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */; };
 		0EB8D81229FF8C0E00E79BA4 /* PopUpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */; };
 		0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */; };
+		0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED227029F8CB6800C8102E /* CheckboxButton.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
 		0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */; };
 		0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* StarToggleButton.swift */; };
@@ -157,6 +158,7 @@
 		0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVM.swift; sourceTree = "<group>"; };
 		0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpType.swift; sourceTree = "<group>"; };
 		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
+		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* StarToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarToggleButton.swift; sourceTree = "<group>"; };
@@ -349,6 +351,14 @@
 				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
 			);
 			path = BookmarkCard;
+			sourceTree = "<group>";
+		};
+		0EED226F29F8CB5C00C8102E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0EED227029F8CB6800C8102E /* CheckboxButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		0EFE7C3429AA46B90051E72D /* ReetBottomSheet */ = {
@@ -745,6 +755,7 @@
 		A4D09EC5299F9839004DEE97 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				0EED226F29F8CB5C00C8102E /* View */,
 				A4D09ED5299F9FBA004DEE97 /* TableViewCell */,
 				A4D09ECD299F9D05004DEE97 /* Model */,
 				A4D09EC6299F9842004DEE97 /* ViewController */,
@@ -1036,6 +1047,7 @@
 				3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */,
 				3C2AED832990B3C300E36342 /* BaseTableViewCell.swift in Sources */,
 				0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */,
+				0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */,
 				3C2AED822990B3C300E36342 /* BaseViewController.swift in Sources */,
 				3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */,
 				0EA432DB29A089F300C4D47F /* BookmarkHistoryVC.swift in Sources */,

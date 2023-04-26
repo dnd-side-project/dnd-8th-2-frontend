@@ -58,4 +58,8 @@ struct AssetsImages {
     
     // Radial Gradient
     static let radialGradient = UIImage(named: "RadialGradient")?.withRenderingMode(.alwaysOriginal)
+    
+    // MyPage
+    static let selectedCheckbox = UIImage(named: "SelectedCheckbox")?.withRenderingMode(.alwaysOriginal)
+    static let deselectedCheckbox = UIImage(named: "DeselectedCheckbox")?.withRenderingMode(.alwaysOriginal)
 }

@@ -53,6 +53,20 @@ class DeleteAccountVC: BaseNavigationViewController {
                                         alignment: .left,
                                         color: AssetColors.gray500)
     
+    let checkboxStackView = UIStackView()
+        .then {
+            $0.distribution = .fill
+            $0.alignment = .fill
+            $0.axis = .vertical
+        }
+    
+    let recordDeleteBtn = CheckboxButton(with: "기록 삭제 목적")
+    let lowUsedBtn = CheckboxButton(with: "사용 빈도가 낮아서")
+    let useOtherServiceBtn = CheckboxButton(with: "다른 서비스 사용 목적")
+    let inconvenienceBtn = CheckboxButton(with: "이용이 불편하고 장애가 많아서")
+    let contentComplaintBtn = CheckboxButton(with: "콘텐츠 불만")
+    let otherBtn = CheckboxButton(with: "기타")
+    
     let deleteBtn = ReetButton(with: "탈퇴하기",
                                for: .outlined)
     
@@ -110,13 +124,17 @@ extension DeleteAccountVC {
     }
     
     private func configureDeleteAccount() {
-        view.addSubviews([descStackView, deleteBtn])
+        view.addSubviews([descStackView, checkboxStackView, deleteBtn])
         
         [confirmTitle, confirmDescView, checkTitle, checkDesc].forEach {
             descStackView.addArrangedSubview($0)
         }
         
         confirmDescView.addSubview(confirmDesc)
+        
+        [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn].forEach {
+            checkboxStackView.addArrangedSubview($0)
+        }
     }
     
 }
@@ -151,6 +169,17 @@ extension DeleteAccountVC {
         
         checkDesc.snp.makeConstraints {
             $0.height.equalTo(21.0)
+        }
+        
+        checkboxStackView.snp.makeConstraints {
+            $0.top.equalTo(descStackView.snp.bottom).offset(12.0)
+            $0.leading.trailing.equalToSuperview().inset(20.0)
+        }
+        
+        [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
         }
         
         deleteBtn.snp.makeConstraints {
