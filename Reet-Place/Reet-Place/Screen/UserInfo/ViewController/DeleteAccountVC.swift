@@ -70,6 +70,8 @@ class DeleteAccountVC: BaseNavigationViewController {
     let deleteBtn = ReetButton(with: "탈퇴하기",
                                for: .outlined)
     
+    private let popUp = ReetPopUp()
+    
     
     // MARK: - Variables and Properties
     
@@ -100,13 +102,14 @@ class DeleteAccountVC: BaseNavigationViewController {
     override func bindInput() {
         super.bindInput()
         
-        
+        bindBtn()
+        bindCheckbox()
     }
     
     override func bindOutput() {
         super.bindOutput()
         
-        
+        bindDeleteBtnEnabled()
     }
     
     // MARK: - Functions
@@ -189,3 +192,95 @@ extension DeleteAccountVC {
     
 }
 
+
+// MARK: - Input
+
+extension DeleteAccountVC {
+    
+    private func bindBtn() {
+        deleteBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.popUp.popType = .withdrawal
+                self.popUp.modalPresentationStyle = .overFullScreen
+                self.present(self.popUp, animated: false)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindCheckbox() {
+        recordDeleteBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.viewModel.output.recordDelete
+                    .accept(self.recordDeleteBtn.isSelected)
+            })
+            .disposed(by: bag)
+        
+        lowUsedBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.viewModel.output.lowUsed
+                    .accept(self.lowUsedBtn.isSelected)
+            })
+            .disposed(by: bag)
+        
+        useOtherServiceBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.viewModel.output.useOtherService
+                    .accept(self.useOtherServiceBtn.isSelected)
+            })
+            .disposed(by: bag)
+        
+        inconvenienceBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.viewModel.output.inconvenience
+                    .accept(self.inconvenienceBtn.isSelected)
+            })
+            .disposed(by: bag)
+        
+        contentComplaintBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.viewModel.output.contentComplaint
+                    .accept(self.contentComplaintBtn.isSelected)
+            })
+            .disposed(by: bag)
+        
+        otherBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.viewModel.output.other
+                    .accept(self.otherBtn.isSelected)
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
+
+// MARK: - Output
+
+extension DeleteAccountVC {
+    
+    private func bindDeleteBtnEnabled() {
+        viewModel.output.deleteEnabled
+            .withUnretained(self)
+            .bind(onNext: { owner, deleteEnabled in
+                DispatchQueue.main.async {
+                    owner.deleteBtn.isEnabled = deleteEnabled
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+}
