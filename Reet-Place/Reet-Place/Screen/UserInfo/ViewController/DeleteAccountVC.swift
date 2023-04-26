@@ -59,6 +59,8 @@ class DeleteAccountVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
+    let viewModel: DeleteAccountVM = DeleteAccountVM()
+    
     
     // MARK: - Life Cycle
     
