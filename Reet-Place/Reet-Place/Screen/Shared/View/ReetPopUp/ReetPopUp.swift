@@ -205,13 +205,6 @@ extension ReetPopUp {
             })
             .disposed(by: bag)
         
-        confirmBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.dismiss(animated: false)
-            })
-            .disposed(by: bag)
     }
     
 }
