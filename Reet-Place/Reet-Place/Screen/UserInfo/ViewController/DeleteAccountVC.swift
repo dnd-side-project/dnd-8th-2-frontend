@@ -66,6 +66,12 @@ class DeleteAccountVC: BaseNavigationViewController {
     let inconvenienceBtn = CheckboxButton(with: "이용이 불편하고 장애가 많아서")
     let contentComplaintBtn = CheckboxButton(with: "콘텐츠 불만")
     let otherBtn = CheckboxButton(with: "기타")
+    let otherTextField = ReetTextField(style: .normal,
+                                       placeholderString: "기타 의견을 입력해주세요.*",
+                                       textString: nil)
+        .then {
+            $0.isHidden = true
+        }
     
     let deleteBtn = ReetButton(with: "탈퇴하기",
                                for: .outlined)
@@ -97,6 +103,12 @@ class DeleteAccountVC: BaseNavigationViewController {
         super.layoutView()
         
         configureLayout()
+    }
+    
+    override func bindRx() {
+        super.bindRx()
+        
+        bindKeyboard()
     }
     
     override func bindInput() {
@@ -148,7 +160,7 @@ extension DeleteAccountVC {
         
         confirmDescView.addSubview(confirmDesc)
         
-        [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn].forEach {
+        [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn, otherTextField].forEach {
             checkboxStackView.addArrangedSubview($0)
         }
     }
@@ -192,7 +204,7 @@ extension DeleteAccountVC {
             $0.leading.trailing.equalToSuperview().inset(20.0)
         }
         
-        [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn].forEach {
+        [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn, otherTextField].forEach {
             $0.snp.makeConstraints {
                 $0.height.equalTo(40)
             }
@@ -272,6 +284,7 @@ extension DeleteAccountVC {
                 
                 self.viewModel.output.other
                     .accept(self.otherBtn.isSelected)
+                self.otherTextField.isHidden = !self.otherBtn.isSelected
             })
             .disposed(by: bag)
     }
@@ -294,4 +307,41 @@ extension DeleteAccountVC {
             .disposed(by: bag)
     }
     
+}
+
+
+// MARK: - Bind
+
+extension DeleteAccountVC {
+    
+    private func bindKeyboard() {
+        // 키보드가 올라갈 때
+        keyboardWillShow
+            .compactMap { $0.userInfo }
+            .map { userInfo -> CGFloat in
+                return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+            }
+            .subscribe(onNext: { [weak self] keyboardHeight in
+                guard let self = self else { return }
+
+                if self.view.frame.origin.y == 0 {
+                    self.view.frame.origin.y -= keyboardHeight - 200
+                }
+                self.view.layoutIfNeeded()
+            })
+            .disposed(by: bag)
+        
+        // 키보드가 내려갈 때
+        keyboardWillHide
+            .compactMap { $0.userInfo }
+            .map { userInfo -> CGFloat in
+                return (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+            }
+            .subscribe(onNext: { [weak self] keyboardHeight in
+                guard let self = self else { return }
+                self.view.frame.origin.y += keyboardHeight - 200
+                self.view.layoutIfNeeded()
+            })
+            .disposed(by: bag)
+    }
 }
