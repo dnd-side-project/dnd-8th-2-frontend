@@ -62,4 +62,5 @@ struct AssetsImages {
     // MyPage
     static let selectedCheckbox = UIImage(named: "SelectedCheckbox")?.withRenderingMode(.alwaysOriginal)
     static let deselectedCheckbox = UIImage(named: "DeselectedCheckbox")?.withRenderingMode(.alwaysOriginal)
+    static let deletedAccount = UIImage(named: "DeletedAccount")?.withRenderingMode(.alwaysOriginal)
 }

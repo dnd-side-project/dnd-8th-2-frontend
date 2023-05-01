@@ -116,6 +116,14 @@ class DeleteAccountVC: BaseNavigationViewController {
     
     @objc func deleteAccount() {
         print("TODO: - Withdrawal API to be call")
+        guard let popUpVC = presentedViewController else { return }
+        
+        popUpVC.dismiss(animated: false) {
+            let accountDeletedVC = AccountDeletedVC()
+            
+            accountDeletedVC.modalPresentationStyle = .overFullScreen
+            self.present(accountDeletedVC, animated: false)
+        }
         
     }
     
