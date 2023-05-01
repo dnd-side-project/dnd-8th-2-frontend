@@ -110,7 +110,22 @@ class MyPageVC: BaseNavigationViewController {
                         .pushViewController(vc, animated: true)
                     
                 case .signout:
-                    print("TODO: Go To \(menu.description)")
+                    let alert = UIAlertController(title: .empty,
+                                                  message: "로그아웃 하시겠습니까?",
+                                                  preferredStyle: .actionSheet)
+                    
+                    let defaultAction = UIAlertAction(title: "예", style: .default) { _ in
+                        print("TODO: - Sign Out API to be call")
+                    }
+                    
+                    let cancelAction = UIAlertAction(title: "아니오", style: .cancel)
+                    
+                    [defaultAction, cancelAction].forEach {
+                        alert.addAction($0)
+                        $0.setValue(AssetColors.black, forKey: "titleTextColor")
+                    }
+                    
+                    owner.present(alert, animated: true)
                 }
             })
             .disposed(by: bag)
