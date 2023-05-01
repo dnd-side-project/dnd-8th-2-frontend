@@ -19,7 +19,7 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
-    let bookmarkTypeCV: UICollectionView = {
+    private let bookmarkTypeCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 16
         layout.scrollDirection = .vertical
@@ -28,13 +28,13 @@ class BookmarkVC: BaseNavigationViewController {
         return collectionView
     }()
     
-    var allBookmarkBtn = AllBookmarkButton(count: 12)
+    private var allBookmarkBtn = AllBookmarkButton(count: 12)
     
-    let emptyBookmarkView = EmptyBookmarkView()
+    private let emptyBookmarkView = EmptyBookmarkView()
     
-    let requestLoginView = RequestLoginView()
+    private let requestLoginView = RequestLoginView()
     
-    let induceBookmarkView = InduceBookmarkView()
+    private let induceBookmarkView = InduceBookmarkView()
     
     override var alias: String {
         "Bookmark"

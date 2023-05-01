@@ -19,20 +19,20 @@ class ReetPopUp: BaseViewController {
     
     // MARK: - UI components
     
-    let dimmedView = UIView()
+    private let dimmedView = UIView()
         .then {
             $0.backgroundColor = AssetColors.gray900.withAlphaComponent(0.7)
         }
     
-    let popView = UIView()
+    private let popView = UIView()
         .then {
             $0.layer.cornerRadius = 5.0
             $0.backgroundColor = .white
         }
     
-    let iconImageView = UIImageView(image: AssetsImages.map20)
+    private let iconImageView = UIImageView(image: AssetsImages.map20)
     
-    let mentStackView = UIStackView()
+    private let mentStackView = UIStackView()
         .then {
             $0.spacing = 12.0
             $0.distribution = .fill
@@ -40,12 +40,12 @@ class ReetPopUp: BaseViewController {
             $0.axis = .vertical
         }
     
-    let popViewTitle = BaseAttributedLabel(font: .h4,
+    private let popViewTitle = BaseAttributedLabel(font: .h4,
                                            text: .empty,
                                           alignment: .center,
                                           color: AssetColors.black)
     
-    let popViewDesc = BaseAttributedLabel(font: .body2,
+    private let popViewDesc = BaseAttributedLabel(font: .body2,
                                           text: .empty,
                                           alignment: .center,
                                           color: AssetColors.error)
@@ -53,7 +53,7 @@ class ReetPopUp: BaseViewController {
             $0.numberOfLines = .zero
         }
     
-    let btnStackView = UIStackView()
+    private let btnStackView = UIStackView()
         .then {
             $0.spacing = 8.0
             $0.distribution = .fillEqually
@@ -61,10 +61,10 @@ class ReetPopUp: BaseViewController {
             $0.axis = .horizontal
         }
     
-    let cancelBtn = ReetButton(with: "취소",
+    private let cancelBtn = ReetButton(with: "취소",
                                for: ReetButtonStyle.outlined)
     
-    let confirmBtn = ReetButton(with: .empty,
+    private let confirmBtn = ReetButton(with: .empty,
                                 for: ReetButtonStyle.secondary)
     
     
