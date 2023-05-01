@@ -185,6 +185,11 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
         }
     }
     
+    @objc func deleteBookmark() {
+        self.dismissBottomSheet()
+        print("TODO: - Delete Bookmark API to be call")
+    }
+    
 }
 
 
@@ -399,22 +404,12 @@ extension BookmarkBottomSheetVC {
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.popUp.popType = .deleteBookmark
-                self.popUp.modalPresentationStyle = .overFullScreen
-                self.present(self.popUp, animated: false)
+                self.showPopUp(popUpType: .deleteBookmark,
+                               targetVC: self,
+                               confirmBtnAction: #selector(self.deleteBookmark))
             })
             .disposed(by: bag)
-        
-        // 팝업뷰 - 해제하기 버튼
-        popUp.confirmBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                print("TODO: - Delete Bookmark API to be call")
-                self.dismissBottomSheet()
-            })
-            .disposed(by: bag)
-        
+
         
         // 저장하기 버튼
         saveBtn.rx.tap

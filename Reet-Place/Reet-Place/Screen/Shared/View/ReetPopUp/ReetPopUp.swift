@@ -72,22 +72,6 @@ class ReetPopUp: BaseViewController {
     
     let popViewWidth = UIScreen.main.bounds.width - 40.0
     
-    enum PopStyle {
-        case deleteBookmark
-        case withdrawal
-    }
-    
-    var popType: PopStyle = .deleteBookmark {
-        willSet {
-            switch newValue {
-            case .deleteBookmark:
-                setDeleteBookmark()
-            case .withdrawal:
-                setWithdrawal()
-            }
-        }
-    }
-    
     
     // MARK: - Life Cycle
     
@@ -116,33 +100,7 @@ class ReetPopUp: BaseViewController {
     
     
     // MARK: - Functions
-    
-    func setDeleteBookmark() {
-        popViewTitle.text = "북마크를 해제할까요?"
-        popViewTitle.font = AssetFonts.h4.font
-        
-        popViewDesc.text = "북마크를 해제하시면,\n입력하셨던 내용이 전부 사라집니다."
-        popViewDesc.font = AssetFonts.body2.font
-        popViewDesc.textColor = AssetColors.error
-        
-        confirmBtn.setTitle("해제", for: .normal)
-        confirmBtn.setTitle("해제", for: .highlighted)
-        confirmBtn.setTitle("해제", for: .disabled)
-    }
-    
-    func setWithdrawal() {
-        popViewTitle.text = "정말 탈퇴하시겠어요?"
-        popViewTitle.font = AssetFonts.subtitle1.font
-        
-        popViewDesc.text = "탈퇴 이후 당신의 장소들은\n다시 복구되지 않아요."
-        popViewDesc.font = AssetFonts.body1.font
-        popViewDesc.textColor = AssetColors.black
-        
-        confirmBtn.setTitle("탈퇴", for: .normal)
-        confirmBtn.setTitle("탈퇴", for: .highlighted)
-        confirmBtn.setTitle("탈퇴", for: .disabled)
-    }
-    
+
 }
 
 
@@ -166,6 +124,20 @@ extension ReetPopUp {
         }
     }
     
+    func configurePopUp(popUpType: PopUpType, targetVC: UIViewController, confirmBtnAction: Selector) {
+        popViewTitle.text = popUpType.popUpTitle
+        popViewTitle.font = popUpType.popUpTitleFont
+        
+        popViewDesc.text = popUpType.popUpDesc
+        popViewDesc.font = popUpType.popUpDescFont
+        popViewDesc.textColor = popUpType.popUpDescColor
+        
+        confirmBtn.setTitle(popUpType.popUpConfirmBtnTitle, for: .normal)
+        confirmBtn.setTitle(popUpType.popUpConfirmBtnTitle, for: .highlighted)
+        confirmBtn.setTitle(popUpType.popUpConfirmBtnTitle, for: .disabled)
+        
+        confirmBtn.addTarget(targetVC, action: confirmBtnAction, for: .touchUpInside)
+    }
 }
 
 

@@ -135,4 +135,14 @@ extension UIViewController {
         
     }
     
+    func showPopUp(popUpType: PopUpType, targetVC: UIViewController, confirmBtnAction: Selector) {
+        let popUpVC = ReetPopUp()
+        
+        popUpVC.configurePopUp(popUpType: popUpType,
+                               targetVC: targetVC,
+                               confirmBtnAction: confirmBtnAction)
+        popUpVC.modalPresentationStyle = .overFullScreen
+        targetVC.present(popUpVC, animated: false)
+    }
+    
 }
