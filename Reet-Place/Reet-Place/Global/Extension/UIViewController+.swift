@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIViewController {
     
@@ -102,4 +103,46 @@ extension UIViewController {
       embededViewController.removeFromParent()
     }
       
+    /// Toast Message 노출
+    func showToast(message: String, bottomViewHeight: Double) {
+        
+        let toastLabel = BaseAttributedLabel(font: .body2,
+                                             text: message,
+                                             alignment: .center,
+                                             color: AssetColors.white)
+        
+        let paddingHeight = 20.0
+        
+        view.addSubview(toastLabel)
+        
+        toastLabel.snp.makeConstraints {
+            $0.width.equalTo(335)
+            $0.height.equalTo(45)
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-(bottomViewHeight + paddingHeight))
+        }
+        
+        toastLabel.backgroundColor = AssetColors.gray900.withAlphaComponent(0.8)
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 4.0
+        toastLabel.clipsToBounds = true
+            
+        UIView.animate(withDuration: 0.5, delay: 2.0, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+        
+    }
+    
+    func showPopUp(popUpType: PopUpType, targetVC: UIViewController, confirmBtnAction: Selector) {
+        let popUpVC = ReetPopUp()
+        
+        popUpVC.configurePopUp(popUpType: popUpType,
+                               targetVC: targetVC,
+                               confirmBtnAction: confirmBtnAction)
+        popUpVC.modalPresentationStyle = .overFullScreen
+        targetVC.present(popUpVC, animated: false)
+    }
+    
 }
