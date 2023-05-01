@@ -68,6 +68,12 @@ class AccountDeletedVC: BaseViewController {
         configureLayout()
     }
     
+    override func bindInput() {
+        super.bindInput()
+        
+        bindBtn()
+    }
+    
     // MARK: - Functions
     
 }
@@ -116,6 +122,26 @@ extension AccountDeletedVC {
         goToHomeBtn.snp.makeConstraints {
             $0.width.equalTo(stackView.snp.width)
         }
+    }
+    
+}
+
+
+// MARK: - Input
+
+extension AccountDeletedVC {
+    
+    private func bindBtn() {
+        goToHomeBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
+                print("TODO: - Go To Home")
+                self.dismiss(animated: false) {
+                    root.activeTabBarItem(targetItemType: .home)
+                }
+            })
+            .disposed(by: bag)
     }
     
 }
