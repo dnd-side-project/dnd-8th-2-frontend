@@ -114,6 +114,11 @@ class DeleteAccountVC: BaseNavigationViewController {
     
     // MARK: - Functions
     
+    @objc func deleteAccount() {
+        print("TODO: - Withdrawal API to be call")
+        
+    }
+    
 }
 
 
@@ -202,9 +207,7 @@ extension DeleteAccountVC {
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.popUp.popType = .withdrawal
-                self.popUp.modalPresentationStyle = .overFullScreen
-                self.present(self.popUp, animated: false)
+                self.showPopUp(popUpType: .withdrawal, targetVC: self, confirmBtnAction: #selector(self.deleteAccount))
             })
             .disposed(by: bag)
     }
