@@ -234,50 +234,20 @@ extension DeleteAccountVC {
     }
     
     private func bindCheckbox() {
-        recordDeleteBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.viewModel.output.recordDelete
-                    .accept(self.recordDeleteBtn.isSelected)
-            })
-            .disposed(by: bag)
+        typealias ButtonType = (button: CheckboxButton, output: BehaviorRelay<Bool>)
+        let buttonList: [ButtonType] = [(recordDeleteBtn, viewModel.output.recordDelete),
+                                        (lowUsedBtn, viewModel.output.lowUsed),
+                                        (useOtherServiceBtn, viewModel.output.useOtherService),
+                                        (inconvenienceBtn, viewModel.output.inconvenience),
+                                        (contentComplaintBtn, viewModel.output.contentComplaint),]
         
-        lowUsedBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.viewModel.output.lowUsed
-                    .accept(self.lowUsedBtn.isSelected)
-            })
-            .disposed(by: bag)
-        
-        useOtherServiceBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.viewModel.output.useOtherService
-                    .accept(self.useOtherServiceBtn.isSelected)
-            })
-            .disposed(by: bag)
-        
-        inconvenienceBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.viewModel.output.inconvenience
-                    .accept(self.inconvenienceBtn.isSelected)
-            })
-            .disposed(by: bag)
-        
-        contentComplaintBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.viewModel.output.contentComplaint
-                    .accept(self.contentComplaintBtn.isSelected)
-            })
-            .disposed(by: bag)
+        buttonList.forEach { type in
+            type.button.rx.tap
+                .bind(onNext: { _ in
+                    type.output.accept(type.button.isSelected)
+                })
+                .disposed(by: bag)
+        }
         
         otherBtn.rx.tap
             .bind(onNext: { [weak self] _ in
