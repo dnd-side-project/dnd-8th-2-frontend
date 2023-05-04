@@ -83,48 +83,37 @@ class MyPageVC: BaseNavigationViewController {
             .withUnretained(self)
             .bind(onNext: { owner, menu in
                 switch menu {
-                case .qna:
-                    let vc = SubmitQnaVC()
-                    
-                    owner.navigationController?
-                        .pushViewController(vc, animated: true)
-                    
-                case .servicePolicy:
-                    let vc = ServicePolicyVC()
-                    
-                    owner.navigationController?
-                        .pushViewController(vc, animated: true)
-                    
-                case .privacyPoilcy:
-                    let vc = PrivacyPolicyVC()
-                    
+                case .qna, .servicePolicy, .privacyPoilcy:
+                    let vc = menu.createVC()
+
                     owner.navigationController?
                         .pushViewController(vc, animated: true)
                     
                 case .userInfo:
                     let vc = UserInfoVC()
+                    
                     vc.viewModel.output.user
                         .accept(owner.viewModel.output.user.value)
-                    
+
                     owner.navigationController?
                         .pushViewController(vc, animated: true)
-                    
+
                 case .signout:
                     let alert = UIAlertController(title: .empty,
                                                   message: "로그아웃 하시겠습니까?",
                                                   preferredStyle: .actionSheet)
-                    
+
                     let defaultAction = UIAlertAction(title: "예", style: .default) { _ in
                         print("TODO: - Sign Out API to be call")
                     }
-                    
+
                     let cancelAction = UIAlertAction(title: "아니오", style: .cancel)
-                    
+
                     [defaultAction, cancelAction].forEach {
                         alert.addAction($0)
                         $0.setValue(AssetColors.black, forKey: "titleTextColor")
                     }
-                    
+
                     owner.present(alert, animated: true)
                 }
             })

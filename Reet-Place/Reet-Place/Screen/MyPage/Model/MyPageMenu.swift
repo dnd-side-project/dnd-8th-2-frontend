@@ -56,3 +56,23 @@ extension MyPageMenu: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+
+// MARK: - ViewController
+
+extension MyPageMenu {
+    func createVC() -> UIViewController {
+        switch self {
+        case .qna:
+            return SubmitQnaVC()
+        case .servicePolicy:
+            return ServicePolicyVC()
+        case .privacyPoilcy:
+            return PrivacyPolicyVC()
+        case .userInfo:
+            return UserInfoVC()
+        case .signout:
+            return UIViewController()
+        }
+    }
+}
