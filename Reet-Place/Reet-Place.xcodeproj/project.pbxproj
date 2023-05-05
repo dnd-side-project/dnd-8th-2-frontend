@@ -10,6 +10,10 @@
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
+		0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */; };
+		0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514129F6721900C44701 /* ServicePolicyVC.swift */; };
+		0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */; };
+		0E5A514629F675F300C44701 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514529F675F300C44701 /* DeleteAccountVC.swift */; };
 		0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036929A201F400A5456E /* BookmarkFilterView.swift */; };
 		0E67036E29A3CBBC00A5456E /* ReetFAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036D29A3CBBC00A5456E /* ReetFAB.swift */; };
 		0E8CA698299FC63300F98C15 /* BookmarkAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */; };
@@ -26,6 +30,9 @@
 		0EA432E729A13EBE00C4D47F /* RelatedUrlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */; };
 		0EAD37DA29E6F13600C3EA38 /* BookmarkVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */; };
 		0EB8D81229FF8C0E00E79BA4 /* PopUpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */; };
+		0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */; };
+		0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */; };
+		0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED227029F8CB6800C8102E /* CheckboxButton.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
 		0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */; };
 		0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3929AA60880051E72D /* StarToggleButton.swift */; };
@@ -131,6 +138,10 @@
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
+		0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitQnaVC.swift; sourceTree = "<group>"; };
+		0E5A514129F6721900C44701 /* ServicePolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePolicyVC.swift; sourceTree = "<group>"; };
+		0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
+		0E5A514529F675F300C44701 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
 		0E67036929A201F400A5456E /* BookmarkFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkFilterView.swift; sourceTree = "<group>"; };
 		0E67036D29A3CBBC00A5456E /* ReetFAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFAB.swift; sourceTree = "<group>"; };
 		0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAllVC.swift; sourceTree = "<group>"; };
@@ -147,6 +158,9 @@
 		0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedUrlButton.swift; sourceTree = "<group>"; };
 		0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVM.swift; sourceTree = "<group>"; };
 		0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpType.swift; sourceTree = "<group>"; };
+		0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletedVC.swift; sourceTree = "<group>"; };
+		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
+		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* StarToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarToggleButton.swift; sourceTree = "<group>"; };
@@ -339,6 +353,14 @@
 				0EA432E629A13EBE00C4D47F /* RelatedUrlButton.swift */,
 			);
 			path = BookmarkCard;
+			sourceTree = "<group>";
+		};
+		0EED226F29F8CB5C00C8102E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0EED227029F8CB6800C8102E /* CheckboxButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		0EFE7C3429AA46B90051E72D /* ReetBottomSheet */ = {
@@ -735,6 +757,7 @@
 		A4D09EC5299F9839004DEE97 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				0EED226F29F8CB5C00C8102E /* View */,
 				A4D09ED5299F9FBA004DEE97 /* TableViewCell */,
 				A4D09ECD299F9D05004DEE97 /* Model */,
 				A4D09EC6299F9842004DEE97 /* ViewController */,
@@ -747,6 +770,8 @@
 			isa = PBXGroup;
 			children = (
 				A4D09EC7299F984A004DEE97 /* UserInfoVC.swift */,
+				0E5A514529F675F300C44701 /* DeleteAccountVC.swift */,
+				0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -763,6 +788,7 @@
 			isa = PBXGroup;
 			children = (
 				A4D09ED1299F9DDB004DEE97 /* UserInfoViewModel.swift */,
+				0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -799,6 +825,9 @@
 			isa = PBXGroup;
 			children = (
 				A4EFC08A299E488500B066AF /* MyPageVC.swift */,
+				0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */,
+				0E5A514129F6721900C44701 /* ServicePolicyVC.swift */,
+				0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -980,12 +1009,16 @@
 				A4D09ECC299F9C51004DEE97 /* IconProvider.swift in Sources */,
 				A4917E092996A6B200DF2A65 /* ReetButtonStyle.swift in Sources */,
 				0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */,
+				0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */,
 				3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */,
 				3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */,
+				0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */,
+				0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */,
 				3C423F2929AAEA90003B7B7D /* CategoryChipCVC.swift in Sources */,
 				3C2AED782990B3C200E36342 /* Output.swift in Sources */,
 				3C8A5DAA29ADCE8B007C4395 /* CategoryFilterCVC.swift in Sources */,
 				A4D09ED2299F9DDB004DEE97 /* UserInfoViewModel.swift in Sources */,
+				0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */,
 				A4EFC0A6299E750500B066AF /* MyPageMenuDataSource.swift in Sources */,
 				0EB8D81229FF8C0E00E79BA4 /* PopUpType.swift in Sources */,
 				3C2AED5B2990B3C200E36342 /* UITextView+.swift in Sources */,
@@ -1005,6 +1038,7 @@
 				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
 				0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */,
+				0E5A514629F675F300C44701 /* DeleteAccountVC.swift in Sources */,
 				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
@@ -1017,6 +1051,7 @@
 				3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */,
 				3C2AED832990B3C300E36342 /* BaseTableViewCell.swift in Sources */,
 				0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */,
+				0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */,
 				3C2AED822990B3C300E36342 /* BaseViewController.swift in Sources */,
 				3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */,
 				0EA432DB29A089F300C4D47F /* BookmarkHistoryVC.swift in Sources */,
@@ -1035,6 +1070,7 @@
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+Ext.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
+				0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */,
 				0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */,
 				3C2AED772990B3C200E36342 /* URLResource.swift in Sources */,
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
