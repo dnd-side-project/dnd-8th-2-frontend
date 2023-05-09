@@ -39,27 +39,27 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // 릿플 점수
     private let starTitle = BaseAttributedLabel(font: .subtitle2,
-                                        text: "릿플 점수",
-                                        alignment: .left,
-                                        color: AssetColors.gray700)
+                                                text: "ReetPlacePoint".localized,
+                                                alignment: .left,
+                                                color: AssetColors.gray700)
     
     private let starDesc = BaseAttributedLabel(font: .caption,
-                                       text: .empty,
-                                       alignment: .left,
-                                       color: AssetColors.gray500)
+                                               text: .empty,
+                                               alignment: .left,
+                                               color: AssetColors.gray500)
     
     // 별 개수 선택
     private let starToggleBtn = StarToggleButton()
     
     // 함께할 사람들
     private let withPeopleTitle = BaseAttributedLabel(font: .subtitle2,
-                                              text: "함께할 사람들",
-                                              alignment: .left,
-                                              color: AssetColors.gray700)
+                                                      text: "WithPeopleTitle".localized,
+                                                      alignment: .left,
+                                                      color: AssetColors.gray700)
     
     private let withPeopleTextField = ReetTextField(style: .normal,
-                                            placeholderString: "ex) 최나은, 박신영, 이다정",
-                                            textString: nil)
+                                                    placeholderString: "WithPeoplePlaceHolder".localized,
+                                                    textString: .empty)
     
     // 관련 URL
     private let urlTitle = BaseAttributedLabel(font: .subtitle2,
@@ -77,19 +77,19 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
         }
     
     private let firstUrl = ReetTextField(style: .normal,
-                                 placeholderString: "장소와 관련된 URL을 추가해주세요. (선택)",
-                                 textString: nil)
+                                         placeholderString: "RelatedUrlPlaceHolder".localized,
+                                         textString: .empty)
     
     private let secondUrl = ReetTextField(style: .normal,
-                                  placeholderString: "장소와 관련된 URL을 추가해주세요. (선택)",
-                                  textString: nil)
+                                          placeholderString: "RelatedUrlPlaceHolder".localized,
+                                          textString: .empty)
         .then {
             $0.isHidden = true
         }
     
     private let thirdUrl = ReetTextField(style: .normal,
-                                 placeholderString: "장소와 관련된 URL을 추가해주세요. (선택)",
-                                 textString: nil)
+                                         placeholderString: "RelatedUrlPlaceHolder".localized,
+                                         textString: .empty)
         .then {
             $0.isHidden = true
         }
@@ -108,8 +108,8 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
         }
     
     // 수정하기 버튼
-    private let modifyBtn = ReetButton(with: "수정하기",
-                               for: ReetButtonStyle.secondary)
+    private let modifyBtn = ReetButton(with: "ModifyBtn".localized,
+                                       for: ReetButtonStyle.secondary)
     
     // 해제하기 버튼
     private let deleteBtn = UIButton(type: .system)
@@ -129,12 +129,12 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
         }
     
     private let deleteLabel = BaseAttributedLabel(font: .buttonSmall,
-                                          text: "해제하기",
-                                          alignment: .left,
-                                          color: AssetColors.error)
+                                                  text: "DeleteBtn".localized,
+                                                  alignment: .left,
+                                                  color: AssetColors.error)
     
-    private let saveBtn = ReetButton(with: "저장하기",
-                             for: ReetButtonStyle.primary)
+    private let saveBtn = ReetButton(with: "SaveBookmark".localized,
+                                     for: ReetButtonStyle.primary)
     
     private let popUp = ReetPopUp()
     
@@ -289,56 +289,56 @@ extension BookmarkBottomSheetVC {
     
     private func configureLayout() {
         placeInformationView.snp.makeConstraints {
-            $0.top.equalTo(bottomSheetView.snp.top).offset(23)
-            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
-            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(23.0)
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20.0)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
         }
         
         selectStackView.snp.makeConstraints {
-            $0.top.equalTo(placeInformationView.snp.bottom).offset(16)
-            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
-            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
+            $0.top.equalTo(placeInformationView.snp.bottom).offset(16.0)
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20.0)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
         }
         
         [selectTypeBtn, starToggleBtn, withPeopleTextField, firstUrl, secondUrl, thirdUrl].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(40)
+                $0.height.equalTo(40.0)
             }
         }
         
         [withPeopleTitle, urlTitle].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(20)
+                $0.height.equalTo(20.0)
             }
         }
 
         addBtn.snp.makeConstraints {
-            $0.height.equalTo(28)
+            $0.height.equalTo(28.0)
         }
         
         modifyBtn.snp.makeConstraints {
-            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
-            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
-            $0.top.equalTo(bottomSheetView.snp.top).offset(476)
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20.0)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(476.0)
         }
         
         deleteBtn.snp.makeConstraints {
-            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
-            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
-            $0.top.equalTo(modifyBtn.snp.bottom).offset(8)
-            $0.height.equalTo(48)
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20.0)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
+            $0.top.equalTo(modifyBtn.snp.bottom).offset(8.0)
+            $0.height.equalTo(48.0)
         }
         
         deleteStackView.snp.makeConstraints {
-            $0.height.equalTo(16)
+            $0.height.equalTo(16.0)
             $0.centerX.equalTo(deleteBtn.snp.centerX)
             $0.centerY.equalTo(deleteBtn.snp.centerY)
         }
         
         saveBtn.snp.makeConstraints {
-            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20)
-            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20)
-            $0.top.equalTo(bottomSheetView.snp.top).offset(532)
+            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20.0)
+            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(532.0)
         }
     }
     
@@ -429,11 +429,11 @@ extension BookmarkBottomSheetVC: TypeSelectAction {
     func typeChange(type: Int) {
         switch type {
         case 1:
-            starDesc.text = "가고싶은 기대감을 릿플 점수로 표현해주세요!"
+            starDesc.text = "WishTypePointDesc".localized
         case 2:
-            starDesc.text = "다녀온 이후의 만족도를 릿플 점수로 표현해주세요!"
+            starDesc.text = "HistoryTypePointDesc".localized
         default:
-            starDesc.text = "가고싶은 기대감을 릿플 점수로 표현해주세요!"
+            starDesc.text = "WishTypePointDesc".localized
         }
     }
     

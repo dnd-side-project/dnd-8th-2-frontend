@@ -31,7 +31,9 @@ class BookmarkHistoryVC: BaseNavigationViewController {
             $0.showsVerticalScrollIndicator = false
         }
     
-    private let viewOnMapBtn = ReetFAB(size: .extended(.large), title: "지도로 보기", image: .map)
+    private let viewOnMapBtn = ReetFAB(size: .extended(.large),
+                                       title: "ViewOnMapBtn".localized,
+                                       image: .map)
     
     
     // MARK: - Variables and Properties
@@ -86,7 +88,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
 extension BookmarkHistoryVC {
     
     private func configureContentView() {
-        title = "다녀왔어요"
+        title = "BookmarkHistory".localized
         navigationBar.style = .left
         
         view.addSubviews([tableView, filterView, viewOnMapBtn])
@@ -103,7 +105,7 @@ extension BookmarkHistoryVC {
         filterView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(40)
+            $0.height.equalTo(40.0)
         }
         
         tableView.snp.makeConstraints {
@@ -112,7 +114,7 @@ extension BookmarkHistoryVC {
         }
         
         viewOnMapBtn.snp.makeConstraints {
-            $0.bottom.equalTo(tableView.snp.bottom).offset(-20)
+            $0.bottom.equalTo(tableView.snp.bottom).offset(-20.0)
             $0.centerX.equalToSuperview()
         }
         

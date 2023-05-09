@@ -34,6 +34,23 @@ RequestLoginTitle = "가고싶은 곳을 찾으셨나요?";
 RequestLoginDesc = "북마크 저장하여\n나만의 릿플 지도를 만들어 보세요.";
 BookmarkOnMap = "지도에서 북마크하기";
 
+// VC
+Bookmark = "북마크";
+BookmarkAll = "전체보기";
+BookmarkWishlist = "가고싶어요";
+BookmarkHistory = "다녀왔어요";
+ViewOnMapBtn = "지도로 보기";
+
+// BookmarkBottomSheetVC
+ReetPlacePoint = "릿플 점수";
+WithPeopleTitle = "함께할 사람들";
+WithPeoplePlaceHolder = "ex) 최나은, 박신영, 김희재";
+RelatedUrlPlaceHolder = "장소와 관련된 URL을 추가해주세요. (선택)";
+ModifyBtn = "수정하기";
+DeleteBtn = "해제하기";
+WishTypePointDesc = "가고싶은 기대감을 릿플 점수로 표현해주세요!";
+HistoryTypePointDesc = "다녀온 이후의 만족도를 릿플 점수로 표현해주세요!";
+
 
 // MARK: - MyPage
 MyPage = "마이페이지";
