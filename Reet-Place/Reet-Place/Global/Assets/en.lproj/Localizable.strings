@@ -34,6 +34,9 @@ RequestLoginTitle = "가고싶은 곳을 찾으셨나요?";
 RequestLoginDesc = "북마크 저장하여\n나만의 릿플 지도를 만들어 보세요.";
 BookmarkOnMap = "지도에서 북마크하기";
 
+// BookmarkCardTVC
+RelatedUrl = "참고링크";
+
 // VC
 Bookmark = "북마크";
 BookmarkAll = "전체보기";
