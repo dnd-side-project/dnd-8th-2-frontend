@@ -6,14 +6,36 @@
   
 */
 
-// Login
+// MARK: - Login
 NeedToSignIn = "로그인이 필요합니다.";
 DoLogin = "로그인하기";
 
-// HOME
+
+// MARK: - Home
 SearchByDistrict = "시/군/구로 검색";
 
-// MY
+
+// MARK: - Bookmark
+
+// AllBookmarkButton
+AllBookmark = "전체보기";
+
+// EmptyBookmarkView
+EmptyBookmarkTitle = "북마크를 생성해보세요!";
+EmptyBookmarkDesc = "특별한 장소를 저장하고,\n나만의 지도를 채워보세요.";
+ArroundMe = "내 주변 둘러보기";
+
+// InduceBookmarkView
+InduceBookmarkTitle = "장소를 더 입력하고 싶나요?";
+InduceBookmarkDesc = "북마크 하러 가기";
+
+// RequestLoginView
+RequestLoginTitle = "가고싶은 곳을 찾으셨나요?";
+RequestLoginDesc = "북마크 저장하여\n나만의 릿플 지도를 만들어 보세요.";
+BookmarkOnMap = "지도에서 북마크하기";
+
+
+// MARK: - MyPage
 MyPage = "마이페이지";
 
 DoQna = "문의하기";
@@ -22,11 +44,13 @@ PrivacyPoilcy = "개인정보 처리방침";
 UserInfo = "회원정보";
 Signout = "로그아웃";
 
-// MY - UserInfo
+
+// MARK: - MyPage - UserInfo
 UserInfoTitle = "회원 정보";
 
 ConnectSNS = "SNS 연동";
 DeleteAccount = "탈퇴하기";
 
-// Bottom Sheet
+
+// MARK: - Bottom Sheet
 SaveBookmark = "저장하기";

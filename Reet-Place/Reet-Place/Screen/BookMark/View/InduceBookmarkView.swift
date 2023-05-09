@@ -20,7 +20,7 @@ class InduceBookmarkView: BaseView {
     // MARK: - UI components
     
     let title = BaseAttributedLabel(font: AssetFonts.caption,
-                                    text: "장소를 더 입력하고 싶나요?",
+                                    text: "InduceBookmarkTitle".localized,
                                     alignment: .center,
                                     color: AssetColors.gray500)
     
@@ -41,7 +41,7 @@ class InduceBookmarkView: BaseView {
         }
     
     let goBookmarkLabel = BaseAttributedLabel(font: AssetFonts.buttonSmall,
-                                              text: "북마크 하러 가기",
+                                              text: "InduceBookmarkDesc".localized,
                                               alignment: .center,
                                               color: AssetColors.black)
     
@@ -94,8 +94,8 @@ extension InduceBookmarkView {
         }
         
         goBookmarkBtn.snp.makeConstraints {
-            $0.height.equalTo(48)
-            $0.width.equalTo(144)
+            $0.height.equalTo(48.0)
+            $0.width.equalTo(144.0)
             $0.top.equalTo(title.snp.bottom)
             $0.centerX.equalToSuperview()
         }

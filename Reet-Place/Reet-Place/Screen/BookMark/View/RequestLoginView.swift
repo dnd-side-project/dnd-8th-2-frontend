@@ -11,25 +11,24 @@ import Then
 import SnapKit
 
 class RequestLoginView: BaseView {
+    
     // MARK: - UI components
     
     let titleLabel = BaseAttributedLabel(font: AssetFonts.h4,
-                               text: "가고싶은 곳을 찾으셨나요?")
-        .then {
-            $0.textColor = AssetColors.black
-            $0.textAlignment = .center
-        }
+                                         text: "RequestLoginTitle".localized,
+                                         alignment: .center,
+                                         color: AssetColors.black)
     
     let contentLabel = BaseAttributedLabel(font: AssetFonts.body2,
-                                 text: "북마크 저장하여\n나만의 릿플 지도를 만들어 보세요.")
+                                           text: "RequestLoginDesc".localized,
+                                           alignment: .center,
+                                           color: AssetColors.gray500)
         .then {
-            $0.textColor = AssetColors.gray500
             $0.numberOfLines = .zero
-            $0.textAlignment = .center
         }
     
-    let aroundMeBtn = ReetButton(with: "지도에서 북마크하기",
-                                 for: ReetButtonStyle.primary)
+    let bookmarkOnMapBtn = ReetButton(with: "BookmarkOnMap".localized,
+                                      for: ReetButtonStyle.primary)
     
     let stackView = UIStackView()
         .then {
@@ -60,13 +59,13 @@ class RequestLoginView: BaseView {
             $0.edges.equalToSuperview()
         }
         
-        aroundMeBtn.snp.makeConstraints {
+        bookmarkOnMapBtn.snp.makeConstraints {
             $0.height.equalTo(48.0)
         }
         
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(contentLabel)
-        stackView.addArrangedSubview(aroundMeBtn)
+        stackView.addArrangedSubview(bookmarkOnMapBtn)
         
         stackView.setCustomSpacing(12.0, after: titleLabel)
         stackView.setCustomSpacing(40.0, after: contentLabel)
