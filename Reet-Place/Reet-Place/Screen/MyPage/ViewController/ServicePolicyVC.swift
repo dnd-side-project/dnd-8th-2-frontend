@@ -99,7 +99,7 @@ extension ServicePolicyVC {
     
     private func configureNaviBar() {
         navigationBar.style = .left
-        title = "이용 약관"
+        title = "ServicePolicyTitle".localized
     }
     
     private func configureServicePolicy() {

@@ -65,12 +65,55 @@ UserInfo = "회원정보";
 Signout = "로그아웃";
 
 
-// MARK: - MyPage - UserInfo
+// MARK: - MyPage -> UserInfo
 UserInfoTitle = "회원 정보";
 
 ConnectSNS = "SNS 연동";
 DeleteAccount = "탈퇴하기";
 
 
+// MARK: - MyPage -> UserInfo -> DeleteAccount
+DeleteAccountTitle = "탈퇴하기";
+
+DeleteConfirmTitle = "탈퇴 신청 전 확인해주세요.";
+DeleteConfirmDesc = "탈퇴 이후 회원 정보 및 이용기록은 모두 삭제되며,\n당신의 멋진 지도는 다시 복구할 수 없어요.";
+
+DeleteCheckTitle = "떠나시는 이유가 무엇인가요?";
+DeleteCheckDesc = "더 나은 서비스 개선 목적의 자료로 사용할게요.";
+
+RecordDeleteBtn = "기록 삭제 목적";
+LowUsedBtn = "사용 빈도가 낮아서";
+UseOtherServiceBtn = "다른 서비스 사용 목적";
+InconvenienceBtn = "이용이 불편하고 장애가 많아서";
+ContentComplaintBtn = "콘텐츠 불만";
+OtherBtn = "기타";
+OtherTextPlaceHolder = "기타 의견을 입력해주세요.*";
+
+
+// MARK: - MyPage -> UserInfo -> DeleteAccount -> AccountDeleted
+DeletedAccountTitle = "정상적으로 탈퇴되었어요.";
+DeletedAccountDesc = "지금까지 서비스를 이용해주셔서 감사했습니다 :)\n나의 약속 지도가 필요하다면 다시 찾아주세요!";
+GoToHomeBtn = "홈으로 이동";
+
+
+// MARK: - MyPage -> DoQna
+DoQnaTitle = "문의하기";
+
+
+// MARK: - MyPage -> ServicePolicy
+ServicePolicyTitle = "이용 약관";
+
+
+// MARK: - MyPage -> ServicePolicy
+PrivacyPoilcyTitle = "개인정보처리방침";
+
+
 // MARK: - Bottom Sheet
 SaveBookmark = "저장하기";
+
+
+// MARK: - Alert
+LogoutAlert = "로그아웃 하시겠습니까?"
+
+Yes = "예"
+No = "아니오"
