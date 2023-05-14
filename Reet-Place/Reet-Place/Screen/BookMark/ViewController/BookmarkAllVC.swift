@@ -29,7 +29,9 @@ class BookmarkAllVC: BaseNavigationViewController {
             $0.showsVerticalScrollIndicator = false
         }
     
-    private let viewOnMapBtn = ReetFAB(size: .extended(.large), title: "지도로 보기", image: .map)
+    private let viewOnMapBtn = ReetFAB(size: .extended(.large),
+                                       title: "ViewOnMapBtn".localized,
+                                       image: .map)
     
     
     // MARK: - Variables and Properties
@@ -83,7 +85,7 @@ class BookmarkAllVC: BaseNavigationViewController {
 extension BookmarkAllVC {
     
     private func configureContentView() {
-        title = "전체보기"
+        title = "BookmarkAll".localized
         navigationBar.style = .left
         
         view.addSubviews([tableView, filterView, viewOnMapBtn])
@@ -100,7 +102,7 @@ extension BookmarkAllVC {
         filterView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(40)
+            $0.height.equalTo(40.0)
         }
         
         tableView.snp.makeConstraints {
@@ -109,7 +111,7 @@ extension BookmarkAllVC {
         }
         
         viewOnMapBtn.snp.makeConstraints {
-            $0.bottom.equalTo(tableView.snp.bottom).offset(-20)
+            $0.bottom.equalTo(tableView.snp.bottom).offset(-20.0)
             $0.centerX.equalToSuperview()
         }
         

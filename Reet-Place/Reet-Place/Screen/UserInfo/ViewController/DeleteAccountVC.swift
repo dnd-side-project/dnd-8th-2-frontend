@@ -26,9 +26,9 @@ class DeleteAccountVC: BaseNavigationViewController {
         }
     
     private let confirmTitle = BaseAttributedLabel(font: .subtitle1,
-                                           text: "탈퇴 신청 전 확인해주세요.",
-                                           alignment: .left,
-                                           color: AssetColors.primary500)
+                                                   text: "DeleteConfirmTitle".localized,
+                                                   alignment: .left,
+                                                   color: AssetColors.primary500)
     
     private let confirmDescView = UIView()
         .then {
@@ -36,22 +36,22 @@ class DeleteAccountVC: BaseNavigationViewController {
         }
     
     private let confirmDesc = BaseAttributedLabel(font: .body2,
-                                          text: "탈퇴 이후 회원 정보 및 이용기록은 모두 삭제되며,\n당신의 멋진 지도는 다시 복구할 수 없어요.",
-                                          alignment: .center,
-                                          color: AssetColors.gray700)
+                                                  text: "DeleteConfirmDesc".localized,
+                                                  alignment: .center,
+                                                  color: AssetColors.gray700)
         .then {
             $0.numberOfLines = .zero
         }
     
     private let checkTitle = BaseAttributedLabel(font: .subtitle1,
-                                        text: "떠나시는 이유가 무엇인가요?",
-                                        alignment: .left,
-                                        color: AssetColors.black)
+                                                 text: "DeleteCheckTitle".localized,
+                                                 alignment: .left,
+                                                 color: AssetColors.black)
     
     private let checkDesc = BaseAttributedLabel(font: .body2,
-                                        text: "더 나은 서비스 개선 목적의 자료로 사용할게요.",
-                                        alignment: .left,
-                                        color: AssetColors.gray500)
+                                                text: "DeleteCheckDesc".localized,
+                                                alignment: .left,
+                                                color: AssetColors.gray500)
     
     private let checkboxStackView = UIStackView()
         .then {
@@ -60,22 +60,22 @@ class DeleteAccountVC: BaseNavigationViewController {
             $0.axis = .vertical
         }
     
-    private let recordDeleteBtn = CheckboxButton(with: "기록 삭제 목적")
-    private let lowUsedBtn = CheckboxButton(with: "사용 빈도가 낮아서")
-    private let useOtherServiceBtn = CheckboxButton(with: "다른 서비스 사용 목적")
-    private let inconvenienceBtn = CheckboxButton(with: "이용이 불편하고 장애가 많아서")
-    private let contentComplaintBtn = CheckboxButton(with: "콘텐츠 불만")
-    private let otherBtn = CheckboxButton(with: "기타")
+    private let recordDeleteBtn = CheckboxButton(with: "RecordDeleteBtn".localized)
+    private let lowUsedBtn = CheckboxButton(with: "LowUsedBtn".localized)
+    private let useOtherServiceBtn = CheckboxButton(with: "UseOtherServiceBtn".localized)
+    private let inconvenienceBtn = CheckboxButton(with: "InconvenienceBtn".localized)
+    private let contentComplaintBtn = CheckboxButton(with: "ContentComplaintBtn".localized)
+    private let otherBtn = CheckboxButton(with: "OtherBtn".localized)
     
     private let otherTextField = ReetTextField(style: .normal,
-                                       placeholderString: "기타 의견을 입력해주세요.*",
-                                       textString: nil)
+                                               placeholderString: "OtherTextPlaceHolder".localized,
+                                               textString: .empty)
         .then {
             $0.isHidden = true
         }
     
-    private let deleteBtn = ReetButton(with: "탈퇴하기",
-                               for: .outlined)
+    private let deleteBtn = ReetButton(with: "DeleteAccount".localized,
+                                       for: .outlined)
     
     private let popUp = ReetPopUp()
     
@@ -149,7 +149,7 @@ extension DeleteAccountVC {
     
     private func configureNaviBar() {
         navigationBar.style = .left
-        title = "탈퇴하기"
+        title = "DeleteAccountTitle".localized
     }
     
     private func configureDeleteAccount() {
@@ -207,7 +207,7 @@ extension DeleteAccountVC {
         
         [recordDeleteBtn, lowUsedBtn, useOtherServiceBtn, inconvenienceBtn, contentComplaintBtn, otherBtn, otherTextField].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(40)
+                $0.height.equalTo(40.0)
             }
         }
         

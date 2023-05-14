@@ -62,7 +62,7 @@ extension PrivacyPolicyVC {
     
     private func configureNaviBar() {
         navigationBar.style = .left
-        title = "개인정보처리방침"
+        title = "PrivacyPoilcyTitle".localized
     }
     
     private func configurePrivacyPolicy() {

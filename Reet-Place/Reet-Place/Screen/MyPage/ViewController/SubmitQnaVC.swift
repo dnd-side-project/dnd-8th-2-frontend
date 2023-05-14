@@ -65,7 +65,7 @@ extension SubmitQnaVC {
     
     private func configureNaviBar() {
         navigationBar.style = .left
-        title = "문의하기"
+        title = "DoQnaTitle".localized
     }
     
     private func configureSubmit() {

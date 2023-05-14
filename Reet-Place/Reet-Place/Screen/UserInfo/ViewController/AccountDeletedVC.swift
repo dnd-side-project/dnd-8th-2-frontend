@@ -30,20 +30,20 @@ class AccountDeletedVC: BaseViewController {
     private let deletedImageView = UIImageView(image: AssetsImages.deletedAccount)
     
     private let deletedTitle = BaseAttributedLabel(font: .h4,
-                                                   text: "정상적으로 탈퇴되었어요.",
+                                                   text: "DeletedAccountTitle".localized,
                                                    alignment: .center,
                                                    color: AssetColors.black)
     
     private let deletedDesc = BaseAttributedLabel(font: .body2,
-                                                   text: "지금까지 서비스를 이용해주셔서 감사했습니다 :)\n나의 약속 지도가 필요하다면 다시 찾아주세요!",
+                                                  text: "DeletedAccountDesc".localized,
                                                    alignment: .center,
                                                    color: AssetColors.gray500)
         .then {
             $0.numberOfLines = .zero
         }
     
-    private let goToHomeBtn = ReetButton(with: "홈으로 이동",
-                                     for: .outlined)
+    private let goToHomeBtn = ReetButton(with: "GoToHomeBtn".localized,
+                                         for: .outlined)
     
     
     // MARK: - Variables and Properties

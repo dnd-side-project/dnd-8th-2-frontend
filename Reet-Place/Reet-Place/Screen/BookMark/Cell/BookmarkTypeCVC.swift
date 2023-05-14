@@ -71,10 +71,10 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
     func configureData(typeInfo: TypeInfo) {
         switch typeInfo.type {
         case "WANT":
-            titleLabel.text = "가고싶어요"
+            titleLabel.text = "BookmarkWishlist".localized
             titleImage.image = AssetsImages.markerRoundWishlist21
         case "GONE":
-            titleLabel.text = "다녀왔어요"
+            titleLabel.text = "BookmarkHistory".localized
             titleImage.image = AssetsImages.markerRoundDidVisit21
         default:
             break
@@ -119,17 +119,17 @@ extension BookmarkTypeCVC {
     private func configureLayout() {
         stackView.snp.makeConstraints {
             $0.bottom.leading.equalToSuperview()
-            $0.height.equalTo(21)
+            $0.height.equalTo(21.0)
         }
         
         countLabel.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview()
-            $0.height.equalTo(21)
+            $0.height.equalTo(21.0)
         }
         
         thumbnailImageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(titleLabel.snp.top).offset(-12)
+            $0.bottom.equalTo(titleLabel.snp.top).offset(-12.0)
         }
     }
     

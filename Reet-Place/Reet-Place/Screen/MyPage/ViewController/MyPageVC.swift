@@ -100,14 +100,14 @@ class MyPageVC: BaseNavigationViewController {
 
                 case .signout:
                     let alert = UIAlertController(title: .empty,
-                                                  message: "로그아웃 하시겠습니까?",
+                                                  message: "LogoutAlert".localized,
                                                   preferredStyle: .actionSheet)
 
-                    let defaultAction = UIAlertAction(title: "예", style: .default) { _ in
+                    let defaultAction = UIAlertAction(title: "Yes".localized, style: .default) { _ in
                         print("TODO: - Sign Out API to be call")
                     }
 
-                    let cancelAction = UIAlertAction(title: "아니오", style: .cancel)
+                    let cancelAction = UIAlertAction(title: "No".localized, style: .cancel)
 
                     [defaultAction, cancelAction].forEach {
                         alert.addAction($0)
