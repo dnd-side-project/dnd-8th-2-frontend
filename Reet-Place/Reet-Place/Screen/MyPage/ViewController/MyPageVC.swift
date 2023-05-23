@@ -83,25 +83,38 @@ class MyPageVC: BaseNavigationViewController {
             .withUnretained(self)
             .bind(onNext: { owner, menu in
                 switch menu {
-                case .qna:
-                    print("TODO: Go To \(menu.description)")
-                    
-                case .servicePolicy:
-                    print("TODO: Go To \(menu.description)")
-                    
-                case .privacyPoilcy:
-                    print("TODO: Go To \(menu.description)")
-                    
-                case .userInfo:
-                    let vc = UserInfoVC()
-                    vc.viewModel.output.user
-                        .accept(owner.viewModel.output.user.value)
-                    
+                case .qna, .servicePolicy, .privacyPoilcy:
+                    let vc = menu.createVC()
+
                     owner.navigationController?
                         .pushViewController(vc, animated: true)
                     
+                case .userInfo:
+                    let vc = UserInfoVC()
+                    
+                    vc.viewModel.output.user
+                        .accept(owner.viewModel.output.user.value)
+
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
+
                 case .signout:
-                    print("TODO: Go To \(menu.description)")
+                    let alert = UIAlertController(title: .empty,
+                                                  message: "LogoutAlert".localized,
+                                                  preferredStyle: .actionSheet)
+
+                    let defaultAction = UIAlertAction(title: "Yes".localized, style: .default) { _ in
+                        print("TODO: - Sign Out API to be call")
+                    }
+
+                    let cancelAction = UIAlertAction(title: "No".localized, style: .cancel)
+
+                    [defaultAction, cancelAction].forEach {
+                        alert.addAction($0)
+                        $0.setValue(AssetColors.black, forKey: "titleTextColor")
+                    }
+
+                    owner.present(alert, animated: true)
                 }
             })
             .disposed(by: bag)

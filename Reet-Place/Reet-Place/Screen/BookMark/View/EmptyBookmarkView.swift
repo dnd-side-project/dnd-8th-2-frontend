@@ -15,21 +15,19 @@ class EmptyBookmarkView: BaseView {
     // MARK: - UI components
     
     let titleLabel = BaseAttributedLabel(font: AssetFonts.h4,
-                               text: "북마크를 생성해보세요!")
-        .then {
-            $0.textColor = AssetColors.black
-            $0.textAlignment = .center
-        }
+                                         text: "EmptyBookmarkTitle".localized,
+                                         alignment: .center,
+                                         color: AssetColors.black)
     
     let contentLabel = BaseAttributedLabel(font: AssetFonts.body2,
-                                 text: "특별한 장소를 저장하고,\n나만의 지도를 채워보세요.")
+                                           text: "EmptyBookmarkDesc".localized,
+                                           alignment: .center,
+                                           color: AssetColors.gray500)
         .then {
-            $0.textColor = AssetColors.gray500
             $0.numberOfLines = .zero
-            $0.textAlignment = .center
         }
     
-    let aroundMeBtn = ReetButton(with: "내 주변 둘러보기",
+    let aroundMeBtn = ReetButton(with: "ArroundMe".localized,
                                  for: ReetButtonStyle.secondary)
     
     let stackView = UIStackView()

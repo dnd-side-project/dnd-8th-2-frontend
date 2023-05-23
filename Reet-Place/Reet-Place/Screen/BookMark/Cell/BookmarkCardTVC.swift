@@ -57,12 +57,12 @@ class BookmarkCardTVC: BaseTableViewCell {
         }
     
     let placeNameLabel = BaseAttributedLabel(font: .subtitle1,
-                                             text: "Place Name",
+                                             text: .empty,
                                              alignment: .left,
                                              color: AssetColors.black)
     
     let categoryLabel = BaseAttributedLabel(font: .caption,
-                                            text: "카테고리",
+                                            text: .empty,
                                             alignment: .left,
                                             color: AssetColors.gray500)
     
@@ -86,7 +86,7 @@ class BookmarkCardTVC: BaseTableViewCell {
         }
     
     let addressLabel = BaseAttributedLabel(font: .caption,
-                                           text: "경상북도 경주시 감포읍 동해안로 1596",
+                                           text: .empty,
                                            alignment: .center,
                                            color: AssetColors.gray500)
     
@@ -122,7 +122,7 @@ class BookmarkCardTVC: BaseTableViewCell {
         }
     
     let registeredLabel = BaseAttributedLabel(font: .caption,
-                                              text: nil,
+                                              text: .empty,
                                               alignment: .left,
                                               color: AssetColors.primary500)
     
@@ -141,13 +141,13 @@ class BookmarkCardTVC: BaseTableViewCell {
             $0.axis = .vertical
         }
     let withPeopleLabel = BaseAttributedLabel(font: .caption,
-                                              text: "함께할 사람들",
+                                              text: "WithPeopleTitle".localized,
                                               alignment: .left,
                                               color: AssetColors.gray700)
     let withPeopleView = WithPeopleView()
     
     let relatedUrlLabel = BaseAttributedLabel(font: .caption,
-                                              text: "참고링크",
+                                              text: "RelatedUrl".localized,
                                               alignment: .left,
                                               color: AssetColors.gray700)
     let firstUrlView = RelatedUrlButton()
@@ -194,7 +194,7 @@ class BookmarkCardTVC: BaseTableViewCell {
         
         registeredStackView.isUserInteractionEnabled = true
         
-        withPeopleView.peopleLabel.text = nil
+        withPeopleView.peopleLabel.text = .empty
 
         [withPeopleLabel, withPeopleView, relatedUrlLabel].forEach {
             $0.isHidden = true
@@ -327,46 +327,46 @@ extension BookmarkCardTVC {
         }
         
         mainStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.bottom.equalToSuperview().offset(-16).priority(.low)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.top.equalToSuperview().offset(16.0)
+            $0.bottom.equalToSuperview().offset(-16.0).priority(.low)
+            $0.leading.equalToSuperview().offset(20.0)
+            $0.trailing.equalToSuperview().offset(-20.0)
         }
         
         thumbnailImageView.snp.makeConstraints {
-            $0.height.equalTo(96)
+            $0.height.equalTo(96.0)
         }
         
         infoView.snp.makeConstraints {
-            $0.height.equalTo(42)
+            $0.height.equalTo(42.0)
         }
         
         placeNameStackView.snp.makeConstraints {
             $0.top.equalTo(infoView.snp.top)
             $0.leading.equalTo(infoView.snp.leading)
-            $0.height.equalTo(24)
+            $0.height.equalTo(24.0)
         }
         
         addressBorder.snp.makeConstraints {
-            $0.height.equalTo(8)
-            $0.width.equalTo(1)
+            $0.height.equalTo(8.0)
+            $0.width.equalTo(1.0)
         }
         
         
         addressStackView.snp.makeConstraints {
             $0.bottom.equalTo(infoView.snp.bottom)
             $0.leading.equalTo(infoView.snp.leading)
-            $0.height.equalTo(14)
+            $0.height.equalTo(14.0)
         }
         
         iconStackView.snp.makeConstraints {
             $0.top.equalTo(infoView.snp.top)
             $0.trailing.equalTo(infoView.snp.trailing)
-            $0.height.equalTo(24)
+            $0.height.equalTo(24.0)
         }
         
         registeredView.snp.makeConstraints {
-            $0.height.equalTo(24)
+            $0.height.equalTo(24.0)
         }
         
         registeredStackView.snp.makeConstraints {
@@ -381,17 +381,17 @@ extension BookmarkCardTVC {
         
         [withPeopleLabel, relatedUrlLabel].forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(14)
+                $0.height.equalTo(14.0)
             }
         }
         
         withPeopleView.snp.makeConstraints {
-            $0.height.equalTo(30)
+            $0.height.equalTo(30.0)
         }
         
         urlView.forEach {
             $0.snp.makeConstraints {
-                $0.height.equalTo(30)
+                $0.height.equalTo(30.0)
             }
         }
         

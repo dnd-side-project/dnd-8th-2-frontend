@@ -53,6 +53,22 @@ class UserInfoVC: BaseNavigationViewController {
     override func bindInput() {
         super.bindInput()
         
+        tableView.rx.modelSelected(UserInfoMenu.self)
+            .withUnretained(self)
+            .bind(onNext: { owner, menu in
+                switch menu {
+                case .sns:
+                    print("TODO: Go To \(menu.description)")
+                case .delete:
+                    let vc = DeleteAccountVC()
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
+                }
+            })
+            .disposed(by: bag)
+
+        
         // Table View
         tableView.rx.itemSelected
             .withUnretained(self)

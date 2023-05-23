@@ -19,7 +19,7 @@ class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
-    let bookmarkTypeCV: UICollectionView = {
+    private let bookmarkTypeCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 16
         layout.scrollDirection = .vertical
@@ -28,13 +28,13 @@ class BookmarkVC: BaseNavigationViewController {
         return collectionView
     }()
     
-    var allBookmarkBtn = AllBookmarkButton(count: 12)
+    private var allBookmarkBtn = AllBookmarkButton(count: 12)
     
-    let emptyBookmarkView = EmptyBookmarkView()
+    private let emptyBookmarkView = EmptyBookmarkView()
     
-    let requestLoginView = RequestLoginView()
+    private let requestLoginView = RequestLoginView()
     
-    let induceBookmarkView = InduceBookmarkView()
+    private let induceBookmarkView = InduceBookmarkView()
     
     override var alias: String {
         "Bookmark"
@@ -124,7 +124,7 @@ extension BookmarkVC {
                           bookmarkTypeCV,
                           induceBookmarkView])
         
-        title = "북마크"
+        title = "Bookmark".localized
         navigationBar.style = .default
         
         bookmarkTypeCV.register(BookmarkTypeCVC.self, forCellWithReuseIdentifier: BookmarkTypeCVC.className)
@@ -144,18 +144,18 @@ extension BookmarkVC {
         allBookmarkBtn.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(76)
+            $0.height.equalTo(76.0)
         }
         
         
         emptyBookmarkView.snp.makeConstraints {
             $0.center.equalTo(bookmarkTypeCV.snp.center)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(20.0)
         }
         
         requestLoginView.snp.makeConstraints {
             $0.center.equalTo(bookmarkTypeCV.snp.center)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(20.0)
         }
         
         bookmarkTypeCV.snp.makeConstraints {

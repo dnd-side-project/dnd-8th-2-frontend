@@ -28,9 +28,9 @@ class AllBookmarkButton: UIButton {
         }
     
     let allTitleLabel = BaseAttributedLabel(font: AssetFonts.subtitle1,
-                                  text: "전체보기",
-                                  alignment: .left,
-                                  color: AssetColors.black)
+                                            text: "AllBookmark".localized,
+                                            alignment: .left,
+                                            color: AssetColors.black)
         .then {
             $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
         }
