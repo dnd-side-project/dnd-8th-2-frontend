@@ -77,8 +77,14 @@ extension CategoryFilterCVC {
     private func bindButton() {
         categoryFilterButton.rx.tap
             .asDriver()
-            .drive(onNext: {
-                print("called filter button", self.findViewController()?.navigationController)
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                let owner = self.findViewController()
+                
+                let categoryFilterBottomSheet = CategoryFilterBottomSheet()
+                categoryFilterBottomSheet.modalPresentationStyle = .overFullScreen
+                owner?.present(categoryFilterBottomSheet, animated: false)
             })
             .disposed(by: bag)
     }
