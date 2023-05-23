@@ -12,6 +12,8 @@ DoLogin = "로그인하기";
 
 // HOME
 SearchByDistrict = "시/군/구로 검색";
+ResetSelectedCategory = "재설정";
+SaveSelectedCategory = "저장하기";
 
 // MY
 MyPage = "마이페이지";
