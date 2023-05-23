@@ -72,6 +72,11 @@ extension CategoryChipCVC {
         }
     }
     
+    /// 카테고리 세부 바텀시트에 표시되는 세부 장소 카테고리 셀 초기화시 사용
+    func configureDetailPlaceCategoryChipCVC(category: String) {
+        placeCategoryButton.configureButton(with: category, for: .primary)
+    }
+    
 }
 
 // MARK: - Layout
