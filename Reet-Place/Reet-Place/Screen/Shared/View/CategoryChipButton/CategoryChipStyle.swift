@@ -65,7 +65,7 @@ extension CategoryChipStyle {
 
 extension CategoryChipStyle {
     var normalBorderColor: UIColor {
-        AssetColors.black
+        AssetColors.gray300
     }
   
     var highlightedBorderColor: UIColor {
