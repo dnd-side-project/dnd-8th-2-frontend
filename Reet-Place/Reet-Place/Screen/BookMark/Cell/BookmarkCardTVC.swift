@@ -17,7 +17,7 @@ import RxCocoa
 
 protocol BookmarkCardAction {
     func infoToggle(index: Int)
-    func showMenu(index: Int)
+    func showMenu(index: Int, location: CGRect)
 }
 
 class BookmarkCardTVC: BaseTableViewCell {
@@ -419,8 +419,12 @@ extension BookmarkCardTVC {
         cardMenuBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self,
-                      let index = self.index else { return }
-                self.delegate?.showMenu(index: index)
+                      let index = self.index,
+                      let owner = self.findViewController() else { return }
+
+                let btnFrameInSuperview = owner.view.convert(self.cardMenuBtn.frame, from: self.iconStackView)
+                
+                self.delegate?.showMenu(index: index, location: btnFrameInSuperview)
             })
             .disposed(by: bag)
     }

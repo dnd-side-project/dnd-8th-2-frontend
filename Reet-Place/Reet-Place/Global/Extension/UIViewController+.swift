@@ -145,4 +145,13 @@ extension UIViewController {
         targetVC.present(popUpVC, animated: false)
     }
     
+    func showSelectBox(targetVC: UIViewController, location: CGRect) {
+        let selectBoxVC = ReetSelectBox()
+        
+        selectBoxVC.location = location
+        selectBoxVC.modalPresentationStyle = .overFullScreen
+        
+        targetVC.present(selectBoxVC, animated: false)
+    }
+    
 }

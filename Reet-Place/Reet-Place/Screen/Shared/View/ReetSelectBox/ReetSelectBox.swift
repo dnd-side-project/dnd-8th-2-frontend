@@ -61,6 +61,12 @@ class ReetSelectBox: BaseViewController {
         configureLayout()
     }
     
+    override func bindInput() {
+        super.bindInput()
+        
+        bindView()
+    }
+    
     // MARK: - Functions
     
 }
@@ -71,6 +77,8 @@ class ReetSelectBox: BaseViewController {
 extension ReetSelectBox {
     
     private func configureContentView() {
+        view.backgroundColor = UIColor.clear
+        
         view.addSubviews([backgroundView, tableView])
         
         tableView.delegate = self
@@ -96,6 +104,24 @@ extension ReetSelectBox {
             $0.top.equalToSuperview().offset((location?.origin.y ?? 0.0) + 50.0)
             $0.trailing.equalToSuperview().offset(-(screenWidth - (location?.maxX ?? 0.0)))
         }
+    }
+    
+}
+
+
+// MARK: - Bind
+
+extension ReetSelectBox {
+    
+    private func bindView() {
+        backgroundView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.dismiss(animated: false)
+            })
+            .disposed(by: bag)
     }
     
 }

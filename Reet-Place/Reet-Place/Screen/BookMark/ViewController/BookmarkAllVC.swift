@@ -186,13 +186,8 @@ extension BookmarkAllVC: BookmarkCardAction {
         tableView.reloadData()
     }
     
-    func showMenu(index: Int) {
-        let bottomSheetVC = BookmarkBottomSheetVC()
-        let cardInfo = viewModel.output.cardList.value[index]
-        bottomSheetVC.configureSheetData(with: cardInfo)
-        
-        bottomSheetVC.modalPresentationStyle = .overFullScreen
-        present(bottomSheetVC, animated: false)
+    func showMenu(index: Int, location: CGRect) {
+        showSelectBox(targetVC: self, location: location)
     }
 
 }

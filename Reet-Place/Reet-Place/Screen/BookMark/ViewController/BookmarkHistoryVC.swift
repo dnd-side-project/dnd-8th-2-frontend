@@ -187,7 +187,7 @@ extension BookmarkHistoryVC: BookmarkCardAction {
         tableView.reloadData()
     }
     
-    func showMenu(index: Int) {
+    func showMenu(index: Int, location: CGRect) {
         let bottomSheetVC = BookmarkBottomSheetVC()
         let cardInfo = viewModel.output.cardList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)

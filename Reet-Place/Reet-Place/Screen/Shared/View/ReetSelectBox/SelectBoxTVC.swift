@@ -62,7 +62,6 @@ extension SelectBoxTVC {
         selectLabel.snp.makeConstraints {
             $0.height.equalTo(21.0)
             $0.width.equalTo(96.0)
-            $0.edges.equalToSuperview()
         }
         
     }
