@@ -53,6 +53,7 @@ class ReetSelectBox: BaseViewController {
         super.configureView()
         
         configureContentView()
+        configureShadow()
     }
     
     override func layoutView() {
@@ -86,6 +87,14 @@ extension ReetSelectBox {
         tableView.register(SelectBoxTVC.self, forCellReuseIdentifier: SelectBoxTVC.className)
     }
     
+    private func configureShadow() {
+        view.layer.shadowColor = CGColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 0.0 / 255.0, alpha: 1)
+        view.layer.shadowOpacity = 0.25
+        view.layer.shadowRadius = 4.0
+        view.layer.shadowOffset = CGSize(width: 0, height: 4.0)
+        view.layer.masksToBounds = false
+    }
+    
 }
 
 
@@ -99,9 +108,9 @@ extension ReetSelectBox {
         }
         
         tableView.snp.makeConstraints {
-            $0.height.equalTo(150.0)
-            $0.width.equalTo(100.0)
-            $0.top.equalToSuperview().offset((location?.origin.y ?? 0.0) + 50.0)
+            $0.height.equalTo(111.0)
+            $0.width.equalTo(120.0)
+            $0.top.equalToSuperview().offset(location?.maxY ?? 0.0)
             $0.trailing.equalToSuperview().offset(-(screenWidth - (location?.maxX ?? 0.0)))
         }
     }
