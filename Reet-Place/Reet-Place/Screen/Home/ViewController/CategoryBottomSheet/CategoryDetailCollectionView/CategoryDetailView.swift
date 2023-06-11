@@ -32,7 +32,7 @@ class CategoryDetailView: BaseView {
                     $0.itemSize = UICollectionViewFlowLayout.automaticSize
                 }
             $0.collectionViewLayout = layout
-
+            
             $0.showsHorizontalScrollIndicator = false
             $0.clipsToBounds = false
             
@@ -50,8 +50,6 @@ class CategoryDetailView: BaseView {
         self.tabCategory = tabCategory
         
         super.init(frame: frame)
-        
-        isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -72,12 +70,6 @@ class CategoryDetailView: BaseView {
     // MARK: - Functions
     
     func bindCategoryDetailList(viewModel: CategoryFilterBottomSheetVM, bag: DisposeBag) {}
-}
-
-// MARK: - Configure
-
-extension CategoryDetailView {
-    
 }
 
 // MARK: - Layout

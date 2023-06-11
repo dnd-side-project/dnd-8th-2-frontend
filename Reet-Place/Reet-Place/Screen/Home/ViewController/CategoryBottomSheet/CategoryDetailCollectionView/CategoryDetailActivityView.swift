@@ -45,13 +45,3 @@ class CategoryDetailActivityView: CategoryDetailView {
             .disposed(by: bag)
     }
 }
-
-// MARK: - Output
-
-//extension CategoryDetailActivityView: CategoryDetailViewDelegate {
-extension CategoryDetailActivityView {
-    
-//    func bindCategoryDetailList(viewModel: CategoryFilterBottomSheetVM, bag: DisposeBag) {
-    
-    
-}
