@@ -35,7 +35,7 @@ extension TabPlaceCategoryList: CustomStringConvertible {
 // MARK: - Functions
 
 extension TabPlaceCategoryList {
-    func creatCategoryDetailView() -> CategoryDetailView {
+    func createCategoryDetailView() -> CategoryDetailView {
         switch self {
         case .food:
             return CategoryDetailFoodView(tabCategory: .food)
