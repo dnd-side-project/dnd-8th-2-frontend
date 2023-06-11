@@ -28,7 +28,7 @@ extension CategoryChipStyle {
     }
     
     var selectedTitleColor: UIColor {
-        AssetColors.white
+        AssetColors.primary500
     }
     
     var disabledTitleColor: UIColor {
@@ -50,7 +50,7 @@ extension CategoryChipStyle {
     var selectedBackgroundColor: UIColor {
         switch self {
         case .primary:
-            return AssetColors.primary500
+            return AssetColors.primary50
         case .secondary:
             return AssetColors.black
         }
@@ -73,7 +73,7 @@ extension CategoryChipStyle {
     }
     
     var selectedBorderColor: UIColor {
-        .clear
+        AssetColors.primary500
     }
     
     var disabledBorderColor: UIColor {
