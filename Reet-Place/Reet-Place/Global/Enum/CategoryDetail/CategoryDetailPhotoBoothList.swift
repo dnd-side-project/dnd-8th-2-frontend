@@ -15,6 +15,7 @@ enum CategoryDetailPhotoBoothList: String {
     case lifefourcuts = "인생네컷"
     case photosignature = "포토시그니처"
     case haruflim = "하루필름"
+    case sihyunhadaFrame = "시현하다FRAME"
     case monomansion = "모노맨션"
     case rgbphotostudio = "RGB포토"
     case photoism = "포토이즘"
