@@ -23,11 +23,11 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
         .then {
             $0.configureMenuBarCollectionView(customSectionInset: UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0))
         }
+    
     private let categoryDetailScrollView = UIScrollView()
         .then {
             $0.showsHorizontalScrollIndicator = false
             $0.isPagingEnabled = true
-            $0.isUserInteractionEnabled = false
         }
     private let categoryDetailStackView = UIStackView()
         .then {
@@ -77,14 +77,6 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
         bindMenuTabBarView()
     }
     
-    override func showBottomSheet() {
-        menuTabBarView.menuBarCollectionView.snp.updateConstraints {
-            $0.height.equalTo(32.0)
-        }
-        
-        super.showBottomSheet()
-    }
-    
 }
 
 // MARK: - Configure
@@ -108,11 +100,11 @@ extension CategoryFilterBottomSheet {
         categoryDetailScrollView.addSubviews([categoryDetailStackView])
         
         TabPlaceCategoryList.allCases.forEach {
-            let categoryDetailView = $0.creatCategoryDetailView()
+            let categoryDetailView = $0.createCategoryDetailView()
             
             categoryDetailStackView.addArrangedSubview(categoryDetailView)
             categoryDetailView.snp.makeConstraints {
-                $0.width.equalTo(screenWidth)
+                $0.width.equalTo(view.frame.size.width)
                 $0.height.equalTo(categoryDetailStackView)
             }
             
@@ -128,6 +120,8 @@ extension CategoryFilterBottomSheet {
         categoryDetailScrollView.snp.makeConstraints {
             $0.top.equalTo(menuTabBarView.snp.bottom)
             $0.horizontalEdges.equalTo(bottomSheetView)
+
+            $0.bottom.equalTo(saveButton.snp.top).offset(-4.0)
         }
         categoryDetailStackView.snp.makeConstraints {
             $0.width.equalTo(screenWidth * CGFloat(TabPlaceCategoryList.allCases.count))
@@ -146,10 +140,9 @@ extension CategoryFilterBottomSheet {
         saveButton.snp.makeConstraints {
             $0.height.equalTo(resetButton)
             
-            $0.top.equalTo(categoryDetailScrollView.snp.bottom).offset(4.0)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(336.0)
             $0.leading.equalTo(resetButton.snp.trailing).offset(12.0)
             $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
-            $0.bottom.equalTo(bottomSheetView.snp.bottom).offset(-36.0)
         }
     }
     
@@ -187,7 +180,23 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                print("resetButton pressed")
+                for subview in categoryDetailStackView.subviews {
+                    if subview is CategoryDetailView {
+                        let categoryDetailView = subview as! CategoryDetailView
+                
+                        var index = 0
+                        while true {
+                            if let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CategoryChipCVC {
+                                if cell.isSelected {
+                                    cell.isSelected = false
+                                }
+                                index += 1
+                            } else {
+                                break
+                            }
+                        }
+                    }
+                }
             })
             .disposed(by: bag)
         
@@ -196,7 +205,31 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                print("saveButton pressed")
+                var selectedCategoryList: [String] = []
+                for subview in categoryDetailStackView.subviews {
+                    if subview is CategoryDetailView {
+                        let categoryDetailView = subview as! CategoryDetailView
+                
+                        var index = 0
+                        while true {
+                            if let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CategoryChipCVC {
+                                if cell.isSelected {
+                                    if let title = cell.title {
+                                        selectedCategoryList.append(title)
+                                    }
+                                }
+                                index += 1
+                            } else {
+                                break
+                            }
+                        }
+                    }
+                }
+                
+                // TODO: - HomeVC에서 검색을 위해 키워드값 넘겨주기
+                print(selectedCategoryList)
+                
+                self.dismissBottomSheet()
             })
             .disposed(by: bag)
     }
