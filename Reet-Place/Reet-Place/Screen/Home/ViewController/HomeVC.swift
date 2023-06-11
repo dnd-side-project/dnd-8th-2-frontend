@@ -259,7 +259,6 @@ extension HomeVC {
         placeCategoryCollectionView.rx.modelSelected(PlaceCategoryList.self)
             .withUnretained(self)
             .bind(onNext: { owner, category in
-                print(owner)
                 print(category)
             })
             .disposed(by: bag)
@@ -355,6 +354,8 @@ extension HomeVC {
     }
     
 }
+
+// MARK: - NaverMap Delegate
 
 extension HomeVC: NMFMapViewTouchDelegate {
     
