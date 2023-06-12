@@ -113,7 +113,7 @@ extension CategoryChipCVC {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                isSelected = !isSelected
+                self.isSelected.toggle()
             })
             .disposed(by: bag)
     }

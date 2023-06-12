@@ -183,7 +183,7 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                for subview in categoryDetailStackView.subviews {
+                for subview in self.categoryDetailStackView.subviews {
                     if subview is CategoryDetailView {
                         let categoryDetailView = subview as! CategoryDetailView
                 
@@ -209,7 +209,7 @@ extension CategoryFilterBottomSheet {
                 guard let self = self else { return }
                 
                 var selectedCategoryList: [String] = []
-                for subview in categoryDetailStackView.subviews {
+                for subview in self.categoryDetailStackView.subviews {
                     if subview is CategoryDetailView {
                         let categoryDetailView = subview as! CategoryDetailView
                 
