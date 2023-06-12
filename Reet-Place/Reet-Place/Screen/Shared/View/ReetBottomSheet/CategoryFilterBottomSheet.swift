@@ -37,6 +37,13 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
             $0.alignment = .fill
         }
     
+    private let buttonStackView = UIStackView()
+        .then {
+            $0.axis = .horizontal
+            $0.distribution = .fillProportionally
+            $0.alignment = .fill
+            $0.spacing = 12.0
+        }
     private let resetButton = ReetTextButton(with: "ResetSelectedCategory".localized, for: .tertiary, left: AssetsImages.refresh)
     private let saveButton = ReetButton(with: "SaveSelectedCategory".localized, for: ReetButtonStyle.secondary)
     
@@ -96,8 +103,11 @@ extension CategoryFilterBottomSheet {
     private func configureLayout() {
         view.addSubviews([menuTabBarView,
                           categoryDetailScrollView,
-                          resetButton, saveButton])
+                          buttonStackView])
         categoryDetailScrollView.addSubviews([categoryDetailStackView])
+        [resetButton, saveButton].forEach {
+            buttonStackView.addArrangedSubview($0)
+        }
         
         TabPlaceCategoryList.allCases.forEach {
             let categoryDetailView = $0.createCategoryDetailView()
@@ -121,28 +131,21 @@ extension CategoryFilterBottomSheet {
             $0.top.equalTo(menuTabBarView.snp.bottom)
             $0.horizontalEdges.equalTo(bottomSheetView)
 
-            $0.bottom.equalTo(saveButton.snp.top).offset(-4.0)
+            $0.bottom.equalTo(buttonStackView.snp.top).offset(-4.0)
         }
         categoryDetailStackView.snp.makeConstraints {
             $0.width.equalTo(screenWidth * CGFloat(TabPlaceCategoryList.allCases.count))
             $0.height.equalTo(categoryDetailScrollView)
-
             $0.edges.equalTo(categoryDetailScrollView)
         }
         
+        buttonStackView.snp.makeConstraints {
+            $0.height.equalTo(48.0)
+            $0.top.equalTo(bottomSheetView.snp.top).offset(336.0)
+            $0.horizontalEdges.equalTo(bottomSheetView).inset(20.0)
+        }
         resetButton.snp.makeConstraints {
             $0.width.equalTo(89.0)
-            $0.height.equalTo(48.0)
-            
-            $0.leading.equalTo(bottomSheetView.snp.leading).offset(20.0)
-            $0.bottom.equalTo(saveButton)
-        }
-        saveButton.snp.makeConstraints {
-            $0.height.equalTo(resetButton)
-            
-            $0.top.equalTo(bottomSheetView.snp.top).offset(336.0)
-            $0.leading.equalTo(resetButton.snp.trailing).offset(12.0)
-            $0.trailing.equalTo(bottomSheetView.snp.trailing).offset(-20.0)
         }
     }
     
