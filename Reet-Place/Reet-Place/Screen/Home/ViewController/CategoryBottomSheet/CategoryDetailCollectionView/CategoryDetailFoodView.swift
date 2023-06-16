@@ -22,14 +22,21 @@ class CategoryDetailFoodView: CategoryDetailView {
     
     // MARK: - Life Cycle
     
+    override func configureCollectionView() {
+        configureCollectionViewLayout(headerWidth: frame.size.width, headerHeight: 21.0,
+                                      sectionInsetTop: 8.0, sectionInsetBottom: 24.0)
+        categoryDetailCollectionView.register(CategoryDetailHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CategoryDetailHeaderView.className)
+    }
+    
     // MARK: - Functions
     
     override func bindCategoryDetailList(viewModel: CategoryFilterBottomSheetVM, bag: DisposeBag) {
-        let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailFoodDataSource> { _,
+        let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailFoodDataSource>( configureCell: {
+            _,
             collectionView,
             indexPath,
             categoryType in
-
+            
             guard let cell = collectionView
                 .dequeueReusableCell(withReuseIdentifier: CategoryChipCVC.className,
                                      for: indexPath) as? CategoryChipCVC else {
@@ -38,7 +45,22 @@ class CategoryDetailFoodView: CategoryDetailView {
             cell.configureDetailPlaceCategoryChipCVC(category: categoryType.description)
 
             return cell
-        }
+        }, configureSupplementaryView: {
+            dataSource,
+            collectionView,
+            title,
+            indexPath in
+            
+            guard let header = collectionView
+                .dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                  withReuseIdentifier: CategoryDetailHeaderView.className,
+                                                  for: indexPath) as? CategoryDetailHeaderView else {
+                fatalError("Cannot deqeue SupplementaryView named CategoryDetailHeaderView")
+            }
+            header.configureHeaderView(title: dataSource[indexPath.section].header)
+            
+            return header
+          })
 
         viewModel.output.categoryDetailFoodDataSource
             .bind(to: categoryDetailCollectionView.rx.items(dataSource: dataSource))
