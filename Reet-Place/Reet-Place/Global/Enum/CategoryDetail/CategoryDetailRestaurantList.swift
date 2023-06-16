@@ -1,0 +1,33 @@
+//
+//  CategoryDetailRestaurantList.swift
+//  Reet-Place
+//
+//  Created by Kim HeeJae on 2023/06/14.
+//
+
+import UIKit
+
+import RxSwift
+import RxCocoa
+import RxDataSources
+
+enum CategoryDetailRestaurantList: String {
+    // 식당
+    case koreanFood = "한식"
+    case chineseFood = "중식"
+    case japaneseFood = "일식"
+    case westernFood = "양식"
+    case worldesternFood = "세계 음식"
+}
+
+// MARK: - Case Iterable
+
+extension CategoryDetailRestaurantList: CaseIterable {}
+
+// MARK: - Custom String Convertible
+
+extension CategoryDetailRestaurantList: CustomStringConvertible {
+    var description: String {
+        rawValue.localized
+    }
+}
