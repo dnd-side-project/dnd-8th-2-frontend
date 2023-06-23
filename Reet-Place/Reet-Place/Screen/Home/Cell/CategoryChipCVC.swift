@@ -21,7 +21,8 @@ class CategoryChipCVC: BaseCollectionViewCell {
     
     // MARK: - Variables and Properties
     
-    var category: PlaceCategoryList?
+    var title: String?
+    
     private var bag = DisposeBag()
     
     // MARK: - Life Cycle
@@ -55,6 +56,14 @@ class CategoryChipCVC: BaseCollectionViewCell {
         configureLayout()
     }
     
+    // MARK: - Override
+    
+    override var isSelected: Bool {
+        didSet {
+            placeCategoryButton.isSelected = isSelected
+        }
+    }
+    
     // MARK: - Functions
 }
 
@@ -64,12 +73,18 @@ extension CategoryChipCVC {
     
     /// Use when collectionView data binding
     func configureCategoryChipCVC(category: PlaceCategoryList) {
-        self.category = category
+        title = category.description
         placeCategoryButton.configureButton(with: category.description, for: .primary)
         
         if category == .reetPlaceHot {
             placeCategoryButton.isSelected = true
         }
+    }
+    
+    /// 카테고리 세부 바텀시트에 표시되는 세부 장소 카테고리 셀 초기화시 사용
+    func configureDetailPlaceCategoryChipCVC(category: String) {
+        title = category
+        placeCategoryButton.configureButton(with: category, for: .primary)
     }
     
 }
@@ -97,7 +112,8 @@ extension CategoryChipCVC {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                print("TODO: - Category BottomSheet ", self.category)
+                
+                self.isSelected.toggle()
             })
             .disposed(by: bag)
     }

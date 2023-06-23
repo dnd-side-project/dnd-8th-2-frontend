@@ -48,7 +48,8 @@ class CategoryChipButton: UIButton {
     
     override var isSelected: Bool {
         didSet {
-            configureBorderColor(state: .selected)
+            configureBackgroundColor(state: isSelected ? .selected : .normal)
+            configureBorderColor(state: isSelected ? .selected : .normal)
         }
     }
     

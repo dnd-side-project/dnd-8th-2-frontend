@@ -39,6 +39,8 @@ class ReetBottomSheet: BaseViewController {
     
     let sheetBar = UIView()
         .then {
+            $0.layer.cornerRadius = 1.5
+            $0.layer.masksToBounds = true
             $0.backgroundColor = AssetColors.gray300
             $0.isUserInteractionEnabled = false
         }
@@ -173,7 +175,7 @@ extension ReetBottomSheet {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(8)
             $0.width.equalTo(32)
-            $0.height.equalTo(3)
+            $0.height.equalTo(sheetBar.layer.cornerRadius * 2.0)
         }
     }
     

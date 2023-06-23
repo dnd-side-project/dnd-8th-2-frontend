@@ -14,6 +14,10 @@ DoLogin = "로그인하기";
 // MARK: - Home
 SearchByDistrict = "시/군/구로 검색";
 
+// Filter Bottom Sheet
+ResetSelectedCategory = "재설정";
+SaveSelectedCategory = "저장하기";
+
 
 // MARK: - Bookmark
 
