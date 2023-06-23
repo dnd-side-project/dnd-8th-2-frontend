@@ -31,7 +31,7 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
         
         var categoryDetailFoodList: BehaviorRelay<Array<CategoryDetailFoodList>> = BehaviorRelay(value: CategoryDetailFoodList.allCases)
         var categoryDetailFoodDataSource: Observable<Array<CategoryDetailFoodDataSource>> {
-            categoryDetailFoodList.map { [CategoryDetailFoodDataSource(items: $0)] }
+            categoryDetailFoodList.map { $0.map { CategoryDetailFoodDataSource(header: $0.description, items: $0.items) } }
         }
         
         var categoryDetailActivityList: BehaviorRelay<Array<CategoryDetailActivityList>> = BehaviorRelay(value: CategoryDetailActivityList.allCases)

@@ -183,19 +183,19 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                for subview in categoryDetailStackView.subviews {
+                for subview in self.categoryDetailStackView.subviews {
                     if subview is CategoryDetailView {
                         let categoryDetailView = subview as! CategoryDetailView
-                
-                        var index = 0
-                        while true {
-                            if let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CategoryChipCVC {
+                        
+                        let sectionRange = categoryDetailView.categoryDetailCollectionView.numberOfSections
+                        for section in 0..<sectionRange {
+                            let indexRange = categoryDetailView.categoryDetailCollectionView.numberOfItems(inSection: section)
+                            for index in 0..<indexRange {
+                                guard let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: section)) as? CategoryChipCVC
+                                else { continue }
                                 if cell.isSelected {
                                     cell.isSelected = false
                                 }
-                                index += 1
-                            } else {
-                                break
                             }
                         }
                     }
@@ -209,21 +209,21 @@ extension CategoryFilterBottomSheet {
                 guard let self = self else { return }
                 
                 var selectedCategoryList: [String] = []
-                for subview in categoryDetailStackView.subviews {
+                for subview in self.categoryDetailStackView.subviews {
                     if subview is CategoryDetailView {
                         let categoryDetailView = subview as! CategoryDetailView
-                
-                        var index = 0
-                        while true {
-                            if let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CategoryChipCVC {
+                        
+                        let sectionRange = categoryDetailView.categoryDetailCollectionView.numberOfSections
+                        for section in 0..<sectionRange {
+                            let indexRange = categoryDetailView.categoryDetailCollectionView.numberOfItems(inSection: section)
+                            for index in 0..<indexRange {
+                                guard let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: section)) as? CategoryChipCVC
+                                else { continue }
                                 if cell.isSelected {
                                     if let title = cell.title {
                                         selectedCategoryList.append(title)
                                     }
                                 }
-                                index += 1
-                            } else {
-                                break
                             }
                         }
                     }

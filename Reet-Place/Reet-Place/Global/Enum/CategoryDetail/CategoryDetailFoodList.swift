@@ -12,19 +12,8 @@ import RxCocoa
 import RxDataSources
 
 enum CategoryDetailFoodList: String {
-    // 식당
-    case koreanFood = "한식"
-    case chineseFood = "중식"
-    case japaneseFood = "일식"
-    case westernFood = "양식"
-    case worldesternFood = "세계 음식"
-    
-    // 주점
-    case hofCookingBar = "호프, 요리주점"
-    case izakaya = "이자카야"
-    case cartBar = "포장마차"
-    case wineBar = "와인바"
-    case cocktailBar = "칵테일바"
+    case restaurant = "식당"
+    case bar = "주점"
 }
 
 // MARK: - Case Iterable
@@ -36,5 +25,18 @@ extension CategoryDetailFoodList: CaseIterable {}
 extension CategoryDetailFoodList: CustomStringConvertible {
     var description: String {
         rawValue.localized
+    }
+}
+
+// MARK: - 음식 하위 항목
+
+extension CategoryDetailFoodList {
+    var items: [String] {
+        switch self {
+        case .restaurant:
+            return CategoryDetailRestaurantList.allCases.map { $0.rawValue }
+        case .bar:
+            return CategoryDetailBarList.allCases.map { $0.rawValue }
+        }
     }
 }

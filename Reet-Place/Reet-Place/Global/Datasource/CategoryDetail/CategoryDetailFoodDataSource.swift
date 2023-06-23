@@ -8,11 +8,12 @@
 import RxDataSources
 
 struct CategoryDetailFoodDataSource {
+    let header: String
     var items: [Item]
 }
 
 extension CategoryDetailFoodDataSource: SectionModelType {
-    typealias Item = CategoryDetailFoodList
+    typealias Item = String
     
     init(original: CategoryDetailFoodDataSource, items: [Item]) {
         self = original

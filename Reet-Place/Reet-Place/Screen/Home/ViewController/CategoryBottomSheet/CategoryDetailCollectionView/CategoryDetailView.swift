@@ -21,17 +21,6 @@ class CategoryDetailView: BaseView {
     let categoryDetailCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         .then {
             $0.backgroundColor = .clear
-
-            let layout = LeftAlignmentCollectionViewFlowLayout()
-                .then {
-                    $0.scrollDirection = .vertical
-                    $0.minimumLineSpacing = 12.0
-                    $0.minimumInteritemSpacing = 8.0
-                    $0.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-                    $0.estimatedItemSize = CGSize(width: 72.0, height: 32.0)
-                    $0.itemSize = UICollectionViewFlowLayout.automaticSize
-                }
-            $0.collectionViewLayout = layout
             
             $0.showsHorizontalScrollIndicator = false
             $0.clipsToBounds = false
@@ -59,6 +48,7 @@ class CategoryDetailView: BaseView {
     override func configureView() {
         super.configureView()
         
+        configureCollectionView()
     }
     
     override func layoutView() {
@@ -70,6 +60,25 @@ class CategoryDetailView: BaseView {
     // MARK: - Functions
     
     func bindCategoryDetailList(viewModel: CategoryFilterBottomSheetVM, bag: DisposeBag) {}
+    
+    func configureCollectionView() {
+        configureCollectionViewLayout()
+    }
+    
+    func configureCollectionViewLayout(headerWidth: CGFloat = 0.0, headerHeight: CGFloat = 0.0,
+                                       sectionInsetTop: CGFloat = 0.0, sectionInsetBottom: CGFloat = 0.0) {
+        let layout = LeftAlignmentCollectionViewFlowLayout()
+            .then {
+                $0.scrollDirection = .vertical
+                $0.headerReferenceSize = CGSize(width: headerWidth, height: headerHeight)
+                $0.sectionInset = UIEdgeInsets(top: sectionInsetTop, left: 0.0, bottom: sectionInsetBottom, right: 0.0)
+                $0.minimumLineSpacing = 12.0
+                $0.minimumInteritemSpacing = 8.0
+                $0.estimatedItemSize = CGSize(width: 72.0, height: 32.0)
+                $0.itemSize = UICollectionViewFlowLayout.automaticSize
+            }
+        categoryDetailCollectionView.collectionViewLayout = layout
+    }
 }
 
 // MARK: - Layout

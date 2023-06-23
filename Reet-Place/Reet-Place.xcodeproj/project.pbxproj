@@ -126,6 +126,9 @@
 		3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */; };
 		3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBB298FEAB20057D813 /* Assets.xcassets */; };
 		3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */; };
+		3CF3EAB82A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EAB72A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift */; };
+		3CF3EABA2A3C2A36003B4DE2 /* CategoryDetailBarList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */; };
+		3CF3EABC2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */; };
 		3CF70D002A1B50A600523A74 /* CategoryDetailFoodDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF70CFF2A1B50A600523A74 /* CategoryDetailFoodDataSource.swift */; };
 		3CF70D022A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		A417F66F299E8710005E6DA7 /* ModelUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417F66E299E8710005E6DA7 /* ModelUser.swift */; };
@@ -287,6 +290,9 @@
 		3CEC2FBB298FEAB20057D813 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CEC2FBE298FEAB20057D813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CEC2FC0298FEAB20057D813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CF3EAB72A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailRestaurantList.swift; sourceTree = "<group>"; };
+		3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailBarList.swift; sourceTree = "<group>"; };
+		3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailHeaderView.swift; sourceTree = "<group>"; };
 		3CF70CFF2A1B50A600523A74 /* CategoryDetailFoodDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailFoodDataSource.swift; sourceTree = "<group>"; };
 		3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		75B835821C35237DF51F34A9 /* Pods_Reet_Place.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reet_Place.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -728,11 +734,13 @@
 			isa = PBXGroup;
 			children = (
 				3C9256652A1CCAE90011B093 /* CategoryDetailFoodList.swift */,
+				3CF3EAB72A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift */,
 				3C9256692A1CD0090011B093 /* CategoryDetailActivityList.swift */,
 				3C92566D2A1CDE9F0011B093 /* CategoryDetailPhotoBoothList.swift */,
 				3C9256732A1CE26B0011B093 /* CategoryDetailShoppingList.swift */,
 				3C9256792A1CE40F0011B093 /* CategoryDetailCafeList.swift */,
 				3C92567F2A1CE5B00011B093 /* CategoryDetailCultureList.swift */,
+				3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */,
 			);
 			path = CategoryDetail;
 			sourceTree = "<group>";
@@ -768,6 +776,7 @@
 		3CBADD3A29A090E7005855B1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1193,6 +1202,8 @@
 				3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
 				0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */,
+				3CF3EAB82A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift in Sources */,
+				3CF3EABC2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift in Sources */,
 				0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */,
 				3C2AED752990B3C200E36342 /* APISession.swift in Sources */,
 				3C9256722A1CE13E0011B093 /* CategoryDetailPhotoBoothView.swift in Sources */,
@@ -1270,6 +1281,7 @@
 				0EA432DD29A0A91B00C4D47F /* BookmarkCardTVC.swift in Sources */,
 				0E912306299D3FF40023EA59 /* EmptyBookmarkView.swift in Sources */,
 				3C2AED722990B3C200E36342 /* APIError.swift in Sources */,
+				3CF3EABA2A3C2A36003B4DE2 /* CategoryDetailBarList.swift in Sources */,
 				A4EFC097299E5DF000B066AF /* NavigationBar.swift in Sources */,
 				3C2AED842990B3C300E36342 /* BaseViewModel.swift in Sources */,
 				3CBE979C29A904EF00C0D2FE /* ReetTabBarItemButton.swift in Sources */,
