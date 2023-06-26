@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E05EFFC2A492CA9008A20F4 /* SelectBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05EFFB2A492CA9008A20F4 /* SelectBoxStyle.swift */; };
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
@@ -170,6 +171,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E05EFFB2A492CA9008A20F4 /* SelectBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBoxStyle.swift; sourceTree = "<group>"; };
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				0EAFCFD92A2883C50023A738 /* ReetSelectBox.swift */,
+				0E05EFFB2A492CA9008A20F4 /* SelectBoxStyle.swift */,
 				0EAFCFDB2A2888700023A738 /* SelectBoxTVC.swift */,
 			);
 			path = ReetSelectBox;
@@ -1195,6 +1198,7 @@
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */,
 				3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */,
+				0E05EFFC2A492CA9008A20F4 /* SelectBoxStyle.swift in Sources */,
 				0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */,
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageViewModel.swift in Sources */,

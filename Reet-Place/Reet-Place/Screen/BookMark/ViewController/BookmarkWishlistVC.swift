@@ -187,7 +187,7 @@ extension BookmarkWishlistVC: BookmarkCardAction {
     }
     
     func showMenu(index: Int, location: CGRect) {
-        showSelectBox(targetVC: self, location: location)
+        showSelectBox(targetVC: self, location: location, style: .bookmarked)
     }
 
 }

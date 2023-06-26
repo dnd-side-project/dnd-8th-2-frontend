@@ -14,7 +14,7 @@ class SelectBoxTVC: BaseTableViewCell {
     
     // MARK: - UI components
     
-    private let selectLabel: BaseAttributedLabel = BaseAttributedLabel(font: .body2,
+    let selectLabel: BaseAttributedLabel = BaseAttributedLabel(font: .body2,
                                                                        text: .empty,
                                                                        alignment: .left,
                                                                        color: AssetColors.black)
@@ -37,7 +37,22 @@ class SelectBoxTVC: BaseTableViewCell {
         configureLayout()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        configureInset()
+    }
+    
+    
     // MARK: - Functions
+    
+    func setLabel(title: String) {
+        selectLabel.text = title
+        
+        if title == "북마크 삭제" {
+            selectLabel.textColor = AssetColors.error
+        }
+    }
     
 }
 
@@ -51,6 +66,11 @@ extension SelectBoxTVC {
         
     }
     
+    private func configureInset() {
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
+        
+    }
+    
 }
 
 
@@ -60,8 +80,7 @@ extension SelectBoxTVC {
     
     private func configureLayout() {
         selectLabel.snp.makeConstraints {
-            $0.height.equalTo(21.0)
-            $0.width.equalTo(96.0)
+            $0.edges.equalToSuperview()
         }
         
     }

@@ -25,7 +25,7 @@ class ReetSelectBox: BaseViewController {
     
     private let tableView: UITableView = UITableView(frame: .zero, style: .plain)
         .then {
-            $0.rowHeight = UITableView.automaticDimension
+            $0.rowHeight = 33.0
             $0.layer.cornerRadius = 5.0
             $0.isScrollEnabled = false
             $0.separatorStyle = .none
@@ -36,6 +36,8 @@ class ReetSelectBox: BaseViewController {
     // MARK: - Variables and Properties
     
     var location: CGRect?
+    
+    var style: SelectBoxStyle = .bookmarked
     
     var firstAction: (() -> Void)?
     var secondAction: (() -> Void)?
@@ -108,7 +110,7 @@ extension ReetSelectBox {
         }
         
         tableView.snp.makeConstraints {
-            $0.height.equalTo(111.0)
+            $0.height.equalTo(33 * self.style.numberOfRows)
             $0.width.equalTo(120.0)
             $0.top.equalToSuperview().offset(location?.maxY ?? 0.0)
             $0.trailing.equalToSuperview().offset(-(screenWidth - (location?.maxX ?? 0.0)))
@@ -139,9 +141,7 @@ extension ReetSelectBox {
 // MARK: - UITableViewDelegate
 
 extension ReetSelectBox: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        54.0
-    }
+    
 }
 
 
@@ -149,11 +149,13 @@ extension ReetSelectBox: UITableViewDelegate {
 
 extension ReetSelectBox: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        style.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectBoxTVC.className, for: indexPath) as? SelectBoxTVC else { fatalError("No such Cell") }
+        
+        cell.setLabel(title: style.selectTitle[indexPath.row])
         
         return cell
     }
