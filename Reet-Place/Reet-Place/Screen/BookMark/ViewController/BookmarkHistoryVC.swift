@@ -188,7 +188,9 @@ extension BookmarkHistoryVC: BookmarkCardAction {
     }
     
     func showMenu(index: Int, location: CGRect) {
-        showSelectBox(targetVC: self, location: location, style: .bookmarked) { row in
+        showSelectBox(targetVC: self, location: location, style: .bookmarked) { [weak self] row in
+            guard let self = self else { return }
+            
             if row == 0 {
                 self.showBottomSheet(index: index)
             }
