@@ -188,7 +188,28 @@ extension BookmarkHistoryVC: BookmarkCardAction {
     }
     
     func showMenu(index: Int, location: CGRect) {
-        showSelectBox(targetVC: self, location: location, style: .bookmarked)
+        showSelectBox(targetVC: self, location: location, style: .bookmarked) { row in
+            if row == 0 {
+                self.showBottomSheet(index: index)
+            }
+            
+            if row == 1 {
+                print("TODO: - Copy Link to be call")
+            }
+            
+            if row == 2 {
+                print("TODO: - Delete Bookmark API to be call")
+            }
+        }
+    }
+    
+    func showBottomSheet(index: Int) {
+        let bottomSheetVC = BookmarkBottomSheetVC()
+        let cardInfo = viewModel.output.cardList.value[index]
+        bottomSheetVC.configureSheetData(with: cardInfo)
+                
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        present(bottomSheetVC, animated: false)
     }
 
 }

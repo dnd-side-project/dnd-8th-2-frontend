@@ -39,9 +39,7 @@ class ReetSelectBox: BaseViewController {
     
     var style: SelectBoxStyle = .bookmarked
     
-    var firstAction: (() -> Void)?
-    var secondAction: (() -> Void)?
-    var thirdAction: (() -> Void)?
+    var selected: ((Int) -> Void)?
     
 
     // MARK: - Life Cycle
@@ -158,5 +156,10 @@ extension ReetSelectBox: UITableViewDataSource {
         cell.setLabel(title: style.selectTitle[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismiss(animated: false)
+        selected?(indexPath.row)
     }
 }
