@@ -14,7 +14,7 @@ class FirstTypeOnboardingView: OnboardingView {
     
     // MARK: - UI components
     
-    private let innerView = UIView()
+    let innerView = UIView()
     
     private let firstLineLabel = BaseAttributedLabel(font: AssetFonts.h4,
                                                      text: "어떤 상황에서든",

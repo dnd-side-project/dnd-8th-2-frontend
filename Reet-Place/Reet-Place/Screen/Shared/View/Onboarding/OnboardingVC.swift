@@ -58,6 +58,14 @@ class OnboardingVC: BaseViewController {
             $0.lowerLabel.text = "불시에 약속 장소를 변경할 일이 생긴다면\n저장한 북마크를 확인해봐요!"
         }
     
+    private let progressStackView = UIStackView()
+        .then {
+            $0.axis = .horizontal
+            $0.spacing = 12.0
+            $0.distribution = .fillEqually
+            $0.alignment = .fill
+        }
+    
     
     // MARK: - Variables and Properties
     
@@ -73,6 +81,7 @@ class OnboardingVC: BaseViewController {
         super.configureView()
         
         configureContentView()
+        configureProgress()
     }
     
     override func layoutView() {
@@ -87,8 +96,19 @@ class OnboardingVC: BaseViewController {
         bindBtn()
     }
     
+    
     // MARK: - Functions
     
+    /// page에 따라 progress 상태 변경
+    func setProgress(page: Int) {
+        for idx in 0 ..< 4 {
+            if page == idx {
+                progressStackView.arrangedSubviews[idx].backgroundColor = AssetColors.primary500
+            } else {
+                progressStackView.arrangedSubviews[idx].backgroundColor = AssetColors.gray300
+            }
+        }
+    }
     
 }
 
@@ -98,13 +118,26 @@ class OnboardingVC: BaseViewController {
 extension OnboardingVC {
     
     private func configureContentView() {
-        view.addSubviews([baseScrollView])
+        view.addSubviews([baseScrollView, progressStackView])
         
         baseScrollView.addSubview(innerStackView)
         
         [onboardingFirst, onboardingSecond, onboardingthird, onboardingFourth].forEach {
             innerStackView.addArrangedSubview($0)
         }
+        
+        baseScrollView.delegate = self
+    }
+    
+    private func configureProgress() {
+        for _ in 0 ..< 4 {
+            let innerView = UIView()
+            innerView.backgroundColor = AssetColors.gray300
+            innerView.layer.cornerRadius = 4.0
+            progressStackView.addArrangedSubview(innerView)
+        }
+        
+        progressStackView.arrangedSubviews[0].backgroundColor = AssetColors.primary500
     }
     
 }
@@ -133,6 +166,13 @@ extension OnboardingVC {
                 $0.width.equalTo(screenWidth)
             }
         }
+        
+        progressStackView.snp.makeConstraints {
+            $0.top.equalTo(onboardingFirst.innerView.snp.bottom).offset(56.0)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(68.0)
+            $0.height.equalTo(8.0)
+        }
     }
     
 }
@@ -144,6 +184,21 @@ extension OnboardingVC {
     
     private func bindBtn() {
         
+    }
+    
+}
+
+
+// MARK: - UIScrollViewDelegate
+
+extension OnboardingVC: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let page = round(scrollView.contentOffset.x / screenWidth)
+        
+        if !page.isInfinite && !page.isNaN {
+            setProgress(page: Int(page))
+        }
     }
     
 }
