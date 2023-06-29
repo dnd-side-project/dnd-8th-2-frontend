@@ -10,6 +10,8 @@
 		0E05EFFC2A492CA9008A20F4 /* SelectBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05EFFB2A492CA9008A20F4 /* SelectBoxStyle.swift */; };
 		0E05EFFF2A4C75C3008A20F4 /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05EFFE2A4C75C3008A20F4 /* OnboardingVC.swift */; };
 		0E05F0012A4C7DE5008A20F4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0002A4C7DE5008A20F4 /* OnboardingView.swift */; };
+		0E05F0032A4D8707008A20F4 /* FirstTypeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */; };
+		0E05F0052A4D8787008A20F4 /* OtherTypeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */; };
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
@@ -186,6 +188,8 @@
 		0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceDebug.entitlements"; sourceTree = "<group>"; };
 		0E05EFFE2A4C75C3008A20F4 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		0E05F0002A4C7DE5008A20F4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTypeOnboardingView.swift; sourceTree = "<group>"; };
+		0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTypeOnboardingView.swift; sourceTree = "<group>"; };
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
@@ -378,6 +382,8 @@
 			children = (
 				0E05EFFE2A4C75C3008A20F4 /* OnboardingVC.swift */,
 				0E05F0002A4C7DE5008A20F4 /* OnboardingView.swift */,
+				0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */,
+				0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1287,6 +1293,7 @@
 				3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */,
 				0E05EFFC2A492CA9008A20F4 /* SelectBoxStyle.swift in Sources */,
 				0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */,
+				0E05F0032A4D8707008A20F4 /* FirstTypeOnboardingView.swift in Sources */,
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageViewModel.swift in Sources */,
 				3C9256802A1CE5B00011B093 /* CategoryDetailCultureList.swift in Sources */,
@@ -1299,6 +1306,7 @@
 				3C27841B2A0A67060095B706 /* ReetTabButtonStyle.swift in Sources */,
 				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
+				0E05F0052A4D8787008A20F4 /* OtherTypeOnboardingView.swift in Sources */,
 				0EAFCFDA2A2883C50023A738 /* ReetSelectBox.swift in Sources */,
 				0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */,
 				0E5A514629F675F300C44701 /* DeleteAccountVC.swift in Sources */,

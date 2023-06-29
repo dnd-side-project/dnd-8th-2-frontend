@@ -32,24 +32,30 @@ class OnboardingVC: BaseViewController {
             $0.alignment = .fill
         }
     
-    private let onboardingFirst = OnboardingView()
+    private let onboardingFirst = FirstTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingFirst
         }
     
-    private let onboardingSecond = OnboardingView()
+    private let onboardingSecond = OtherTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingSecond
+            $0.upperLabel.text = "릿플 인기"
+            $0.lowerLabel.text = "릿플 인기로 내 근처 약속 장소를\n자유롭게 확인하고 수정할 수 있어요!"
         }
     
-    private let onboardingthird = OnboardingView()
+    private let onboardingthird = OtherTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingThird
+            $0.upperLabel.text = "북마크 저장"
+            $0.lowerLabel.text = "마음에 드는 장소가 있다면\n북마크에 저장하세요!"
         }
     
-    private let onboardingFourth = OnboardingView()
+    private let onboardingFourth = OtherTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingFourth
+            $0.upperLabel.text = "북마크 확인"
+            $0.lowerLabel.text = "불시에 약속 장소를 변경할 일이 생긴다면\n저장한 북마크를 확인해봐요!"
         }
     
     
