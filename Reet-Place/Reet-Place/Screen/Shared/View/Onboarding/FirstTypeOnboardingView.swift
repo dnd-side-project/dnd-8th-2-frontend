@@ -17,12 +17,12 @@ class FirstTypeOnboardingView: OnboardingView {
     let innerView = UIView()
     
     private let firstLineLabel = BaseAttributedLabel(font: AssetFonts.h4,
-                                                     text: "어떤 상황에서든",
+                                                     text: "FirstOnboardingFirstLine".localized,
                                                      alignment: .center,
                                                      color: AssetColors.primary500)
     
     private let secondLineLabel = BaseAttributedLabel(font: AssetFonts.h4,
-                                                      text: "나의 약속에 딱 좋은 장소를",
+                                                      text: "FirstOnboardingSecondLine".localized,
                                                       alignment: .center,
                                                       color: AssetColors.black)
     
@@ -66,9 +66,9 @@ extension FirstTypeOnboardingView {
     }
     
     private func setThirdLineLabel() {
-        let attributedText = NSMutableAttributedString(string: "Reet Place로 찾아볼까요?")
+        let attributedText = NSMutableAttributedString(string: "FirstOnboardingThirdLine".localized)
         
-        let range = ("Reet Place로 찾아볼까요?" as NSString).range(of: "Reet Place")
+        let range = ("FirstOnboardingThirdLine".localized as NSString).range(of: "Reet Place")
         
         attributedText.addAttribute(.foregroundColor, value: AssetColors.primary500, range: range)
         attributedText.setAttr(with: AssetFonts.h4, alignment: .center)

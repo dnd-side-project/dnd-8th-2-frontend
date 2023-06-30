@@ -40,22 +40,22 @@ class OnboardingVC: BaseViewController {
     private let onboardingSecond = OtherTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingSecond
-            $0.upperLabel.text = "릿플 인기"
-            $0.lowerLabel.text = "릿플 인기로 내 근처 약속 장소를\n자유롭게 확인하고 수정할 수 있어요!"
+            $0.upperLabel.text = "SecondOnboardingUpper".localized
+            $0.lowerLabel.text = "SecondOnboardingLower".localized
         }
     
     private let onboardingthird = OtherTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingThird
-            $0.upperLabel.text = "북마크 저장"
-            $0.lowerLabel.text = "마음에 드는 장소가 있다면\n북마크에 저장하세요!"
+            $0.upperLabel.text = "ThirdOnboardingUpper".localized
+            $0.lowerLabel.text = "ThirdOnboardingLower".localized
         }
     
     private let onboardingFourth = OtherTypeOnboardingView()
         .then {
             $0.innerImageView.image = AssetsImages.onboardingFourth
-            $0.upperLabel.text = "북마크 확인"
-            $0.lowerLabel.text = "불시에 약속 장소를 변경할 일이 생긴다면\n저장한 북마크를 확인해봐요!"
+            $0.upperLabel.text = "FourthOnboardingUpper".localized
+            $0.lowerLabel.text = "FourthOnboardingLower".localized
         }
     
     private let progressStackView = UIStackView()
@@ -71,7 +71,7 @@ class OnboardingVC: BaseViewController {
             $0.setImage(AssetsImages.cancel44, for: .normal)
         }
     
-    private let startBtn = ReetButton(with: "ReetPlace 시작하기",
+    private let startBtn = ReetButton(with: "StartReetPlace".localized,
                                      for: ReetButtonStyle.secondary)
     
     
