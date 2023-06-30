@@ -66,6 +66,11 @@ class OnboardingVC: BaseViewController {
             $0.alignment = .fill
         }
     
+    private let cancelBtn = UIButton(type: .system)
+        .then {
+            $0.setImage(AssetsImages.cancel44, for: .normal)
+        }
+    
     
     // MARK: - Variables and Properties
     
@@ -110,6 +115,11 @@ class OnboardingVC: BaseViewController {
         }
     }
     
+    
+    func goToLogin() {
+        print("TODO: - Go to login")
+    }
+    
 }
 
 
@@ -118,7 +128,7 @@ class OnboardingVC: BaseViewController {
 extension OnboardingVC {
     
     private func configureContentView() {
-        view.addSubviews([baseScrollView, progressStackView])
+        view.addSubviews([baseScrollView, progressStackView, cancelBtn])
         
         baseScrollView.addSubview(innerStackView)
         
@@ -173,6 +183,12 @@ extension OnboardingVC {
             $0.width.equalTo(68.0)
             $0.height.equalTo(8.0)
         }
+        
+        cancelBtn.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.trailing.equalToSuperview().offset(-16.0)
+            $0.height.width.equalTo(44.0)
+        }
     }
     
 }
@@ -183,7 +199,13 @@ extension OnboardingVC {
 extension OnboardingVC {
     
     private func bindBtn() {
-        
+        cancelBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.goToLogin()
+            })
+            .disposed(by: bag)
     }
     
 }
