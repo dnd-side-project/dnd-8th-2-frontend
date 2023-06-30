@@ -74,4 +74,5 @@ struct AssetsImages {
     static let onboardingSecond = UIImage(named: "OnboardingSecond")?.withRenderingMode(.alwaysOriginal)
     static let onboardingThird = UIImage(named: "OnboardingThird")?.withRenderingMode(.alwaysOriginal)
     static let onboardingFourth = UIImage(named: "OnboardingFourth")?.withRenderingMode(.alwaysOriginal)
+    static let cancel44 = UIImage(named: "Cancel44")?.withRenderingMode(.alwaysOriginal)
 }
