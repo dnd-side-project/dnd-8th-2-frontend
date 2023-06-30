@@ -71,6 +71,9 @@ class OnboardingVC: BaseViewController {
             $0.setImage(AssetsImages.cancel44, for: .normal)
         }
     
+    private let startBtn = ReetButton(with: "ReetPlace 시작하기",
+                                     for: ReetButtonStyle.secondary)
+    
     
     // MARK: - Variables and Properties
     
@@ -115,7 +118,7 @@ class OnboardingVC: BaseViewController {
         }
     }
     
-    
+    /// X 버튼, ReetPlace 시작하기 버튼 눌렀을 때 로그인 화면으로 이동
     func goToLogin() {
         print("TODO: - Go to login")
     }
@@ -128,7 +131,7 @@ class OnboardingVC: BaseViewController {
 extension OnboardingVC {
     
     private func configureContentView() {
-        view.addSubviews([baseScrollView, progressStackView, cancelBtn])
+        view.addSubviews([baseScrollView, progressStackView, cancelBtn, startBtn])
         
         baseScrollView.addSubview(innerStackView)
         
@@ -159,8 +162,7 @@ extension OnboardingVC {
     
     private func configureLayout() {
         baseScrollView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
         
@@ -189,6 +191,13 @@ extension OnboardingVC {
             $0.trailing.equalToSuperview().offset(-16.0)
             $0.height.width.equalTo(44.0)
         }
+        
+        startBtn.snp.makeConstraints {
+            $0.height.equalTo(48.0)
+            $0.leading.equalToSuperview().offset(20.0)
+            $0.trailing.equalToSuperview().offset(-20.0)
+            $0.bottom.equalToSuperview().offset(-56.0)
+        }
     }
     
 }
@@ -200,6 +209,14 @@ extension OnboardingVC {
     
     private func bindBtn() {
         cancelBtn.rx.tap
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.goToLogin()
+            })
+            .disposed(by: bag)
+        
+        startBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
