@@ -13,6 +13,9 @@ struct AssetsImages {
     static let search = UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal)
     static let cancelContained = UIImage(named: "CancelContained")?.withRenderingMode(.alwaysOriginal)
     
+    // Search
+    static let noSearchResult = UIImage(named: "NoSearchResult")?.withRenderingMode(.alwaysOriginal)
+    
     // MY
     static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")?.withRenderingMode(.alwaysOriginal)
     
@@ -26,8 +29,6 @@ struct AssetsImages {
     // NavigationBar
     static let cardHistoryChip20 = UIImage(named: "CardHistoryChip20")?.withRenderingMode(.alwaysOriginal)
     static let cardWishChip20 = UIImage(named: "CardWishChip20")?.withRenderingMode(.alwaysOriginal)
-    static let cardThreeStar14 = UIImage(named: "CardThreeStar14")?.withRenderingMode(.alwaysOriginal)
-    static let cardTwoStar14 = UIImage(named: "CardTwoStar14")?.withRenderingMode(.alwaysOriginal)
     static let expandLess16 = UIImage(named: "ExpandLess16")?.withRenderingMode(.alwaysTemplate)
     static let expandMore16 = UIImage(named: "ExpandMore16")?.withRenderingMode(.alwaysTemplate)
     static let cardMenu24 = UIImage(named: "CardMenu24")?.withRenderingMode(.alwaysOriginal)
@@ -43,6 +44,7 @@ struct AssetsImages {
     static let chevronRight52 = UIImage(named: "ChevronRight52")?.withRenderingMode(.alwaysOriginal)
     
     // Bookmark
+    static let chevronRight = UIImage(named: "ChevronRight")?.withRenderingMode(.alwaysOriginal)
     static let chevronRight20 = UIImage(named: "ChevronRight20")!.withRenderingMode(.alwaysTemplate)
     static let markerRoundWishlist21 = UIImage(named: "MarkerRoundWishlist21")!.withRenderingMode(.alwaysOriginal)
     static let markerRoundDidVisit21 = UIImage(named: "MarkerRoundDidVisit21")!.withRenderingMode(.alwaysOriginal)
