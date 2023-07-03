@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = ReetPlaceTabBarVC()
+        window?.rootViewController = BaseNavigationController(rootViewController: ReetPlaceTabBarVC())
         window?.tintColor = AssetColors.primary500
         window?.makeKeyAndVisible()
     }

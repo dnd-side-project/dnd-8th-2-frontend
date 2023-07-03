@@ -28,11 +28,11 @@ class HomeVC: BaseViewController {
             $0.font = AssetFonts.body1.font
             $0.attributedPlaceholder = NSAttributedString(
                 string: "SearchByDistrict".localized,
-                attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray500]
+                attributes: [NSAttributedString.Key.foregroundColor: AssetColors.gray400]
             )
             $0.addLeftPadding(padding: 16)
             $0.rightViewMode = .whileEditing
-            
+
             $0.layer.cornerRadius = 8
             $0.addShadow()
         }
@@ -89,7 +89,6 @@ class HomeVC: BaseViewController {
         super.configureView()
         
         configureMapView()
-        configureSearchTextField()
     }
     
     override func layoutView() {
@@ -187,19 +186,6 @@ extension HomeVC {
         }
     }
     
-    private func configureSearchTextField() {
-        let rightPaddingView = UIView()
-        rightPaddingView.snp.makeConstraints {
-            $0.width.equalTo(16.0 + 28.0 + 10.0 + 20.0)
-        }
-        
-        _ = searchTextField
-            .then {
-                $0.rightView = rightPaddingView
-                $0.rightViewMode = .always
-            }
-    }
-    
 }
 
 // MARK: - Layout
@@ -218,7 +204,7 @@ extension HomeVC {
         }
         
         searchTextField.snp.makeConstraints {
-            $0.height.equalTo(44)
+            $0.height.equalTo(44.0)
             
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.equalTo(mapView.snp.leading).offset(20.0)
@@ -301,15 +287,14 @@ extension HomeVC {
     }
     
     private func bindTextField() {
-        searchTextField.rx.text
-            .changed
-            .distinctUntilChanged()
-            .asDriver(onErrorJustReturn: .empty)
-            .drive(onNext: { [weak self] text in
-                guard let self = self,
-                let changedText = text else { return }
+        searchTextField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
                 
-                self.cancelButton.isHidden = changedText.count > 0 ? false : true
+                let searchVC = SearchVC()
+                searchVC.pushWithHidesReetPlaceTabBar()
+                
+                self.searchTextField.resignFirstResponder()
             })
             .disposed(by: bag)
     }
