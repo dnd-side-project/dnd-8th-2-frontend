@@ -13,6 +13,10 @@ extension UIScrollView {
         contentSize.height - bounds.size.height + contentInset.bottom
     }
     
+    var widthOffset: Double {
+        contentSize.width - bounds.size.width + contentInset.right
+    }
+    
     /// UIScrollView - 최상단으로 스크롤
     func scrollToTop() {
         let topOffset = CGPoint(x: 0, y: 0)
