@@ -12,12 +12,26 @@ DoLogin = "로그인하기";
 
 
 // MARK: - Home
+
+// Map
 SearchByDistrict = "시/군/구로 검색";
 
 // Filter Bottom Sheet
 ResetSelectedCategory = "재설정";
 SaveSelectedCategory = "저장하기";
 
+// Search
+SearchPlaceKeyword = "어디로 가볼래요?";
+
+RecentKeywords = "최근 검색어";
+RemoveAllKeywords = "전체지우기";
+
+SearchHistoryEmptyTitle = "최근에 검색한 장소가 없어요!";
+SearchHistoryEmptyContent = "나의 완벽한 약속을 위한\n장소를 찾아볼까요?";
+
+SearchResultEmptyTitle = "찾으시는 장소가 없어요!";
+SearchResultEmptySubTitle = "한번 확인해주시겠어요?";
+SearchResultEmptyContent = "장소의 단어가 정확한지 확인해주세요.\n검색 장소의 단어 수를 줄여보세요.\n다른 검색어로 검색해보세요.";
 
 // MARK: - Bookmark
 
