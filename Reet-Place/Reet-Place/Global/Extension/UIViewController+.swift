@@ -135,6 +135,7 @@ extension UIViewController {
         
     }
     
+    /// Pop Up 노출
     func showPopUp(popUpType: PopUpType, targetVC: UIViewController, confirmBtnAction: Selector) {
         let popUpVC = ReetPopUp()
         
@@ -143,6 +144,21 @@ extension UIViewController {
                                confirmBtnAction: confirmBtnAction)
         popUpVC.modalPresentationStyle = .overFullScreen
         targetVC.present(popUpVC, animated: false)
+    }
+    
+    /// Select Box 노출
+    func showSelectBox(targetVC: UIViewController, location: CGRect, style: SelectBoxStyle, completion: @escaping (Int) -> Void) {
+        let selectBoxVC = ReetSelectBox()
+        
+        selectBoxVC.location = location
+        selectBoxVC.style = style
+        selectBoxVC.modalPresentationStyle = .overFullScreen
+        
+        selectBoxVC.selected = { row in
+            completion(row)
+        }
+        
+        targetVC.present(selectBoxVC, animated: false)
     }
     
 }
