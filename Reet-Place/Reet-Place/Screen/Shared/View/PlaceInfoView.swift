@@ -336,8 +336,11 @@ extension PlaceInfoView {
         cardMenuButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self,
-                      let cellIndex = self.cellIndex else { return }
-                self.delegate?.showMenu(index: cellIndex)
+                      let cellIndex = self.cellIndex,
+                      let owner = self.findViewController() else { return }
+                
+                let buttonFrameInSuperview = owner.view.convert(self.cardMenuButton.frame, from: self.placeNameStackView)
+                self.delegate?.showMenu(index: cellIndex, location: buttonFrameInSuperview)
             })
             .disposed(by: bag)
     }
