@@ -55,6 +55,7 @@ class ReetPlaceTabBarVC: BaseViewController {
         activeTabBarItem(targetItemType: .home)
     }
     
+    /// Reet 탭바 중 특정 타입의 아이템 탭을 활성화(선택상태) 하는 함수
     func activeTabBarItem(targetItemType: TabBarItem) {
         // Set button status
         tabBarView.tabBarStackView.arrangedSubviews.forEach {
