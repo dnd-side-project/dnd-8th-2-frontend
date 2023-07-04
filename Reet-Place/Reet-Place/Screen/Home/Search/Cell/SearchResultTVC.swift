@@ -22,8 +22,6 @@ class SearchResultTVC: BaseTableViewCell {
     
     // MARK: - Variables and Properties
     
-    var bag = DisposeBag()
-    
     // MARK: - Life Cycle
     
     override func configureView() {
@@ -45,17 +43,16 @@ class SearchResultTVC: BaseTableViewCell {
     }
 
     // MARK: - Function
-    
-    /// 검색결과 장소 셀의 데이터 정보를 입력하는 함수
-    func configureSearchResultTVC(placeInformation: BookmarkCardModel, bookmarkCardActionDelegate: BookmarkCardAction, index: Int) {
-        placeInformationView.configurePlaceInfoView(cardInfo: placeInformation, delegate: bookmarkCardActionDelegate, cellIndex: index)
-    }
-    
 }
 
 // MARK: - Configure
 
 extension SearchResultTVC {
+    
+    /// 검색결과 장소 셀의 데이터 정보를 입력하는 함수
+    func configureSearchResultTVC(placeInformation: BookmarkCardModel, bookmarkCardActionDelegate: BookmarkCardAction, index: Int) {
+        placeInformationView.configurePlaceInfoView(cardInfo: placeInformation, delegate: bookmarkCardActionDelegate, cellIndex: index)
+    }
     
     private func configureTVC() {
         selectionStyle = .none
@@ -71,7 +68,8 @@ extension SearchResultTVC {
         contentView.addSubviews([placeInformationView])
         
         placeInformationView.snp.makeConstraints {
-            $0.edges.equalTo(contentView)
+            $0.verticalEdges.equalTo(contentView).inset(16.0).priority(.low)
+            $0.horizontalEdges.equalTo(contentView).inset(20.0)
         }
     }
  
