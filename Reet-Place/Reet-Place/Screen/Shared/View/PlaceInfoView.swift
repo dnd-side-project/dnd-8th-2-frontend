@@ -14,6 +14,11 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+protocol BookmarkCardAction {
+    func infoToggle(index: Int)
+    func showMenu(index: Int, location: CGRect)
+}
+
 class PlaceInfoView: BaseView {
     
     // MARK: - UI components
@@ -283,8 +288,8 @@ extension PlaceInfoView {
         
         // Make Constraints
         baseStackView.snp.makeConstraints {
-            $0.verticalEdges.equalToSuperview().inset(16.0).priority(.low)
-            $0.horizontalEdges.equalToSuperview().inset(20.0)
+            $0.verticalEdges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
         }
         
         placeNameStackView.snp.makeConstraints {
