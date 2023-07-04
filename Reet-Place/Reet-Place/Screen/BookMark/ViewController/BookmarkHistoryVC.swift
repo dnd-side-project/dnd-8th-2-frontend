@@ -163,13 +163,9 @@ extension BookmarkHistoryVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
-        cell.selectionStyle = .none
         
         let cardInfo = viewModel.output.cardList.value[indexPath.row]
-        
-        cell.configureCell(with: cardInfo)
-        cell.index = indexPath.row
-        cell.delegate = self
+        cell.configureBookmarkCardTVC(with: cardInfo, bookmarkCardActionDelegate: self, index: indexPath.row)
         
         return cell
     }
