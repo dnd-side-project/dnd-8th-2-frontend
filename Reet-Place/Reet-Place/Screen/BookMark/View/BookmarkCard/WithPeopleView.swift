@@ -47,6 +47,10 @@ class WithPeopleView: BaseView {
     override func layoutView() {
         super.layoutView()
         
+        snp.makeConstraints {
+            $0.height.equalTo(30.0)
+        }
+        
         withLabel.snp.makeConstraints {
             $0.centerY.equalTo(self.snp.centerY)
             $0.leading.equalToSuperview().offset(8)
