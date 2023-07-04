@@ -183,7 +183,7 @@ extension BookmarkHistoryVC: BookmarkCardAction {
         tableView.reloadData()
     }
     
-    func showMenu(index: Int, location: CGRect) {
+    func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle) {
         showSelectBox(targetVC: self, location: location, style: .bookmarked) { [weak self] row in
             guard let self = self else { return }
             
