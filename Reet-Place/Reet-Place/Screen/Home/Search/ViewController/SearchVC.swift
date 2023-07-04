@@ -475,25 +475,46 @@ extension SearchVC: BookmarkCardAction {
         searchResultTableView.reloadData()
     }
     
-    func showMenu(index: Int, location: CGRect) {
-        showSelectBox(targetVC: self, location: location, style: .bookmarked) { [weak self] row in
+    func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle) {
+        showSelectBox(targetVC: self, location: location, style: selectMenuType) { [weak self] row in
             guard let self = self else { return }
             
-            if row == 0 {
-                self.showBottomSheet(index: index)
-            }
-            
-            if row == 1 {
-                print("TODO: - Copy Link to be call")
-            }
-            
-            if row == 2 {
-                print("TODO: - Delete Bookmark API to be call")
+            switch selectMenuType {
+            case .defaultPlaceInfo:
+                actionDefaultPlaceInfoCell(index: index, row: row)
+            case .bookmarked:
+                actionBookmarkCell(index: index, row: row)
             }
         }
     }
     
-    func showBottomSheet(index: Int) {
+    private func actionDefaultPlaceInfoCell(index: Int, row: Int) {
+        switch row {
+        case 0:
+            // TODO: - 검색결과 북마크 추가 기능
+            print("북마크(추가) 메뉴 선택")
+        case 1:
+            // TODO: - 장소공유 기능
+            print("공유하기 메뉴 선택")
+        default:
+            break
+        }
+    }
+    
+    private func actionBookmarkCell(index: Int, row: Int) {
+        switch row {
+        case 0:
+            showBottomSheet(index: index)
+        case 1:
+            print("TODO: - Copy Link to be call")
+        case 2:
+            print("TODO: - Delete Bookmark API to be call")
+        default:
+            break
+        }
+    }
+    
+    private func showBottomSheet(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC()
         let cardInfo = viewModel.output.searchResultList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
