@@ -345,7 +345,7 @@ extension PlaceInfoView {
                       let owner = self.findViewController() else { return }
                 
                 let buttonFrameInSuperview = owner.view.convert(self.cardMenuButton.frame, from: self.placeNameStackView)
-                self.delegate?.showMenu(index: cellIndex, location: buttonFrameInSuperview, selectMenuType: groupIconImageView.image == nil ? .defaultPlaceInfo : .bookmarked)
+                self.delegate?.showMenu(index: cellIndex, location: buttonFrameInSuperview, selectMenuType: self.groupIconImageView.image == nil ? .defaultPlaceInfo : .bookmarked)
             })
             .disposed(by: bag)
     }

@@ -456,7 +456,7 @@ extension SearchVC {
                 guard let self = self else { return }
                 
                 if items.count == 0 {
-                    self.view.bringSubviewToFront(searchResultEmptyStackView)
+                    self.view.bringSubviewToFront(self.searchResultEmptyStackView)
                 }
             })
             .disposed(by: bag)
@@ -481,9 +481,9 @@ extension SearchVC: BookmarkCardAction {
             
             switch selectMenuType {
             case .defaultPlaceInfo:
-                actionDefaultPlaceInfoCell(index: index, row: row)
+                self.actionDefaultPlaceInfoCell(index: index, row: row)
             case .bookmarked:
-                actionBookmarkCell(index: index, row: row)
+                self.actionBookmarkCell(index: index, row: row)
             }
         }
     }
