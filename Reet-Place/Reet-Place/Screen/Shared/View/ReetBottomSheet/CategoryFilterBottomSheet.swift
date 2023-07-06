@@ -110,16 +110,17 @@ extension CategoryFilterBottomSheet {
         }
         
         TabPlaceCategoryList.allCases.forEach {
-            let categoryDetailView = $0.createCategoryDetailView()
-            
-            categoryDetailStackView.addArrangedSubview(categoryDetailView)
-            categoryDetailView.snp.makeConstraints {
-                $0.width.equalTo(view.frame.size.width)
-                $0.height.equalTo(categoryDetailStackView)
+            if let categoryDetailView = $0.createCategoryDetailView() {
+                
+                categoryDetailStackView.addArrangedSubview(categoryDetailView)
+                categoryDetailView.snp.makeConstraints {
+                    $0.width.equalTo(view.frame.size.width)
+                    $0.height.equalTo(categoryDetailStackView)
+                }
+                
+                categoryDetailView.bindCategoryDetailList(viewModel: viewModel, bag: bag)
+                categoryDetailView.bindCollectionView(bag: bag)
             }
-            
-            categoryDetailView.bindCategoryDetailList(viewModel: viewModel, bag: bag)
-            categoryDetailView.bindCollectionView(bag: bag)
         }
         
         menuTabBarView.snp.makeConstraints {
@@ -134,7 +135,7 @@ extension CategoryFilterBottomSheet {
             $0.bottom.equalTo(buttonStackView.snp.top).offset(-4.0)
         }
         categoryDetailStackView.snp.makeConstraints {
-            $0.width.equalTo(screenWidth * CGFloat(TabPlaceCategoryList.allCases.count))
+            $0.width.equalTo(screenWidth * CGFloat(TabPlaceCategoryList.allCases.count - 1))
             $0.height.equalTo(categoryDetailScrollView)
             $0.edges.equalTo(categoryDetailScrollView)
         }
@@ -160,18 +161,10 @@ extension CategoryFilterBottomSheet {
             .asDriver()
             .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
+                
+                self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                
                 let offset = CGFloat(indexPath.row) * self.screenWidth
-                
-                let menuBarCV: ReetMenuTabBarView = self.menuTabBarView
-                switch indexPath.row {
-                case 0:
-                    menuBarCV.scrollToStartTab()
-                case TabPlaceCategoryList.allCases.count - 1:
-                    menuBarCV.scrollToEndTab(rightInset: 20.0)
-                default:
-                    break
-                }
-                
                 self.categoryDetailScrollView.scrollToHorizontalOffset(offset: offset)
             })
             .disposed(by: bag)

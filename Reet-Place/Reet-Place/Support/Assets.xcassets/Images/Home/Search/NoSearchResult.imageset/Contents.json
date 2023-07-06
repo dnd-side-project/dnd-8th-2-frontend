@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CardThreeStar14.png",
+      "filename" : "NoSearchResult@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "CardThreeStar14@2x.png",
+      "filename" : "NoSearchResult@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "CardThreeStar14@3x.png",
+      "filename" : "NoSearchResult@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

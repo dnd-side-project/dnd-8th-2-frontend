@@ -56,8 +56,8 @@ class ReetMenuTabBarView: BaseView {
     }
     
     /// menuCollectionView의 right inset 값을 포함하여 가장 오른쪽 탭으로 스크롤
-    func scrollToEndTab(rightInset: CGFloat) {
-        menuBarCollectionView.scrollToHorizontalOffset(offset: menuBarCollectionView.bottomOffset + rightInset)
+    func scrollToEndTab() {
+        menuBarCollectionView.scrollToHorizontalOffset(offset: menuBarCollectionView.widthOffset)
     }
     
 }

@@ -26,7 +26,9 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
         
         var tabPlaceCategoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
-            tabPlaceCategoryList.map { [TabPlaceCategoryListDataSource(items: $0)] }
+            tabPlaceCategoryList.map {
+                [TabPlaceCategoryListDataSource(items: $0.filter { $0 != .all })]
+            }
         }
         
         var categoryDetailFoodList: BehaviorRelay<Array<CategoryDetailFoodList>> = BehaviorRelay(value: CategoryDetailFoodList.allCases)
