@@ -9,6 +9,9 @@ import UIKit
 
 struct AssetsImages {
     
+    // Login
+    static let reetPlaceTitle = UIImage(named: "ReetPlaceTitle")?.withRenderingMode(.alwaysOriginal)
+    
     // Home
     static let search = UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal)
     static let cancelContained = UIImage(named: "CancelContained")?.withRenderingMode(.alwaysOriginal)
