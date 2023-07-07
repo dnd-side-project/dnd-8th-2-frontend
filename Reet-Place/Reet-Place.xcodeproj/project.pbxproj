@@ -93,6 +93,8 @@
 		3C2AF0DD29914CAA00E36342 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0DC29914CAA00E36342 /* UIFont+.swift */; };
 		3C3255E32A35ED1300F96F82 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3255E22A35ED1300F96F82 /* SearchVC.swift */; };
 		3C353F212A0CAA6000132EF8 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C353F202A0CAA6000132EF8 /* CategoryDetailView.swift */; };
+		3C3A631D2A56A65A00975B56 /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A631C2A56A65A00975B56 /* LoginType.swift */; };
+		3C3A631F2A56A6CD00975B56 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A631E2A56A6CD00975B56 /* LoginButton.swift */; };
 		3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3AC2FF2A36EE870023D3DE /* SearchVM.swift */; };
 		3C40FD822A4A6B3C00D66B49 /* KeywordHistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40FD812A4A6B3C00D66B49 /* KeywordHistoryDataSource.swift */; };
 		3C40FD842A4AC06C00D66B49 /* SearchResultTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C40FD832A4AC06C00D66B49 /* SearchResultTVC.swift */; };
@@ -268,6 +270,8 @@
 		3C2AF0DC29914CAA00E36342 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		3C3255E22A35ED1300F96F82 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		3C353F202A0CAA6000132EF8 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
+		3C3A631C2A56A65A00975B56 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
+		3C3A631E2A56A6CD00975B56 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		3C3AC2FF2A36EE870023D3DE /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		3C40FD812A4A6B3C00D66B49 /* KeywordHistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordHistoryDataSource.swift; sourceTree = "<group>"; };
 		3C40FD832A4AC06C00D66B49 /* SearchResultTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTVC.swift; sourceTree = "<group>"; };
@@ -559,6 +563,7 @@
 				3C976C8029AA61110002F8A7 /* PlaceCategoryList.swift */,
 				3C27841C2A0A6F1B0095B706 /* TabPlaceCategoryList.swift */,
 				0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */,
+				3C3A631C2A56A65A00975B56 /* LoginType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -723,6 +728,14 @@
 			path = CategoryBottomSheet;
 			sourceTree = "<group>";
 		};
+		3C3A631B2A56A63100975B56 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C3A631E2A56A6CD00975B56 /* LoginButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3C40FD7F2A4A689C00D66B49 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -760,6 +773,7 @@
 		3C4DA53A2A56516900274692 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3C3A631B2A56A63100975B56 /* View */,
 				3C4DA53B2A56516A00274692 /* ViewModel */,
 				3C4DA53C2A56516A00274692 /* Model */,
 				3C4DA53D2A56516A00274692 /* ViewController */,
@@ -1327,6 +1341,7 @@
 				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
+				3C3A631F2A56A6CD00975B56 /* LoginButton.swift in Sources */,
 				3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
 				0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */,
@@ -1337,6 +1352,7 @@
 				3C9256722A1CE13E0011B093 /* CategoryDetailPhotoBoothView.swift in Sources */,
 				3C92566C2A1CD1E90011B093 /* CategoryDetailActivityView.swift in Sources */,
 				3C92566E2A1CDE9F0011B093 /* CategoryDetailPhotoBoothList.swift in Sources */,
+				3C3A631D2A56A65A00975B56 /* LoginType.swift in Sources */,
 				0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */,
 				3C92567E2A1CE5390011B093 /* CategoryDetailCafeView.swift in Sources */,
 				3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */,

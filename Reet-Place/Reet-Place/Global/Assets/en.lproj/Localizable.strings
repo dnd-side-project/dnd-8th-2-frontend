@@ -12,6 +12,9 @@
 ReetPlaceTitleExplain = "숨겨진 장소를 나만의 약속으로";
 LoginLater = "다음에 로그인";
 
+LoginKakao = "카카오로 로그인";
+LoginApple = "애플로 로그인";
+
 NeedToSignIn = "로그인이 필요합니다.";
 DoLogin = "로그인하기";
 
