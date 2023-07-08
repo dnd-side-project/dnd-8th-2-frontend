@@ -20,6 +20,8 @@ class LoginButton: UIButton {
             $0.distribution = .fillProportionally
             $0.alignment = .center
             $0.spacing = 10.0
+            
+            $0.isUserInteractionEnabled = false
         }
     private let explainLabel = UILabel()
     private let logoImageView = UIImageView()
