@@ -52,7 +52,7 @@ class ReetPlaceTabBarVC: BaseViewController {
     // MARK: - Functions
     
     private func setStartTab(itemType: TabBarItem) {
-        activeTabBarItem(targetItemType: .home)
+        activeTabBarItem(targetItemType: itemType)
     }
     
     /// Reet 탭바 중 특정 타입의 아이템 탭을 활성화(선택상태) 하는 함수
