@@ -21,10 +21,10 @@ final class BookmarkVM: BaseViewModel {
     struct Input { }
     
     struct Output {
-        private let authToken = BehaviorRelay(value: KeychainManager.shared.read(for: .authToken))
+        private let accessToken = BehaviorRelay(value: KeychainManager.shared.read(for: .accessToken))
         
         var isAuthenticated: Observable<Bool> {
-            authToken.map { $0 == nil }
+            accessToken.map { $0 != nil }
         }
         
         var isEmptyBookmark: Observable<Bool> {
