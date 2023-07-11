@@ -11,31 +11,81 @@ import Then
 import SnapKit
 
 class UserInfoTVC: DefaultCategoryTVC {
-    let infoLabel = BaseAttributedLabel(font: .body2,
-                              text: nil,
-                              alignment: .center,
-                              color: AssetColors.gray500)
+    
+    // MARK: - UI components
+    
+    private let infoLabel = BaseAttributedLabel(font: .body2,
+                                                text: nil,
+                                                alignment: .center,
+                                                color: AssetColors.gray500)
         .then {
             $0.setContentHuggingPriority(.required, for: .horizontal)
         }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - Variables and Properties
+    
+    // MARK: - Life Cycle
+    
+    override func configureView() {
+        super.configureView()
+        
+        configureRightImageView()
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override func layoutView() {
+        super.layoutView()
         
-        rightImageView.image = AssetsImages.kakao
+        configureUserInfoTVCLayout()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-        // Image view size
-        rightImageView.snp.removeConstraints()
-        rightImageView.snp.makeConstraints {
-            $0.width.equalTo(24.0)
+        infoLabel.text = .empty
+        rightImageView.isHidden = false
+    }
+    
+}
+
+// MARK: - Configure
+
+extension UserInfoTVC {
+    
+    /// 회원정보VC에 있는 userInfoTableView의 UserInfoTVC의 정보를 입력
+    func configureUserInfoTVC(infoMenuType: UserInfoMenu, userInformation: UserInfomation) {
+        titleLabel.text = infoMenuType.description
+        titleLabel.textColor = infoMenuType.foregroundColor
+        
+        switch infoMenuType {
+        case .sns:
+            infoLabel.text = userInformation.email
+            rightImageView.image = LoginType(rawValue: userInformation.loginType)?.accountProviderSNSIcon
+            rightImageView.backgroundColor = AssetColors.black
+        case .delete:
+            rightImageView.isHidden = true
         }
-        
-        stackView.insertArrangedSubview(infoLabel, at: 1)
     }
     
+    private func configureRightImageView() {
+        rightImageView.layer.cornerRadius = 12.0
+        rightImageView.clipsToBounds = true
+    }
+    
+}
+
+// MARK: - Layout
+
+extension UserInfoTVC {
+    
+    private func configureUserInfoTVCLayout() {
+        baseStackView.insertArrangedSubview(infoLabel, at: 1)
+        
+        baseStackView.snp.updateConstraints {
+            $0.trailing.equalToSuperview().offset(-defaultHorizontalOffset)
+        }
+        rightImageView.snp.updateConstraints {
+            $0.width.height.equalTo(rightImageView.layer.cornerRadius * 2)
+        }
+    }
     
 }

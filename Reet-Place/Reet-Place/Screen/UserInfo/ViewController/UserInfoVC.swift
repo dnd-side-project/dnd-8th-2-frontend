@@ -14,111 +14,140 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-fileprivate let userInfoTableViewCellIdentifier = "userInfoTableViewCellIdentifier"
-
 class UserInfoVC: BaseNavigationViewController {
     
-    let viewModel = UserInfoViewModel()
+    // MARK: - UI components
     
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    private let userInfoTableView = UITableView(frame: .zero, style: .plain)
         .then {
-            $0.separatorStyle = .none
             $0.rowHeight = UserInfoTVC.defaultHeight
+            $0.separatorStyle = .none
+            $0.register(UserInfoTVC.self,
+                        forCellReuseIdentifier: UserInfoTVC.className)
         }
+    
+    // MARK: - Variables and Properties
+    
+    let viewModel = UserInfoVM()
+    
+    // MARK: - Life Cycle
     
     override func configureView() {
         super.configureView()
         
-        navigationBar.style = .left
-        title = "UserInfoTitle".localized
-        
-        tableView.register(UserInfoTVC.self, forCellReuseIdentifier: userInfoTableViewCellIdentifier)
+        configureNavigationBar()
     }
     
     override func layoutView() {
         super.layoutView()
         
-        // Table View
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom)
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    
-    override func bindDependency() {
-        super.bindDependency()
+        configureLayout()
     }
     
     override func bindInput() {
         super.bindInput()
         
-        tableView.rx.modelSelected(UserInfoMenu.self)
-            .withUnretained(self)
-            .bind(onNext: { owner, menu in
-                switch menu {
-                case .sns:
-                    print("TODO: Go To \(menu.description)")
-                case .delete:
-                    let vc = DeleteAccountVC()
-                    
-                    owner.navigationController?
-                        .pushViewController(vc, animated: true)
-                }
-            })
-            .disposed(by: bag)
-
-        
-        // Table View
-        tableView.rx.itemSelected
-            .withUnretained(self)
-            .bind(onNext: { owner, indexPath in
-                owner.tableView.deselectRow(at: indexPath, animated: true)
-            })
-            .disposed(by: bag)
+        bindUserInfoTableView()
     }
     
     override func bindOutput() {
         super.bindOutput()
         
-        // DataSource
+        bindUserInfoTableViewDataSource()
+        bindUserInfo()
+    }
+}
+
+// MARK: - Configure
+
+extension UserInfoVC {
+    
+    private func configureNavigationBar() {
+        navigationBar.style = .left
+        title = "UserInfoTitle".localized
+    }
+    
+}
+
+// MARK: - Layout
+
+extension UserInfoVC {
+    
+    private func configureLayout() {
+        view.addSubview(userInfoTableView)
+        
+        userInfoTableView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+}
+
+// MARK: - Input
+
+extension UserInfoVC {
+    
+    private func bindUserInfoTableView() {
+        userInfoTableView.rx.modelSelected(UserInfoMenu.self)
+            .withUnretained(self)
+            .bind(onNext: { owner, menu in
+                switch menu {
+                case .sns:
+                    print("Tab \(menu.description)")
+                case .delete:
+                    let vc = DeleteAccountVC()
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
+                }
+            })
+            .disposed(by: bag)
+        
+        userInfoTableView.rx.itemSelected
+            .withUnretained(self)
+            .bind(onNext: { owner, indexPath in
+                owner.userInfoTableView.deselectRow(at: indexPath, animated: true)
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
+// MARK: - Output
+
+extension UserInfoVC {
+    
+    private func bindUserInfoTableViewDataSource() {
         let dataSource = RxTableViewSectionedReloadDataSource<UserInfoMenuDataSource> { [weak self]
             _,
             tableView,
             indexPath,
             menu in
             guard let self = self,
-                  let cell = tableView
-                .dequeueReusableCell(withIdentifier: userInfoTableViewCellIdentifier,
+                  let cell = userInfoTableView
+                .dequeueReusableCell(withIdentifier: UserInfoTVC.className,
                                      for: indexPath) as? UserInfoTVC else {
-                fatalError("No such cells named DefaultCategoryTVC")
+                fatalError("No such cells named UserInfoTVC")
             }
-            
-            cell.titleLabel.text = menu.description
-            cell.titleLabel.textColor = menu.foregroundColor
-            
-            switch menu {
-            case .sns:
-                cell.infoLabel.text = self.viewModel.output.email
-            case .delete:
-                cell.rightImageView.isHidden = true
-            }
+            cell.configureUserInfoTVC(infoMenuType: menu, userInformation: viewModel.output.userInformation.value)
             
             return cell
         }
         
         viewModel.output.menuDataSource
-            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .bind(to: userInfoTableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
-        
-        // User
-        viewModel.output.user
+    }
+    
+    private func bindUserInfo() {
+        viewModel.output.userInformation
             .withUnretained(self)
-            .bind(onNext: { owner, _ in
+            .bind(onNext: { owner, data in
                 DispatchQueue.main.async {
-                    owner.tableView.reloadData()
+                    owner.userInfoTableView.reloadData()
                 }
             })
             .disposed(by: bag)
     }
+    
 }
