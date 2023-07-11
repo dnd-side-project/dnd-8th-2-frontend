@@ -1,5 +1,5 @@
 //
-//  String+Ext.swift
+//  String+.swift
 //  Reet-Place
 //
 //  Created by Aaron Lee on 2023/02/14.
@@ -16,6 +16,9 @@ extension String {
         NSLocalizedString(self, comment: .empty)
     }
     
+    static var defaultThumbnailImageName: Self {
+        "ProfilePlaceholder"
+    }
     
 }
 
