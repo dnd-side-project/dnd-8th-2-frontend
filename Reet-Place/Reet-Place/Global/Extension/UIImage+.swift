@@ -9,9 +9,9 @@ import UIKit
 
 extension UIImage {
     
-    /// 기본 썸네일 이미지 반환
+    /// 릿플 사용자 기본 썸네일 이미지
     @nonobjc class var defaultThumbnail: UIImage {
-        return UIImage(named: "defaultThumbnail")!
+        return AssetsImages.profilePlaceholder
     }
     
 }
