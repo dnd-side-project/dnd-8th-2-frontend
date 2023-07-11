@@ -1,5 +1,5 @@
 //
-//  UserInfoViewModel.swift
+//  UserInfoVM.swift
 //  Reet-Place
 //
 //  Created by Aaron Lee on 2023/02/17.
@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class UserInfoViewModel: BaseViewModel {
+final class UserInfoVM: BaseViewModel {
     var bag: DisposeBag = DisposeBag()
     
     var apiSession: APIService = APISession()
@@ -23,16 +23,11 @@ final class UserInfoViewModel: BaseViewModel {
     
     struct Output {
         private var menu: BehaviorRelay<Array<UserInfoMenu>> = BehaviorRelay(value: UserInfoMenu.allCases)
-        var user: BehaviorRelay<ModelUser?> = BehaviorRelay(value: nil)
+        var userInformation: BehaviorRelay<UserInfomation> = BehaviorRelay(value: UserInfomation.getUserInfo())
         
         var menuDataSource: Observable<Array<UserInfoMenuDataSource>> {
             menu.map { [UserInfoMenuDataSource(items: $0)] }
         }
-        
-        var email: String? {
-            user.value?.email
-        }
-        
     }
     
     init() {
