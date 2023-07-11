@@ -8,12 +8,19 @@
 import Foundation
 
 final class KeychainManager {
-  static let shared = KeychainManager()
+    
+    // MARK: - Variables and Properties
+
+    static let shared = KeychainManager()
+
+    private let service = Bundle.main.bundleIdentifier!
   
-  private let service = Bundle.main.bundleIdentifier!
+    // MARK: - Life Cycle
+    
+    private init() {}
   
-  private init() {}
-  
+    // MARK: - Functions
+    
   @discardableResult
   func save(key: Key, value: String) -> Bool {
     let query: [CFString: Any] = [
@@ -103,14 +110,31 @@ final class KeychainManager {
     
     return true
   }
+    
+    /// 로컬 디바이스에 저장된 사용자의 기본정보 모두 제거
+    func removeAllUserInformationKeys() {
+        KeychainManager.Key.allCases.forEach {
+            delete(for: $0)
+        }
+    }
 }
 
 // MARK: - Keys
 
 extension KeychainManager {
   
-  enum Key: String {
-    case authToken
+  enum Key: String, CaseIterable {
+      case appleUserAuthID
+      case kakaoToken
+      
+      case loginType
+      
+      case accessToken
+      case refreshToken
+      
+      case userName
+      case memberID
+      case email
   }
   
 }

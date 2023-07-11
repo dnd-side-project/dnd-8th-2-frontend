@@ -11,10 +11,10 @@ struct URLResource<T: Decodable> {
     
     // MARK: - Variables and Properties
     
-    let baseURL = URL(string: "http://")
+    let baseURL = URL(string: "https://reet-place.shop")
     let path: String
     var resultURL: URL {
-        return path.contains("http")
+        return path.contains("https")
         ? URL(string: path)!
         : baseURL.flatMap { URL(string: $0.absoluteString + path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) }!
     }

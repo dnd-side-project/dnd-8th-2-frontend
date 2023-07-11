@@ -7,18 +7,28 @@
 
 import UIKit
 
-enum LoginType {
+enum LoginType: String {
     case kakao
     case apple
 }
+
+// MARK: - Custom String Convertible
+
+extension LoginType: CustomStringConvertible {
+    var description: String {
+        rawValue.localized
+    }
+}
+
+// MARK: - Login Button
 
 extension LoginType {
     var logoImage: UIImage? {
         switch self {
         case .kakao:
-            return AssetsImages.kakao // TODO: - 카카오 로고 확인
+            return AssetsImages.kakaoLogo // TODO: - 카카오 로고 확인
         case .apple:
-            return UIImage(systemName: "apple.logo")?.withTintColor(AssetColors.white, renderingMode: .alwaysOriginal)
+            return AssetsImages.appleLogo
         }
     }
     
@@ -63,6 +73,37 @@ extension LoginType {
             return UIColor(red: 254, green: 229, blue: 0, alpha: 1.0) // TODO: - 카카오 색상 확인
         case .apple:
             return AssetColors.black
+        }
+    }
+    
+    var accountProviderSNSIcon: UIImage? {
+        switch self {
+        case .kakao:
+            return AssetsImages.kakaoLogo
+        case .apple:
+            return AssetsImages.appleLogoOnlyWhite
+        }
+    }
+}
+
+// MARK: - Login Network
+
+extension LoginType {
+    var headerQuery: String {
+        switch self {
+        case .kakao:
+            return .empty
+        case .apple:
+            return "?nickname="
+        }
+    }
+    
+    var headerParamter: String {
+        switch self {
+        case .kakao:
+            return "access-token"
+        case .apple:
+            return "identity-token"
         }
     }
 }
