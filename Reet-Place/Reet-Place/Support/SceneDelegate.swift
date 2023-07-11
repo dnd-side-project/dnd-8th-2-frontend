@@ -7,6 +7,8 @@
 
 import UIKit
 
+import AuthenticationServices
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -18,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Splash Show
         Thread.sleep(forTimeInterval: 1)
+        
+        checkAvailableSignInWithApple()
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
@@ -53,7 +57,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
+    
 }
 
+// MARK: - Sign in with Apple
+
+extension SceneDelegate {
+    
+    private func checkAvailableSignInWithApple() {
+        guard let appleToken = KeychainManager.shared.read(for: .appleUserAuthID) else { return }
+        
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: appleToken) { (credentialState, error) in
+            switch credentialState {
+            case .authorized:
+                break
+            case .revoked,
+                .notFound:
+                KeychainManager.shared.removeAllUserInformationKeys()
+                print("Sign in With Apple no longer available")
+            default:
+                break
+            }
+        }
+    }
+    
+}
