@@ -78,6 +78,13 @@ class MyPageVC: BaseNavigationViewController {
         bindMenuTableViewDataSource()
     }
     
+    // MARK: - Functions
+    
+    /// 사용자 로그인 상태 확인
+    func updateLoginStatus() {
+        viewModel.output.accessToken.accept(KeychainManager.shared.read(for: .accessToken))
+    }
+    
 }
 
 // MARK: - Configure
@@ -234,7 +241,7 @@ extension MyPageVC {
 extension MyPageVC: LoginAction {
     
     func loginSuccess() {
-        viewModel.output.accessToken.accept(KeychainManager.shared.read(for: .accessToken))
+        updateLoginStatus()
         viewModel.output.userInfomation.accept(UserInfomation.getUserInfo())
     }
     

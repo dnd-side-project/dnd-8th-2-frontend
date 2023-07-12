@@ -48,6 +48,8 @@
 		3C04A7C72A51ACB000A31FA3 /* SearchHistoryListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C04A7C62A51ACB000A31FA3 /* SearchHistoryListDataSource.swift */; };
 		3C09F6902A59330E00B6B0BF /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F68F2A59330E00B6B0BF /* LoginVM.swift */; };
 		3C09F6922A59347F00B6B0BF /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6912A59347F00B6B0BF /* LoginResponseModel.swift */; };
+		3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6932A5E599600B6B0BF /* APIToken.swift */; };
+		3C09F6962A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */; };
 		3C2784132A0A3BC20095B706 /* ReetMenuTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784122A0A3BC20095B706 /* ReetMenuTabBarView.swift */; };
 		3C2784162A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784152A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift */; };
 		3C2784192A0A65C90095B706 /* ReetTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784182A0A65C90095B706 /* ReetTabButton.swift */; };
@@ -225,6 +227,8 @@
 		3C04A7C62A51ACB000A31FA3 /* SearchHistoryListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryListDataSource.swift; sourceTree = "<group>"; };
 		3C09F68F2A59330E00B6B0BF /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		3C09F6912A59347F00B6B0BF /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
+		3C09F6932A5E599600B6B0BF /* APIToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIToken.swift; sourceTree = "<group>"; };
+		3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTokenResponseModel.swift; sourceTree = "<group>"; };
 		3C2784122A0A3BC20095B706 /* ReetMenuTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetMenuTabBarView.swift; sourceTree = "<group>"; };
 		3C2784152A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetMenuTarBarCVC.swift.swift; sourceTree = "<group>"; };
 		3C2784182A0A65C90095B706 /* ReetTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTabButton.swift; sourceTree = "<group>"; };
@@ -573,8 +577,9 @@
 				3C2AED342990B3C200E36342 /* APIError.swift */,
 				3C2AED352990B3C200E36342 /* APIService.swift */,
 				3C2AED372990B3C200E36342 /* APISession.swift */,
-				3C2AED392990B3C200E36342 /* URLResource.swift */,
 				3C2AF0D42990F7C200E36342 /* AuthInterceptor.swift */,
+				3C09F6932A5E599600B6B0BF /* APIToken.swift */,
+				3C2AED392990B3C200E36342 /* URLResource.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -980,6 +985,7 @@
 			isa = PBXGroup;
 			children = (
 				A417F66E299E8710005E6DA7 /* UserInfomation.swift */,
+				3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1292,6 +1298,7 @@
 				A4917E092996A6B200DF2A65 /* ReetButtonStyle.swift in Sources */,
 				3C40FD822A4A6B3C00D66B49 /* KeywordHistoryDataSource.swift in Sources */,
 				0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */,
+				3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */,
 				3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */,
 				3C9256702A1CE0C60011B093 /* CategoryDetailPhotoBoothDataSource.swift in Sources */,
 				0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */,
@@ -1317,6 +1324,7 @@
 				0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */,
 				3C2784162A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift in Sources */,
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
+				3C09F6962A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift in Sources */,
 				3CE3C47B2A458A180097FB63 /* SearchHistoryTVC.swift in Sources */,
 				3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */,
 				3C976C7F29AA3F860002F8A7 /* CaseIterable+.swift in Sources */,

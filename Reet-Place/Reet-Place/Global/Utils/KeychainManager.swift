@@ -19,7 +19,7 @@ final class KeychainManager {
     
     private init() {}
   
-    // MARK: - Functions
+    // MARK: - Save, Update, Read, Delete
     
   @discardableResult
   func save(key: Key, value: String) -> Bool {
@@ -111,12 +111,25 @@ final class KeychainManager {
     return true
   }
     
+}
+
+// MARK: - Custom Functions
+
+extension KeychainManager {
+    
+    /// 업데이트를 통해 갱신된 토큰을 로컬에 저장
+    func updateToken(updatedToken: UpdateTokenResponseModel) {
+        save(key: .accessToken, value: updatedToken.accessToken)
+        save(key: .refreshToken, value: updatedToken.refreshToken)
+    }
+    
     /// 로컬 디바이스에 저장된 사용자의 기본정보 모두 제거
-    func removeAllUserInformationKeys() {
+    func removeAllKeys() {
         KeychainManager.Key.allCases.forEach {
             delete(for: $0)
         }
     }
+    
 }
 
 // MARK: - Keys

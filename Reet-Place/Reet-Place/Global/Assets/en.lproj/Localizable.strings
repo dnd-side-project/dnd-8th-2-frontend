@@ -145,3 +145,7 @@ LogoutAlert = "로그아웃 하시겠습니까?";
 
 Yes = "예";
 No = "아니오";
+
+// MARK: - ToastView
+
+LoginExpired = "로그아웃 되었습니다";

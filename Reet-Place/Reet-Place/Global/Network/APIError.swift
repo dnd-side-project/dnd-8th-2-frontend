@@ -9,6 +9,7 @@ enum APIError: Error {
     case decode
     case http(status: Int)
     case unknown(status: Int)
+    case unable
 }
 
 extension APIError: CustomStringConvertible {
@@ -20,6 +21,8 @@ extension APIError: CustomStringConvertible {
             return "HTTP Error: \(status)"
         case let .unknown(status):
             return "Unknown Error: \(status)"
+        case .unable:
+            return "Use API Unable"
         }
     }
 }
