@@ -9,16 +9,17 @@ import Alamofire
 import RxSwift
 
 struct APISession: APIService {
+    
     // TODO: Add Refresh JWT Token Interceptor
     
     // MARK: - Functions
     
     /// Request GET
-    func getRequest<T>(with urlResource: URLResource<T>) -> Observable<Result<T, APIError>> where T : Decodable {
+    func requestGet<T>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>> where T : Decodable {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
             
             let task = AF.request(urlResource.resultURL,
                                   encoding: URLEncoding.default,
@@ -42,11 +43,11 @@ struct APISession: APIService {
     }
     
     /// Request POST
-    func postRequest<T: Decodable>(with urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>> {
+    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
             
             let task = AF.request(urlResource.resultURL,
                                   method: .post,
@@ -72,11 +73,11 @@ struct APISession: APIService {
     }
     
     /// Request POST with multipartForm(image)
-    func postRequestWithImage<T: Decodable>(with urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
+    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
             
             let task = AF.upload(multipartFormData: { (multipart) in
                 for (key, value) in param {

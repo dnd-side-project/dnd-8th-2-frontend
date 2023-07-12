@@ -57,6 +57,7 @@ extension LoginVM: Output {
 
 extension LoginVM {
     
+    /// 소셜 로그인 요청 후 리스펀스 된 사용자 정보를 로컬 디바이스에 저장
     func requestSocialLogin(socialType: LoginType, token: String, nickname: String = .empty) {
         let path = "/api/auth/login/\(socialType.description)\(socialType.headerQuery)\(nickname)"
         let resource = URLResource<LoginResponseModel>(path: path)
@@ -65,9 +66,6 @@ extension LoginVM {
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
-                case .failure(let error):
-                    owner.apiError.onNext(error)
-                    owner.output.isLoginSucess.accept(false)
                 case .success(let data):
                     KeychainManager.shared.save(key: .appleUserAuthID, value: data.uid)
                     KeychainManager.shared.save(key: .accessToken, value: data.accessToken)
@@ -76,18 +74,24 @@ extension LoginVM {
                     KeychainManager.shared.save(key: .memberID, value: String(data.memberID))
                     KeychainManager.shared.save(key: .loginType, value: data.loginType.lowercased())
                     
+                    print("\(socialType.description) 로그인 성공")
+                    
                     owner.output.isLoginSucess.accept(true)
+                    
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                    owner.output.isLoginSucess.accept(false)
             }
         })
         .disposed(by: bag)
     }
     
+    /// 소셜 로그인(카카오, 애플)을 요청
     func requestSocialLogin<T: Decodable>(urlResource: URLResource<T>, socialType: LoginType, token: String) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Accept": "*/*",
-                "\(socialType.headerParamter)": token
-            ]
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(name: socialType.headerParamter, value: token)
             
             let task = AF.request(urlResource.resultURL,
                                   method: .post,
@@ -96,13 +100,13 @@ extension LoginVM {
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
+                    case .success(let data):
+                        observer.onNext(.success(data))
+                        
                     case .failure(let error):
                         dump(error)
                         guard let error = response.response else { return }
                         observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
-                        
-                    case .success(let data):
-                        observer.onNext(.success(data))
                     }
                 }
             

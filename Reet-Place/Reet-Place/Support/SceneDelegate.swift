@@ -74,7 +74,7 @@ extension SceneDelegate {
                 break
             case .revoked,
                 .notFound:
-                KeychainManager.shared.removeAllUserInformationKeys()
+                KeychainManager.shared.removeAllKeys()
                 print("Sign in With Apple no longer available")
             default:
                 break
