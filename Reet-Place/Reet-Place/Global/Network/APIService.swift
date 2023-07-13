@@ -12,9 +12,9 @@ protocol APIService {
     
     func requestGet<T: Decodable>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>>
     
-    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>>
+    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>>
     
-    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>>
+    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters, image: UIImage) -> Observable<Result<T, APIError>>
     
 }
 
