@@ -134,8 +134,7 @@ extension AccountDeletedVC {
         goToHomeBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-//                guard let root = self.view.window?.rootViewController as? ReetPlaceTabBarVC else { return }
-                print("TODO: - Go To Home")
+                
                 guard let rootVC = UIViewController.getRootViewController(),
                       let tabBarVC = rootVC.rootViewController as? ReetPlaceTabBarVC
                 else { return }
