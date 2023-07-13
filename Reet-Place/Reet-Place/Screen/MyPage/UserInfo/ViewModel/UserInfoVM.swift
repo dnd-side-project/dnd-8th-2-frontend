@@ -11,12 +11,15 @@ import RxSwift
 import RxCocoa
 
 final class UserInfoVM: BaseViewModel {
+    
+    // MARK: - Variables and Properties
+    
     var bag: DisposeBag = DisposeBag()
     
     var apiSession: APIService = APISession()
+    let apiError = PublishSubject<APIError>()
     
     var input: Input = Input()
-    
     var output: Output = Output()
     
     struct Input {}
@@ -30,6 +33,8 @@ final class UserInfoVM: BaseViewModel {
         }
     }
     
+    // MARK: - Life Cycle
+    
     init() {
         bindInput()
         bindOutput()
@@ -38,12 +43,22 @@ final class UserInfoVM: BaseViewModel {
     deinit {
         bag = DisposeBag()
     }
+}
+
+// MARK: - Input
+
+extension UserInfoVM {
+    func bindInput() {}
+}
+
+// MARK: - Output
+
+extension UserInfoVM {
+    func bindOutput() {}
+}
+
+// MARK: - Networking
+
+extension UserInfoVM {
     
-    func bindInput() {
-        
-    }
-    
-    func bindOutput() {
-        
-    }
 }
