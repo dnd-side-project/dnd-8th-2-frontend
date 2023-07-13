@@ -12,7 +12,7 @@ struct APISession: APIService {
     
     // MARK: - Functions
     
-    /// Request GET
+    /// HTTP Method [GET]
     func requestGet<T>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>> where T : Decodable {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
@@ -30,6 +30,7 @@ struct APISession: APIService {
                         observer.onNext(.success(data))
                     case .failure:
                         observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
                     }
                 }
             
@@ -39,7 +40,7 @@ struct APISession: APIService {
         }
     }
     
-    /// Request POST
+    /// HTTP Method [POST]
     func reqeustPost<T: Decodable>(urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
@@ -59,6 +60,7 @@ struct APISession: APIService {
                         observer.onNext(.success(data))
                     case .failure:
                         observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
                     }
                 }
             
@@ -68,7 +70,7 @@ struct APISession: APIService {
         }
     }
     
-    /// Request POST with multipartForm(image)
+    /// HTTP Method [POST] with multipartForm(image)
     func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
@@ -92,6 +94,7 @@ struct APISession: APIService {
                         observer.onNext(.success(data))
                     case .failure:
                         observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
                     }
                 }
             
@@ -100,4 +103,21 @@ struct APISession: APIService {
             }
         }
     }
+}
+
+// MARK: - Functions
+
+extension APISession {
+    
+    // TODO: - 네트워크 실패시 처리 로직(방법) 반영
+    private func showErrorAlert() {
+        guard let rootVC = UIApplication.shared.windows.first?.rootViewController as? BaseNavigationController
+        else {
+            print("Cannot Find RootViewController!")
+            return
+        }
+        
+        rootVC.showErrorAlert("ErrorOccurred".localized)
+    }
+    
 }
