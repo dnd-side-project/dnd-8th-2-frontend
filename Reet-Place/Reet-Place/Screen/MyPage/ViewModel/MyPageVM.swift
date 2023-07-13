@@ -75,7 +75,7 @@ extension MyPageVM {
 extension MyPageVM {
     
     /// 릿플 서버에게 로그아웃을 요청
-    func requestLogout(completion: @escaping (Bool) -> Void) {
+    func requestLogout() {
         let path = "/api/auth/logout"
         let resource = URLResource<EmptyEntity>(path: path)
         
@@ -85,10 +85,9 @@ extension MyPageVM {
                 switch result {
                 case .success:
                     KeychainManager.shared.removeAllKeys()
-                    completion(true)
+                    owner.output.accessToken.accept(KeychainManager.shared.read(for: .accessToken))
                 case .failure(let error):
                     owner.apiError.onNext(error)
-                    completion(false)
                 }
             })
             .disposed(by: bag)

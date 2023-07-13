@@ -158,20 +158,16 @@ extension MyPageVC {
                     let alert = UIAlertController(title: .empty,
                                                   message: "LogoutAlert".localized,
                                                   preferredStyle: .actionSheet)
-
+                    
                     let defaultAction = UIAlertAction(title: "Yes".localized, style: .default) { _ in
-                        owner.viewModel.requestLogout(completion: { isLogoutSuccess in
-                            isLogoutSuccess ? owner.updateLoginStatus() : owner.showErrorAlert("ErrorOccurred".localized)
-                        })
+                        owner.viewModel.requestLogout()
                     }
-
                     let cancelAction = UIAlertAction(title: "No".localized, style: .cancel)
-
                     [defaultAction, cancelAction].forEach {
                         alert.addAction($0)
                         $0.setValue(AssetColors.black, forKey: "titleTextColor")
                     }
-
+                    
                     owner.present(alert, animated: true)
                 }
             })
