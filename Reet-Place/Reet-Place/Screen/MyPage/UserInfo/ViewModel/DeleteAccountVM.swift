@@ -79,6 +79,7 @@ extension DeleteAccountVM {
         let path = "/api/auth/unlink"
         let resource = URLResource<EmptyEntity>(path: path)
         
+        // TODO: - 탈퇴 서버연결 마무리
 //        apiSession.reqeustPost(urlResource: resource, parameter: deleteAccountReason.parameter)
 //            .withUnretained(self)
 //            .subscribe(onNext: { owner, result in

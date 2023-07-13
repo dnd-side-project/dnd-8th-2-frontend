@@ -51,6 +51,8 @@
 		3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6932A5E599600B6B0BF /* APIToken.swift */; };
 		3C09F6962A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */; };
 		3C09F69A2A5F936600B6B0BF /* EmptyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6992A5F936600B6B0BF /* EmptyEntity.swift */; };
+		3C09F69C2A5FB9A100B6B0BF /* DeleteAccountRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */; };
+		3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */; };
 		3C2784132A0A3BC20095B706 /* ReetMenuTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784122A0A3BC20095B706 /* ReetMenuTabBarView.swift */; };
 		3C2784162A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784152A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift */; };
 		3C2784192A0A65C90095B706 /* ReetTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784182A0A65C90095B706 /* ReetTabButton.swift */; };
@@ -231,6 +233,8 @@
 		3C09F6932A5E599600B6B0BF /* APIToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIToken.swift; sourceTree = "<group>"; };
 		3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTokenResponseModel.swift; sourceTree = "<group>"; };
 		3C09F6992A5F936600B6B0BF /* EmptyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEntity.swift; sourceTree = "<group>"; };
+		3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountRequestModel.swift; sourceTree = "<group>"; };
+		3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountSurveyType.swift; sourceTree = "<group>"; };
 		3C2784122A0A3BC20095B706 /* ReetMenuTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetMenuTabBarView.swift; sourceTree = "<group>"; };
 		3C2784152A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetMenuTarBarCVC.swift.swift; sourceTree = "<group>"; };
 		3C2784182A0A65C90095B706 /* ReetTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTabButton.swift; sourceTree = "<group>"; };
@@ -569,6 +573,7 @@
 				3C27841C2A0A6F1B0095B706 /* TabPlaceCategoryList.swift */,
 				0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */,
 				3C3A631C2A56A65A00975B56 /* LoginType.swift */,
+				3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -662,7 +667,6 @@
 				A4EFC081299E483E00B066AF /* MyPage */,
 				3C2AEFFF2990CAB300E36342 /* Share */,
 				A4917E032996A5D800DF2A65 /* Shared */,
-				A4D09EC5299F9839004DEE97 /* UserInfo */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -1066,6 +1070,7 @@
 			isa = PBXGroup;
 			children = (
 				A4D09ECE299F9D10004DEE97 /* UserInfoMenu.swift */,
+				3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1090,6 +1095,7 @@
 		A4EFC081299E483E00B066AF /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				A4D09EC5299F9839004DEE97 /* UserInfo */,
 				A4EFC085299E485F00B066AF /* Model */,
 				A4EFC082299E485300B066AF /* View */,
 				A4EFC083299E485700B066AF /* ViewController */,
@@ -1303,6 +1309,7 @@
 				0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */,
 				3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */,
 				3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */,
+				3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */,
 				3C9256702A1CE0C60011B093 /* CategoryDetailPhotoBoothDataSource.swift in Sources */,
 				0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */,
 				3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */,
@@ -1342,6 +1349,7 @@
 				3C92566A2A1CD0090011B093 /* CategoryDetailActivityList.swift in Sources */,
 				3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */,
 				3C27841B2A0A67060095B706 /* ReetTabButtonStyle.swift in Sources */,
+				3C09F69C2A5FB9A100B6B0BF /* DeleteAccountRequestModel.swift in Sources */,
 				3CB5CCF229B1CF9A00B82DB7 /* PlaceInformationView.swift in Sources */,
 				A4D09ED7299F9FC7004DEE97 /* UserInfoTVC.swift in Sources */,
 				0EAFCFDA2A2883C50023A738 /* ReetSelectBox.swift in Sources */,
