@@ -17,6 +17,7 @@ final class MyPageVM: BaseViewModel {
     var output: Output = Output()
     
     var apiSession: APIService = APISession()
+    let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
     
@@ -25,7 +26,6 @@ final class MyPageVM: BaseViewModel {
     struct Output {
         let accessToken = BehaviorRelay(value: KeychainManager.shared.read(for: .accessToken))
         var isAuthenticated: Observable<Bool> {
-            // TODO: Auth token validation
             accessToken.map { $0 != nil }
         }
         
@@ -68,4 +68,30 @@ extension MyPageVM {
 
 extension MyPageVM {
     func bindOutput() {}
+}
+
+// MARK: - Networking
+
+extension MyPageVM {
+    
+    /// 릿플 서버에게 로그아웃을 요청
+    func requestLogout(completion: @escaping (Bool) -> Void) {
+        let path = "/api/auth/logout"
+        let resource = URLResource<EmptyEntity>(path: path)
+        
+        apiSession.reqeustPost(urlResource: resource, param: nil)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success:
+                    KeychainManager.shared.removeAllKeys()
+                    completion(true)
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                    completion(false)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
 }

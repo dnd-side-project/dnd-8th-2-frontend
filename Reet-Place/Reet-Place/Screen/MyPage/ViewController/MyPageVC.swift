@@ -160,7 +160,9 @@ extension MyPageVC {
                                                   preferredStyle: .actionSheet)
 
                     let defaultAction = UIAlertAction(title: "Yes".localized, style: .default) { _ in
-                        print("TODO: - Sign Out API to be call")
+                        owner.viewModel.requestLogout(completion: { isLogoutSuccess in
+                            isLogoutSuccess ? owner.updateLoginStatus() : owner.showErrorAlert("ErrorOccurred".localized)
+                        })
                     }
 
                     let cancelAction = UIAlertAction(title: "No".localized, style: .cancel)

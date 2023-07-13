@@ -148,4 +148,5 @@ No = "아니오";
 
 // MARK: - ToastView
 
-LoginExpired = "로그아웃 되었습니다";
+LogoutSuccess = "로그아웃 되었습니다";
+ErrorOccurred = "오류발생 😵";
