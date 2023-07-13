@@ -20,7 +20,7 @@ class AuthInterceptor: RequestInterceptor {
         guard let accessToken = KeychainManager.shared.read(for: .accessToken) else { return }
         
         var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(accessToken))
+        urlRequest.headers.add(.authorization(bearerToken: accessToken))
         completion(.success(urlRequest))
     }
     
@@ -52,7 +52,7 @@ class AuthInterceptor: RequestInterceptor {
                         completion(.doNotRetryWithError(error))
                         return
                     }
-                    tabBarVC.showToast(message: "LoginExpired".localized, bottomViewHeight: 50.0)
+                    tabBarVC.showToast(message: "LogoutSuccess".localized, bottomViewHeight: 50.0)
                     myPageVC.updateLoginStatus()
                     
                     print("로그인 만료")
