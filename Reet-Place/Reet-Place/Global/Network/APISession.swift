@@ -10,8 +10,6 @@ import RxSwift
 
 struct APISession: APIService {
     
-    // TODO: Add Refresh JWT Token Interceptor
-    
     // MARK: - Functions
     
     /// Request GET
@@ -28,11 +26,10 @@ struct APISession: APIService {
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
-                    case .failure:
-                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
-                        
                     case .success(let data):
                         observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
                     }
                 }
             
@@ -58,11 +55,10 @@ struct APISession: APIService {
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
-                    case .failure:
-                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
-                        
                     case .success(let data):
                         observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
                     }
                 }
             
@@ -78,7 +74,6 @@ struct APISession: APIService {
             var headers = HTTPHeaders()
             headers.add(.accept("*/*"))
             headers.add(.contentType("application/json"))
-            
             let task = AF.upload(multipartFormData: { (multipart) in
                 for (key, value) in param {
                     multipart.append("\(value)".data(using: .utf8, allowLossyConversion: false)!, withName: "\(key)")
@@ -93,11 +88,10 @@ struct APISession: APIService {
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
-                    case .failure:
-                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
-                        
                     case .success(let data):
                         observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
                     }
                 }
             
