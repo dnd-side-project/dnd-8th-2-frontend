@@ -45,7 +45,7 @@ class AuthInterceptor: RequestInterceptor {
                 case .failure(let error):
                     KeychainManager.shared.removeAllKeys()
                     
-                    guard let rootVC = UIApplication.shared.windows.first?.rootViewController as? BaseNavigationController,
+                    guard let rootVC = UIViewController.getRootViewController(),
                           let tabBarVC = rootVC.rootViewController as? ReetPlaceTabBarVC,
                           let myPageVC = tabBarVC.getTabInstance(tabType: .my)?.rootViewController as? MyPageVC
                     else {

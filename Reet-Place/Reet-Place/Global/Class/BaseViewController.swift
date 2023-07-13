@@ -51,11 +51,8 @@ class BaseViewController: UIViewController {
     
     /// Reet 탭바를 가리고 최상위 VC에서 네비게이션 푸시를 해주는 함수
     func pushWithHidesReetPlaceTabBar() {
-        if let rootVC = UIApplication.shared.windows.first?.rootViewController as? BaseNavigationController {
-            rootVC.pushViewController(self, animated: true)
-        } else {
-            print("cannot find RootViewController!")
-        }
+        guard let rootVC = UIViewController.getRootViewController() else { return }
+        rootVC.pushViewController(self, animated: true)
     }
     
     func setTBCtoRootVC() {

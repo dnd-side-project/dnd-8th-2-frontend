@@ -41,7 +41,7 @@ struct APISession: APIService {
     }
     
     /// HTTP Method [POST]
-    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>> {
+    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
             headers.add(.accept("*/*"))
@@ -49,7 +49,7 @@ struct APISession: APIService {
             
             let task = AF.request(urlResource.resultURL,
                                   method: .post,
-                                  parameters: param,
+                                  parameters: parameter,
                                   encoding: JSONEncoding.default,
                                   headers: headers,
                                   interceptor: AuthInterceptor())
@@ -71,13 +71,13 @@ struct APISession: APIService {
     }
     
     /// HTTP Method [POST] with multipartForm(image)
-    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
+    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
             headers.add(.accept("*/*"))
             headers.add(.contentType("application/json"))
             let task = AF.upload(multipartFormData: { (multipart) in
-                for (key, value) in param {
+                for (key, value) in parameter {
                     multipart.append("\(value)".data(using: .utf8, allowLossyConversion: false)!, withName: "\(key)")
                 }
                 if let imageData = image.jpegData(compressionQuality: 1) {
@@ -111,12 +111,7 @@ extension APISession {
     
     // TODO: - 네트워크 실패시 처리 로직(방법) 반영
     private func showErrorAlert() {
-        guard let rootVC = UIApplication.shared.windows.first?.rootViewController as? BaseNavigationController
-        else {
-            print("Cannot Find RootViewController!")
-            return
-        }
-        
+        guard let rootVC = UIViewController.getRootViewController() else { return }
         rootVC.showErrorAlert("ErrorOccurred".localized)
     }
     
