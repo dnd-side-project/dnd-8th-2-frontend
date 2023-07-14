@@ -23,11 +23,11 @@ class LoginButton: UIButton {
             
             $0.isUserInteractionEnabled = false
         }
-    private let explainLabel = UILabel()
     private let logoImageView = UIImageView()
         .then {
             $0.contentMode = .scaleAspectFit
         }
+    private let explainLabel = UILabel()
     
     // MARK: - Variables and Properties
     
