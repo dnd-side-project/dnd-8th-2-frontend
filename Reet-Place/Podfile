@@ -20,6 +20,11 @@ target 'Reet-Place' do
 
   # Map SDK
   pod 'NMapsMap'
+  
+  # Kakao SDK
+  pod 'KakaoSDKCommon', '<= 2.16'
+  pod 'KakaoSDKAuth', '<= 2.16'
+  pod 'KakaoSDKUser', '<= 2.16'
 end
 
 post_install do |installer|

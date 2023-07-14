@@ -7,6 +7,7 @@
 
 import UIKit
 
+import KakaoSDKAuth
 import AuthenticationServices
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -56,6 +57,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+}
+
+// MARK: - 카카오 로그인
+
+extension SceneDelegate {
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            // 카카오톡 앱으로 전환
+            if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                _ = AuthController.handleOpenUrl(url: url)
+            }
+        }
     }
     
 }
