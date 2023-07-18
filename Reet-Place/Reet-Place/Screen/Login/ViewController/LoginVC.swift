@@ -216,7 +216,6 @@ extension LoginVC: ASAuthorizationControllerDelegate {
             
             // For the purpose of this demo app, show the password credential as an alert.
             DispatchQueue.main.async {
-//                self.showPasswordCredentialAlert(username: username, password: password)
                 print(("username: ", username, "password: ", password))
             }
             
