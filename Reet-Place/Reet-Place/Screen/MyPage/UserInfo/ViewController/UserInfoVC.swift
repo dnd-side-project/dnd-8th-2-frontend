@@ -124,12 +124,12 @@ extension UserInfoVC {
             indexPath,
             menu in
             guard let self = self,
-                  let cell = userInfoTableView
+                  let cell = self.userInfoTableView
                 .dequeueReusableCell(withIdentifier: UserInfoTVC.className,
                                      for: indexPath) as? UserInfoTVC else {
                 fatalError("No such cells named UserInfoTVC")
             }
-            cell.configureUserInfoTVC(infoMenuType: menu, userInformation: viewModel.output.userInformation.value)
+            cell.configureUserInfoTVC(infoMenuType: menu, userInformation: self.viewModel.output.userInformation.value)
             
             return cell
         }
