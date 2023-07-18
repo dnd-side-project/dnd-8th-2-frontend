@@ -13,6 +13,6 @@ protocol Service {
 
 extension Service {
   var authToken: String? {
-    KeychainManager.shared.read(for: .authToken)
+    KeychainManager.shared.read(for: .accessToken)
   }
 }

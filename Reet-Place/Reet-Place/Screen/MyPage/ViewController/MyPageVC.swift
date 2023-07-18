@@ -18,52 +18,46 @@ fileprivate let tableViewCellIdentifier = "myPageMenuTableViewCell"
 
 class MyPageVC: BaseNavigationViewController {
     
-    private let viewModel = MyPageViewModel()
+    override var alias: String {
+        "MyPage"
+    }
     
-    private let stackView = UIStackView()
+    // MARK: - UI components
+    
+    private let baseStackView = UIStackView()
         .then {
             $0.spacing = .zero
             $0.distribution = .fill
             $0.alignment = .fill
             $0.axis = .vertical
         }
-    
     private let loginView = LoginView()
-    
     private let userProfileView = UserProfileView()
-    
-    private let tableView = UITableView(frame: .zero, style: .plain)
+    private let menuTableView = UITableView(frame: .zero, style: .plain)
         .then {
             $0.rowHeight = 52.0
             $0.separatorStyle = .none
+            
+            $0.register(DefaultCategoryTVC.self,
+                        forCellReuseIdentifier: tableViewCellIdentifier)
         }
     
-    override var alias: String {
-        "MyPage"
-    }
+    // MARK: - Variables and Properties
+    
+    private let viewModel = MyPageVM()
+    
+    // MARK: - Life Cycle
     
     override func configureView() {
         super.configureView()
         
-        title = "MyPage".localized
-        navigationBar.style = .default
-        
-        view.addSubview(stackView)
-        stackView.addArrangedSubview(loginView)
-        stackView.addArrangedSubview(userProfileView)
-        stackView.addArrangedSubview(tableView)
+        configureNavigationBar()
     }
     
     override func layoutView() {
         super.layoutView()
         
-        stackView.snp.makeConstraints {
-            $0.top.equalTo(navigationBar.snp.bottom)
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        tableView.register(DefaultCategoryTVC.self,
-                           forCellReuseIdentifier: tableViewCellIdentifier)
+        configureLayout()
     }
     
     override func bindDependency() {
@@ -73,65 +67,128 @@ class MyPageVC: BaseNavigationViewController {
     override func bindInput() {
         super.bindInput()
         
-        loginView.loginButton.rx.tap
-            .bind(onNext: {
-                print("TODO: Do Login")
-            })
-            .disposed(by: bag)
-        
-        tableView.rx.modelSelected(MyPageMenu.self)
-            .withUnretained(self)
-            .bind(onNext: { owner, menu in
-                switch menu {
-                case .qna, .servicePolicy, .privacyPoilcy:
-                    let vc = menu.createVC()
-
-                    owner.navigationController?
-                        .pushViewController(vc, animated: true)
-                    
-                case .userInfo:
-                    let vc = UserInfoVC()
-                    
-                    vc.viewModel.output.user
-                        .accept(owner.viewModel.output.user.value)
-
-                    owner.navigationController?
-                        .pushViewController(vc, animated: true)
-
-                case .signout:
-                    let alert = UIAlertController(title: .empty,
-                                                  message: "LogoutAlert".localized,
-                                                  preferredStyle: .actionSheet)
-
-                    let defaultAction = UIAlertAction(title: "Yes".localized, style: .default) { _ in
-                        print("TODO: - Sign Out API to be call")
-                    }
-
-                    let cancelAction = UIAlertAction(title: "No".localized, style: .cancel)
-
-                    [defaultAction, cancelAction].forEach {
-                        alert.addAction($0)
-                        $0.setValue(AssetColors.black, forKey: "titleTextColor")
-                    }
-
-                    owner.present(alert, animated: true)
-                }
-            })
-            .disposed(by: bag)
-        
-        tableView.rx.itemSelected
-            .withUnretained(self)
-            .bind(onNext: { owner, indexPath in
-                owner.tableView.deselectRow(at: indexPath, animated: true)
-            })
-            .disposed(by: bag)
+        bindButton()
+        bindMenuTableView()
     }
     
     override func bindOutput() {
         super.bindOutput()
         
-        // 로그인 유무
+        bindUserLoginStatus()
+        bindMenuTableViewDataSource()
+    }
+    
+    // MARK: - Functions
+    
+    /// 사용자 로그인 상태 확인
+    func updateLoginStatus() {
+        viewModel.output.accessToken.accept(KeychainManager.shared.read(for: .accessToken))
+    }
+    
+}
+
+// MARK: - Configure
+
+extension MyPageVC {
+    
+    private func configureNavigationBar() {
+        title = "MyPage".localized
+        navigationBar.style = .default
+    }
+    
+}
+
+// MARK: - Layout
+
+extension MyPageVC {
+    
+    private func configureLayout() {
+        // Add Subviews
+        view.addSubview(baseStackView)
+        baseStackView.addArrangedSubview(loginView)
+        baseStackView.addArrangedSubview(userProfileView)
+        baseStackView.addArrangedSubview(menuTableView)
         
+        // Make Constraints
+        baseStackView.snp.makeConstraints {
+            $0.top.equalTo(navigationBar.snp.bottom)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+}
+
+// MARK: - Input
+
+extension MyPageVC {
+    
+    private func bindButton() {
+        loginView.loginButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                let vc = LoginVC()
+                vc.delegateLogin = self
+                vc.modalPresentationStyle = .overFullScreen
+                self.present(vc, animated: true)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindMenuTableView() {
+        menuTableView.rx.modelSelected(MyPageMenu.self)
+            .withUnretained(self)
+            .bind(onNext: { owner, menu in
+                switch menu {
+                case .userInfo:
+                    let vc = UserInfoVC()
+                    vc.viewModel.output.userInformation
+                        .accept(owner.viewModel.output.userInfomation.value)
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
+                    
+                case .qna, .servicePolicy, .privacyPoilcy:
+                    let vc = menu.createVC()
+                    
+                    owner.navigationController?
+                        .pushViewController(vc, animated: true)
+                    
+                case .signout:
+                    let alert = UIAlertController(title: .empty,
+                                                  message: "LogoutAlert".localized,
+                                                  preferredStyle: .actionSheet)
+                    
+                    let defaultAction = UIAlertAction(title: "Yes".localized, style: .default) { _ in
+                        owner.viewModel.requestLogout()
+                    }
+                    let cancelAction = UIAlertAction(title: "No".localized, style: .cancel)
+                    [defaultAction, cancelAction].forEach {
+                        alert.addAction($0)
+                        $0.setValue(AssetColors.black, forKey: "titleTextColor")
+                    }
+                    
+                    owner.present(alert, animated: true)
+                }
+            })
+            .disposed(by: bag)
+        
+        menuTableView.rx.itemSelected
+            .withUnretained(self)
+            .bind(onNext: { owner, indexPath in
+                owner.menuTableView.deselectRow(at: indexPath, animated: true)
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
+// MARK: - Output
+
+extension MyPageVC {
+    
+    private func bindUserLoginStatus() {
+        // 로그인 유무
         viewModel.output.isAuthenticated
             .withUnretained(self)
             .bind(onNext: { owner, isAuthenticated in
@@ -143,19 +200,18 @@ class MyPageVC: BaseNavigationViewController {
             .disposed(by: bag)
         
         // 유저 프로필
-        
-        viewModel.output.user
+        viewModel.output.userInfomation
             .compactMap { $0 }
             .withUnretained(self)
-            .bind(onNext: { owner, user in
+            .bind(onNext: { owner, userInfo in
                 DispatchQueue.main.async {
-                    owner.userProfileView.configureProfile(with: user)
+                    owner.userProfileView.configureProfile(userInfo: userInfo)
                 }
             })
             .disposed(by: bag)
-        
-        // Bind menu
-        
+    }
+    
+    private func bindMenuTableViewDataSource() {
         let dataSource = RxTableViewSectionedReloadDataSource<MyPageMenuDataSource> { _,
             tableView,
             indexPath,
@@ -166,15 +222,25 @@ class MyPageVC: BaseNavigationViewController {
                 fatalError("No such cells named DefaultCategoryTVC")
             }
             
-            cell.titleLabel.text = menu.description
-            cell.titleLabel.textColor = menu.foregroundColor
+            cell.configureDefaultCategoryTVC(myPageMenuType: menu)
             
             return cell
         }
         
         viewModel.output.mypageMenuDataSources
-            .bind(to: tableView.rx.items(dataSource: dataSource))
+            .bind(to: menuTableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
+    }
+    
+}
+
+// MARK: - Login Action Delegate
+
+extension MyPageVC: LoginAction {
+    
+    func loginSuccess() {
+        updateLoginStatus()
+        viewModel.output.userInfomation.accept(UserInfomation.getUserInfo())
     }
     
 }

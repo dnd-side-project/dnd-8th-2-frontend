@@ -7,9 +7,19 @@
 */
 
 // MARK: - Login
+
+// LoginVC
+ReetPlaceTitleExplain = "숨겨진 장소를 나만의 약속으로";
+LoginLater = "다음에 로그인";
+
+LoginFailMessage = "소셜 로그인에 실패하였습니다";
+LoginAppleFailMessage = "애플로 로그인에 실패하였습니다";
+
+LoginKakao = "카카오로 로그인";
+LoginApple = "애플로 로그인";
+
 NeedToSignIn = "로그인이 필요합니다.";
 DoLogin = "로그인하기";
-
 
 // MARK: - Home
 
@@ -135,3 +145,8 @@ LogoutAlert = "로그아웃 하시겠습니까?";
 
 Yes = "예";
 No = "아니오";
+
+// MARK: - ToastView
+
+LogoutSuccess = "로그아웃 되었습니다";
+ErrorOccurred = "오류발생 😵";

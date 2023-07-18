@@ -13,6 +13,10 @@ class BaseNavigationController: UINavigationController {
     
     // MARK: - Variables and Properties
     
+    var rootViewController: UIViewController? {
+            return viewControllers.first
+    }
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {

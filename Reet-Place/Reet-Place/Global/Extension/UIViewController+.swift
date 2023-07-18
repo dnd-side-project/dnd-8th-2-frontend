@@ -161,4 +161,15 @@ extension UIViewController {
         targetVC.present(selectBoxVC, animated: false)
     }
     
+    /// 릿플의 최상위 RootViewContoller를 반환
+    static func getRootViewController() -> BaseNavigationController? {
+        guard let rootVC = UIApplication.shared.windows.first?.rootViewController as? BaseNavigationController
+        else {
+            print("Cannot Find RootViewController!")
+            return nil
+        }
+        
+        return rootVC
+    }
+    
 }

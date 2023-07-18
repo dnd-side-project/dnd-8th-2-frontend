@@ -9,16 +9,15 @@ import Alamofire
 import RxSwift
 
 struct APISession: APIService {
-    // TODO: Add Refresh JWT Token Interceptor
     
     // MARK: - Functions
     
-    /// Request GET
-    func getRequest<T>(with urlResource: URLResource<T>) -> Observable<Result<T, APIError>> where T : Decodable {
+    /// HTTP Method [GET]
+    func requestGet<T>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>> where T : Decodable {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
             
             let task = AF.request(urlResource.resultURL,
                                   encoding: URLEncoding.default,
@@ -27,11 +26,11 @@ struct APISession: APIService {
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
-                    case .failure:
-                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
-                        
                     case .success(let data):
                         observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
                     }
                 }
             
@@ -41,27 +40,27 @@ struct APISession: APIService {
         }
     }
     
-    /// Request POST
-    func postRequest<T: Decodable>(with urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>> {
+    /// HTTP Method [POST]
+    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
             
             let task = AF.request(urlResource.resultURL,
                                   method: .post,
-                                  parameters: param,
+                                  parameters: parameter,
                                   encoding: JSONEncoding.default,
                                   headers: headers,
                                   interceptor: AuthInterceptor())
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
-                    case .failure:
-                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
-                        
                     case .success(let data):
                         observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
                     }
                 }
             
@@ -71,15 +70,14 @@ struct APISession: APIService {
         }
     }
     
-    /// Request POST with multipartForm(image)
-    func postRequestWithImage<T: Decodable>(with urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
+    /// HTTP Method [POST] with multipartForm(image)
+    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json"
-            ]
-            
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
             let task = AF.upload(multipartFormData: { (multipart) in
-                for (key, value) in param {
+                for (key, value) in parameter {
                     multipart.append("\(value)".data(using: .utf8, allowLossyConversion: false)!, withName: "\(key)")
                 }
                 if let imageData = image.jpegData(compressionQuality: 1) {
@@ -92,11 +90,11 @@ struct APISession: APIService {
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {
-                    case .failure:
-                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
-                        
                     case .success(let data):
                         observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
                     }
                 }
             
@@ -105,4 +103,16 @@ struct APISession: APIService {
             }
         }
     }
+}
+
+// MARK: - Functions
+
+extension APISession {
+    
+    // TODO: - 네트워크 실패시 처리 로직(방법) 반영
+    private func showErrorAlert() {
+        guard let rootVC = UIViewController.getRootViewController() else { return }
+        rootVC.showErrorAlert("ErrorOccurred".localized)
+    }
+    
 }

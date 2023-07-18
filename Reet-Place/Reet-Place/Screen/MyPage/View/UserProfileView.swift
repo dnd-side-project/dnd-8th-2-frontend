@@ -60,11 +60,11 @@ class UserProfileView: UIView {
         }
     }
     
-    func configureProfile(with user: ModelUser) {
-        imageView.kf.setImage(with: user.thumbnailUrl.url,
+    func configureProfile(userInfo: UserInfomation) {
+        imageView.kf.setImage(with: userInfo.thumbnailUrl.url,
                               placeholder: AssetsImages.profilePlaceholder)
         
-        nameLabel.text = user.name
-        idLabel.text = "@\(user.id)"
+        nameLabel.text = userInfo.name
+        idLabel.text = "@\(userInfo.id)"
     }
 }

@@ -10,11 +10,11 @@ import RxSwift
 
 protocol APIService {
     
-    func getRequest<T: Decodable>(with urlResource: URLResource<T>) -> Observable<Result<T, APIError>>
+    func requestGet<T: Decodable>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>>
     
-    func postRequest<T: Decodable>(with urlResource: URLResource<T>, param: Parameters?) -> Observable<Result<T, APIError>>
+    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>>
     
-    func postRequestWithImage<T: Decodable>(with urlResource: URLResource<T>, param: Parameters, image: UIImage) -> Observable<Result<T, APIError>>
+    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters, image: UIImage) -> Observable<Result<T, APIError>>
     
 }
 

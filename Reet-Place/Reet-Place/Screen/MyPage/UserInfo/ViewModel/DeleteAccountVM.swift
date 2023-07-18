@@ -10,6 +10,8 @@ import RxCocoa
 
 final class DeleteAccountVM: BaseViewModel {
     
+    // MARK: - Variables and Properties
+    
     var input = Input()
     var output = Output()
     
@@ -42,6 +44,8 @@ final class DeleteAccountVM: BaseViewModel {
         }
     }
     
+    // MARK: - Life Cycle
+    
     init() {
         bindInput()
         bindOutput()
@@ -69,5 +73,24 @@ extension DeleteAccountVM: Output {
 // MARK: - Networking
 
 extension DeleteAccountVM {
+    
+    /// 릿플 서버에게 회원탈퇴를 요청
+    func requestDeleteAccount(deleteAccountReason: DeleteAccountRequestModel) {
+        let path = "/api/auth/unlink"
+        let resource = URLResource<EmptyEntity>(path: path)
+        
+        // TODO: - 탈퇴 서버연결 마무리
+//        apiSession.reqeustPost(urlResource: resource, parameter: deleteAccountReason.parameter)
+//            .withUnretained(self)
+//            .subscribe(onNext: { owner, result in
+//                switch result {
+//                case .success:
+//                    
+//                case .failure(let error):
+//                    owner.apiError.onNext(error)
+//                }
+//            })
+//            .disposed(by: bag)
+    }
     
 }

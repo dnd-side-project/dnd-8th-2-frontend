@@ -10,10 +10,17 @@ import UIKit
 import SnapKit
 import Then
 
-class DefaultCategoryTVC: UITableViewCell {
+class DefaultCategoryTVC: BaseTableViewCell {
     
-    static let defaultHeight: CGFloat = 56.0
+    // MARK: - UI components
     
+    let baseStackView = UIStackView()
+        .then {
+            $0.axis = .horizontal
+            $0.spacing = 8.0
+            $0.distribution = .fill
+            $0.alignment = .center
+        }
     let titleLabel = BaseAttributedLabel(font: .subtitle2,
                                text: nil,
                                alignment: .left,
@@ -21,53 +28,76 @@ class DefaultCategoryTVC: UITableViewCell {
         .then {
             $0.setContentHuggingPriority(.defaultLow, for: .horizontal)
         }
-    
     let rightImageView = UIImageView(image: AssetsImages.chevronRight52)
         .then {
             $0.contentMode = .scaleAspectFit
         }
     
-    let stackView = UIStackView()
-        .then {
-            $0.spacing = 8.0
-            $0.distribution = .fill
-            $0.alignment = .fill
-            $0.axis = .horizontal
-        }
+    // MARK: - Variables and Properties
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    static let defaultHeight: CGFloat = 56.0
+    
+    let defaultHorizontalOffset: CGFloat = 20.0
+    
+    // MARK: - Life Cycle
+    
+    override func configureView() {
+        super.configureView()
+        
+        configureContentView()
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override func layoutView() {
+        super.layoutView()
         
-        let selectedView = UIView()
-        selectedView.backgroundColor = AssetColors.gray100
-        selectedBackgroundView = selectedView
-        
-        backgroundColor = AssetColors.white
-        
-        contentView.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20.0)
-            $0.trailing.equalToSuperview().offset(-20.0)
-        }
-        
-        stackView.addArrangedSubview(titleLabel)
-        
-        stackView.addArrangedSubview(rightImageView)
-        
-        rightImageView.snp.makeConstraints {
-            $0.width.equalTo(rightImageView.snp.height)
-        }
+        configureLayout()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
         titleLabel.text = .empty
+    }
+    
+}
+
+// MARK: - Configure
+
+extension DefaultCategoryTVC {
+    
+    /// DefaultCategoryTVC 정보을 입력
+    func configureDefaultCategoryTVC(myPageMenuType: MyPageMenu) {
+        titleLabel.text = myPageMenuType.description
+        titleLabel.textColor = myPageMenuType.foregroundColor
+    }
+    
+    private func configureContentView() {
+        let selectedView = UIView()
+        selectedView.backgroundColor = AssetColors.gray100
+        selectedBackgroundView = selectedView
+        
+        backgroundColor = AssetColors.white
+    }
+    
+}
+
+// MARK: - Layout
+
+extension DefaultCategoryTVC {
+    
+    private func configureLayout() {
+        contentView.addSubviews([baseStackView])
+        baseStackView.addArrangedSubview(titleLabel)
+        baseStackView.addArrangedSubview(rightImageView)
+        
+        baseStackView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(defaultHorizontalOffset)
+            $0.trailing.equalToSuperview()
+        }
+        rightImageView.snp.makeConstraints {
+            $0.width.height.equalTo(52.0)
+        }
     }
     
 }

@@ -28,10 +28,6 @@ class ReetPlaceTabBarVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         setStartTab(itemType: .home)
     }
@@ -50,10 +46,6 @@ class ReetPlaceTabBarVC: BaseViewController {
     }
     
     // MARK: - Functions
-    
-    private func setStartTab(itemType: TabBarItem) {
-        activeTabBarItem(targetItemType: .home)
-    }
     
     /// Reet 탭바 중 특정 타입의 아이템 탭을 활성화(선택상태) 하는 함수
     func activeTabBarItem(targetItemType: TabBarItem) {
@@ -79,6 +71,21 @@ class ReetPlaceTabBarVC: BaseViewController {
                 remove(of: targetVC)
             }
         }
+    }
+    
+    /// TabBar에 있는 특정 탭의 ViewController 인스턴스를 반환
+    func getTabInstance(tabType: TabBarItem) -> BaseNavigationController? {
+        for index in 0..<vcList.count {
+            if index == tabType.index {
+                return vcList[index]
+            }
+        }
+        
+        return nil
+    }
+    
+    private func setStartTab(itemType: TabBarItem) {
+        activeTabBarItem(targetItemType: itemType)
     }
     
 }
