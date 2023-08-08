@@ -40,6 +40,7 @@ class LoginVC: BaseViewController {
             $0.alignment = .fill
             $0.spacing = 16.0
         }
+    private let loginKakaoButton = LoginButton(type: .kakao)
     private let loginAppleButton = LoginButton(type: .apple)
     private let loginLaterButton = UIButton()
         .then {
@@ -112,6 +113,7 @@ extension LoginVC {
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(titleImageView)
         
+        loginTypeStackView.addArrangedSubview(loginKakaoButton)
         loginTypeStackView.addArrangedSubview(loginAppleButton)
         loginTypeStackView.addArrangedSubview(loginLaterButton)
         
@@ -138,6 +140,14 @@ extension LoginVC {
 extension LoginVC {
     
     private func bindButton() {
+        loginKakaoButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                self.viewModel.requestKakaoLogin()
+            })
+            .disposed(by: bag)
+        
         loginAppleButton.rx.tap
             .bind(onNext: { [weak self] in
                 guard let self = self else { return }

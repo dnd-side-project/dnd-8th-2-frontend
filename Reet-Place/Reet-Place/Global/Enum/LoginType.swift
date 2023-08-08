@@ -26,9 +26,9 @@ extension LoginType {
     var logoImage: UIImage? {
         switch self {
         case .kakao:
-            return AssetsImages.kakaoLogo // TODO: - 카카오 로고 확인
+            return AssetsImages.kakaoLoginLogo
         case .apple:
-            return AssetsImages.appleLogo
+            return AssetsImages.appleLoginLogo
         }
     }
     
@@ -53,7 +53,7 @@ extension LoginType {
     var explainTextColor: UIColor {
         switch self {
         case .kakao:
-            return UIColor(red: 52, green: 31, blue: 32, alpha: 1.0) // TODO: - 카카오 색상 확인
+            return UIColor(red: 52.0/255.0, green: 31.0/255.0, blue: 32.0/255.0, alpha: 1.0)
         case .apple:
             return AssetColors.white
         }
@@ -61,8 +61,8 @@ extension LoginType {
     
     var explainTextFont: UIFont {
         switch self {
-        case .kakao
-            , .apple:
+        case .kakao,
+            .apple:
             return AssetFonts.buttonSmall.font
         }
     }
@@ -70,7 +70,7 @@ extension LoginType {
     var backgroundColor: UIColor {
         switch self {
         case .kakao:
-            return UIColor(red: 254, green: 229, blue: 0, alpha: 1.0) // TODO: - 카카오 색상 확인
+            return UIColor(red: 254.0/255.0, green: 229.0/255.0, blue: 0.0/255.0, alpha: 1.0)
         case .apple:
             return AssetColors.black
         }
@@ -81,7 +81,7 @@ extension LoginType {
         case .kakao:
             return AssetsImages.kakaoLogo
         case .apple:
-            return AssetsImages.appleLogoOnlyWhite
+            return AssetsImages.appleLogo
         }
     }
 }

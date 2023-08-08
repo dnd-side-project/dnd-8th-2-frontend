@@ -10,6 +10,9 @@ import RxSwift
 
 import Alamofire
 
+import KakaoSDKAuth
+import KakaoSDKUser
+
 final class LoginVM: BaseViewModel {
     
     // MARK: - Variables and Properties
@@ -114,6 +117,51 @@ extension LoginVM {
                 task.cancel()
             }
         }
+    }
+    
+}
+
+// MARK: - 카카오 로그인
+
+extension LoginVM {
+    
+    /// '카카오 로그인' API 호출
+    func requestKakaoLogin() {
+        // 카카오톡 앱 실행 가능여부 확인
+        switch UserApi.isKakaoTalkLoginAvailable() {
+        case true:
+            UserApi.shared.loginWithKakaoTalk { [weak self] (oauthToken, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print(error)
+                } else {
+                    print("카카오톡 앱으로 로그인 성공")
+                    self.requestKakaoLogin(oauthToken: oauthToken)
+                }
+            }
+            
+        case false:
+            UserApi.shared.loginWithKakaoAccount { [weak self] (oauthToken, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print(error)
+                } else {
+                    print("카카오 계정(웹)으로 로그인 성공")
+                    self.requestKakaoLogin(oauthToken: oauthToken)
+                }
+            }
+        }
+    }
+    
+    private func requestKakaoLogin(oauthToken: OAuthToken?) {
+        guard let responseKakaoOAuthToken = oauthToken
+        else {
+            print("Reponse Kakao OAuth Token Error - nil")
+            return
+        }
+        requestSocialLogin(socialType: .kakao, token: responseKakaoOAuthToken.accessToken)
     }
     
 }

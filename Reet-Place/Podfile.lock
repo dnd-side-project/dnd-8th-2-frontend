@@ -1,6 +1,17 @@
 PODS:
   - Alamofire (5.6.4)
   - Differentiator (5.0.0)
+  - KakaoSDKAuth (2.15.0):
+    - KakaoSDKCommon (= 2.15.0)
+  - KakaoSDKCommon (2.15.0):
+    - KakaoSDKCommon/Common (= 2.15.0)
+    - KakaoSDKCommon/Network (= 2.15.0)
+  - KakaoSDKCommon/Common (2.15.0)
+  - KakaoSDKCommon/Network (2.15.0):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.15.0)
+  - KakaoSDKUser (2.15.0):
+    - KakaoSDKAuth (= 2.15.0)
   - Kingfisher (7.6.2)
   - NMapsGeometry (1.0.1)
   - NMapsMap (3.16.2):
@@ -23,6 +34,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - KakaoSDKAuth (<= 2.16)
+  - KakaoSDKCommon (<= 2.16)
+  - KakaoSDKUser (<= 2.16)
   - Kingfisher (~> 7.0)
   - NMapsMap
   - RxCocoa (= 6.5.0)
@@ -36,6 +50,9 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Differentiator
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKUser
     - Kingfisher
     - NMapsGeometry
     - NMapsMap
@@ -50,6 +67,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  KakaoSDKAuth: 0fe5cf1756e8a9f66f8fc77826061aafa93034f3
+  KakaoSDKCommon: 89d863b7f34398e6fb93a0acb28a204908551a39
+  KakaoSDKUser: a997ca5c4c18ece2ab30646ff74841bc29d4399d
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
   NMapsMap: aaa64717249b06ae82c3a3addb3a01f0e33100ab
@@ -61,6 +81,6 @@ SPEC CHECKSUMS:
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: 9f4ea522f9e80c2cd4691f400019a097bb288a68
+PODFILE CHECKSUM: 6eace9c5f53459f66ad27511b12d74fe7bca04d0
 
 COCOAPODS: 1.11.3

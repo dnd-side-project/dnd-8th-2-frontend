@@ -11,7 +11,8 @@ struct AssetsImages {
     
     // Login
     static let reetPlaceTitle = UIImage(named: "ReetPlaceTitle")?.withRenderingMode(.alwaysOriginal)
-    static let appleLogo = UIImage(systemName: "apple.logo")!.withTintColor(AssetColors.white, renderingMode: .alwaysOriginal)
+    static let kakaoLoginLogo = UIImage(named: "KakaoLogin")?.withRenderingMode(.alwaysOriginal)
+    static let appleLoginLogo = UIImage(systemName: "apple.logo")!.withTintColor(AssetColors.white, renderingMode: .alwaysOriginal)
     
     // Home
     static let search = UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal)
@@ -24,7 +25,7 @@ struct AssetsImages {
     static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")!.withRenderingMode(.alwaysOriginal)
     
     static let kakaoLogo = UIImage(named: "Kakao")?.withRenderingMode(.alwaysOriginal)
-    static let appleLogoOnlyWhite = UIImage(named: "Apple_White_LogoOnly")?.withRenderingMode(.alwaysOriginal)
+    static let appleLogo = UIImage(named: "AppleWhiteLogoOnly")?.withRenderingMode(.alwaysOriginal)
     
     // TabBar
     static let home = UIImage(named: "Map")?.withRenderingMode(.alwaysOriginal)

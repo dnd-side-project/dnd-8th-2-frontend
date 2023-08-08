@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Apple_White_LogoOnly@1x.png",
+      "filename" : "AppleWhiteLogoOnly@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Apple_White_LogoOnly@2x.png",
+      "filename" : "AppleWhiteLogoOnly@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Apple_White_LogoOnly@3x.png",
+      "filename" : "AppleWhiteLogoOnly@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
