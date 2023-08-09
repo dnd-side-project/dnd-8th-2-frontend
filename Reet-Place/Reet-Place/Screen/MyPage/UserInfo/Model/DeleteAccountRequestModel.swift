@@ -20,7 +20,7 @@ struct DeleteAccountRequestModel{
 extension DeleteAccountRequestModel {
     var parameter: Parameters {
         return [
-            "surveyType": surveyType,
+            "surveyType": surveyType.rawValue,
             "description": description
         ]
     }

@@ -23,14 +23,35 @@ final class DeleteAccountVM: BaseViewModel {
     struct Input { }
     
     struct Output {
-        var recordDelete: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var lowUsed: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var useOtherService: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var inconvenience: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var contentComplaint: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var other: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var recordDelete: Observable<Bool> {
+            selectedSurveyType.map { $0 == .recordDelete }
+        }
         
-        var deleteEnabled:Observable<Bool> {
+        var lowUsed: Observable<Bool> {
+            selectedSurveyType.map { $0 == .lowUsed }
+        }
+        
+        var useOtherService: Observable<Bool> {
+            selectedSurveyType.map { $0 == .useOtherService }
+        }
+        
+        var inconvenience: Observable<Bool> {
+            selectedSurveyType.map { $0 == .inconvenienceAndErrors }
+        }
+        
+        var contentComplaint: Observable<Bool> {
+            selectedSurveyType.map { $0 == .contentDissatisfaction }
+        }
+        
+        var other: Observable<Bool> {
+            selectedSurveyType.map { $0 == .other }
+        }
+        
+        var otherDescription: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+        
+        var selectedSurveyType: BehaviorRelay<DeleteAccountSurveyType?> = BehaviorRelay(value: nil)
+        
+        var deleteEnabled: Observable<Bool> {
             return Observable
                 .combineLatest(recordDelete.asObservable(),
                                lowUsed.asObservable(),
@@ -75,9 +96,10 @@ extension DeleteAccountVM: Output {
 extension DeleteAccountVM {
     
     /// 릿플 서버에게 회원탈퇴를 요청
-    func requestDeleteAccount(deleteAccountReason: DeleteAccountRequestModel) {
+    func requestDeleteAccount() {
         let path = "/api/auth/unlink"
         let resource = URLResource<EmptyEntity>(path: path)
+        let deleteAccountReason = createDeleteAccountRequestModel()
         
         // TODO: - 탈퇴 서버연결 마무리
 //        apiSession.reqeustPost(urlResource: resource, parameter: deleteAccountReason.parameter)
@@ -91,6 +113,23 @@ extension DeleteAccountVM {
 //                }
 //            })
 //            .disposed(by: bag)
+    }
+    
+}
+
+
+// MARK: - Custom Method
+
+extension DeleteAccountVM {
+    
+    func createDeleteAccountRequestModel() -> DeleteAccountRequestModel {
+        guard let surveyType = output.selectedSurveyType.value else { fatalError() }
+        
+        if surveyType == .other {
+            return DeleteAccountRequestModel(surveyType: surveyType, description: output.otherDescription.value ?? "")
+        } else {
+            return DeleteAccountRequestModel(surveyType: surveyType, description: surveyType.description)
+        }
     }
     
 }

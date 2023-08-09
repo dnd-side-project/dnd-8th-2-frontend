@@ -26,3 +26,24 @@ enum DeleteAccountSurveyType: String {
     // 기타
     case other = "OTHER"
 }
+
+extension DeleteAccountSurveyType {
+    
+    var description: String {
+        switch self {
+        case .recordDelete:
+            return "기록 삭제 목적"
+        case .lowUsed:
+            return "사용 빈도가 낮아서"
+        case .useOtherService:
+            return "다른 서비스 사용 목적"
+        case .inconvenienceAndErrors:
+            return "이용이 불편하고 장애가 많아서"
+        case .contentDissatisfaction:
+            return "콘텐츠 불만"
+        case .other:
+            return "기타"
+        }
+    }
+    
+}
