@@ -79,7 +79,7 @@ extension MyPageVM {
         let path = "/api/auth/logout"
         let resource = URLResource<EmptyEntity>(path: path)
         
-        apiSession.reqeustPost(urlResource: resource, parameter: nil)
+        apiSession.requestPost(urlResource: resource, parameter: nil)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {

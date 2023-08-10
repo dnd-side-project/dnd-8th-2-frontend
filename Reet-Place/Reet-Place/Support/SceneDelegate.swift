@@ -27,9 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        if KeychainManager.shared.read(for: .isFirst) == nil {
+        if KeychainManager.shared.read(for: .isFirst) == nil { // 첫 접속인지 확인
             window?.rootViewController = OnboardingVC()
-        } else if KeychainManager.shared.read(for: .accessToken) == nil {
+        } else if KeychainManager.shared.read(for: .accessToken) == nil { // 회원인지 확인
             window?.rootViewController = LoginVC()
         } else {
             window?.rootViewController = BaseNavigationController(rootViewController: ReetPlaceTabBarVC())

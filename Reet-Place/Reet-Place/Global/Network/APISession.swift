@@ -41,7 +41,7 @@ struct APISession: APIService {
     }
     
     /// HTTP Method [POST]
-    func reqeustPost<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> {
+    func requestPost<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
             headers.add(.accept("*/*"))
@@ -71,7 +71,7 @@ struct APISession: APIService {
     }
     
     /// HTTP Method [POST] with multipartForm(image)
-    func reqeustPostWithImage<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
+    func requestPostWithImage<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters, image: UIImage) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
             headers.add(.accept("*/*"))

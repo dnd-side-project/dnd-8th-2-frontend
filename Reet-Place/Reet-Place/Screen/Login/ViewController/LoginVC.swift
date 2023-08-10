@@ -172,7 +172,7 @@ extension LoginVC {
 extension LoginVC {
     
     private func bindLoginResponse() {
-        viewModel.output.isLoginSucess
+        viewModel.output.isLoginSuccess
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] isLoginSucess in
                 guard let self = self else { return }
