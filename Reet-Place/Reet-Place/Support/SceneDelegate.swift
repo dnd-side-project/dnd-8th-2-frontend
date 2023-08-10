@@ -99,3 +99,18 @@ extension SceneDelegate {
     }
     
 }
+
+
+// MARK: - Custom Method
+
+extension SceneDelegate {
+    
+    /// 회원탈퇴 시 RootVC 초기화해서 VC 스택 초기화
+    func resetRootVC() {
+        guard let window = self.window else { return }
+        window.rootViewController = BaseNavigationController(rootViewController: ReetPlaceTabBarVC())
+                
+        UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil, completion: nil)
+    }
+    
+}
