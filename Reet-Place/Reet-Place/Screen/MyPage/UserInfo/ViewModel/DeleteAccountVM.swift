@@ -124,7 +124,7 @@ extension DeleteAccountVM {
     }
     
     /// 릿플 서버에 회원탈퇴 요청
-    func requestUnlink<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?, identifier: String) -> Observable<Result<T, APIError>> {
+    private func requestUnlink<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?, identifier: String) -> Observable<Result<T, APIError>> {
         Observable<Result<T, APIError>>.create { observer in
             var headers = HTTPHeaders()
             headers.add(.accept("*/*"))
@@ -163,7 +163,8 @@ extension DeleteAccountVM {
 
 extension DeleteAccountVM {
     
-    func createDeleteAccountRequestModel() -> DeleteAccountRequestModel {
+    /// surveyType에 따라 DeleteAccountRequestModel 생성
+    private func createDeleteAccountRequestModel() -> DeleteAccountRequestModel {
         guard let surveyType = output.selectedSurveyType.value else { fatalError() }
         
         if surveyType == .other {
