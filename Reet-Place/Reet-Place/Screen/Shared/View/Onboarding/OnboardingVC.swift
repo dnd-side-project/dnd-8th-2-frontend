@@ -120,7 +120,12 @@ class OnboardingVC: BaseViewController {
     
     /// X 버튼, ReetPlace 시작하기 버튼 눌렀을 때 로그인 화면으로 이동
     func goToLogin() {
-        print("TODO: - Go to login")
+        KeychainManager.shared.save(key: .isFirst, value: "NO")
+        let vc = LoginVC()
+        vc.delegateLogin = self
+        vc.modalPresentationStyle = .overFullScreen
+        
+        present(vc, animated: true)
     }
     
 }
@@ -238,6 +243,17 @@ extension OnboardingVC: UIScrollViewDelegate {
         if !page.isInfinite && !page.isNaN {
             setProgress(page: Int(page))
         }
+    }
+    
+}
+
+
+// MARK: - Login Action Delegate
+
+extension OnboardingVC: LoginAction {
+    
+    func loginSuccess() {
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVCToHome()
     }
     
 }

@@ -22,11 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Splash Show
         Thread.sleep(forTimeInterval: 1)
         
-        checkAvailableSignInWithApple()
+//        checkAvailableSignInWithApple()
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = BaseNavigationController(rootViewController: ReetPlaceTabBarVC())
+        
+        if KeychainManager.shared.read(for: .isFirst) == nil {
+            window?.rootViewController = OnboardingVC()
+        } else if KeychainManager.shared.read(for: .accessToken) == nil {
+            window?.rootViewController = LoginVC()
+        } else {
+            window?.rootViewController = BaseNavigationController(rootViewController: ReetPlaceTabBarVC())
+        }
+        
         window?.tintColor = AssetColors.primary500
         window?.makeKeyAndVisible()
     }
@@ -105,8 +113,8 @@ extension SceneDelegate {
 
 extension SceneDelegate {
     
-    /// 회원탈퇴 시 RootVC 초기화해서 VC 스택 초기화
-    func resetRootVC() {
+    /// RootVC를 홈 화면으로 변경하면서 VC 스택 초기화
+    func changeRootVCToHome() {
         guard let window = self.window else { return }
         window.rootViewController = BaseNavigationController(rootViewController: ReetPlaceTabBarVC())
                 

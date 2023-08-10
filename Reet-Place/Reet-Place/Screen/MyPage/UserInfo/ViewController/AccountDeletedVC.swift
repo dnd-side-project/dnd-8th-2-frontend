@@ -133,7 +133,7 @@ extension AccountDeletedVC {
     private func bindBtn() {
         goToHomeBtn.rx.tap
             .bind(onNext: { _ in
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.resetRootVC()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVCToHome()
             })
             .disposed(by: bag)
     }
