@@ -76,6 +76,7 @@ extension LoginVM {
                     KeychainManager.shared.save(key: .userName, value: data.nickname)
                     KeychainManager.shared.save(key: .memberID, value: String(data.memberID))
                     KeychainManager.shared.save(key: .loginType, value: data.loginType.lowercased())
+                    KeychainManager.shared.save(key: .identifier, value: token)
                     
                     print("\(socialType.description) 로그인 성공")
                     

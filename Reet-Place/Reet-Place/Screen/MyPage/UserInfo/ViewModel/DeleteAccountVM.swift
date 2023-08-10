@@ -63,6 +63,8 @@ final class DeleteAccountVM: BaseViewModel {
                     return recordDelete || lowUsed || useOtherService || inconvenience || contentComplaint || other
                 }
         }
+        
+        var isUnlinkSuccess = PublishRelay<Bool>()
     }
     
     // MARK: - Life Cycle
@@ -107,7 +109,7 @@ extension DeleteAccountVM {
 //            .subscribe(onNext: { owner, result in
 //                switch result {
 //                case .success:
-//                    
+//
 //                case .failure(let error):
 //                    owner.apiError.onNext(error)
 //                }

@@ -139,6 +139,7 @@ extension KeychainManager {
   enum Key: String, CaseIterable {
       case appleUserAuthID
       case kakaoToken
+      case identifier
       
       case loginType
       
