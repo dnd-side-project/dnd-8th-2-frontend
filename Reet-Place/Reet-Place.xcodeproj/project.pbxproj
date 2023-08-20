@@ -15,6 +15,10 @@
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
+		0E502B712A91968A002C71F2 /* BookmarkListRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B702A91968A002C71F2 /* BookmarkListRequestModel.swift */; };
+		0E502B732A9197BB002C71F2 /* BookmarkListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */; };
+		0E502B752A919963002C71F2 /* BookmarkSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B742A919963002C71F2 /* BookmarkSearchType.swift */; };
+		0E502B772A919A54002C71F2 /* BookmarkSortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B762A919A54002C71F2 /* BookmarkSortType.swift */; };
 		0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */; };
 		0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514129F6721900C44701 /* ServicePolicyVC.swift */; };
 		0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */; };
@@ -200,14 +204,18 @@
 
 /* Begin PBXFileReference section */
 		0E05EFFB2A492CA9008A20F4 /* SelectBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBoxStyle.swift; sourceTree = "<group>"; };
-		0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceDebug.entitlements"; sourceTree = "<group>"; };
 		0E05EFFE2A4C75C3008A20F4 /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 		0E05F0002A4C7DE5008A20F4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTypeOnboardingView.swift; sourceTree = "<group>"; };
 		0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTypeOnboardingView.swift; sourceTree = "<group>"; };
+		0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceDebug.entitlements"; sourceTree = "<group>"; };
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
+		0E502B702A91968A002C71F2 /* BookmarkListRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListRequestModel.swift; sourceTree = "<group>"; };
+		0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListResponseModel.swift; sourceTree = "<group>"; };
+		0E502B742A919963002C71F2 /* BookmarkSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSearchType.swift; sourceTree = "<group>"; };
+		0E502B762A919A54002C71F2 /* BookmarkSortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSortType.swift; sourceTree = "<group>"; };
 		0E5A513F29F6720E00C44701 /* SubmitQnaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitQnaVC.swift; sourceTree = "<group>"; };
 		0E5A514129F6721900C44701 /* ServicePolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePolicyVC.swift; sourceTree = "<group>"; };
 		0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
@@ -463,6 +471,8 @@
 			children = (
 				0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */,
 				0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */,
+				0E502B702A91968A002C71F2 /* BookmarkListRequestModel.swift */,
+				0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -606,6 +616,8 @@
 				3C27841C2A0A6F1B0095B706 /* TabPlaceCategoryList.swift */,
 				0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */,
 				3C3A631C2A56A65A00975B56 /* LoginType.swift */,
+				0E502B742A919963002C71F2 /* BookmarkSearchType.swift */,
+				0E502B762A919A54002C71F2 /* BookmarkSortType.swift */,
 				3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */,
 				3C14917B2A6A418500B499B8 /* MarkerType.swift */,
 				3C14917D2A6BB29C00B499B8 /* BookmarkType.swift */,
@@ -1405,6 +1417,7 @@
 				3C09F6902A59330E00B6B0BF /* LoginVM.swift in Sources */,
 				3CB5CCEC29B0C3C000B82DB7 /* ReetFABSize.swift in Sources */,
 				A4917E132996A84B00DF2A65 /* ButtonDefaultColorProvider.swift in Sources */,
+				0E502B772A919A54002C71F2 /* BookmarkSortType.swift in Sources */,
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
 				3C3A631F2A56A6CD00975B56 /* LoginButton.swift in Sources */,
 				3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */,
@@ -1423,6 +1436,7 @@
 				0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */,
 				3C92567E2A1CE5390011B093 /* CategoryDetailCafeView.swift in Sources */,
 				3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */,
+				0E502B732A9197BB002C71F2 /* BookmarkListResponseModel.swift in Sources */,
 				3C2AED832990B3C300E36342 /* BaseTableViewCell.swift in Sources */,
 				0EA432E329A113CE00C4D47F /* BookmarkCardListVM.swift in Sources */,
 				0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */,
@@ -1446,6 +1460,7 @@
 				3C2AED5E2990B3C200E36342 /* UIStackView+.swift in Sources */,
 				0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */,
 				0E05EFFF2A4C75C3008A20F4 /* OnboardingVC.swift in Sources */,
+				0E502B712A91968A002C71F2 /* BookmarkListRequestModel.swift in Sources */,
 				3C9256782A1CE36F0011B093 /* CategoryDetailShoppingView.swift in Sources */,
 				A4EFC099299E608500B066AF /* BaseNavigationViewController.swift in Sources */,
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
@@ -1487,6 +1502,7 @@
 				3CBE979E29A90A5800C0D2FE /* TabBarItem.swift in Sources */,
 				3CF70D022A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				0EFE7C4329B1F6590051E72D /* InduceBookmarkView.swift in Sources */,
+				0E502B752A919963002C71F2 /* BookmarkSearchType.swift in Sources */,
 				0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */,
 				3C353F212A0CAA6000132EF8 /* CategoryDetailView.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
