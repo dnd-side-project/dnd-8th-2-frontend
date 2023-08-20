@@ -62,7 +62,7 @@ class BookmarkVC: BaseNavigationViewController {
         super.viewDidAppear(animated)
         
         removeCache()
-        viewModel.getBookmarkMock()
+        viewModel.getBookmarkCount()
     }
     
     override func configureView() {
