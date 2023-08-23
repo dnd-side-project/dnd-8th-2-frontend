@@ -33,3 +33,28 @@ extension CategoryDetailPhotoBoothList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailPhotoBoothList {
+    var parameterCategory: String {
+        switch self {
+        case .lifefourcuts:
+            return "LIFE_FOUR_CUT"
+        case .photosignature:
+            return "PHOTO_SIGNATURE"
+        case .haruflim:
+            return "HARU_FILM"
+        case .sihyunhadaFrame:
+            return "SIHYUN_HADA"
+        case .monomansion:
+            return "MONO_MANSION"
+        case .rgbphotostudio:
+            return "RGB_PHOTO"
+        case .photoism:
+            return "PHOTOISM"
+        case .instantPhoto:
+            return .empty // TODO: - 해당 항목 추가 요청(추가 된 항목)
+        }
+    }
+}

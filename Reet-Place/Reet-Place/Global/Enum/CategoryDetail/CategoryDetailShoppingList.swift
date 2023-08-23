@@ -28,3 +28,18 @@ extension CategoryDetailShoppingList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailShoppingList {
+    var parameterCategory: String {
+        switch self {
+        case .departmentStore:
+            return "DEPARTMENT_STORE"
+        case .mart:
+            return "MART"
+        case .market:
+            return "MARKET"
+        }
+    }
+}

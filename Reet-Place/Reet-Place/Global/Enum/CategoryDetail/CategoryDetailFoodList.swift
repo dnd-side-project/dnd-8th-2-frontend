@@ -40,3 +40,16 @@ extension CategoryDetailFoodList {
         }
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailFoodList {
+    var parameterCategory: [String] {
+        switch self {
+        case .restaurant:
+            return CategoryDetailRestaurantList.allCases.map { $0.parameterCategory }
+        case .bar:
+            return CategoryDetailBarList.allCases.map { $0.parameterCategory }
+        }
+    }
+}

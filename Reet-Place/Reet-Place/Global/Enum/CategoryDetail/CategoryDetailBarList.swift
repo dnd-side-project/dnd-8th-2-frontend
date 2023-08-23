@@ -31,3 +31,22 @@ extension CategoryDetailBarList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailBarList {
+    var parameterCategory: String {
+        switch self {
+        case .hofCookingBar:
+            return "COOKING_BAR"
+        case .izakaya:
+            return "IZAKAYA"
+        case .cartBar:
+            return "STREET_TENT_RESTAURANT"
+        case .wineBar:
+            return "WINE_BAR"
+        case .cocktailBar:
+            return "COCKTAIL_BAR"
+        }
+    }
+}
