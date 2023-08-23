@@ -62,7 +62,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     override func configureView() {
         super.configureView()
         
-        configurePlaceBottomSheet()
+        configureFilterBottomSheet()
     }
     
     override func layoutView() {
@@ -90,7 +90,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
 
 extension CategoryFilterBottomSheet {
     
-    private func configurePlaceBottomSheet() {
+    private func configureFilterBottomSheet() {
         sheetStyle = .h420
     }
     
@@ -210,10 +210,10 @@ extension CategoryFilterBottomSheet {
                         for section in 0..<sectionRange {
                             let indexRange = categoryDetailView.categoryDetailCollectionView.numberOfItems(inSection: section)
                             for index in 0..<indexRange {
-                                guard let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: section)) as? CategoryChipCVC
+                                guard let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: section)) as? DetailCategoryChipCVC
                                 else { continue }
                                 if cell.isSelected {
-                                    if let title = cell.title {
+                                    if let title = cell.getDetailCategoryTitle() {
                                         selectedCategoryList.append(title)
                                     }
                                 }
