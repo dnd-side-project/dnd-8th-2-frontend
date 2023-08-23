@@ -156,12 +156,12 @@ extension LoginVM {
     }
     
     private func requestKakaoLogin(oauthToken: OAuthToken?) {
-        guard let responseKakaoOauthToken = oauthToken
+        guard let responseKakaoOAuthToken = oauthToken
         else {
             print("Reponse Kakao OAuth Token Error - nil")
             return
         }
-        requestSocialLogin(socialType: .kakao, token: responseKakaoOauthToken.accessToken)
+        requestSocialLogin(socialType: .kakao, token: responseKakaoOAuthToken.accessToken)
     }
     
 }
