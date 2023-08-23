@@ -18,6 +18,15 @@ struct AssetsImages {
     static let search = UIImage(named: "Search")?.withRenderingMode(.alwaysOriginal)
     static let cancelContained = UIImage(named: "CancelContained")?.withRenderingMode(.alwaysOriginal)
     
+    // Marker - round
+    static let markerRoundDefault = UIImage(named: "MarkerRoundDefault")!.withRenderingMode(.alwaysOriginal)
+    static let markerRoundWishlist = UIImage(named: "MarkerRoundWishlist")!.withRenderingMode(.alwaysOriginal)
+    static let markerRoundDidVisit = UIImage(named: "MarkerRoundDidVisit")!.withRenderingMode(.alwaysOriginal)
+    // Marker - extended
+    static let markerExtendedDefault = UIImage(named: "MarkerExtendedDefault")!.withRenderingMode(.alwaysOriginal)
+    static let markerExtendedWishlist = UIImage(named: "MarkerExtendedWishlist")!.withRenderingMode(.alwaysOriginal)
+    static let markerExtendedDidVisit = UIImage(named: "MarkerExtendedDidVisit")!.withRenderingMode(.alwaysOriginal)
+    
     // Search
     static let noSearchResult = UIImage(named: "NoSearchResult")?.withRenderingMode(.alwaysOriginal)
     
