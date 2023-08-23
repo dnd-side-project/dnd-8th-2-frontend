@@ -13,6 +13,12 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+/// 카테고리 칩과 관련된 액션을 정의
+protocol CategoryChipCVCAction {
+    /// 선택된 카테고리 종류를 파라미터 값으로 전달 및 액션 구현
+    func tapCategoryChip(selectedCategory: PlaceCategoryList)
+}
+
 class CategoryChipCVC: BaseCollectionViewCell {
     
     // MARK: - UI components
@@ -21,21 +27,9 @@ class CategoryChipCVC: BaseCollectionViewCell {
     
     // MARK: - Variables and Properties
     
-    var title: String?
-    
     private var bag = DisposeBag()
     
     // MARK: - Life Cycle
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        _ = placeCategoryButton
-            .then {
-                $0.title = .empty
-                $0.isSelected = false
-            }
-    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -56,36 +50,16 @@ class CategoryChipCVC: BaseCollectionViewCell {
         configureLayout()
     }
     
-    // MARK: - Override
-    
-    override var isSelected: Bool {
-        didSet {
-            placeCategoryButton.isSelected = isSelected
-        }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        placeCategoryButton.title = .empty
     }
     
     // MARK: - Functions
-}
-
-// MARK: - Configure
-
-extension CategoryChipCVC {
     
-    /// Use when collectionView data binding
-    func configureCategoryChipCVC(category: PlaceCategoryList) {
-        title = category.description
-        placeCategoryButton.configureButton(with: category.description, for: .primary)
-        
-        if category == .reetPlaceHot {
-            placeCategoryButton.isSelected = true
-        }
-    }
-    
-    /// 카테고리 세부 바텀시트에 표시되는 세부 장소 카테고리 셀 초기화시 사용
-    func configureDetailPlaceCategoryChipCVC(category: String) {
-        title = category
-        placeCategoryButton.configureButton(with: category, for: .primary)
-    }
+    /// CategoryChip 내부 placeCategoryButton이 눌렸을 때 호출되는 함수
+    func didTapPlaceCategoryButton() {}
     
 }
 
@@ -113,7 +87,7 @@ extension CategoryChipCVC {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                self.isSelected.toggle()
+                self.didTapPlaceCategoryButton()
             })
             .disposed(by: bag)
     }

@@ -25,7 +25,7 @@ class CategoryDetailView: BaseView {
             $0.showsHorizontalScrollIndicator = false
             $0.clipsToBounds = false
             
-            $0.register(CategoryChipCVC.self, forCellWithReuseIdentifier: CategoryChipCVC.className)
+            $0.register(DetailCategoryChipCVC.self, forCellWithReuseIdentifier: DetailCategoryChipCVC.className)
         }
     
     // MARK: - Variables and Properties
