@@ -17,10 +17,10 @@ class AuthInterceptor: RequestInterceptor {
     // MARK: - Functions
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        guard let accessToken = KeychainManager.shared.read(for: .accessToken) else { return }
-        
         var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(bearerToken: accessToken))
+        if let accessToken = KeychainManager.shared.read(for: .accessToken) {
+            urlRequest.headers.add(.authorization(bearerToken: accessToken))
+        }
         completion(.success(urlRequest))
     }
     
