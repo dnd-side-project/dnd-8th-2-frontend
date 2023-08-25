@@ -168,9 +168,11 @@ extension DeleteAccountVM {
         guard let surveyType = output.selectedSurveyType.value else { fatalError() }
         
         if surveyType == .other {
-            return DeleteAccountRequestModel(surveyType: surveyType, description: output.otherDescription.value ?? "")
+            return DeleteAccountRequestModel(surveyType: surveyType,
+                                             description: output.otherDescription.value ?? .empty)
         } else {
-            return DeleteAccountRequestModel(surveyType: surveyType, description: surveyType.description)
+            return DeleteAccountRequestModel(surveyType: surveyType,
+                                             description: surveyType.description)
         }
     }
     
