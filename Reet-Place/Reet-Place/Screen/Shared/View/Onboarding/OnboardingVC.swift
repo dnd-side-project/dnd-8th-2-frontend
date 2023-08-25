@@ -108,7 +108,7 @@ class OnboardingVC: BaseViewController {
     // MARK: - Functions
     
     /// page에 따라 progress 상태 변경
-    func setProgress(page: Int) {
+    private func setProgress(page: Int) {
         for idx in 0 ..< 4 {
             if page == idx {
                 progressStackView.arrangedSubviews[idx].backgroundColor = AssetColors.primary500
@@ -119,7 +119,7 @@ class OnboardingVC: BaseViewController {
     }
     
     /// X 버튼, ReetPlace 시작하기 버튼 눌렀을 때 로그인 화면으로 이동
-    func goToLogin() {
+    private func goToLogin() {
         KeychainManager.shared.save(key: .isFirst, value: "NO")
         let vc = LoginVC()
         vc.delegateLogin = self
