@@ -157,10 +157,9 @@ extension LoginVC {
             .disposed(by: bag)
         
         loginLaterButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.dismissVC()
+            .bind(onNext: { _ in
+                KeychainManager.shared.save(key: .isFirst, value: "NO")
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVCToHome()
             })
             .disposed(by: bag)
     }
