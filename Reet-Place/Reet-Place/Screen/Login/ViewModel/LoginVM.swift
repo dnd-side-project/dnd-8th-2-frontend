@@ -29,7 +29,7 @@ final class LoginVM: BaseViewModel {
     struct Output {
         var loading = BehaviorRelay<Bool>(value: false)
         
-        var isLoginSucess = PublishRelay<Bool>()
+        var isLoginSuccess = PublishRelay<Bool>()
     }
     
     // MARK: - Life Cycle
@@ -76,14 +76,15 @@ extension LoginVM {
                     KeychainManager.shared.save(key: .userName, value: data.nickname)
                     KeychainManager.shared.save(key: .memberID, value: String(data.memberID))
                     KeychainManager.shared.save(key: .loginType, value: data.loginType.lowercased())
+                    KeychainManager.shared.save(key: .identifier, value: token)
                     
                     print("\(socialType.description) 로그인 성공")
                     
-                    owner.output.isLoginSucess.accept(true)
+                    owner.output.isLoginSuccess.accept(true)
                     
                 case .failure(let error):
                     owner.apiError.onNext(error)
-                    owner.output.isLoginSucess.accept(false)
+                    owner.output.isLoginSuccess.accept(false)
             }
         })
         .disposed(by: bag)

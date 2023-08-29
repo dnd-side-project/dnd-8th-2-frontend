@@ -123,12 +123,15 @@ class DeleteAccountVC: BaseNavigationViewController {
         super.bindOutput()
         
         bindDeleteBtnEnabled()
+        bindSelectedBtn()
     }
     
     // MARK: - Functions
     
     @objc func deleteAccount() {
         print("TODO: - Withdrawal API to be call")
+        viewModel.output.otherDescription.accept(otherTextField.text)
+        viewModel.requestDeleteAccount()
         guard let popUpVC = presentedViewController else { return }
         
         popUpVC.dismiss(animated: false) {
@@ -234,17 +237,19 @@ extension DeleteAccountVC {
     }
     
     private func bindCheckbox() {
-        typealias ButtonType = (button: CheckboxButton, output: BehaviorRelay<Bool>)
-        let buttonList: [ButtonType] = [(recordDeleteBtn, viewModel.output.recordDelete),
-                                        (lowUsedBtn, viewModel.output.lowUsed),
-                                        (useOtherServiceBtn, viewModel.output.useOtherService),
-                                        (inconvenienceBtn, viewModel.output.inconvenience),
-                                        (contentComplaintBtn, viewModel.output.contentComplaint),]
+        typealias ButtonType = (button: CheckboxButton, surveyType: DeleteAccountSurveyType)
+        let buttonList: [ButtonType] = [(recordDeleteBtn, .recordDelete),
+                                        (lowUsedBtn, .lowUsed),
+                                        (useOtherServiceBtn, .useOtherService),
+                                        (inconvenienceBtn, .inconvenienceAndErrors),
+                                        (contentComplaintBtn, .contentDissatisfaction),]
         
         buttonList.forEach { type in
             type.button.rx.tap
-                .bind(onNext: { _ in
-                    type.output.accept(type.button.isSelected)
+                .bind(onNext: { [weak self] _ in
+                    guard let self = self else { return }
+                    
+                    self.viewModel.output.selectedSurveyType.accept(type.surveyType)
                 })
                 .disposed(by: bag)
         }
@@ -252,10 +257,8 @@ extension DeleteAccountVC {
         otherBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                
-                self.viewModel.output.other
-                    .accept(self.otherBtn.isSelected)
-                self.otherTextField.isHidden = !self.otherBtn.isSelected
+
+                self.viewModel.output.selectedSurveyType.accept(.other)
             })
             .disposed(by: bag)
     }
@@ -273,6 +276,63 @@ extension DeleteAccountVC {
             .bind(onNext: { owner, deleteEnabled in
                 DispatchQueue.main.async {
                     owner.deleteBtn.isEnabled = deleteEnabled
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindSelectedBtn() {
+        viewModel.output.recordDelete
+            .withUnretained(self)
+            .bind(onNext: { owner, selected in
+                DispatchQueue.main.async {
+                    owner.recordDeleteBtn.isSelected = selected
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.lowUsed
+            .withUnretained(self)
+            .bind(onNext: { owner, selected in
+                DispatchQueue.main.async {
+                    owner.lowUsedBtn.isSelected = selected
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.useOtherService
+            .withUnretained(self)
+            .bind(onNext: { owner, selected in
+                DispatchQueue.main.async {
+                    owner.useOtherServiceBtn.isSelected = selected
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.inconvenience
+            .withUnretained(self)
+            .bind(onNext: { owner, selected in
+                DispatchQueue.main.async {
+                    owner.inconvenienceBtn.isSelected = selected
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.contentComplaint
+            .withUnretained(self)
+            .bind(onNext: { owner, selected in
+                DispatchQueue.main.async {
+                    owner.contentComplaintBtn.isSelected = selected
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.other
+            .withUnretained(self)
+            .bind(onNext: { owner, selected in
+                DispatchQueue.main.async {
+                    owner.otherBtn.isSelected = selected
+                    owner.otherTextField.isHidden = !selected
                 }
             })
             .disposed(by: bag)

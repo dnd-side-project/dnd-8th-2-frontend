@@ -74,4 +74,11 @@ struct AssetsImages {
     static let selectedCheckbox = UIImage(named: "SelectedCheckbox")?.withRenderingMode(.alwaysOriginal)
     static let deselectedCheckbox = UIImage(named: "DeselectedCheckbox")?.withRenderingMode(.alwaysOriginal)
     static let deletedAccount = UIImage(named: "DeletedAccount")?.withRenderingMode(.alwaysOriginal)
+    
+    // Onboarding
+    static let onboardingFirst = UIImage(named: "OnboardingFirst")?.withRenderingMode(.alwaysOriginal)
+    static let onboardingSecond = UIImage(named: "OnboardingSecond")?.withRenderingMode(.alwaysOriginal)
+    static let onboardingThird = UIImage(named: "OnboardingThird")?.withRenderingMode(.alwaysOriginal)
+    static let onboardingFourth = UIImage(named: "OnboardingFourth")?.withRenderingMode(.alwaysOriginal)
+    static let cancel44 = UIImage(named: "Cancel44")?.withRenderingMode(.alwaysOriginal)
 }

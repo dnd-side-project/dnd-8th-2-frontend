@@ -132,16 +132,8 @@ extension AccountDeletedVC {
     
     private func bindBtn() {
         goToHomeBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                guard let rootVC = UIViewController.getRootViewController(),
-                      let tabBarVC = rootVC.rootViewController as? ReetPlaceTabBarVC
-                else { return }
-                
-                self.dismiss(animated: false) {
-                    tabBarVC.activeTabBarItem(targetItemType: .home)
-                }
+            .bind(onNext: { _ in
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVCToHome()
             })
             .disposed(by: bag)
     }

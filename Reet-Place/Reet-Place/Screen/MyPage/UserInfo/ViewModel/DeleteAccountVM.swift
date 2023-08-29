@@ -8,6 +8,8 @@
 import RxSwift
 import RxCocoa
 
+import Alamofire
+
 final class DeleteAccountVM: BaseViewModel {
     
     // MARK: - Variables and Properties
@@ -23,14 +25,35 @@ final class DeleteAccountVM: BaseViewModel {
     struct Input { }
     
     struct Output {
-        var recordDelete: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var lowUsed: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var useOtherService: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var inconvenience: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var contentComplaint: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        var other: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var recordDelete: Observable<Bool> {
+            selectedSurveyType.map { $0 == .recordDelete }
+        }
         
-        var deleteEnabled:Observable<Bool> {
+        var lowUsed: Observable<Bool> {
+            selectedSurveyType.map { $0 == .lowUsed }
+        }
+        
+        var useOtherService: Observable<Bool> {
+            selectedSurveyType.map { $0 == .useOtherService }
+        }
+        
+        var inconvenience: Observable<Bool> {
+            selectedSurveyType.map { $0 == .inconvenienceAndErrors }
+        }
+        
+        var contentComplaint: Observable<Bool> {
+            selectedSurveyType.map { $0 == .contentDissatisfaction }
+        }
+        
+        var other: Observable<Bool> {
+            selectedSurveyType.map { $0 == .other }
+        }
+        
+        var otherDescription: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+        
+        var selectedSurveyType: BehaviorRelay<DeleteAccountSurveyType?> = BehaviorRelay(value: nil)
+        
+        var deleteEnabled: Observable<Bool> {
             return Observable
                 .combineLatest(recordDelete.asObservable(),
                                lowUsed.asObservable(),
@@ -42,6 +65,8 @@ final class DeleteAccountVM: BaseViewModel {
                     return recordDelete || lowUsed || useOtherService || inconvenience || contentComplaint || other
                 }
         }
+        
+        var isUnlinkSuccess = PublishRelay<Bool>()
     }
     
     // MARK: - Life Cycle
@@ -74,23 +99,81 @@ extension DeleteAccountVM: Output {
 
 extension DeleteAccountVM {
     
-    /// 릿플 서버에게 회원탈퇴를 요청
-    func requestDeleteAccount(deleteAccountReason: DeleteAccountRequestModel) {
+    /// VC에서 회원탈퇴 요청
+    func requestDeleteAccount() {
         let path = "/api/auth/unlink"
         let resource = URLResource<EmptyEntity>(path: path)
+        let deleteAccountReason = createDeleteAccountRequestModel()
+        guard let identifier = KeychainManager.shared.read(for: .identifier) else { return }
         
-        // TODO: - 탈퇴 서버연결 마무리
-//        apiSession.reqeustPost(urlResource: resource, parameter: deleteAccountReason.parameter)
-//            .withUnretained(self)
-//            .subscribe(onNext: { owner, result in
-//                switch result {
-//                case .success:
-//                    
-//                case .failure(let error):
-//                    owner.apiError.onNext(error)
-//                }
-//            })
-//            .disposed(by: bag)
+        requestUnlink(urlResource: resource, parameter: deleteAccountReason.parameter, identifier: identifier)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success:
+                    print("탈퇴 성공")
+                    KeychainManager.shared.removeAllKeys()
+                    owner.output.isUnlinkSuccess.accept(true)
+                case .failure(let error):
+                    print("탈퇴 실패")
+                    print(error)
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    /// 릿플 서버에 회원탈퇴 요청
+    private func requestUnlink<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?, identifier: String) -> Observable<Result<T, APIError>> {
+        Observable<Result<T, APIError>>.create { observer in
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
+            headers.add(name: "identifier", value: identifier)
+            
+            let task = AF.request(urlResource.resultURL,
+                                  method: .post,
+                                  parameters: parameter,
+                                  encoding: JSONEncoding.default,
+                                  headers: headers,
+                                  interceptor: AuthInterceptor())
+                .validate(statusCode: 200...399)
+                .responseDecodable(of: T.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(.success(data))
+                        
+                    case .failure(let error):
+                        dump(error)
+                        guard let error = response.response else { return }
+                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
+                    }
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+}
+
+
+// MARK: - Custom Method
+
+extension DeleteAccountVM {
+    
+    /// surveyType에 따라 DeleteAccountRequestModel 생성
+    private func createDeleteAccountRequestModel() -> DeleteAccountRequestModel {
+        guard let surveyType = output.selectedSurveyType.value else { fatalError() }
+        
+        if surveyType == .other {
+            return DeleteAccountRequestModel(surveyType: surveyType,
+                                             description: output.otherDescription.value ?? .empty)
+        } else {
+            return DeleteAccountRequestModel(surveyType: surveyType,
+                                             description: surveyType.description)
+        }
     }
     
 }

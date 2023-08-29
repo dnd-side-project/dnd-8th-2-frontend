@@ -150,3 +150,19 @@ No = "아니오";
 
 LogoutSuccess = "로그아웃 되었습니다";
 ErrorOccurred = "오류발생 😵";
+
+// MARK: - Onboarding
+FirstOnboardingFirstLine = "어떤 상황에서든";
+FirstOnboardingSecondLine = "나의 약속에 딱 좋은 장소를";
+FirstOnboardingThirdLine = "Reet Place로 찾아볼까요?";
+
+SecondOnboardingUpper = "릿플 인기";
+SecondOnboardingLower = "릿플 인기로 내 근처 약속 장소를\n자유롭게 확인하고 수정할 수 있어요!";
+
+ThirdOnboardingUpper = "북마크 저장";
+ThirdOnboardingLower = "마음에 드는 장소가 있다면\n북마크에 저장하세요!";
+
+FourthOnboardingUpper = "북마크 확인";
+FourthOnboardingLower = "불시에 약속 장소를 변경할 일이 생긴다면\n저장한 북마크를 확인해봐요!";
+
+StartReetPlace = "ReetPlace 시작하기";
