@@ -35,9 +35,7 @@ extension PlaceCategoryChipCVC {
         categoryType = placeCategory
         placeCategoryButton.configureButton(with: placeCategory.description, for: .primary)
         
-        if placeCategory == .reetPlaceHot {
-            placeCategoryButton.isSelected = true
-        }
+        placeCategoryButton.isSelected = placeCategory == .reetPlaceHot
     }
     
 }

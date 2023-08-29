@@ -70,7 +70,6 @@ extension HomeVM {
                 switch result {
                 case .success(let data):
                     owner.output.searchPlaceList.accept(data)
-                    break
                 case .failure(let error):
                     owner.apiError.onNext(error)
                 }
