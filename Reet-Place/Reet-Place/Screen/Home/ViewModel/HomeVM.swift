@@ -24,12 +24,12 @@ final class HomeVM: BaseViewModel {
     struct Output {
         var loading = BehaviorRelay<Bool>(value: false)
         
-        var isMidnight: BehaviorSubject<Bool> = BehaviorSubject(value: false)
-        
         private var placeCategoryList: BehaviorRelay<Array<PlaceCategoryList>> = BehaviorRelay(value: PlaceCategoryList.allCases)
         var placeCategoryDataSources: Observable<Array<PlaceCategoryListDataSource>> {
             placeCategoryList.map { [PlaceCategoryListDataSource(items: $0)] }
         }
+        
+        var searchPlaceList = PublishRelay<SearchPlaceListResponseModel>()
     }
     
     // MARK: - Life Cycle
@@ -59,5 +59,22 @@ extension HomeVM: Output {
 // MARK: - Networking
 
 extension HomeVM {
+    
+    func requestSearchPlaces(targetSearchPlace: SearchPlaceListRequestModel) {
+        let path = "/api/places"
+        let resource = URLResource<SearchPlaceListResponseModel>(path: path)
+        
+        apiSession.reqeustPost(urlResource: resource, parameter: targetSearchPlace.parameter)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    owner.output.searchPlaceList.accept(data)
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
     
 }

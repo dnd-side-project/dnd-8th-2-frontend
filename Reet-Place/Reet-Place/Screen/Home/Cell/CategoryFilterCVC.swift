@@ -46,12 +46,9 @@ class CategoryFilterCVC: BaseCollectionViewCell {
 extension CategoryFilterCVC {
     
     func configureContentView() {
-        _ = contentView
-            .then {
-                $0.backgroundColor = .clear
-                $0.clipsToBounds = false
-                $0.layer.cornerRadius = contentView.frame.height / 2.0
-            }
+        contentView.backgroundColor = .clear
+        contentView.clipsToBounds = false
+        contentView.layer.cornerRadius = contentView.frame.height / 2.0
     }
     
 }

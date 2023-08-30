@@ -29,13 +29,13 @@ class CategoryDetailCafeView: CategoryDetailView {
             collectionView,
             indexPath,
             categoryType in
-
+            
             guard let cell = collectionView
-                .dequeueReusableCell(withReuseIdentifier: CategoryChipCVC.className,
-                                     for: indexPath) as? CategoryChipCVC else {
-                fatalError("Cannot deqeue cells named CategoryChipCVC")
+                .dequeueReusableCell(withReuseIdentifier: DetailCategoryChipCVC.className,
+                                     for: indexPath) as? DetailCategoryChipCVC else {
+                fatalError("Cannot deqeue cells named DetailCategoryChipCVC")
             }
-            cell.configureDetailPlaceCategoryChipCVC(category: categoryType.description)
+            cell.configureDetailPlaceCategoryChipCVC(detailCategoryTitle: categoryType.description)
 
             return cell
         }

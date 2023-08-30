@@ -30,3 +30,22 @@ extension CategoryDetailCafeList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailCafeList {
+    var parameterCategory: String {
+        switch self {
+        case .bookCafe:
+            return "BOOK"
+        case .comicBookCafe:
+            return "CARTOON"
+        case .dessertCafe:
+            return "DESERT"
+        case .cafe:
+            return "CAFE"
+        case .fruitShop:
+            return "FRESH_FRUIT"
+        }
+    }
+}

@@ -31,3 +31,22 @@ extension CategoryDetailRestaurantList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailRestaurantList {
+    var parameterCategory: String {
+        switch self {
+        case .koreanFood:
+            return "KOREAN"
+        case .chineseFood:
+            return "CHINESE"
+        case .japaneseFood:
+            return "JAPANESE"
+        case .westernFood:
+            return "WESTERN"
+        case .worldesternFood:
+            return "WORLD"
+        }
+    }
+}

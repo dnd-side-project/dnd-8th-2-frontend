@@ -15,6 +15,7 @@ import Then
 import SnapKit
 
 import NMapsMap
+import CoreLocation
 
 class HomeVC: BaseViewController {
     
@@ -65,30 +66,25 @@ class HomeVC: BaseViewController {
             $0.clipsToBounds = false
             
             $0.register(CategoryFilterCVC.self, forCellWithReuseIdentifier: CategoryFilterCVC.className)
-            $0.register(CategoryChipCVC.self, forCellWithReuseIdentifier: CategoryChipCVC.className)
+            $0.register(PlaceCategoryChipCVC.self, forCellWithReuseIdentifier: PlaceCategoryChipCVC.className)
         }
     
     private let currentPositionButton = ReetFAB(size: .round(.small), title: nil, image: .directionTool)
     
     // MARK: - Variables and Properties
     
-    private let viewmodel = HomeVM()
+    private let viewModel = HomeVM()
     
-    // dummy data
-    // TODO: - DummyData 지우기
-    private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
+    private let locationManager = CLLocationManager()
+    private var markerList: [NMFMarker] = []
     
     // MARK: - Life Cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
     
     override func configureView() {
         super.configureView()
         
         configureMapView()
+        configureLocationManager()
     }
     
     override func layoutView() {
@@ -109,10 +105,10 @@ class HomeVC: BaseViewController {
         super.bindOutput()
         
         bindPlaceCategoryList()
+        bindSearchPlacesResult()
     }
     
     // MARK: - Functions
-    
 }
 
 // MARK: - Configure
@@ -121,69 +117,58 @@ extension HomeVC {
     
     private func configureMapView() {
         mapView.touchDelegate = self
+    }
+    
+    private func configureLocationManager() {
+        locationManager.delegate = self
+    }
+    
+    private func configureSearchPlacesResult(searchPlaceList: SearchPlaceListResponseModel) {
+        // 기존 마커 표시 초기화
+        markerList.forEach {
+            $0.mapView = nil
+        }
+        markerList = []
         
-        // 더미 마커값 생성
-        // 네이버 본사, 서울ICT이노베이션
-        [NMGLatLng(lat: 37.35838205147338, lng: 127.1052659318825),
-         NMGLatLng(lat:37.5453577, lng:126.9525465)].forEach {
-            let marker = NMFMarker()
-            marker.position = $0 as! NMGLatLng
-            marker.mapView = mapView
-            
-            let image = NMFOverlayImage(name: "MarkerExtendedWishlist")
-            marker.iconImage = image
-            
-            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-                let bottemSheet = PlaceBottomSheet()
-                bottemSheet.modalPresentationStyle = .overFullScreen
-                self.present(bottemSheet, animated: true)
-                
-                return true
-            }
-            
-            viewModel.getAllList()
-            
-            // 서울ICT이노베이션 근처 장소 2곳
-            [NMGLatLng(lat: 37.54349189922267, lng: 126.9482621178211),
-             NMGLatLng(lat: 37.54196065990934, lng: 126.9485339154298)].forEach {
+        // 조회한 카테고리 목록들에 대한 마커 생성
+        // 백그라운드 스레드
+        DispatchQueue.global(qos: .default).async {
+            searchPlaceList.contents.forEach { placeInfo in
                 let marker = NMFMarker()
-                marker.position = $0 as! NMGLatLng
-                marker.mapView = mapView
+                marker.position = NMGLatLng(lat: Double(placeInfo.lat)!, lng: Double(placeInfo.lng)!)
                 
-                let image = NMFOverlayImage(name: "MarkerRoundDefault")
-                marker.iconImage = image
-                
+                let bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)!
+                marker.iconImage = NMFOverlayImage(image: MarkerType.round(bookmarkType.markerState).image)
                 marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                     let bottomSheetVC = PlaceBottomSheet()
-                    let cardInfo = self.viewModel.output.cardList.value[1]
-                    bottomSheetVC.configurePlaceInformation(placeInfo: cardInfo)
-                    
+                    bottomSheetVC.modalPresentationStyle = .custom
                     bottomSheetVC.modalPresentationStyle = .overFullScreen
-                    self.present(bottomSheetVC, animated: true)
+                    
+                    bottomSheetVC.configurePlaceBottomSheet(placeName: placeInfo.name,
+                                                            address: placeInfo.roadAddress,
+                                                            category: placeInfo.category,
+                                                            urlLink: placeInfo.url,
+                                                            bookmarkType: bookmarkType,
+                                                            marker: marker)
+                    
+                    self.present(bottomSheetVC, animated: false)
                     
                     return true
                 }
+                
+                self.markerList.append(marker)
+            }
+
+            // 메인 스레드
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                for marker in markerList {
+                    marker.mapView = self.mapView
+                }
             }
             
-            // 서울ICT이노베이션 근처 둥록한 장소 1곳
-            [NMGLatLng(lat: 37.54388888223204, lng: 126.9536265356963)].forEach {
-               let marker = NMFMarker()
-                marker.position = $0 as! NMGLatLng
-               marker.mapView = mapView
-               
-               let image = NMFOverlayImage(name: "MarkerRoundDidVisit")
-               marker.iconImage = image
-               
-               marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-                   let bottomSheetVC = PlaceBottomSheet()
-                   bottomSheetVC.modalPresentationStyle = .overFullScreen
-                   self.present(bottomSheetVC, animated: true)
-                   
-                   return true
-               }
-           }
-                
-        }
+        } // End of Background Tasks
     }
     
 }
@@ -193,12 +178,13 @@ extension HomeVC {
 extension HomeVC {
     
     private func configureLayout() {
+        // Add Subviews
         view.addSubviews([mapView,
                          searchTextField, cancelButton, searchButton,
                           placeCategoryCollectionView,
                          currentPositionButton])
         
-        
+        // Make Constraints
         mapView.snp.makeConstraints {
             $0.edges.equalTo(view)
         }
@@ -261,6 +247,7 @@ extension HomeVC {
         searchButton.rx.tap
             .bind(onNext: { [weak self] in
                 guard let self = self else { return }
+                
                 print("TODO: - Search Place API to be call")
             })
             .disposed(by: bag)
@@ -280,8 +267,15 @@ extension HomeVC {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                // 서울 프론트원 좌표
-                self.mapView.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat:37.5453577, lng:126.9525465)))
+                switch locationManager.authorizationStatus {
+                case .authorizedAlways,
+                    .authorizedWhenInUse:
+                    print("위치 서비스 On 상태")
+                    locationManager.requestLocation()
+                default:
+                    print("위치 서비스 Off 상태")
+                    locationManager.requestWhenInUseAuthorization()
+                }
             })
             .disposed(by: bag)
     }
@@ -323,18 +317,29 @@ extension HomeVC {
                 
             default:
                 guard let cell = collectionView
-                    .dequeueReusableCell(withReuseIdentifier: CategoryChipCVC.className,
-                                         for: indexPath) as? CategoryChipCVC else {
-                    fatalError("Cannot deqeue cells named CategoryChipCVC")
+                    .dequeueReusableCell(withReuseIdentifier: PlaceCategoryChipCVC.className,
+                                         for: indexPath) as? PlaceCategoryChipCVC else {
+                    fatalError("Cannot deqeue cells named PlaceCategoryChipCVC")
                 }
-                cell.configureCategoryChipCVC(category: categoryType)
+                cell.configurePlaceCategoryChipCVC(placeCategory: categoryType)
+                cell.delegate = self
                 
                 return cell
             }
         }
         
-        viewmodel.output.placeCategoryDataSources
+        viewModel.output.placeCategoryDataSources
             .bind(to: placeCategoryCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+    }
+    
+    private func bindSearchPlacesResult() {
+        viewModel.output.searchPlaceList
+            .subscribe(onNext: { [weak self] data in
+                guard let self = self else { return }
+                
+                self.configureSearchPlacesResult(searchPlaceList: data)
+            })
             .disposed(by: bag)
     }
     
@@ -349,9 +354,41 @@ extension HomeVC: NMFMapViewTouchDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
-        print("tapedd")
+        return false
+    }
+    
+}
+
+// MARK: - CLLocationManager Delegate
+
+extension HomeVC: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            if let coordinate = locationManager.location?.coordinate {
+                print(coordinate)
+                mapView.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude))) // TODO: - 현재위치 조회 오류(미국 쿠퍼티노로 조회) 문제 수정
+            } else {
+                print("get current coordinate error")
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("get location failed", error)
+    }
+    
+}
+
+// MARK: - CategoryChipCVC Action Delegate
+
+extension HomeVC: CategoryChipCVCAction {
+    
+    func tapCategoryChip(selectedCategory: PlaceCategoryList) {
+        let latitude = mapView.latitude.description
+        let longitude = mapView.longitude.description
         
-        return true
+        viewModel.requestSearchPlaces(targetSearchPlace: SearchPlaceListRequestModel(lat: latitude, lng: longitude, category: selectedCategory.parameterPlace, subCategory: selectedCategory.parameterSubCategoryList))
     }
     
 }

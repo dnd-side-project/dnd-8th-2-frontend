@@ -34,3 +34,30 @@ extension CategoryDetailActivityList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailActivityList {
+    var parameterCategory: String {
+        switch self {
+        case .bowlingAlley:
+            return "BOWLING"
+        case .pcRoom:
+            return "PC"
+        case .billiardHall:
+            return "BILLIARDS"
+        case .singingRoom:
+            return "KARAOKE"
+        case .sportsFacility: // TODO: 해당 항목 존재 서버와 확인
+            return "PARK" // TODO: 임시설정 변경
+        case .boardGameCafe:
+            return "BOARD_GAME"
+        case .escapeRoom: // TODO: 해당 항목 존재 서버와 확인
+            return "ROLLER" // TODO: 임시설정 변경
+        case .gameArcade:
+            return "BOWLING"
+        case .coinSingingRoom:
+            return "COIN_KARAOKE"
+        }
+    }
+}

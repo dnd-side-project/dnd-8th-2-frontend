@@ -28,3 +28,18 @@ extension CategoryDetailCultureList: CustomStringConvertible {
         rawValue.localized
     }
 }
+
+// MARK: - Network
+
+extension CategoryDetailCultureList {
+    var parameterCategory: String {
+        switch self {
+        case .theater:
+            return "CINEMA"
+        case .driveInTheater:
+            return "CAR_CINEMA"
+        case .concert:
+            return "CONCERT"
+        }
+    }
+}

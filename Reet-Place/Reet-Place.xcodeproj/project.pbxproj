@@ -57,6 +57,9 @@
 		3C09F69A2A5F936600B6B0BF /* EmptyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6992A5F936600B6B0BF /* EmptyEntity.swift */; };
 		3C09F69C2A5FB9A100B6B0BF /* DeleteAccountRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */; };
 		3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */; };
+		3C14917A2A6A403400B499B8 /* MarkerExtendedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1491792A6A403400B499B8 /* MarkerExtendedStackView.swift */; };
+		3C14917C2A6A418500B499B8 /* MarkerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C14917B2A6A418500B499B8 /* MarkerType.swift */; };
+		3C14917E2A6BB29C00B499B8 /* BookmarkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C14917D2A6BB29C00B499B8 /* BookmarkType.swift */; };
 		3C2784132A0A3BC20095B706 /* ReetMenuTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784122A0A3BC20095B706 /* ReetMenuTabBarView.swift */; };
 		3C2784162A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784152A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift */; };
 		3C2784192A0A65C90095B706 /* ReetTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2784182A0A65C90095B706 /* ReetTabButton.swift */; };
@@ -157,6 +160,10 @@
 		3CF3EABC2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */; };
 		3CF70D002A1B50A600523A74 /* CategoryDetailFoodDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF70CFF2A1B50A600523A74 /* CategoryDetailFoodDataSource.swift */; };
 		3CF70D022A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		3CFBC6FB2A6134C300540C7F /* SearchPlaceListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFBC6FA2A6134C300540C7F /* SearchPlaceListResponseModel.swift */; };
+		3CFBC6FD2A61368300540C7F /* SearchPlaceListRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFBC6FC2A61368300540C7F /* SearchPlaceListRequestModel.swift */; };
+		3CFBC6FF2A64FF5C00540C7F /* DetailCategoryChipCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFBC6FE2A64FF5C00540C7F /* DetailCategoryChipCVC.swift */; };
+		3CFBC7012A65013000540C7F /* PlaceCategoryChipCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFBC7002A65013000540C7F /* PlaceCategoryChipCVC.swift */; };
 		A417F66F299E8710005E6DA7 /* UserInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417F66E299E8710005E6DA7 /* UserInfomation.swift */; };
 		A4917E022996A4D300DF2A65 /* AssetColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E012996A4D300DF2A65 /* AssetColors.swift */; };
 		A4917E072996A5E900DF2A65 /* ReetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4917E062996A5E900DF2A65 /* ReetButton.swift */; };
@@ -243,6 +250,9 @@
 		3C09F6992A5F936600B6B0BF /* EmptyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEntity.swift; sourceTree = "<group>"; };
 		3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountRequestModel.swift; sourceTree = "<group>"; };
 		3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountSurveyType.swift; sourceTree = "<group>"; };
+		3C1491792A6A403400B499B8 /* MarkerExtendedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerExtendedStackView.swift; sourceTree = "<group>"; };
+		3C14917B2A6A418500B499B8 /* MarkerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerType.swift; sourceTree = "<group>"; };
+		3C14917D2A6BB29C00B499B8 /* BookmarkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkType.swift; sourceTree = "<group>"; };
 		3C2784122A0A3BC20095B706 /* ReetMenuTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetMenuTabBarView.swift; sourceTree = "<group>"; };
 		3C2784152A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetMenuTarBarCVC.swift.swift; sourceTree = "<group>"; };
 		3C2784182A0A65C90095B706 /* ReetTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTabButton.swift; sourceTree = "<group>"; };
@@ -346,6 +356,10 @@
 		3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailHeaderView.swift; sourceTree = "<group>"; };
 		3CF70CFF2A1B50A600523A74 /* CategoryDetailFoodDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailFoodDataSource.swift; sourceTree = "<group>"; };
 		3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		3CFBC6FA2A6134C300540C7F /* SearchPlaceListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceListResponseModel.swift; sourceTree = "<group>"; };
+		3CFBC6FC2A61368300540C7F /* SearchPlaceListRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceListRequestModel.swift; sourceTree = "<group>"; };
+		3CFBC6FE2A64FF5C00540C7F /* DetailCategoryChipCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategoryChipCVC.swift; sourceTree = "<group>"; };
+		3CFBC7002A65013000540C7F /* PlaceCategoryChipCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategoryChipCVC.swift; sourceTree = "<group>"; };
 		75B835821C35237DF51F34A9 /* Pods_Reet_Place.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reet_Place.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A417F66E299E8710005E6DA7 /* UserInfomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomation.swift; sourceTree = "<group>"; };
 		A4917E012996A4D300DF2A65 /* AssetColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetColors.swift; sourceTree = "<group>"; };
@@ -593,6 +607,8 @@
 				0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */,
 				3C3A631C2A56A65A00975B56 /* LoginType.swift */,
 				3C09F69D2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift */,
+				3C14917B2A6A418500B499B8 /* MarkerType.swift */,
+				3C14917D2A6BB29C00B499B8 /* BookmarkType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -786,6 +802,8 @@
 			children = (
 				3C423F2829AAEA90003B7B7D /* CategoryChipCVC.swift */,
 				3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */,
+				3CFBC6FE2A64FF5C00540C7F /* DetailCategoryChipCVC.swift */,
+				3CFBC7002A65013000540C7F /* PlaceCategoryChipCVC.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -879,12 +897,12 @@
 		3CBADD3729A090E7005855B1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3CE3C4772A4583CE0097FB63 /* Search */,
 				3C423F2729AAEA7C003B7B7D /* Cell */,
 				3CBADD3829A090E7005855B1 /* ViewModel */,
 				3CBADD3929A090E7005855B1 /* Model */,
 				3CBADD3A29A090E7005855B1 /* View */,
 				3CBADD3B29A090E7005855B1 /* ViewController */,
-				3CE3C4772A4583CE0097FB63 /* Search */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -901,6 +919,8 @@
 		3CBADD3929A090E7005855B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3CFBC6FA2A6134C300540C7F /* SearchPlaceListResponseModel.swift */,
+				3CFBC6FC2A61368300540C7F /* SearchPlaceListRequestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -909,6 +929,7 @@
 			isa = PBXGroup;
 			children = (
 				3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */,
+				3C1491792A6A403400B499B8 /* MarkerExtendedStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1327,6 +1348,7 @@
 				A4917E092996A6B200DF2A65 /* ReetButtonStyle.swift in Sources */,
 				3C40FD822A4A6B3C00D66B49 /* KeywordHistoryDataSource.swift in Sources */,
 				0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */,
+				3C14917E2A6BB29C00B499B8 /* BookmarkType.swift in Sources */,
 				3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */,
 				3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */,
 				3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */,
@@ -1336,6 +1358,7 @@
 				3CCB07AA29F90D4F003EC058 /* ReetTextButton.swift in Sources */,
 				3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */,
 				0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */,
+				3CFBC6FD2A61368300540C7F /* SearchPlaceListRequestModel.swift in Sources */,
 				0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */,
 				3C423F2929AAEA90003B7B7D /* CategoryChipCVC.swift in Sources */,
 				3C2AED782990B3C200E36342 /* Output.swift in Sources */,
@@ -1364,8 +1387,10 @@
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageVM.swift in Sources */,
 				3C9256802A1CE5B00011B093 /* CategoryDetailCultureList.swift in Sources */,
+				3CFBC6FB2A6134C300540C7F /* SearchPlaceListResponseModel.swift in Sources */,
 				3C92567A2A1CE40F0011B093 /* CategoryDetailCafeList.swift in Sources */,
 				3C2AED592990B3C200E36342 /* Int+.swift in Sources */,
+				3CFBC7012A65013000540C7F /* PlaceCategoryChipCVC.swift in Sources */,
 				3C2AED7F2990B3C300E36342 /* PaddingLabel.swift in Sources */,
 				3C92566A2A1CD0090011B093 /* CategoryDetailActivityList.swift in Sources */,
 				3CB5CCF029B1BB7500B82DB7 /* PlaceBottomSheet.swift in Sources */,
@@ -1383,6 +1408,7 @@
 				3CBE979229A8703200C0D2FE /* ReetPlaceTabBarVC.swift in Sources */,
 				3C3A631F2A56A6CD00975B56 /* LoginButton.swift in Sources */,
 				3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */,
+				3C14917C2A6A418500B499B8 /* MarkerType.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
 				0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */,
 				3CF3EAB82A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift in Sources */,
@@ -1423,6 +1449,7 @@
 				3C9256782A1CE36F0011B093 /* CategoryDetailShoppingView.swift in Sources */,
 				A4EFC099299E608500B066AF /* BaseNavigationViewController.swift in Sources */,
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
+				3C14917A2A6A403400B499B8 /* MarkerExtendedStackView.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
 				0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */,
@@ -1465,6 +1492,7 @@
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				0EA432D929A0894400C4D47F /* BookmarkWishlistVC.swift in Sources */,
 				3C9256682A1CCFE00011B093 /* CategoryDetailActivityDataSource.swift in Sources */,
+				3CFBC6FF2A64FF5C00540C7F /* DetailCategoryChipCVC.swift in Sources */,
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
 				0EAFCFDC2A2888700023A738 /* SelectBoxTVC.swift in Sources */,
 				A4D09EC8299F984A004DEE97 /* UserInfoVC.swift in Sources */,
