@@ -8,6 +8,8 @@
 import RxCocoa
 import RxSwift
 
+import Alamofire
+
 final class HomeVM: BaseViewModel {
     
     // MARK: - Variables and Properties
@@ -64,7 +66,7 @@ extension HomeVM {
         let path = "/api/places"
         let resource = URLResource<SearchPlaceListResponseModel>(path: path)
         
-        apiSession.reqeustPost(urlResource: resource, parameter: targetSearchPlace.parameter)
+        apiSession.requestPost(urlResource: resource, parameter: targetSearchPlace.parameter)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
