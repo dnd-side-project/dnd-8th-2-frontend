@@ -81,6 +81,16 @@ class LoginVC: BaseViewController {
     
     // MARK: - Functions
     
+    private func dismissVCByPresentingVC() {
+        // 특정 VC에서 띄어진 로그인 화면일 경우
+        if self.presentingViewController is BaseNavigationController {
+            self.dismissVC()
+        } else {
+            // 첫 화면이 로그인 화면일 경우
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVCToHome()
+        }
+    }
+    
     private func handleAuthorizationAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         
@@ -92,12 +102,6 @@ class LoginVC: BaseViewController {
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
-    
-}
-
-// MARK: - Configure
-
-extension LoginVC {
     
 }
 
@@ -157,9 +161,11 @@ extension LoginVC {
             .disposed(by: bag)
         
         loginLaterButton.rx.tap
-            .bind(onNext: { _ in
+            .bind(onNext: { [weak self] in
+                guard let self = self else { return }
+                
                 KeychainManager.shared.save(key: .isFirst, value: "NO")
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVCToHome()
+                dismissVCByPresentingVC()
             })
             .disposed(by: bag)
     }
@@ -178,7 +184,7 @@ extension LoginVC {
                 
                 if isLoginSucess {
                     self.delegateLogin?.loginSuccess()
-                    self.dismissVC()
+                    dismissVCByPresentingVC()
                 } else {
                     self.showErrorAlert("LoginFailMessage".localized)
                 }
