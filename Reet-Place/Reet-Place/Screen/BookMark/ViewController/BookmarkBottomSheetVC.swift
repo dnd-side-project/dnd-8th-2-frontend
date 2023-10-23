@@ -248,7 +248,7 @@ extension BookmarkBottomSheetVC {
         
         selectTypeBtn.delegate = self
         
-        cardInfo.groupType == "가고싶어요"
+        cardInfo.groupType == "WANT"
         ? selectTypeBtn.selectType(selectTypeBtn.wishBtn)
         : selectTypeBtn.selectType(selectTypeBtn.historyBtn)
         
@@ -267,14 +267,13 @@ extension BookmarkBottomSheetVC {
             withPeopleTextField.text = cardInfo.withPeople
         }
         
-        for (index, url) in [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].enumerated() {
-            if let url = url {
-                urlField[index].text = url
-                urlField[index].isHidden = false
-                
-                if index == 3 {
-                    addBtn.isHidden = true
-                }
+        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].filter { $0 != "null" }
+        for (index, url) in urlList.enumerated() {
+            urlField[index].text = url
+            urlField[index].isHidden = false
+            
+            if index == 3 {
+                addBtn.isHidden = true
             }
         }
 

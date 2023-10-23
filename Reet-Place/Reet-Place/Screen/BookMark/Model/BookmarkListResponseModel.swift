@@ -30,6 +30,20 @@ struct BookmarkInfo: Codable {
     let relLink1: String
     let relLink2: String
     let relLink3: String
+    
+    func toBookmarkCardModel() -> BookmarkCardModel {
+        return .init(id: id,
+                     thumbnailImage: thumbnailImage,
+                     placeName: place.name,
+                     categoryName: place.category,
+                     starCount: rate,
+                     address: place.roadAddress,
+                     groupType: type,
+                     withPeople: people,
+                     relLink1: relLink1,
+                     relLink2: relLink2,
+                     relLink3: relLink3)
+    }
 }
 
 struct BookmarkUserInfo: Codable {

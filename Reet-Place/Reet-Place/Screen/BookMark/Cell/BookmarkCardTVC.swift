@@ -70,7 +70,11 @@ extension BookmarkCardTVC {
     
     /// 사용자의 북마크카드 정보를 입력하는 함수
     func configureBookmarkCardTVC(with cardInfo: BookmarkCardModel, bookmarkCardActionDelegate: BookmarkCardAction, index: Int) {
-        placeInformationView.configurePlaceInfoView(cardInfo: cardInfo, delegate: bookmarkCardActionDelegate, cellIndex: index)
+        placeInformationView.configurePlaceInfoView(cardInfo: cardInfo,
+                                                    delegate: bookmarkCardActionDelegate,
+                                                    cellIndex: index)
+        
+        thumbnailImageView.setImage(with: cardInfo.thumbnailImage)
     }
     
     private func configureTVC() {
