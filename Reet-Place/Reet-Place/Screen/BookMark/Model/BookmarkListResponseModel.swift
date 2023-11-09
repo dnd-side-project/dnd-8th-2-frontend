@@ -27,9 +27,9 @@ struct BookmarkInfo: Codable {
     let thumbnailImage: String
     let rate: Int
     let people: String
-    let relLink1: String
-    let relLink2: String
-    let relLink3: String
+    let relLink1: String?
+    let relLink2: String?
+    let relLink3: String?
     
     func toBookmarkCardModel() -> BookmarkCardModel {
         return .init(id: id,

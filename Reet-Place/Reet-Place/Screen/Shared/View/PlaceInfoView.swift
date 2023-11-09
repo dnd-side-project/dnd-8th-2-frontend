@@ -190,7 +190,7 @@ class PlaceInfoView: BaseView {
         }
         baseStackView.setCustomSpacing(cardInfo.groupType == .empty ? 0.0 : 8.0, after: addressStackView)
         
-        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].filter { $0 != "null" }
+        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].compactMap { $0 }
         registeredLabel.text = "등록된 정보 (\(urlList.count))"
         toggleStackView.isHidden = cardInfo.infoHidden
         isActivateToggleStackView(active: urlList.count != 0)
