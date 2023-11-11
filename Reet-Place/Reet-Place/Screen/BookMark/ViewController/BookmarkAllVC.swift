@@ -198,7 +198,7 @@ extension BookmarkAllVC: BookmarkCardAction {
             }
             
             if row == 2 {
-                print("TODO: - Delete Bookmark API to be call")
+                self.viewModel.deleteBookmark(index: index)
             }
         }
     }
