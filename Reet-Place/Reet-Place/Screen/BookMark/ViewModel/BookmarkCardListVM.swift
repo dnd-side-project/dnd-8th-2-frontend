@@ -28,6 +28,8 @@ final class BookmarkCardListVM: BaseViewModel {
     
     struct Output {        
         var bookmarkList: BehaviorRelay<Array<BookmarkCardModel>> = BehaviorRelay(value: [])
+        var isPaging: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var isLastPage: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
     init() {
@@ -69,19 +71,26 @@ extension BookmarkCardListVM: Output {
 extension BookmarkCardListVM {
     
     func getBookmarkList(type: BookmarkSearchType) {
-        let path = "/api/bookmarks?searchType=\(type.rawValue)&page=\(input.page.value)&size=20&sort=LATEST"
+        let page = input.page.value
+        let path = "/api/bookmarks?searchType=\(type.rawValue)&page=\(page)&size=20&sort=LATEST"
         let resource = URLResource<BookmarkListResponseModel>(path: path)
         
+        output.isPaging.accept(true)
         apiSession.requestGet(urlResource: resource)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
                 case .success(let data):
                     let bookmarkList = data.content.map { $0.toBookmarkCardModel() }
-                    owner.output.bookmarkList.accept(bookmarkList)
+                    let originBookmarkList = owner.output.bookmarkList.value
+                    
+                    owner.output.isLastPage.accept(data.last)
+                    owner.input.page.accept(page + 1)
+                    owner.output.bookmarkList.accept(originBookmarkList + bookmarkList)
                 case .failure(let error):
                     owner.apiError.onNext(error)
                 }
+                owner.output.isPaging.accept(false)
             })
             .disposed(by: bag)
     }

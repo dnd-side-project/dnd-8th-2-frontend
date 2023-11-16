@@ -118,8 +118,6 @@ extension BookmarkAllVC {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(BookmarkCardTVC.self, forCellReuseIdentifier: BookmarkCardTVC.className)
-        
-        
     }
     
 }
@@ -150,6 +148,14 @@ extension BookmarkAllVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if tableView.contentOffset.y > tableView.contentSize.height - tableView.bounds.size.height {
+            if !viewModel.output.isPaging.value && !viewModel.output.isLastPage.value {
+                viewModel.getBookmarkList(type: .all)
+            }
+        }
+    }
 }
 
 
@@ -178,7 +184,6 @@ extension BookmarkAllVC: UITableViewDataSource {
 extension BookmarkAllVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
-        print("here")
         var card = viewModel.output.bookmarkList.value
         card[index].infoHidden.toggle()
         viewModel.output.bookmarkList.accept(card)
