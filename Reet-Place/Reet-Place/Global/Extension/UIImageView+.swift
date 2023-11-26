@@ -20,7 +20,7 @@ extension UIImageView {
                 } else {
                     //캐시가 존재하지 않는 경우
                     guard let url = URL(string: urlString) else { return }
-                    let resource = ImageResource(downloadURL: url, cacheKey: urlString)
+                    let resource = Kingfisher.ImageResource(downloadURL: url, cacheKey: urlString)
                     self.kf.setImage(with: resource)
                 }
             case .failure(let error):
