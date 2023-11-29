@@ -5,6 +5,7 @@
 //  Created by 김태현 on 2023/02/18.
 //
 
+import SafariServices
 import UIKit
 
 import SnapKit
@@ -208,6 +209,16 @@ extension BookmarkWishlistVC: BookmarkCardAction {
                 self.viewModel.deleteBookmark(index: index)
             }
         }
+    }
+    
+    func openRelatedURL(_ urlString: String?) {
+        guard let urlString, let url = URL(string: urlString) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        
+        safariVC.preferredBarTintColor = AssetColors.white
+        safariVC.preferredControlTintColor = AssetColors.primary500
+        
+        present(safariVC, animated: true)
     }
     
     func showBottomSheet(index: Int) {
