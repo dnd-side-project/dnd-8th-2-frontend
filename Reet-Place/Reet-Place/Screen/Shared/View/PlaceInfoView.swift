@@ -112,9 +112,9 @@ class PlaceInfoView: BaseView {
                                                       text: "RelatedUrl".localized,
                                                       alignment: .left,
                                                       color: AssetColors.gray700)
-    private let firstUrlView = RelatedUrlButton()
-    private let secondUrlView = RelatedUrlButton()
-    private let thirdUrlView = RelatedUrlButton()
+    private let firstURLButton = RelatedURLButton()
+    private let secondURLButton = RelatedURLButton()
+    private let thirdURLButton = RelatedURLButton()
     
     // MARK: - Variables and Properties
     
@@ -123,7 +123,7 @@ class PlaceInfoView: BaseView {
     
     private var cellIndex: Int?
     
-    private var urlViewList: [RelatedUrlButton] = []
+    private var urlViewList: [RelatedURLButton] = []
     
     // MARK: - Life Cycle
     
@@ -205,7 +205,7 @@ class PlaceInfoView: BaseView {
         
         // 참고링크
         for (index, url) in urlList.enumerated() {
-            urlViewList[index].urlLabel.text = url
+            urlViewList[index].setURL(url)
             relatedUrlLabel.isHidden = false
             urlViewList[index].isHidden = false
         }
@@ -223,7 +223,7 @@ class PlaceInfoView: BaseView {
             $0.isHidden = true
         }
         urlViewList.forEach {
-            $0.urlLabel.text = nil
+            $0.setURL(.empty)
             $0.isHidden = true
         }
     }
@@ -245,7 +245,7 @@ class PlaceInfoView: BaseView {
 extension PlaceInfoView {
     
     private func configureURLViewList() {
-        [firstUrlView, secondUrlView, thirdUrlView].forEach {
+        [firstURLButton, secondURLButton, thirdURLButton].forEach {
             urlViewList.append($0)
         }
     }
@@ -278,9 +278,9 @@ extension PlaceInfoView {
         [withPeopleLabel,
          withPeopleView,
          relatedUrlLabel,
-         firstUrlView,
-         secondUrlView,
-         thirdUrlView].forEach {
+         firstURLButton,
+         secondURLButton,
+         thirdURLButton].forEach {
             toggleStackView.addArrangedSubview($0)
         }
         toggleStackView.setCustomSpacing(12.0, after: withPeopleView)
