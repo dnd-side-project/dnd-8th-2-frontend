@@ -17,6 +17,7 @@ import RxGesture
 protocol BookmarkCardAction {
     func infoToggle(index: Int)
     func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle)
+    func openRelatedURL(_ urlString: String?)
 }
 
 class PlaceInfoView: BaseView {
@@ -112,9 +113,9 @@ class PlaceInfoView: BaseView {
                                                       text: "RelatedUrl".localized,
                                                       alignment: .left,
                                                       color: AssetColors.gray700)
-    private let firstUrlView = RelatedUrlButton()
-    private let secondUrlView = RelatedUrlButton()
-    private let thirdUrlView = RelatedUrlButton()
+    private let firstURLButton = RelatedURLButton()
+    private let secondURLButton = RelatedURLButton()
+    private let thirdURLButton = RelatedURLButton()
     
     // MARK: - Variables and Properties
     
@@ -123,7 +124,7 @@ class PlaceInfoView: BaseView {
     
     private var cellIndex: Int?
     
-    private var urlViewList: [RelatedUrlButton] = []
+    private var urlViewList: [RelatedURLButton] = []
     
     // MARK: - Life Cycle
     
@@ -133,6 +134,7 @@ class PlaceInfoView: BaseView {
         configureURLViewList()
         bindToggle()
         bindMenuBtn()
+        bindRelatedURL()
     }
     
     override func layoutView() {
@@ -205,7 +207,7 @@ class PlaceInfoView: BaseView {
         
         // 참고링크
         for (index, url) in urlList.enumerated() {
-            urlViewList[index].urlLabel.text = url
+            urlViewList[index].setURL(url)
             relatedUrlLabel.isHidden = false
             urlViewList[index].isHidden = false
         }
@@ -223,7 +225,7 @@ class PlaceInfoView: BaseView {
             $0.isHidden = true
         }
         urlViewList.forEach {
-            $0.urlLabel.text = nil
+            $0.setURL(.empty)
             $0.isHidden = true
         }
     }
@@ -245,7 +247,7 @@ class PlaceInfoView: BaseView {
 extension PlaceInfoView {
     
     private func configureURLViewList() {
-        [firstUrlView, secondUrlView, thirdUrlView].forEach {
+        [firstURLButton, secondURLButton, thirdURLButton].forEach {
             urlViewList.append($0)
         }
     }
@@ -278,9 +280,9 @@ extension PlaceInfoView {
         [withPeopleLabel,
          withPeopleView,
          relatedUrlLabel,
-         firstUrlView,
-         secondUrlView,
-         thirdUrlView].forEach {
+         firstURLButton,
+         secondURLButton,
+         thirdURLButton].forEach {
             toggleStackView.addArrangedSubview($0)
         }
         toggleStackView.setCustomSpacing(12.0, after: withPeopleView)
@@ -346,6 +348,29 @@ extension PlaceInfoView {
                 let buttonFrameInSuperview = owner.view.convert(self.cardMenuButton.frame, from: self.placeNameStackView)
                 self.delegate?.showMenu(index: cellIndex, location: buttonFrameInSuperview, selectMenuType: self.groupIconImageView.image == nil ? .defaultPlaceInfo : .bookmarked)
             })
+            .disposed(by: bag)
+    }
+    
+    private func bindRelatedURL() {
+        firstURLButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.delegate?.openRelatedURL(owner.firstURLButton.urlString)
+            })
+            .disposed(by: bag)
+        
+        secondURLButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.openRelatedURL(owner.secondURLButton.urlString)
+            }
+            .disposed(by: bag)
+        
+        thirdURLButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.openRelatedURL(owner.thirdURLButton.urlString)
+            }
             .disposed(by: bag)
     }
     
