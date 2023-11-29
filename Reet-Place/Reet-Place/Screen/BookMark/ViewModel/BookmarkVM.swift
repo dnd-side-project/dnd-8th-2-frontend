@@ -78,4 +78,30 @@ extension BookmarkVM {
         }
     }
     
+    /// 서버에 북마크 개수 요청
+    func getBookmarkCount() {
+        let path = "/api/bookmarks/counts"
+        let resource = URLResource<BookmarkCountResponseModel>(path: path)
+        
+        apiSession.requestGet(urlResource: resource)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    owner.output.BookmarkAllCnt.accept(data.numOfAll)
+                    owner.output.BookmarkHistoryInfo
+                        .accept(TypeInfo(type: "GONE",
+                                         cnt: data.numOfDone,
+                                         thumbnailUrlString: "https://picsum.photos/600/400"))
+                    owner.output.BookmarkWishlistInfo
+                        .accept(TypeInfo(type: "WANT",
+                                         cnt: data.numOfWant,
+                                         thumbnailUrlString: "https://picsum.photos/600/400"))
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
 }

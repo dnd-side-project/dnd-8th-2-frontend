@@ -268,7 +268,18 @@ extension PlaceBottomSheet {
                 guard let self = self else { return }
                 
                 let bottomSheetVC = BookmarkBottomSheetVC()
-                let data = BookmarkCardModel(placeName: placeName, categoryName: categoryName, starCount: 0, address: address, groupType: bookmarkType.rawValue, infoCount: 0, withPeople: .empty) // TODO: - 북마크 저장 정보 조회 및 저장 서버연결
+                let data = BookmarkCardModel(id: 0,
+                                             thumbnailImage: .empty,
+                                             placeName: placeName,
+                                             categoryName: categoryName,
+                                             starCount: 0,
+                                             address: address,
+                                             groupType: "WANT",
+                                             withPeople: .empty,
+                                             relLink1: .empty,
+                                             relLink2: .empty,
+                                             relLink3: .empty,
+                                             infoHidden: false) // TODO: - 북마크 저장 정보 조회 및 저장 서버연결
                 bottomSheetVC.configureSheetData(with: data)
                 
                 bottomSheetVC.modalPresentationStyle = .overFullScreen

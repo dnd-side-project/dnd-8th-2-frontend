@@ -51,7 +51,7 @@ class BookmarkWishlistVC: BaseNavigationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getWishList()
+        viewModel.getBookmarkList(type: .want)
     }
     
     override func configureView() {
@@ -131,7 +131,7 @@ extension BookmarkWishlistVC {
 extension BookmarkWishlistVC {
     
     private func bindBookmarkWishList() {
-        viewModel.output.cardList
+        viewModel.output.bookmarkList
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
@@ -150,6 +150,14 @@ extension BookmarkWishlistVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if tableView.contentOffset.y > tableView.contentSize.height - tableView.bounds.size.height {
+            if !viewModel.output.isPaging.value && !viewModel.output.isLastPage.value {
+                viewModel.getBookmarkList(type: .want)
+            }
+        }
+    }
 }
 
 
@@ -157,14 +165,16 @@ extension BookmarkWishlistVC: UITableViewDelegate {
 
 extension BookmarkWishlistVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.output.cardList.value.count
+        viewModel.output.bookmarkList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
         
-        let cardInfo = viewModel.output.cardList.value[indexPath.row]
-        cell.configureBookmarkCardTVC(with: cardInfo, bookmarkCardActionDelegate: self, index: indexPath.row)
+        let bookmarkInfo = viewModel.output.bookmarkList.value[indexPath.row]
+        cell.configureBookmarkCardTVC(with: bookmarkInfo,
+                                      bookmarkCardActionDelegate: self,
+                                      index: indexPath.row)
         
         return cell
     }
@@ -176,9 +186,9 @@ extension BookmarkWishlistVC: UITableViewDataSource {
 extension BookmarkWishlistVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
-        var card = viewModel.output.cardList.value
-        card[index].infoHidden = !card[index].infoHidden
-        viewModel.output.cardList.accept(card)
+        var card = viewModel.output.bookmarkList.value
+        card[index].infoHidden.toggle()
+        viewModel.output.bookmarkList.accept(card)
         tableView.reloadData()
     }
     
@@ -195,14 +205,14 @@ extension BookmarkWishlistVC: BookmarkCardAction {
             }
             
             if row == 2 {
-                print("TODO: - Delete Bookmark API to be call")
+                self.viewModel.deleteBookmark(index: index)
             }
         }
     }
     
     func showBottomSheet(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC()
-        let cardInfo = viewModel.output.cardList.value[index]
+        let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
                 
         bottomSheetVC.modalPresentationStyle = .overFullScreen
