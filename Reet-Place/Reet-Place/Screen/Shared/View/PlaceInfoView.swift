@@ -17,6 +17,7 @@ import RxGesture
 protocol BookmarkCardAction {
     func infoToggle(index: Int)
     func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle)
+    func openRelatedURL(_ urlString: String?)
 }
 
 class PlaceInfoView: BaseView {
@@ -133,6 +134,7 @@ class PlaceInfoView: BaseView {
         configureURLViewList()
         bindToggle()
         bindMenuBtn()
+        bindRelatedURL()
     }
     
     override func layoutView() {
@@ -346,6 +348,29 @@ extension PlaceInfoView {
                 let buttonFrameInSuperview = owner.view.convert(self.cardMenuButton.frame, from: self.placeNameStackView)
                 self.delegate?.showMenu(index: cellIndex, location: buttonFrameInSuperview, selectMenuType: self.groupIconImageView.image == nil ? .defaultPlaceInfo : .bookmarked)
             })
+            .disposed(by: bag)
+    }
+    
+    private func bindRelatedURL() {
+        firstURLButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.delegate?.openRelatedURL(owner.firstURLButton.urlString)
+            })
+            .disposed(by: bag)
+        
+        secondURLButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.openRelatedURL(owner.secondURLButton.urlString)
+            }
+            .disposed(by: bag)
+        
+        thirdURLButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.openRelatedURL(owner.thirdURLButton.urlString)
+            }
             .disposed(by: bag)
     }
     
