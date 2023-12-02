@@ -223,6 +223,13 @@ extension BookmarkAllVC: BookmarkCardAction {
         let bottomSheetVC = BookmarkBottomSheetVC()
         let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
+        
+        bottomSheetVC.deletedBookmark
+            .withUnretained(self)
+            .subscribe { owner, id in
+                owner.viewModel.deleteBookmark(id: id)
+            }
+            .disposed(by: bag)
                 
         bottomSheetVC.modalPresentationStyle = .overFullScreen
         present(bottomSheetVC, animated: false)
