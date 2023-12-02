@@ -205,6 +205,12 @@ extension ReetPopUp {
             })
             .disposed(by: bag)
         
+        confirmBtn.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.dismiss(animated: false)
+            })
+            .disposed(by: bag)
     }
     
 }
