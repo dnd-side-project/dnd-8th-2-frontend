@@ -24,6 +24,7 @@
 		0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514129F6721900C44701 /* ServicePolicyVC.swift */; };
 		0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */; };
 		0E5A514629F675F300C44701 /* DeleteAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A514529F675F300C44701 /* DeleteAccountVC.swift */; };
+		0E5AF36B2B1B829C003E7223 /* BookmarkBottomSheetVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5AF36A2B1B829C003E7223 /* BookmarkBottomSheetVM.swift */; };
 		0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036929A201F400A5456E /* BookmarkFilterView.swift */; };
 		0E67036E29A3CBBC00A5456E /* ReetFAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67036D29A3CBBC00A5456E /* ReetFAB.swift */; };
 		0E8CA698299FC63300F98C15 /* BookmarkAllVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */; };
@@ -222,6 +223,7 @@
 		0E5A514129F6721900C44701 /* ServicePolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePolicyVC.swift; sourceTree = "<group>"; };
 		0E5A514329F6722700C44701 /* PrivacyPolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyVC.swift; sourceTree = "<group>"; };
 		0E5A514529F675F300C44701 /* DeleteAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVC.swift; sourceTree = "<group>"; };
+		0E5AF36A2B1B829C003E7223 /* BookmarkBottomSheetVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVM.swift; sourceTree = "<group>"; };
 		0E67036929A201F400A5456E /* BookmarkFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkFilterView.swift; sourceTree = "<group>"; };
 		0E67036D29A3CBBC00A5456E /* ReetFAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetFAB.swift; sourceTree = "<group>"; };
 		0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkAllVC.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 			children = (
 				0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */,
 				0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */,
+				0E5AF36A2B1B829C003E7223 /* BookmarkBottomSheetVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1400,6 +1403,7 @@
 				0EFE7C3C29ABBC870051E72D /* SelectTypeButton.swift in Sources */,
 				0E05F0032A4D8707008A20F4 /* FirstTypeOnboardingView.swift in Sources */,
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
+				0E5AF36B2B1B829C003E7223 /* BookmarkBottomSheetVM.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageVM.swift in Sources */,
 				3C9256802A1CE5B00011B093 /* CategoryDetailCultureList.swift in Sources */,
 				3CFBC6FB2A6134C300540C7F /* SearchPlaceListResponseModel.swift in Sources */,
