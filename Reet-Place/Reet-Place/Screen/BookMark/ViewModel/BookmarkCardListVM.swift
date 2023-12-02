@@ -65,6 +65,17 @@ extension BookmarkCardListVM: Output {
     
 }
 
+// MARK: - Functions
+
+extension BookmarkCardListVM {
+    
+    func deleteBookmark(id: Int) {
+        let originBookmarkList = output.bookmarkList.value
+        let deletedBookmarkList = originBookmarkList.filter({ $0.id != id })
+        output.bookmarkList.accept(deletedBookmarkList)
+    }
+    
+}
 
 // MARK: - Networking
 
