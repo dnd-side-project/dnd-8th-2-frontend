@@ -141,9 +141,14 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // MARK: - Variables and Properties
     
-    var urlField : [ReetTextField] = []
+    private let viewModel: BookmarkBottomSheetVM = .init()
     
+    private var urlField : [ReetTextField] = []
     var isBookmarking = true
+    
+    private var bottomSheetData: BookmarkCardModel?
+    
+    let deletedBookmark: PublishSubject<Int> = .init()
     
     
     // MARK: - Life Cycle
@@ -163,6 +168,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     override func bindRx() {
         super.bindRx()
         
+        bind()
         bindBtn()
         bindKeyboard()
     }
@@ -186,8 +192,8 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     }
     
     @objc func deleteBookmark() {
-        self.dismissBottomSheet()
-        print("TODO: - Delete Bookmark API to be call")
+        guard let id = bottomSheetData?.id else { return }
+        viewModel.deleteBookmark(id: id)
     }
     
 }
@@ -238,6 +244,7 @@ extension BookmarkBottomSheetVC {
     }
     
     func configureSheetData(with cardInfo: BookmarkCardModel) {
+        bottomSheetData = cardInfo
         placeInformationView.configurePlaceInfomation(placeName: cardInfo.placeName,
                                                       address: cardInfo.address,
                                                       category: cardInfo.categoryName)
@@ -267,7 +274,7 @@ extension BookmarkBottomSheetVC {
             withPeopleTextField.text = cardInfo.withPeople
         }
         
-        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].filter { $0 != "null" }
+        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].compactMap { $0 }
         for (index, url) in urlList.enumerated() {
             urlField[index].text = url
             urlField[index].isHidden = false
@@ -347,6 +354,18 @@ extension BookmarkBottomSheetVC {
 // MARK: - Bind
 
 extension BookmarkBottomSheetVC {
+    
+    private func bind() {
+        viewModel.output.isSuccessDelete
+            .filter { $0 }
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                guard let id = owner.bottomSheetData?.id else { return }
+                owner.dismissBottomSheet()
+                owner.deletedBookmark.onNext(id)
+            }
+            .disposed(by: bag)
+    }
     
     private func bindKeyboard() {
         // 키보드가 올라올 때
