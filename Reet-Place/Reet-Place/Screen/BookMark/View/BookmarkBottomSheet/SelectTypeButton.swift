@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-protocol TypeSelectAction {
+protocol TypeSelectAction: AnyObject {
     func typeChange(type: Int)
 }
 
@@ -40,9 +40,13 @@ class SelectTypeButton: BaseView {
     
     // MARK: - Variables and Properties
     
-    var selectedTag: Int = 1
+    private var selectedTag: Int = 1
     
-    var delegate: TypeSelectAction?
+    weak var delegate: TypeSelectAction?
+    
+    var selectedType: BookmarkSearchType {
+        selectedTag == 1 ? .want : .done
+    }
     
     
     // MARK: - Life Cycle
