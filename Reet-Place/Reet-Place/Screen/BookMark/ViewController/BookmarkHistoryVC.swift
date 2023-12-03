@@ -39,7 +39,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
-    private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
+    private let viewModel: BookmarkCardListVM = BookmarkCardListVM(type: .done)
     
     
     // MARK: - Life Cycle
@@ -52,7 +52,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getBookmarkList(type: .gone)
+        viewModel.getBookmarkList(type: .done)
     }
     
     override func configureView() {
@@ -156,7 +156,7 @@ extension BookmarkHistoryVC: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if tableView.contentOffset.y > tableView.contentSize.height - tableView.bounds.size.height {
             if !viewModel.output.isPaging.value && !viewModel.output.isLastPage.value {
-                viewModel.getBookmarkList(type: .gone)
+                viewModel.getBookmarkList(type: .done)
             }
         }
     }
@@ -227,10 +227,17 @@ extension BookmarkHistoryVC: BookmarkCardAction {
         let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         
-        bottomSheetVC.deletedBookmark
+        bottomSheetVC.deletedBookmarkId
             .withUnretained(self)
             .subscribe { owner, id in
                 owner.viewModel.deleteBookmark(id: id)
+            }
+            .disposed(by: bag)
+        
+        bottomSheetVC.modifiedBookmarkInfo
+            .withUnretained(self)
+            .subscribe { owner, bookmarkInfo in
+                owner.viewModel.modifyBookmark(info: bookmarkInfo)
             }
             .disposed(by: bag)
         
