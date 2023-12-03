@@ -15,7 +15,7 @@ struct BookmarkCardModel {
     let starCount: Int
     let address: String
     let groupType: String
-    let withPeople: String
+    let withPeople: String?
     let relLink1: String?
     let relLink2: String?
     let relLink3: String?
