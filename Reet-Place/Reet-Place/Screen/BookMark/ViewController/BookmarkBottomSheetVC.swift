@@ -148,7 +148,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     private var bottomSheetData: BookmarkCardModel?
     
-    let deletedBookmark: PublishSubject<Int> = .init()
+    let deletedBookmarkId: PublishSubject<Int> = .init()
     
     
     // MARK: - Life Cycle
@@ -362,7 +362,7 @@ extension BookmarkBottomSheetVC {
             .subscribe { owner, _ in
                 guard let id = owner.bottomSheetData?.id else { return }
                 owner.dismissBottomSheet()
-                owner.deletedBookmark.onNext(id)
+                owner.deletedBookmarkId.onNext(id)
             }
             .disposed(by: bag)
     }
