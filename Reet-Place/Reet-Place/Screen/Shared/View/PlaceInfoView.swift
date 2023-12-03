@@ -162,7 +162,7 @@ class PlaceInfoView: BaseView {
         switch cardInfo.groupType {
         case "WANT":
             groupIconImage = AssetsImages.cardWishChip20
-        case "GONE":
+        case "DONE":
             groupIconImage = AssetsImages.cardHistoryChip20
         default:
             groupIconImage = nil

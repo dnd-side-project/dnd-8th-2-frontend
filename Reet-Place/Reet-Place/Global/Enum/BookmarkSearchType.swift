@@ -10,5 +10,5 @@ import Foundation
 enum BookmarkSearchType: String {
     case `all` = "ALL"
     case want = "WANT"
-    case gone = "GONE"
+    case done = "DONE"
 }
