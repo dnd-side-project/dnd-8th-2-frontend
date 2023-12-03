@@ -26,6 +26,7 @@ final class BookmarkBottomSheetVM: BaseViewModel {
     struct Input {}
     struct Output {
         var isSuccessDelete: PublishSubject<Bool> = .init()
+        var isSuccessModify: PublishSubject<BookmarkInfo> = .init()
     }
     
     // MARK: - Life Cycle
@@ -74,6 +75,63 @@ extension BookmarkBottomSheetVM {
                 }
             })
             .disposed(by: bag)
+    }
+    
+    func modifyBookmark(modifyInfo: BookmarkCardModel) {
+        let path = "/api/bookmarks/\(modifyInfo.id)"
+        let resource = URLResource<BookmarkInfo>(path: path)
+        let requestModel = BookmarkModifyRequestModel(
+            type: modifyInfo.groupType,
+            rate: modifyInfo.starCount,
+            people: modifyInfo.withPeople,
+            relLink1: modifyInfo.relLink1,
+            relLink2: modifyInfo.relLink2,
+            relLink3: modifyInfo.relLink3
+        )
+        
+        requestModifyBookmark(urlResource: resource, parameter: requestModel.parameter)
+            .withUnretained(self)
+            .subscribe { owner, result in
+                switch result {
+                case .success(let bookmarkInfo):
+                    owner.output.isSuccessModify.onNext(bookmarkInfo)
+                case .failure(let error):
+                    print(error)
+                    owner.apiError.onNext(error)
+                }
+            }
+            .disposed(by: bag)
+    }
+    
+    private func requestModifyBookmark<T>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> where T : Decodable {
+        Observable<Result<T, APIError>>.create { observer in
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
+            
+            let task = AF.request(urlResource.resultURL,
+                                  method: .put,
+                                  parameters: parameter,
+                                  encoding: JSONEncoding.default,
+                                  headers: headers,
+                                  interceptor: AuthInterceptor())
+                .validate(statusCode: 200...399)
+                .responseDecodable(of: T.self) { response in
+                    debugPrint(response)
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(.success(data))
+                    case .failure(let error):
+                        dump(error)
+                        guard let error = response.response else { return }
+                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
+                    }
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
     }
     
     /// 릿플 서버에 해당 북마크 취소 요청
