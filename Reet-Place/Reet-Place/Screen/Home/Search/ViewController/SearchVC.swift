@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 import RxSwift
 import RxCocoa
@@ -13,6 +14,11 @@ import RxDataSources
 
 import Then
 import SnapKit
+
+/// 장소 검색과 관련된 함수를 정의
+protocol SearchPlaceAction {
+    func getCurrentLocationCoordinate() -> CLLocationCoordinate2D?
+}
 
 class SearchVC: BaseViewController {
     
@@ -53,6 +59,7 @@ class SearchVC: BaseViewController {
     private let searchButton = UIButton()
         .then {
             $0.setImage(AssetsImages.search, for: .normal)
+            $0.isEnabled = false
         }
     
     private let titleStackView = UIStackView()
@@ -130,6 +137,9 @@ class SearchVC: BaseViewController {
     // MARK: - Variables and Properties
     
     private let viewModel = SearchVM()
+    private let searchPlaceKeywordResultList: [SearchPlaceKeywordListContent] = []
+    
+    var delegateSearchPlaceAction: SearchPlaceAction?
     
     // MARK: - Life Cycle
     
@@ -179,6 +189,21 @@ class SearchVC: BaseViewController {
     private func isShowSearchResultUI(show: Bool) {
         searchResultEmptyStackView.isHidden = show ? false : true
         searchResultTableView.isHidden = show ? false : true
+    }
+    
+    private func requestSearchPlaceKeyword(requestPage: Int) {
+        if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
+            if let keyword = searchTextField.text {
+                viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
+                                                                                                      lng: curLocationCoordinate.longitude,
+                                                                                                      placeKeword: keyword,
+                                                                                                      page: requestPage))
+            } else {
+                self.showErrorAlert("SearchResultEmptyContent".localized)
+            }
+        } else {
+            self.showErrorAlert("FailGetCurLocationCoordinate".localized)
+        }
     }
     
 }
@@ -308,8 +333,8 @@ extension SearchVC {
         searchButton.rx.tap
             .bind(onNext: { [weak self] in
                 guard let self = self else { return }
-                print(self.searchTextField.text, " TODO: - Search Place API to be call")
                 
+                self.requestSearchPlaceKeyword(requestPage: 1)
                 self.isShowSearchResultUI(show: true)
             })
             .disposed(by: bag)
@@ -321,6 +346,8 @@ extension SearchVC {
                 
                 self.searchTextField.text = .empty
                 self.cancelButton.isHidden = true
+                self.searchButton.isEnabled = false
+                
                 self.isShowSearchResultUI(show: false)
             })
             .disposed(by: bag)
@@ -352,6 +379,7 @@ extension SearchVC {
                 let changedText = text else { return }
                 
                 self.cancelButton.isHidden = changedText.count > 0 ? false : true
+                self.searchButton.isEnabled = changedText.count > 0 ? true : false
             })
             .disposed(by: bag)
     }
@@ -426,7 +454,7 @@ extension SearchVC {
             return cell
         }
         
-        viewModel.output.searchHistoryListDataSource
+        viewModel.output.searchHistory.dataSource
             .bind(to: searchHistoryListCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
     }
@@ -442,21 +470,39 @@ extension SearchVC {
                                      for: indexPath) as? SearchResultTVC else {
                 fatalError("Cannot deqeue cells named SearchResultTVC")
             }
-            cell.configureSearchResultTVC(placeInformation: searchResult, bookmarkCardActionDelegate: self, index: indexPath.row)
+            cell.configureSearchResultTVC(placeInformation: searchResult, delegateBookmarkCardAction: self, cellIndex: indexPath.row)
             
             return cell
         }
         
-        viewModel.output.searchResultDataSource
+        viewModel.output.searchResult.dataSource
             .bind(to: searchResultTableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
         
-        viewModel.output.searchResultList
-            .subscribe(onNext: { [weak self] items in
+        viewModel.output.searchResult.list
+            .withUnretained(self)
+            .subscribe(onNext: { owner, items in
+                if items.count == 0 {
+                    owner.view.bringSubviewToFront(owner.searchResultEmptyStackView)
+                } else {
+                    owner.view.sendSubviewToBack(owner.searchResultEmptyStackView)
+                    owner.searchResultTableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        searchResultTableView.rx.didScroll
+            .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
-                if items.count == 0 {
-                    self.view.bringSubviewToFront(self.searchResultEmptyStackView)
+                let offsetY = self.searchResultTableView.contentOffset.y
+                let contentHeight = self.searchResultTableView.contentSize.height
+                let height = self.searchResultTableView.frame.height
+                
+                if offsetY > (contentHeight - height) {
+                    if self.viewModel.output.searchResult.isPaging.value == false {
+                        self.requestSearchPlaceKeyword(requestPage: self.viewModel.output.searchResult.page + 1)
+                    }
                 }
             })
             .disposed(by: bag)
@@ -468,12 +514,7 @@ extension SearchVC {
 
 extension SearchVC: BookmarkCardAction {
     
-    func infoToggle(index: Int) {
-        var card = viewModel.output.searchResultList.value
-        card[index].infoHidden = !card[index].infoHidden
-        viewModel.output.searchResultList.accept(card)
-        searchResultTableView.reloadData()
-    }
+    func infoToggle(index: Int) {}
     
     func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle) {
         showSelectBox(targetVC: self, location: location, style: selectMenuType) { [weak self] row in
@@ -516,8 +557,10 @@ extension SearchVC: BookmarkCardAction {
     
     private func showBottomSheet(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC()
-        let cardInfo = viewModel.output.searchResultList.value[index]
-        bottomSheetVC.configureSheetData(with: cardInfo)
+        // TODO: - 북마크 바텀 카드 정보 값 대응
+        let cardInfo = viewModel.output.searchResult.list.value[index]
+        print("장소 정보 호출: ", cardInfo)
+//        bottomSheetVC.configureSheetData(with: cardInfo)
 
         bottomSheetVC.modalPresentationStyle = .overFullScreen
         present(bottomSheetVC, animated: false)
