@@ -107,17 +107,17 @@ class SearchResultTVC: BaseTableViewCell {
 extension SearchResultTVC {
     
     /// 검색결과 장소 셀의 데이터 정보를 입력하는 함수
-    func configureSearchResultTVC(placeInfomation: SearchPlaceKeywordListContent, delegateBookmarkCardAction: BookmarkCardAction, cellIndex: Int) {
+    func configureSearchResultTVC(placeInformation: SearchPlaceKeywordListContent, delegateBookmarkCardAction: BookmarkCardAction, cellIndex: Int) {
         self.delegateBookmarkCardAction = delegateBookmarkCardAction
         self.cellIndex = cellIndex
         
         // 1. 장소 썸네일 및 사용자 북마크
-        if let thumbnailImage = placeInfomation.thumbnailImage {
+        if let thumbnailImage = placeInformation.thumbnailImage {
             thumbnailImageView.setImage(with: thumbnailImage, placeholder: AssetsImages.placeResultThumbnail)
         }
         
         var groupIconImage: UIImage?
-        switch BookmarkType(rawValue: placeInfomation.type ?? .empty) {
+        switch BookmarkType(rawValue: placeInformation.type ?? .empty) {
         case .want:
             groupIconImage = MarkerType.extended(.wishlist).image
         case .gone:
@@ -128,9 +128,9 @@ extension SearchResultTVC {
         bookmarkIconImageView.image = groupIconImage
         
         // 2. 징소정보
-        placeNameLabel.text = placeInfomation.name
-        categoryLabel.text = PlaceCategoryList(rawValue: placeInfomation.category)?.description
-        addressLabel.text = placeInfomation.roadAddress
+        placeNameLabel.text = placeInformation.name
+        categoryLabel.text = PlaceCategoryList(rawValue: placeInformation.category)?.description
+        addressLabel.text = placeInformation.roadAddress
     }
     
     private func configureTVC() {
