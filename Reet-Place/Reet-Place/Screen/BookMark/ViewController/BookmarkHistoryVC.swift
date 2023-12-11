@@ -5,6 +5,7 @@
 //  Created by 김태현 on 2023/02/18.
 //
 
+import SafariServices
 import UIKit
 
 import SnapKit
@@ -51,7 +52,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.getHistoryList()
+        viewModel.getBookmarkList(type: .gone)
     }
     
     override func configureView() {
@@ -131,7 +132,7 @@ extension BookmarkHistoryVC {
 extension BookmarkHistoryVC {
     
     private func bindBookmarkHistory() {
-        viewModel.output.cardList
+        viewModel.output.bookmarkList
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 
@@ -151,6 +152,14 @@ extension BookmarkHistoryVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if tableView.contentOffset.y > tableView.contentSize.height - tableView.bounds.size.height {
+            if !viewModel.output.isPaging.value && !viewModel.output.isLastPage.value {
+                viewModel.getBookmarkList(type: .gone)
+            }
+        }
+    }
 }
 
 
@@ -158,14 +167,16 @@ extension BookmarkHistoryVC: UITableViewDelegate {
 
 extension BookmarkHistoryVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.output.cardList.value.count
+        viewModel.output.bookmarkList.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
         
-        let cardInfo = viewModel.output.cardList.value[indexPath.row]
-        cell.configureBookmarkCardTVC(with: cardInfo, bookmarkCardActionDelegate: self, index: indexPath.row)
+        let bookmarkInfo = viewModel.output.bookmarkList.value[indexPath.row]
+        cell.configureBookmarkCardTVC(with: bookmarkInfo,
+                                      bookmarkCardActionDelegate: self,
+                                      index: indexPath.row)
         
         return cell
     }
@@ -177,9 +188,9 @@ extension BookmarkHistoryVC: UITableViewDataSource {
 extension BookmarkHistoryVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
-        var card = viewModel.output.cardList.value
-        card[index].infoHidden = !card[index].infoHidden
-        viewModel.output.cardList.accept(card)
+        var card = viewModel.output.bookmarkList.value
+        card[index].infoHidden.toggle()
+        viewModel.output.bookmarkList.accept(card)
         tableView.reloadData()
     }
     
@@ -196,14 +207,24 @@ extension BookmarkHistoryVC: BookmarkCardAction {
             }
             
             if row == 2 {
-                print("TODO: - Delete Bookmark API to be call")
+                self.viewModel.deleteBookmark(index: index)
             }
         }
     }
     
+    func openRelatedURL(_ urlString: String?) {
+        guard let urlString, let url = URL(string: urlString) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        
+        safariVC.preferredBarTintColor = AssetColors.white
+        safariVC.preferredControlTintColor = AssetColors.primary500
+        
+        present(safariVC, animated: true)
+    }
+    
     func showBottomSheet(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC()
-        let cardInfo = viewModel.output.cardList.value[index]
+        let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
                 
         bottomSheetVC.modalPresentationStyle = .overFullScreen

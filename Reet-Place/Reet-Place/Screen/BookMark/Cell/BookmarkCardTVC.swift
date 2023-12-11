@@ -70,7 +70,12 @@ extension BookmarkCardTVC {
     
     /// 사용자의 북마크카드 정보를 입력하는 함수
     func configureBookmarkCardTVC(with cardInfo: BookmarkCardModel, bookmarkCardActionDelegate: BookmarkCardAction, index: Int) {
-        placeInformationView.configurePlaceInfoView(cardInfo: cardInfo, delegate: bookmarkCardActionDelegate, cellIndex: index)
+        placeInformationView.configurePlaceInfoView(cardInfo: cardInfo,
+                                                    delegate: bookmarkCardActionDelegate,
+                                                    cellIndex: index)
+        
+        // TODO: - UIImageView+의 setImage 함수 placeholder 파라미터 추가 됨 (임시 코드 - UIImage() 삽입)
+        thumbnailImageView.setImage(with: cardInfo.thumbnailImage, placeholder: UIImage())
     }
     
     private func configureTVC() {

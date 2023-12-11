@@ -16,4 +16,7 @@ protocol BookmarkCardAction {
     /// 장소에 대한 추가 작업 목록을 옵션으로 보여주게 하는 함수
     func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle)
     
+    /// 사용자가 작성한 메모에 있는 URL 링크를 웹 브라우저로 띄어주는 함수
+    func openRelatedURL(_ urlString: String?)
+    
 }

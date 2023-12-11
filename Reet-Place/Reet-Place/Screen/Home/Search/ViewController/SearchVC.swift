@@ -5,6 +5,7 @@
 //  Created by Kim HeeJae on 2023/06/08.
 //
 
+import SafariServices
 import UIKit
 import CoreLocation
 
@@ -527,6 +528,16 @@ extension SearchVC: BookmarkCardAction {
                 self.actionBookmarkCell(index: index, row: row)
             }
         }
+    }
+    
+    func openRelatedURL(_ urlString: String?) {
+        guard let urlString, let url = URL(string: urlString) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        
+        safariVC.preferredBarTintColor = AssetColors.white
+        safariVC.preferredControlTintColor = AssetColors.primary500
+        
+        navigationController?.pushViewController(safariVC, animated: true)
     }
     
     private func actionDefaultPlaceInfoCell(index: Int, row: Int) {

@@ -1,5 +1,5 @@
 //
-//  RelatedUrlView.swift
+//  RelatedURLButton.swift
 //  Reet-Place
 //
 //  Created by 김태현 on 2023/02/19.
@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class RelatedUrlButton: UIButton {
+class RelatedURLButton: UIButton {
     
     // MARK: - UI components
     
@@ -20,18 +20,29 @@ class RelatedUrlButton: UIButton {
             $0.distribution = .fill
             $0.alignment = .center
             $0.spacing = 8.0
+            $0.isUserInteractionEnabled = false
         }
-    let urlLabel = BaseAttributedLabel(font: AssetFonts.caption,
+    
+    private let urlLabel = BaseAttributedLabel(font: AssetFonts.caption,
                                           text: nil,
                                           alignment: .left,
                                           color: AssetColors.gray700)
         .then {
             $0.lineBreakMode = .byTruncatingTail
+            $0.isUserInteractionEnabled = false
         }
+    
     private let arrowRightImageView = UIImageView()
         .then {
             $0.image = AssetsImages.chevronRight
+            $0.isUserInteractionEnabled = false
         }
+    
+    // MARK: - Properties
+    
+    var urlString: String? {
+        urlLabel.text
+    }
     
     // MARK: - Life Cycle
     
@@ -47,11 +58,16 @@ class RelatedUrlButton: UIButton {
     }
     
     // MARK: - Functions
+    
+    func setURL(_ urlString: String) {
+        urlLabel.text = urlString
+    }
+    
 }
 
 // MARK: - Configure
 
-extension RelatedUrlButton {
+extension RelatedURLButton {
     
     private func configureButton() {
         isHidden = true
@@ -65,7 +81,7 @@ extension RelatedUrlButton {
 
 // MARK: - Layout
 
-extension RelatedUrlButton {
+extension RelatedURLButton {
     
     private func configureLayout() {
         // Add Subviews

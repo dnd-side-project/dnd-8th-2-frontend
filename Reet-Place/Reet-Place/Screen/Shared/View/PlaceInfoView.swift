@@ -107,9 +107,9 @@ class PlaceInfoView: BaseView {
                                                       text: "RelatedUrl".localized,
                                                       alignment: .left,
                                                       color: AssetColors.gray700)
-    private let firstUrlView = RelatedUrlButton()
-    private let secondUrlView = RelatedUrlButton()
-    private let thirdUrlView = RelatedUrlButton()
+    private let firstURLButton = RelatedURLButton()
+    private let secondURLButton = RelatedURLButton()
+    private let thirdURLButton = RelatedURLButton()
     
     // MARK: - Variables and Properties
     
@@ -118,7 +118,7 @@ class PlaceInfoView: BaseView {
     
     private var cellIndex: Int?
     
-    private var urlViewList: [RelatedUrlButton] = []
+    private var urlViewList: [RelatedURLButton] = []
     
     // MARK: - Life Cycle
     
@@ -128,6 +128,7 @@ class PlaceInfoView: BaseView {
         configureURLViewList()
         bindToggle()
         bindMenuBtn()
+        bindRelatedURL()
     }
     
     override func layoutView() {
@@ -153,9 +154,9 @@ class PlaceInfoView: BaseView {
         var groupIconImage: UIImage?
         // TODO: - 서버 연결 후 저장 그룹 enum 타입 관리 및 localized 처리
         switch cardInfo.groupType {
-        case "가고싶어요":
+        case "WANT":
             groupIconImage = AssetsImages.cardWishChip20
-        case "다녀왔어요":
+        case "GONE":
             groupIconImage = AssetsImages.cardHistoryChip20
         default:
             groupIconImage = nil
@@ -185,10 +186,11 @@ class PlaceInfoView: BaseView {
         }
         baseStackView.setCustomSpacing(cardInfo.groupType == .empty ? 0.0 : 8.0, after: addressStackView)
         
-        registeredLabel.text = "등록된 정보 (\(cardInfo.infoCount))"
+        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].compactMap { $0 }
+        registeredLabel.text = "등록된 정보 (\(urlList.count))"
         toggleStackView.isHidden = cardInfo.infoHidden
-        isActivateToggleStackView(active: cardInfo.infoCount == 0 ? false : true)
-        isExpandMoreImageView(expand: cardInfo.infoHidden ? false : true)
+        isActivateToggleStackView(active: urlList.count != 0)
+        isExpandMoreImageView(expand: !cardInfo.infoHidden)
         
         // 함께할 사람들
         if !cardInfo.withPeople.isEmpty {
@@ -198,12 +200,10 @@ class PlaceInfoView: BaseView {
         }
         
         // 참고링크
-        for (index, url) in [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].enumerated() {
-            if let url = url {
-                urlViewList[index].urlLabel.text = url
-                relatedUrlLabel.isHidden = false
-                urlViewList[index].isHidden = false
-            }
+        for (index, url) in urlList.enumerated() {
+            urlViewList[index].setURL(url)
+            relatedUrlLabel.isHidden = false
+            urlViewList[index].isHidden = false
         }
 
     }
@@ -219,7 +219,7 @@ class PlaceInfoView: BaseView {
             $0.isHidden = true
         }
         urlViewList.forEach {
-            $0.urlLabel.text = nil
+            $0.setURL(.empty)
             $0.isHidden = true
         }
     }
@@ -241,7 +241,7 @@ class PlaceInfoView: BaseView {
 extension PlaceInfoView {
     
     private func configureURLViewList() {
-        [firstUrlView, secondUrlView, thirdUrlView].forEach {
+        [firstURLButton, secondURLButton, thirdURLButton].forEach {
             urlViewList.append($0)
         }
     }
@@ -274,9 +274,9 @@ extension PlaceInfoView {
         [withPeopleLabel,
          withPeopleView,
          relatedUrlLabel,
-         firstUrlView,
-         secondUrlView,
-         thirdUrlView].forEach {
+         firstURLButton,
+         secondURLButton,
+         thirdURLButton].forEach {
             toggleStackView.addArrangedSubview($0)
         }
         toggleStackView.setCustomSpacing(12.0, after: withPeopleView)
@@ -342,6 +342,29 @@ extension PlaceInfoView {
                 let buttonFrameInSuperview = owner.view.convert(self.cardMenuButton.frame, from: self.placeNameStackView)
                 self.delegate?.showMenu(index: cellIndex, location: buttonFrameInSuperview, selectMenuType: self.groupIconImageView.image == nil ? .defaultPlaceInfo : .bookmarked)
             })
+            .disposed(by: bag)
+    }
+    
+    private func bindRelatedURL() {
+        firstURLButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.delegate?.openRelatedURL(owner.firstURLButton.urlString)
+            })
+            .disposed(by: bag)
+        
+        secondURLButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.openRelatedURL(owner.secondURLButton.urlString)
+            }
+            .disposed(by: bag)
+        
+        thirdURLButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                owner.delegate?.openRelatedURL(owner.thirdURLButton.urlString)
+            }
             .disposed(by: bag)
     }
     
