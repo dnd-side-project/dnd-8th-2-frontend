@@ -14,11 +14,6 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-protocol BookmarkCardAction {
-    func infoToggle(index: Int)
-    func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle)
-}
-
 class PlaceInfoView: BaseView {
     
     // MARK: - UI components
