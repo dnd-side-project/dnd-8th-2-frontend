@@ -18,6 +18,7 @@ final class BookmarkCardListVM: BaseViewModel {
     
     var apiSession: APIService = APISession()
     let apiError = PublishSubject<APIError>()
+    private let type: BookmarkSearchType
     
     var bag = DisposeBag()
     
@@ -32,7 +33,9 @@ final class BookmarkCardListVM: BaseViewModel {
         var isLastPage: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
-    init() {
+    init(type: BookmarkSearchType) {
+        self.type = type
+        
         bindInput()
         bindOutput()
     }
@@ -65,6 +68,34 @@ extension BookmarkCardListVM: Output {
     
 }
 
+// MARK: - Functions
+
+extension BookmarkCardListVM {
+    
+    func deleteBookmark(id: Int) {
+        let originBookmarkList = output.bookmarkList.value
+        let deletedBookmarkList = originBookmarkList.filter({ $0.id != id })
+        output.bookmarkList.accept(deletedBookmarkList)
+    }
+    
+    func modifyBookmark(info: BookmarkInfo) {
+        let card = info.toBookmarkCardModel()
+        var currentBookmarkList = output.bookmarkList.value
+        switch type {
+        case .all:
+            currentBookmarkList = currentBookmarkList.map { $0.id == card.id ? card : $0 }
+        case .want, .done:
+            if type.rawValue == card.groupType {
+                currentBookmarkList = currentBookmarkList.map { $0.id == card.id ? card : $0 }
+            } else {
+                currentBookmarkList = currentBookmarkList.filter { $0.id != card.id }
+                
+            }
+        }
+        output.bookmarkList.accept(currentBookmarkList)
+    }
+    
+}
 
 // MARK: - Networking
 
@@ -72,7 +103,7 @@ extension BookmarkCardListVM {
     
     func getBookmarkList(type: BookmarkSearchType) {
         let page = input.page.value
-        let path = "/api/bookmarks?searchType=\(type.rawValue)&page=\(page)&size=20&sort=LATEST"
+        let path = "/api/bookmarks?searchType=\(type.rawValue)&page=\(page)&size=10&sort=LATEST"
         let resource = URLResource<BookmarkListResponseModel>(path: path)
         
         output.isPaging.accept(true)

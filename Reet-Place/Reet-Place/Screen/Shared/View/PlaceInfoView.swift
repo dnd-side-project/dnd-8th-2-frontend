@@ -162,7 +162,7 @@ class PlaceInfoView: BaseView {
         switch cardInfo.groupType {
         case "WANT":
             groupIconImage = AssetsImages.cardWishChip20
-        case "GONE":
+        case "DONE":
             groupIconImage = AssetsImages.cardHistoryChip20
         default:
             groupIconImage = nil
@@ -199,8 +199,8 @@ class PlaceInfoView: BaseView {
         isExpandMoreImageView(expand: !cardInfo.infoHidden)
         
         // 함께할 사람들
-        if !cardInfo.withPeople.isEmpty {
-            withPeopleView.peopleLabel.text = cardInfo.withPeople
+        if let withPeople = cardInfo.withPeople {
+            withPeopleView.peopleLabel.text = withPeople
             withPeopleLabel.isHidden = false
             withPeopleView.isHidden = false
         }

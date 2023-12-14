@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 import Then
 
-class StarToggleButton: BaseView {
+final class StarToggleButton: BaseView {
     
     // MARK: - UI components
     
-    let stackView = UIStackView()
+    private let stackView = UIStackView()
         .then {
             $0.spacing = 0.0
             $0.distribution = .fillEqually
@@ -21,13 +21,13 @@ class StarToggleButton: BaseView {
             $0.axis = .horizontal
         }
     
-    let oneStarBtn = UIButton()
+    private let oneStarBtn = UIButton()
         .then {
             $0.tag = 1
             $0.setTitle("★", for: .normal)
         }
     
-    let twoStarBtn = UIButton()
+    private let twoStarBtn = UIButton()
         .then {
             $0.tag = 2
             $0.layer.borderColor = AssetColors.gray300.cgColor
@@ -35,7 +35,7 @@ class StarToggleButton: BaseView {
             $0.setTitle("★★", for: .normal)
         }
     
-    let threeStarBtn = UIButton()
+    private let threeStarBtn = UIButton()
         .then {
             $0.tag = 3
             $0.setTitle("★★★", for: .normal)
@@ -44,7 +44,7 @@ class StarToggleButton: BaseView {
     
     // MARK: - Variables and Properties
     
-    var selectedTag: Int = 1
+    private(set) var selectedStarCount: Int = 1
     
     
     // MARK: - Life Cycle
@@ -70,7 +70,7 @@ class StarToggleButton: BaseView {
             $0.isSelected = false
         }
         
-        selectedTag = sender.tag
+        selectedStarCount = sender.tag
         
         switch sender.tag {
         case 1:
@@ -84,6 +84,21 @@ class StarToggleButton: BaseView {
         }
     }
     
+    func setStarCount(_ count: Int) {
+        var starCount = 1
+        if count > 3 { starCount = 3 }
+        selectedStarCount = starCount
+        switch starCount {
+        case 1:
+            oneStarBtn.isSelected = true
+        case 2:
+            twoStarBtn.isSelected = true
+        case 3:
+            threeStarBtn.isSelected = true
+        default:
+            threeStarBtn.isSelected = true
+        }
+    }
     
 }
 

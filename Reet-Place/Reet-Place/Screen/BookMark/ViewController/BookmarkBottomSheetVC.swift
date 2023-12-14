@@ -141,9 +141,15 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // MARK: - Variables and Properties
     
-    var urlField : [ReetTextField] = []
+    private let viewModel: BookmarkBottomSheetVM = .init()
     
+    private var urlField : [ReetTextField] = []
     var isBookmarking = true
+    
+    private var bottomSheetData: BookmarkCardModel?
+    
+    let deletedBookmarkId: PublishSubject<Int> = .init()
+    let modifiedBookmarkInfo: PublishSubject<BookmarkInfo> = .init()
     
     
     // MARK: - Life Cycle
@@ -163,6 +169,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     override func bindRx() {
         super.bindRx()
         
+        bind()
         bindBtn()
         bindKeyboard()
     }
@@ -186,10 +193,27 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     }
     
     @objc func deleteBookmark() {
-        self.dismissBottomSheet()
-        print("TODO: - Delete Bookmark API to be call")
+        guard let id = bottomSheetData?.id else { return }
+        viewModel.deleteBookmark(id: id)
     }
     
+    func getModifiedBookmarkData() -> BookmarkCardModel? {
+        guard let bottomSheetData else { return nil }
+        
+        return .init(
+            id: bottomSheetData.id,
+            thumbnailImage: bottomSheetData.thumbnailImage,
+            placeName: bottomSheetData.placeName,
+            categoryName: bottomSheetData.categoryName,
+            starCount: starToggleBtn.selectedStarCount,
+            address: bottomSheetData.address,
+            groupType: selectTypeBtn.selectedType.rawValue,
+            withPeople: withPeopleTextField.text,
+            relLink1: firstUrl.text,
+            relLink2: secondUrl.text,
+            relLink3: thirdUrl.text
+        )
+    }
 }
 
 
@@ -238,6 +262,7 @@ extension BookmarkBottomSheetVC {
     }
     
     func configureSheetData(with cardInfo: BookmarkCardModel) {
+        bottomSheetData = cardInfo
         placeInformationView.configurePlaceInfomation(placeName: cardInfo.placeName,
                                                       address: cardInfo.address,
                                                       category: cardInfo.categoryName)
@@ -252,22 +277,16 @@ extension BookmarkBottomSheetVC {
         ? selectTypeBtn.selectType(selectTypeBtn.wishBtn)
         : selectTypeBtn.selectType(selectTypeBtn.historyBtn)
         
-        switch cardInfo.starCount {
-        case 1:
-            starToggleBtn.oneStarBtn.isSelected = true
-        case 2:
-            starToggleBtn.twoStarBtn.isSelected = true
-        case 3:
-            starToggleBtn.threeStarBtn.isSelected = true
-        default:
-            starToggleBtn.threeStarBtn.isSelected = true
+        starToggleBtn.setStarCount(cardInfo.starCount)
+        
+        if let withPeople = cardInfo.withPeople {
+            withPeopleTextField.text = withPeople
         }
         
-        if !cardInfo.withPeople.isEmpty {
-            withPeopleTextField.text = cardInfo.withPeople
-        }
+        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3]
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
         
-        let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].filter { $0 != "null" }
         for (index, url) in urlList.enumerated() {
             urlField[index].text = url
             urlField[index].isHidden = false
@@ -348,6 +367,26 @@ extension BookmarkBottomSheetVC {
 
 extension BookmarkBottomSheetVC {
     
+    private func bind() {
+        viewModel.output.isSuccessDelete
+            .filter { $0 }
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                guard let id = owner.bottomSheetData?.id else { return }
+                owner.dismissBottomSheet()
+                owner.deletedBookmarkId.onNext(id)
+            }
+            .disposed(by: bag)
+        
+        viewModel.output.isSuccessModify
+            .withUnretained(self)
+            .subscribe { owner, bookmarkInfo in
+                owner.dismissBottomSheet()
+                owner.modifiedBookmarkInfo.onNext(bookmarkInfo)
+            }
+            .disposed(by: bag)
+    }
+    
     private func bindKeyboard() {
         // 키보드가 올라올 때
         keyboardWillShow
@@ -391,10 +430,10 @@ extension BookmarkBottomSheetVC {
         
         // 수정하기 버튼
         modifyBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                print("TODO: - Modify Bookmark API to be call")
-                self.dismissBottomSheet()
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                guard let modifiedData = owner.getModifiedBookmarkData() else { return }
+                owner.viewModel.modifyBookmark(modifyInfo: modifiedData)
             })
             .disposed(by: bag)
         

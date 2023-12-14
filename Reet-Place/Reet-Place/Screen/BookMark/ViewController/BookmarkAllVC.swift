@@ -37,7 +37,7 @@ class BookmarkAllVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
-    private let viewModel: BookmarkCardListVM = BookmarkCardListVM()
+    private let viewModel: BookmarkCardListVM = BookmarkCardListVM(type: .all)
     
     
     // MARK: - Life Cycle
@@ -223,6 +223,20 @@ extension BookmarkAllVC: BookmarkCardAction {
         let bottomSheetVC = BookmarkBottomSheetVC()
         let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
+        
+        bottomSheetVC.deletedBookmarkId
+            .withUnretained(self)
+            .subscribe { owner, id in
+                owner.viewModel.deleteBookmark(id: id)
+            }
+            .disposed(by: bag)
+        
+        bottomSheetVC.modifiedBookmarkInfo
+            .withUnretained(self)
+            .subscribe { owner, bookmarkInfo in
+                owner.viewModel.modifyBookmark(info: bookmarkInfo)
+            }
+            .disposed(by: bag)
                 
         bottomSheetVC.modalPresentationStyle = .overFullScreen
         present(bottomSheetVC, animated: false)
