@@ -22,24 +22,33 @@ final class SearchVM: BaseViewModel {
     
     struct Input {}
     struct Output {
-        var loading = BehaviorRelay<Bool>(value: false)
-        
         var categoryHistoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
             categoryHistoryList.map { [TabPlaceCategoryListDataSource(items: $0)] }
         }
         
-        var searchHistoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
-        var searchHistoryListDataSource: Observable<Array<SearchHistoryListDataSource>> {
-            searchHistoryList.map { [SearchHistoryListDataSource(items: $0)] }
-        }
+        var searchHistory = SearchHistory()
         
-        // TODO: - 검색결과 더미데이터 삭제
-        var searchResultList: BehaviorRelay<Array<BookmarkCardModel>> = BehaviorRelay(value: [])
-        var searchResultDataSource: Observable<Array<SearchResultDataSource>> {
-            searchResultList.map { [SearchResultDataSource(items: $0)] }
+        var searchResult = SearchResult()
+    }
+    
+    /// 장소검색 키워드 히스토리
+    struct SearchHistory {
+        var list: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
+        var dataSource: Observable<Array<SearchHistoryListDataSource>> {
+            list.map { [SearchHistoryListDataSource(items: $0)] }
         }
-        
+    }
+    
+    /// 장소검색 결과 목록
+    struct SearchResult {
+        var list = BehaviorRelay<[SearchPlaceKeywordListContent]>(value: [])
+        var dataSource: Observable<Array<SearchResultDataSource>> {
+            list.map { [SearchResultDataSource(items: $0)] }
+        }
+        var page = 1
+        var lastPage: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var isPaging: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
     // MARK: - Life Cycle
@@ -64,4 +73,39 @@ extension SearchVM: Input {
 
 extension SearchVM: Output {
     func bindOutput() {}
+}
+
+// MARK: - Networking
+
+extension SearchVM {
+    
+    func requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel) {
+        let path = "/api/places/search"
+        let resource = URLResource<SearchPlaceKeywordResponseModel>(path: path)
+        
+        output.searchResult.isPaging.accept(true)
+        
+        apiSession.requestPost(urlResource: resource, parameter: placeKeyword.parameter)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    switch placeKeyword.page {
+                    case 1:
+                        owner.output.searchResult.list.accept(data.contents)
+                    default:
+                        let curData = owner.output.searchResult.list.value
+                        owner.output.searchResult.list.accept(curData + data.contents)
+                    }
+                    owner.output.searchResult.lastPage.accept(data.lastPage)
+                    owner.output.searchResult.page = placeKeyword.page
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                }
+                
+                owner.output.searchResult.isPaging.accept(false)
+            })
+            .disposed(by: bag)
+    }
+    
 }

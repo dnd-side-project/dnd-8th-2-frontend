@@ -11,6 +11,7 @@ enum ReetFABImage {
     case map
     case filter
     case directionTool
+    case goToTop
 }
 
 extension ReetFABImage {
@@ -22,6 +23,8 @@ extension ReetFABImage {
             return AssetsImages.directionTool20
         case .map:
             return AssetsImages.map20
+        case .goToTop:
+            return AssetsImages.goToTop
         }
     }
 }

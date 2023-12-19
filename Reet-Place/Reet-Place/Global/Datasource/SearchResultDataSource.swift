@@ -12,7 +12,7 @@ struct SearchResultDataSource {
 }
 
 extension SearchResultDataSource: SectionModelType {
-    typealias Item = BookmarkCardModel
+    typealias Item = SearchPlaceKeywordListContent
     
     init(original: SearchResultDataSource, items: [Item]) {
         self = original

@@ -248,7 +248,7 @@ extension HomeVC {
             .bind(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                print("TODO: - Search Place API to be call")
+                self.searchTextField.becomeFirstResponder()
             })
             .disposed(by: bag)
         
@@ -286,6 +286,7 @@ extension HomeVC {
                 guard let self = self else { return }
                 
                 let searchVC = SearchVC()
+                searchVC.delegateSearchPlaceAction = self
                 searchVC.pushWithHidesReetPlaceTabBar()
                 
                 self.searchTextField.resignFirstResponder()
@@ -389,6 +390,16 @@ extension HomeVC: CategoryChipCVCAction {
         let longitude = mapView.longitude.description
         
         viewModel.requestSearchPlaces(targetSearchPlace: SearchPlaceListRequestModel(lat: latitude, lng: longitude, category: selectedCategory.parameterPlace, subCategory: selectedCategory.parameterSubCategoryList))
+    }
+    
+}
+
+// MARK: - SearchPlace Action Delegate
+
+extension HomeVC: SearchPlaceAction {
+    
+    func getCurrentLocationCoordinate() -> CLLocationCoordinate2D? {
+        return locationManager.location?.coordinate
     }
     
 }

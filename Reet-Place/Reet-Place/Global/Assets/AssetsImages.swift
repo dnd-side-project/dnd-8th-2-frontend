@@ -29,6 +29,8 @@ struct AssetsImages {
     
     // Search
     static let noSearchResult = UIImage(named: "NoSearchResult")?.withRenderingMode(.alwaysOriginal)
+    static let placeResultThumbnail = UIImage(named: "PlaceResultThumbnail")!.withRenderingMode(.alwaysOriginal)
+    static let goToTop = UIImage(named: "GoToTop")!.withRenderingMode(.alwaysOriginal)
     
     // MY
     static let profilePlaceholder = UIImage(named: "ProfilePlaceholder")!.withRenderingMode(.alwaysOriginal)
