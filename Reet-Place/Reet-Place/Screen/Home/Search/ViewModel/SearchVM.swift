@@ -47,6 +47,7 @@ final class SearchVM: BaseViewModel {
             list.map { [SearchResultDataSource(items: $0)] }
         }
         var page = 1
+        var lastPage: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         var isPaging: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     }
     
@@ -96,6 +97,7 @@ extension SearchVM {
                         let curData = owner.output.searchResult.list.value
                         owner.output.searchResult.list.accept(curData + data.contents)
                     }
+                    owner.output.searchResult.lastPage.accept(data.lastPage)
                     owner.output.searchResult.page = placeKeyword.page
                 case .failure(let error):
                     owner.apiError.onNext(error)

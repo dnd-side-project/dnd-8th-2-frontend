@@ -11,6 +11,7 @@ import Foundation
 
 struct SearchPlaceKeywordResponseModel: Codable {
     let contents: [SearchPlaceKeywordListContent]
+    let lastPage: Bool
 }
 
 // MARK: - SearchPlaceListContent
