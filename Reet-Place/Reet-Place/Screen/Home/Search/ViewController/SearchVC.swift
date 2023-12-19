@@ -90,9 +90,6 @@ class SearchVC: BaseViewController {
         .then {
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
-            
-            
-            
             $0.register(SearchHistoryListCVC.self, forCellWithReuseIdentifier: SearchHistoryListCVC.className)
         }
     
@@ -105,6 +102,8 @@ class SearchVC: BaseViewController {
             
             $0.isHidden = true
         }
+    private let goToTopButton = ReetFAB(size: .round(.small), title: nil, image: .goToTop)
+    
     private let searchResultEmptyStackView = UIStackView()
         .then {
             $0.axis = .vertical
@@ -196,9 +195,9 @@ class SearchVC: BaseViewController {
         if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
             if let keyword = searchTextField.text {
                 viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
-                                                                                                      lng: curLocationCoordinate.longitude,
-                                                                                                      placeKeword: keyword,
-                                                                                                      page: requestPage))
+                                                                                                 lng: curLocationCoordinate.longitude,
+                                                                                                 placeKeword: keyword,
+                                                                                                 page: requestPage))
             } else {
                 self.showErrorAlert("SearchResultEmptyContent".localized)
             }
@@ -246,7 +245,7 @@ extension SearchVC {
                           titleStackView,
                           historyCategoryTabBarView,
                           searchHistoryListCollectionView,
-                          searchResultEmptyStackView, searchResultTableView])
+                          searchResultEmptyStackView, searchResultTableView, goToTopButton])
         
         [backButton, searchTextField].forEach {
             searchBarStackView.addArrangedSubview($0)
@@ -256,7 +255,10 @@ extension SearchVC {
             titleStackView.addArrangedSubview($0)
         }
         
-        [searchResultEmptyImageView, searchResultEmptyTitleLabel, searchResultEmptySubTitleLabel, searchResultEmptyContentLabel].forEach {
+        [searchResultEmptyImageView,
+         searchResultEmptyTitleLabel,
+         searchResultEmptySubTitleLabel,
+         searchResultEmptyContentLabel].forEach {
             searchResultEmptyStackView.addArrangedSubview($0)
         }
         searchResultEmptyStackView.setCustomSpacing(12.0, after: searchResultEmptyTitleLabel)
@@ -306,14 +308,20 @@ extension SearchVC {
         }
         
         searchResultEmptyStackView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalTo(titleStackView)
+            $0.top.equalTo(titleStackView).offset(40.0)
+            $0.horizontalEdges.equalTo(titleStackView)
         }
         searchResultEmptyImageView.snp.makeConstraints {
             $0.width.height.equalTo(160.0)
         }
+        
         searchResultTableView.snp.makeConstraints {
             $0.top.equalTo(titleStackView)
             $0.horizontalEdges.bottom.equalTo(view)
+        }
+        goToTopButton.snp.makeConstraints {
+            $0.trailing.equalTo(searchResultTableView).inset(24.0)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(24.0)
         }
     }
     
@@ -335,6 +343,7 @@ extension SearchVC {
             .bind(onNext: { [weak self] in
                 guard let self = self else { return }
                 
+                self.searchResultTableView.scrollToTop()
                 self.requestSearchPlaceKeyword(requestPage: 1)
                 self.isShowSearchResultUI(show: true)
             })
@@ -348,8 +357,18 @@ extension SearchVC {
                 self.searchTextField.text = .empty
                 self.cancelButton.isHidden = true
                 self.searchButton.isEnabled = false
+                self.goToTopButton.isHidden = true
                 
                 self.isShowSearchResultUI(show: false)
+            })
+            .disposed(by: bag)
+        
+        goToTopButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                self.searchResultTableView.scrollToTop()
             })
             .disposed(by: bag)
     }
@@ -380,7 +399,8 @@ extension SearchVC {
                 let changedText = text else { return }
                 
                 self.cancelButton.isHidden = changedText.count > 0 ? false : true
-                self.searchButton.isEnabled = changedText.count > 0 ? true : false
+                self.searchButton.isEnabled = changedText.count > 0
+                self.isShowSearchResultUI(show: changedText.count > 0)
             })
             .disposed(by: bag)
     }
@@ -485,8 +505,10 @@ extension SearchVC {
             .subscribe(onNext: { owner, items in
                 if items.count == 0 {
                     owner.view.bringSubviewToFront(owner.searchResultEmptyStackView)
+                    owner.goToTopButton.isHidden = true
                 } else {
                     owner.view.sendSubviewToBack(owner.searchResultEmptyStackView)
+                    owner.goToTopButton.isHidden = false
                     owner.searchResultTableView.reloadData()
                 }
             })
@@ -501,7 +523,8 @@ extension SearchVC {
                 let height = self.searchResultTableView.frame.height
                 
                 if offsetY > (contentHeight - height) {
-                    if self.viewModel.output.searchResult.isPaging.value == false {
+                    if self.viewModel.output.searchResult.isPaging.value == false &&
+                        self.viewModel.output.searchResult.lastPage.value == false {
                         self.requestSearchPlaceKeyword(requestPage: self.viewModel.output.searchResult.page + 1)
                     }
                 }
