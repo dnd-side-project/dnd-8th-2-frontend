@@ -70,6 +70,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func bindInput() {
         super.bindInput()
         
+        bindButton()
     }
     
     override func bindOutput() {
@@ -127,9 +128,19 @@ extension BookmarkHistoryVC {
 }
 
 
-// MARK: - Output
+// MARK: - Bind
 
 extension BookmarkHistoryVC {
+    
+    private func bindButton() {
+        viewOnMapBtn.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                let bookmarkMapVC = BookmarkMapVC(bookmarkType: .done)
+                bookmarkMapVC.pushWithHidesReetPlaceTabBar()
+            }
+            .disposed(by: bag)
+    }
     
     private func bindBookmarkHistory() {
         viewModel.output.bookmarkList
