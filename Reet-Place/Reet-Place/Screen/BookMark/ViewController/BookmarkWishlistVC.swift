@@ -70,6 +70,7 @@ class BookmarkWishlistVC: BaseNavigationViewController {
     override func bindInput() {
         super.bindInput()
         
+        bindButton()
     }
     
     override func bindOutput() {
@@ -127,9 +128,19 @@ extension BookmarkWishlistVC {
 }
 
 
-// MARK: - Output
+// MARK: - Bind
 
 extension BookmarkWishlistVC {
+    
+    private func bindButton() {
+        viewOnMapBtn.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                let bookmarkMapVC = BookmarkMapVC(bookmarkType: .want)
+                bookmarkMapVC.pushWithHidesReetPlaceTabBar()
+            }
+            .disposed(by: bag)
+    }
     
     private func bindBookmarkWishList() {
         viewModel.output.bookmarkList

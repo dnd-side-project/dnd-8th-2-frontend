@@ -13,6 +13,8 @@
 		0E05F0032A4D8707008A20F4 /* FirstTypeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */; };
 		0E05F0052A4D8787008A20F4 /* OtherTypeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */; };
 		0E1B62D12B3174FE00C1E609 /* DeleteAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62D02B3174FE00C1E609 /* DeleteAccountModel.swift */; };
+		0E1B62CD2B315AB900C1E609 /* BookmarkSummaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62CC2B315AB900C1E609 /* BookmarkSummaryModel.swift */; };
+		0E1B62CF2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62CE2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift */; };
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
@@ -46,6 +48,8 @@
 		0EAFCFDC2A2888700023A738 /* SelectBoxTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAFCFDB2A2888700023A738 /* SelectBoxTVC.swift */; };
 		0EB8D81229FF8C0E00E79BA4 /* PopUpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */; };
 		0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */; };
+		0EDD36B12B29FB8400D44F06 /* BookmarkMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */; };
+		0EDD36B32B29FDEA00D44F06 /* BookmarkMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */; };
 		0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */; };
 		0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED227029F8CB6800C8102E /* CheckboxButton.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
@@ -126,6 +130,7 @@
 		3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F2D29AAF734003B7B7D /* CategoryChipStyle.swift */; };
 		3C423F3229AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F3129AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift */; };
 		3C423F3429AB1DD9003B7B7D /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F3329AB1DD9003B7B7D /* HomeVM.swift */; };
+		3C4AE3422AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4AE3412AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift */; };
 		3C4DA53F2A56518900274692 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DA53E2A56518900274692 /* LoginVC.swift */; };
 		3C8A5DAA29ADCE8B007C4395 /* CategoryFilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */; };
 		3C9256622A1CC8350011B093 /* CategoryDetailFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9256612A1CC8350011B093 /* CategoryDetailFoodView.swift */; };
@@ -160,6 +165,8 @@
 		3CCB07AA29F90D4F003EC058 /* ReetTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07A929F90D4F003EC058 /* ReetTextButton.swift */; };
 		3CCB07AC29F90D90003EC058 /* ReetTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07AB29F90D90003EC058 /* ReetTextButtonStyle.swift */; };
 		3CE3C47B2A458A180097FB63 /* SearchHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3C47A2A458A180097FB63 /* SearchHistoryTVC.swift */; };
+		3CE3CC3D2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3CC3C2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift */; };
+		3CE5B0EE2B2754FC0080F606 /* BookmarkCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */; };
 		3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */; };
 		3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBB298FEAB20057D813 /* Assets.xcassets */; };
 		3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */; };
@@ -214,6 +221,8 @@
 		0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTypeOnboardingView.swift; sourceTree = "<group>"; };
 		0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceDebug.entitlements"; sourceTree = "<group>"; };
 		0E1B62D02B3174FE00C1E609 /* DeleteAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModel.swift; sourceTree = "<group>"; };
+		0E1B62CC2B315AB900C1E609 /* BookmarkSummaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSummaryModel.swift; sourceTree = "<group>"; };
+		0E1B62CE2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSummaryResponseModel.swift; sourceTree = "<group>"; };
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
@@ -247,6 +256,8 @@
 		0EAFCFDB2A2888700023A738 /* SelectBoxTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBoxTVC.swift; sourceTree = "<group>"; };
 		0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpType.swift; sourceTree = "<group>"; };
 		0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletedVC.swift; sourceTree = "<group>"; };
+		0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVC.swift; sourceTree = "<group>"; };
+		0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVM.swift; sourceTree = "<group>"; };
 		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
 		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
@@ -327,6 +338,7 @@
 		3C423F2D29AAF734003B7B7D /* CategoryChipStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChipStyle.swift; sourceTree = "<group>"; };
 		3C423F3129AB1CD8003B7B7D /* PlaceCategoryListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategoryListDataSource.swift; sourceTree = "<group>"; };
 		3C423F3329AB1DD9003B7B7D /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
+		3C4AE3412AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceKeywordRequestModel.swift; sourceTree = "<group>"; };
 		3C4DA53E2A56518900274692 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterCVC.swift; sourceTree = "<group>"; };
 		3C9256612A1CC8350011B093 /* CategoryDetailFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailFoodView.swift; sourceTree = "<group>"; };
@@ -361,7 +373,9 @@
 		3CCB07A929F90D4F003EC058 /* ReetTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextButton.swift; sourceTree = "<group>"; };
 		3CCB07AB29F90D90003EC058 /* ReetTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextButtonStyle.swift; sourceTree = "<group>"; };
 		3CE3C47A2A458A180097FB63 /* SearchHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTVC.swift; sourceTree = "<group>"; };
+		3CE3CC3C2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceKeywordResponseModel.swift; sourceTree = "<group>"; };
 		3CE41BF2782741A8F3679072 /* Pods-Reet-Place.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reet-Place.release.xcconfig"; path = "Target Support Files/Pods-Reet-Place/Pods-Reet-Place.release.xcconfig"; sourceTree = "<group>"; };
+		3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardAction.swift; sourceTree = "<group>"; };
 		3CEC2FAF298FEAAF0057D813 /* Reet-Place.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reet-Place.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CEC2FBB298FEAB20057D813 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -483,6 +497,8 @@
 				0E502B782A919DEE002C71F2 /* BookmarkCountResponseModel.swift */,
 				0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */,
 				0E5AF36C2B1B8CEF003E7223 /* BookmarkModifyRequestModel.swift */,
+				0E1B62CC2B315AB900C1E609 /* BookmarkSummaryModel.swift */,
+				0E1B62CE2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -493,6 +509,7 @@
 				0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */,
 				0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */,
 				0E5AF36A2B1B829C003E7223 /* BookmarkBottomSheetVM.swift */,
+				0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -754,6 +771,7 @@
 		3C2AEF572990CAB200E36342 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */,
 				3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */,
 				0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */,
 				0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */,
@@ -986,6 +1004,7 @@
 		3CE3C4772A4583CE0097FB63 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				3CE3CC3B2ACFE0990027FB5E /* Model */,
 				3C40FD7F2A4A689C00D66B49 /* ViewController */,
 				3C40FD802A4A68D000D66B49 /* ViewModel */,
 				3CE3C4792A4589FE0097FB63 /* Cell */,
@@ -1009,6 +1028,15 @@
 				3C04A7C42A4FAEA300A31FA3 /* SearchHistoryListCVC.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		3CE3CC3B2ACFE0990027FB5E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CE3CC3C2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift */,
+				3C4AE3412AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3CEC2FA6298FEAAF0057D813 = {
@@ -1104,6 +1132,7 @@
 				A4917E122996A84B00DF2A65 /* ButtonDefaultColorProvider.swift */,
 				A4917E162996A8B300DF2A65 /* ButtonDisabledColorProvider.swift */,
 				A4EFC0A2299E724E00B066AF /* ForegroundColorProvider.swift */,
+				3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1377,6 +1406,7 @@
 				3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */,
 				3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */,
 				3C9256702A1CE0C60011B093 /* CategoryDetailPhotoBoothDataSource.swift in Sources */,
+				3C4AE3422AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift in Sources */,
 				0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */,
 				3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */,
 				3CCB07AA29F90D4F003EC058 /* ReetTextButton.swift in Sources */,
@@ -1400,6 +1430,7 @@
 				3C4DA53F2A56518900274692 /* LoginVC.swift in Sources */,
 				0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */,
 				3C2784162A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift in Sources */,
+				0E1B62CD2B315AB900C1E609 /* BookmarkSummaryModel.swift in Sources */,
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C09F6962A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift in Sources */,
 				3CE3C47B2A458A180097FB63 /* SearchHistoryTVC.swift in Sources */,
@@ -1466,11 +1497,13 @@
 				3C04A7C32A4C072B00A31FA3 /* PlaceInfoView.swift in Sources */,
 				A4917E022996A4D300DF2A65 /* AssetColors.swift in Sources */,
 				3C09F69A2A5F936600B6B0BF /* EmptyEntity.swift in Sources */,
+				0E1B62CF2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift in Sources */,
 				0E502B792A919DEE002C71F2 /* BookmarkCountResponseModel.swift in Sources */,
 				A49515F129A0764400A12EE1 /* UserProfileView.swift in Sources */,
 				3C92567C2A1CE4E50011B093 /* CategoryDetailCafeDataSource.swift in Sources */,
 				3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */,
 				3C2AED7A2990B3C300E36342 /* Loadable.swift in Sources */,
+				3CE3CC3D2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift in Sources */,
 				A4EFC09B299E6C9900B066AF /* LoginView.swift in Sources */,
 				3C2AED5E2990B3C200E36342 /* UIStackView+.swift in Sources */,
 				0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */,
@@ -1490,6 +1523,7 @@
 				3C423F2B29AAF649003B7B7D /* CategoryChipButton.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
 				3C9256762A1CE2DF0011B093 /* CategoryDetailShoppingDataSource.swift in Sources */,
+				0EDD36B32B29FDEA00D44F06 /* BookmarkMapVM.swift in Sources */,
 				3C976C8129AA61110002F8A7 /* PlaceCategoryList.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
 				0EA432E729A13EBE00C4D47F /* RelatedURLButton.swift in Sources */,
@@ -1508,7 +1542,9 @@
 				0EFE7C3829AA504F0051E72D /* BookmarkBottomSheetVC.swift in Sources */,
 				3C2AED5F2990B3C200E36342 /* UIViewController+.swift in Sources */,
 				3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */,
+				3CE5B0EE2B2754FC0080F606 /* BookmarkCardAction.swift in Sources */,
 				0E05F0012A4C7DE5008A20F4 /* OnboardingView.swift in Sources */,
+				0EDD36B12B29FB8400D44F06 /* BookmarkMapVC.swift in Sources */,
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C27841D2A0A6F1B0095B706 /* TabPlaceCategoryList.swift in Sources */,
