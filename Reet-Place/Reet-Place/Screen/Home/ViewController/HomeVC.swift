@@ -47,6 +47,7 @@ class HomeVC: BaseViewController {
             $0.setImage(AssetsImages.search, for: .normal)
         }
     
+    private let categoryFilterButton = ReetFAB(size: .round(.small), title: nil, image: .filter)
     private let placeCategoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         .then {
             $0.backgroundColor = .clear
@@ -56,16 +57,15 @@ class HomeVC: BaseViewController {
                     $0.scrollDirection = .horizontal
                     $0.minimumLineSpacing = 4.0
                     $0.minimumInteritemSpacing = 4.0
-                    $0.sectionInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0)
+                    $0.sectionInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 20.0)
                     $0.estimatedItemSize = CGSize(width: 48.0, height: 32.0)
                     $0.itemSize = UICollectionViewFlowLayout.automaticSize
                 }
             $0.collectionViewLayout = layout
             
             $0.showsHorizontalScrollIndicator = false
-            $0.clipsToBounds = false
+            $0.clipsToBounds = true
             
-            $0.register(CategoryFilterCVC.self, forCellWithReuseIdentifier: CategoryFilterCVC.className)
             $0.register(PlaceCategoryChipCVC.self, forCellWithReuseIdentifier: PlaceCategoryChipCVC.className)
         }
     
@@ -180,9 +180,9 @@ extension HomeVC {
     private func configureLayout() {
         // Add Subviews
         view.addSubviews([mapView,
-                         searchTextField, cancelButton, searchButton,
-                          placeCategoryCollectionView,
-                         currentPositionButton])
+                          searchTextField, cancelButton, searchButton,
+                          categoryFilterButton, placeCategoryCollectionView,
+                          currentPositionButton])
         
         // Make Constraints
         mapView.snp.makeConstraints {
@@ -209,11 +209,16 @@ extension HomeVC {
             $0.trailing.equalTo(searchTextField.snp.trailing).inset(16.0)
         }
         
+        categoryFilterButton.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(12.0)
+            $0.leading.equalTo(searchTextField)
+        }
         placeCategoryCollectionView.snp.makeConstraints {
             $0.height.equalTo(44.0)
             
-            $0.top.equalTo(searchTextField.snp.bottom).offset(12.0)
-            $0.horizontalEdges.equalTo(mapView)
+            $0.centerY.equalTo(categoryFilterButton)
+            $0.leading.equalTo(categoryFilterButton.snp.trailing).offset(4.0)
+            $0.trailing.equalTo(mapView)
         }
         
         currentPositionButton.snp.makeConstraints {
@@ -262,6 +267,17 @@ extension HomeVC {
             })
             .disposed(by: bag)
         
+        categoryFilterButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                
+                let categoryFilterBottomSheet = CategoryFilterBottomSheet()
+                categoryFilterBottomSheet.modalPresentationStyle = .overFullScreen
+                self.present(categoryFilterBottomSheet, animated: false)
+            })
+            .disposed(by: bag)
+        
         currentPositionButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in
@@ -306,27 +322,15 @@ extension HomeVC {
             indexPath,
             categoryType in
             
-            switch categoryType {
-            case .filter:
-                guard let cell = collectionView
-                    .dequeueReusableCell(withReuseIdentifier: CategoryFilterCVC.className,
-                                         for: indexPath) as? CategoryFilterCVC else {
-                    fatalError("Cannot deqeue cells named CategoryFilterCVC")
-                }
-                
-                return cell
-                
-            default:
-                guard let cell = collectionView
-                    .dequeueReusableCell(withReuseIdentifier: PlaceCategoryChipCVC.className,
-                                         for: indexPath) as? PlaceCategoryChipCVC else {
-                    fatalError("Cannot deqeue cells named PlaceCategoryChipCVC")
-                }
-                cell.configurePlaceCategoryChipCVC(placeCategory: categoryType)
-                cell.delegate = self
-                
-                return cell
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: PlaceCategoryChipCVC.className,
+                                     for: indexPath) as? PlaceCategoryChipCVC else {
+                fatalError("Cannot deqeue cells named PlaceCategoryChipCVC")
             }
+            cell.configurePlaceCategoryChipCVC(placeCategory: categoryType)
+            cell.delegate = self
+            
+            return cell
         }
         
         viewModel.output.placeCategoryDataSources
