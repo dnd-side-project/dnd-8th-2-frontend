@@ -74,6 +74,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     override func bindInput() {
         super.bindInput()
         
+        bindInputMenuTabBarView()
         bindCategoryDetailScrollView()
         bindButton()
     }
@@ -81,7 +82,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     override func bindOutput() {
         super.bindOutput()
         
-        bindMenuTabBarView()
+        bindOutputMenuTabBarView()
     }
     
 }
@@ -156,7 +157,7 @@ extension CategoryFilterBottomSheet {
 
 extension CategoryFilterBottomSheet {
     
-    private func bindCategoryDetailScrollView() {
+    private func bindInputMenuTabBarView() {
         menuTabBarView.menuBarCollectionView.rx.itemSelected
             .asDriver()
             .drive(onNext: { [weak self] indexPath in
@@ -166,6 +167,19 @@ extension CategoryFilterBottomSheet {
                 
                 let offset = CGFloat(indexPath.row) * self.screenWidth
                 self.categoryDetailScrollView.scrollToHorizontalOffset(offset: offset)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindCategoryDetailScrollView() {
+        categoryDetailScrollView.rx.willEndDragging
+            .asDriver()
+            .drive(onNext: { [weak self] velocity, targetContentOffset in
+                guard let self = self else { return }
+                
+                let menuIndex = Int(targetContentOffset.pointee.x / self.categoryDetailScrollView.frame.width)
+                let indexPath = IndexPath(item: menuIndex, section: 0)
+                self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             })
             .disposed(by: bag)
     }
@@ -236,7 +250,7 @@ extension CategoryFilterBottomSheet {
 
 extension CategoryFilterBottomSheet {
     
-    private func bindMenuTabBarView() {
+    private func bindOutputMenuTabBarView() {
         let dataSource = RxCollectionViewSectionedReloadDataSource<TabPlaceCategoryListDataSource> { _,
             collectionView,
             indexPath,
