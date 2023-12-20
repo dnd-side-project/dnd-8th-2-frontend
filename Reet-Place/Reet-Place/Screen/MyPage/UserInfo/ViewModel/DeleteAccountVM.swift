@@ -22,50 +22,13 @@ final class DeleteAccountVM: BaseViewModel {
     
     var bag = DisposeBag()
     
-    struct Input { }
+    struct Input {
+        var otherDescription: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+        var selectedSurveyTypeList: BehaviorRelay<[DeleteAccountSurveyType]> = BehaviorRelay(value: [])
+    }
     
     struct Output {
-        var recordDelete: Observable<Bool> {
-            selectedSurveyType.map { $0 == .recordDelete }
-        }
-        
-        var lowUsed: Observable<Bool> {
-            selectedSurveyType.map { $0 == .lowUsed }
-        }
-        
-        var useOtherService: Observable<Bool> {
-            selectedSurveyType.map { $0 == .useOtherService }
-        }
-        
-        var inconvenience: Observable<Bool> {
-            selectedSurveyType.map { $0 == .inconvenienceAndErrors }
-        }
-        
-        var contentComplaint: Observable<Bool> {
-            selectedSurveyType.map { $0 == .contentDissatisfaction }
-        }
-        
-        var other: Observable<Bool> {
-            selectedSurveyType.map { $0 == .other }
-        }
-        
-        var otherDescription: BehaviorRelay<String?> = BehaviorRelay(value: nil)
-        
-        var selectedSurveyType: BehaviorRelay<DeleteAccountSurveyType?> = BehaviorRelay(value: nil)
-        
-        var deleteEnabled: Observable<Bool> {
-            return Observable
-                .combineLatest(recordDelete.asObservable(),
-                               lowUsed.asObservable(),
-                               useOtherService.asObservable(),
-                               inconvenience.asObservable(),
-                               contentComplaint.asObservable(),
-                               other.asObservable())
-                .map { recordDelete, lowUsed, useOtherService, inconvenience, contentComplaint, other in
-                    return recordDelete || lowUsed || useOtherService || inconvenience || contentComplaint || other
-                }
-        }
-        
+        var deleteEnabled = BehaviorRelay<Bool>(value: false)
         var isUnlinkSuccess = PublishRelay<Bool>()
     }
     
@@ -84,7 +47,14 @@ final class DeleteAccountVM: BaseViewModel {
 // MARK: - Input
 
 extension DeleteAccountVM: Input {
-    func bindInput() { }
+    func bindInput() {
+        input.selectedSurveyTypeList
+            .withUnretained(self)
+            .subscribe(onNext: { owner, selectedTypeList in
+                owner.output.deleteEnabled.accept(!selectedTypeList.isEmpty)
+            })
+            .disposed(by: bag)
+    }
 }
 
 
@@ -163,17 +133,37 @@ extension DeleteAccountVM {
 
 extension DeleteAccountVM {
     
-    /// surveyType에 따라 DeleteAccountRequestModel 생성
+    /// 탈퇴 사유 선택
+    /// - Parameter type: 선택한 사유 type
+    func selectDeleteAccountType(_ type: DeleteAccountSurveyType) {
+        var reason = input.selectedSurveyTypeList.value
+        reason.append(type)
+        input.selectedSurveyTypeList.accept(reason)
+    }
+    
+    /// 탈퇴 사유 선택 해제
+    /// - Parameter type: 선택 해제한 사유 type
+    func deselectDeleteAccountType(_ type: DeleteAccountSurveyType) {
+        var reason = input.selectedSurveyTypeList.value
+        reason = reason.filter { $0 != type }
+        input.selectedSurveyTypeList.accept(reason)
+    }
+    
+    /// 선택된 surveyType들에 따라 DeleteAccountRequestModel 생성
     private func createDeleteAccountRequestModel() -> DeleteAccountRequestModel {
-        guard let surveyType = output.selectedSurveyType.value else { fatalError() }
+        let selectedSurveyTypeList = input.selectedSurveyTypeList.value
+        var deleteAccountModelList: [DeleteAccountModel] = []
         
-        if surveyType == .other {
-            return DeleteAccountRequestModel(surveyType: surveyType,
-                                             description: output.otherDescription.value ?? .empty)
-        } else {
-            return DeleteAccountRequestModel(surveyType: surveyType,
-                                             description: surveyType.description)
+        selectedSurveyTypeList.forEach { type in
+            if type == .other {
+                let description = input.otherDescription.value ?? type.rawValue
+                deleteAccountModelList.append(.init(surveyType: type, description: description))
+            } else {
+                deleteAccountModelList.append(.init(surveyType: type, description: type.rawValue))
+            }
         }
+        
+        return DeleteAccountRequestModel(data: deleteAccountModelList)
     }
     
 }
