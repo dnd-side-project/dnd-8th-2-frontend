@@ -12,3 +12,16 @@ enum BookmarkSearchType: String {
     case want = "WANT"
     case done = "DONE"
 }
+
+extension BookmarkSearchType {
+    var title: String {
+        switch self {
+        case .all:
+            return "BookmarkAll".localized
+        case .want:
+            return "BookmarkWishlist".localized
+        case .done:
+            return "BookmarkHistory".localized
+        }
+    }
+}
