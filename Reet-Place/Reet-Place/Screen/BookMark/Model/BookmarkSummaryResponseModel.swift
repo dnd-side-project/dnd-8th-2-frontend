@@ -13,7 +13,7 @@ struct BookmarkSummaryResponseModel: Decodable {
     let id: Int
     let place: BookmarkPlaceInfo
     let type: String
-    let thumbnailImage: String
+    let thumbnailImage: String?
     
     func toSummary() -> BookmarkSummaryModel {
         return .init(

@@ -9,7 +9,7 @@ import Foundation
 
 struct BookmarkCardModel {
     let id: Int
-    let thumbnailImage: String
+    let thumbnailImage: String?
     let placeName: String
     let categoryName: String
     let starCount: Int
