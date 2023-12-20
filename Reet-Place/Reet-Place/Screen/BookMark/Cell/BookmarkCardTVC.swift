@@ -74,8 +74,12 @@ extension BookmarkCardTVC {
                                                     delegate: bookmarkCardActionDelegate,
                                                     cellIndex: index)
         
-        // TODO: - UIImageView+의 setImage 함수 placeholder 파라미터 추가 됨 (임시 코드 - UIImage() 삽입)
-        thumbnailImageView.setImage(with: cardInfo.thumbnailImage, placeholder: UIImage())
+        if let thumbnailImage = cardInfo.thumbnailImage {
+            thumbnailImageView.isHidden = false
+            thumbnailImageView.setImage(with: thumbnailImage, placeholder: UIImage())
+        } else {
+            thumbnailImageView.isHidden = true
+        }
     }
     
     private func configureTVC() {
