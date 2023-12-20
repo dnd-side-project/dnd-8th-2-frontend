@@ -127,7 +127,6 @@
 		3C423F3429AB1DD9003B7B7D /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C423F3329AB1DD9003B7B7D /* HomeVM.swift */; };
 		3C4AE3422AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4AE3412AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift */; };
 		3C4DA53F2A56518900274692 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DA53E2A56518900274692 /* LoginVC.swift */; };
-		3C8A5DAA29ADCE8B007C4395 /* CategoryFilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */; };
 		3C9256622A1CC8350011B093 /* CategoryDetailFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9256612A1CC8350011B093 /* CategoryDetailFoodView.swift */; };
 		3C9256662A1CCAE90011B093 /* CategoryDetailFoodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9256652A1CCAE90011B093 /* CategoryDetailFoodList.swift */; };
 		3C9256682A1CCFE00011B093 /* CategoryDetailActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9256672A1CCFE00011B093 /* CategoryDetailActivityDataSource.swift */; };
@@ -330,7 +329,6 @@
 		3C423F3329AB1DD9003B7B7D /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		3C4AE3412AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceKeywordRequestModel.swift; sourceTree = "<group>"; };
 		3C4DA53E2A56518900274692 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterCVC.swift; sourceTree = "<group>"; };
 		3C9256612A1CC8350011B093 /* CategoryDetailFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailFoodView.swift; sourceTree = "<group>"; };
 		3C9256652A1CCAE90011B093 /* CategoryDetailFoodList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailFoodList.swift; sourceTree = "<group>"; };
 		3C9256672A1CCFE00011B093 /* CategoryDetailActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailActivityDataSource.swift; sourceTree = "<group>"; };
@@ -828,7 +826,6 @@
 			isa = PBXGroup;
 			children = (
 				3C423F2829AAEA90003B7B7D /* CategoryChipCVC.swift */,
-				3C8A5DA929ADCE8B007C4395 /* CategoryFilterCVC.swift */,
 				3CFBC6FE2A64FF5C00540C7F /* DetailCategoryChipCVC.swift */,
 				3CFBC7002A65013000540C7F /* PlaceCategoryChipCVC.swift */,
 			);
@@ -1401,7 +1398,6 @@
 				0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */,
 				3C423F2929AAEA90003B7B7D /* CategoryChipCVC.swift in Sources */,
 				3C2AED782990B3C200E36342 /* Output.swift in Sources */,
-				3C8A5DAA29ADCE8B007C4395 /* CategoryFilterCVC.swift in Sources */,
 				3C9256622A1CC8350011B093 /* CategoryDetailFoodView.swift in Sources */,
 				A4D09ED2299F9DDB004DEE97 /* UserInfoVM.swift in Sources */,
 				0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */,
