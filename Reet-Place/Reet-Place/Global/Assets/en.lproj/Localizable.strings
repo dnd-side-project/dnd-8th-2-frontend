@@ -152,6 +152,7 @@ No = "아니오";
 
 LogoutSuccess = "로그아웃 되었습니다";
 ErrorOccurred = "오류발생 😵";
+BookmarkSaved = "저장이 완료되었어요 !";
 
 // MARK: - Onboarding
 FirstOnboardingFirstLine = "어떤 상황에서든";

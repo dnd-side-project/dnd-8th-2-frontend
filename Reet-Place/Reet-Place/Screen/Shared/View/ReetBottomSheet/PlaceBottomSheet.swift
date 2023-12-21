@@ -334,6 +334,15 @@ extension PlaceBottomSheet {
                 let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
                 bottomSheetVC.configureInitialData(with: searchPlaceInfo)
                 
+                bottomSheetVC.savedBookmarkType
+                    .withUnretained(self)
+                    .subscribe { owner, bookmarkType in
+                        owner.bookmarkType = bookmarkType
+                        owner.updateMarkerIcon(isSelected: true)
+                        owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 157.0)
+                    }
+                    .disposed(by: bag)
+                
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 self.present(bottomSheetVC, animated: true)
             })

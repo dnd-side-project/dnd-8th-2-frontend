@@ -152,6 +152,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     
     let deletedBookmarkId: PublishSubject<Int> = .init()
     let modifiedBookmarkInfo: PublishSubject<BookmarkInfo> = .init()
+    let savedBookmarkType: PublishSubject<BookmarkType> = .init()
     
     
     // MARK: - Initialize
@@ -427,8 +428,9 @@ extension BookmarkBottomSheetVC {
         
         viewModel.output.isSuccessSave
             .withUnretained(self)
-            .subscribe { owner, isSuccess in
+            .subscribe { owner, bookmarkType in
                 owner.dismissBottomSheet()
+                owner.savedBookmarkType.onNext(bookmarkType)
             }
             .disposed(by: bag)
     }

@@ -27,7 +27,7 @@ final class BookmarkBottomSheetVM: BaseViewModel {
     struct Output {
         var isSuccessDelete: PublishSubject<Bool> = .init()
         var isSuccessModify: PublishSubject<BookmarkInfo> = .init()
-        var isSuccessSave: PublishSubject<Bool> = .init()
+        var isSuccessSave: PublishSubject<BookmarkType> = .init()
     }
     
     // MARK: - Life Cycle
@@ -77,8 +77,9 @@ extension BookmarkBottomSheetVM {
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
-                case .success:
-                    owner.output.isSuccessSave.onNext(true)
+                case .success(let data):
+                    let bookmarkType = BookmarkType(rawValue: data.type) ?? .standard
+                    owner.output.isSuccessSave.onNext(bookmarkType)
                 case .failure(let error):
                     print(error)
                     owner.apiError.onNext(error)
