@@ -14,10 +14,16 @@ struct BookmarkSummaryResponseModel: Decodable {
     let place: BookmarkPlaceInfo
     let type: String
     let thumbnailImage: String?
+    let rate: Int
+    let people: String?
+    let relLink1: String?
+    let relLink2: String?
+    let relLink3: String?
     
     func toSummary() -> BookmarkSummaryModel {
         return .init(
             id: id,
+            thumbnailImage: thumbnailImage,
             type: type,
             name: place.name,
             url: place.url,
@@ -26,7 +32,12 @@ struct BookmarkSummaryResponseModel: Decodable {
             lotNumberAddress: place.lotNumberAddress,
             roadAddress: place.roadAddress,
             lat: Double(place.lat) ?? 0.0,
-            lng: Double(place.lng) ?? 0.0
+            lng: Double(place.lng) ?? 0.0,
+            rate: rate,
+            people: people,
+            relLink1: relLink1,
+            relLink2: relLink2,
+            relLink3: relLink3
         )
     }
 }
