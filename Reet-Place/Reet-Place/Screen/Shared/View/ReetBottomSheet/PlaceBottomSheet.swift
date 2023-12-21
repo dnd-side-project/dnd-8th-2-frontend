@@ -17,7 +17,7 @@ import RxCocoa
 
 import NMapsMap
 
-class PlaceBottomSheet: BaseViewController {
+final class PlaceBottomSheet: BaseViewController {
     
     // MARK: - UI components
     
@@ -55,16 +55,34 @@ class PlaceBottomSheet: BaseViewController {
             $0.setImage(AssetsImages.link?.withTintColor(AssetColors.gray500), for: .normal)
         }
     
-    private let saveBookmarkButton = ReetButton(with: "SaveBookmark".localized, for: .outlined, left: AssetsImages.addFolder)
+    private let saveBookmarkButton = ReetButton(with: "SaveBookmark".localized,
+                                                for: .outlined,
+                                                left: AssetsImages.addFolder)
+        .then {
+            $0.isHidden = true
+        }
+    
+    private let wishBookmarkButton = ReetButton(with: "BookmarkWishlist".localized,
+                                                for: .primary,
+                                                left: AssetsImages.starFolder)
+        .then {
+            $0.isHidden = true
+        }
+    
+    private let doneBookmarkButton = ReetButton(with: "BookmarkHistory".localized,
+                                                for: .secondary,
+                                                left: AssetsImages.starFolder)
+        .then {
+            $0.isHidden = true
+        }
     
     // MARK: - Variables and Properties
     
     private var bookmarkType: BookmarkType = .standard
+    private var searchPlaceInfo: SearchPlaceListContent?
+    private var bookmarkSummary: BookmarkSummaryModel?
     private var placeName: String = .empty
-    private var categoryName: String = .empty
-    private var address: String = .empty
-    
-    var marker: NMFMarker?
+    private var marker: NMFMarker?
     
     // MARK: - Life Cycle
     
@@ -161,18 +179,62 @@ class PlaceBottomSheet: BaseViewController {
 extension PlaceBottomSheet {
     
     /// 장소바텀시트에 표시될 정보 값 입력 및 마커 상태 업데이트
-    func configurePlaceBottomSheet(placeName: String, address: String, category: String, urlLink: String, bookmarkType: BookmarkType, marker: NMFMarker) {
+    func configurePlaceBottomSheet(
+        searchPlaceInfo: SearchPlaceListContent,
+        bookmarkType: BookmarkType,
+        marker: NMFMarker
+    ) {
+        self.searchPlaceInfo = searchPlaceInfo
+        self.placeName = searchPlaceInfo.name
         self.bookmarkType = bookmarkType
-        self.placeName = placeName
-        self.categoryName = PlaceCategoryList(rawValue: category)!.description
-        self.address = address
-        
         self.marker = marker
+        let category = PlaceCategoryList(rawValue: searchPlaceInfo.category)?.description ?? .empty
         
-        placeInformationView.configurePlaceInfomation(placeName: placeName, address: address, category: categoryName)
-        bindLinkButton(url: urlLink)
-        
+        placeInformationView.configurePlaceInfomation(
+            placeName: searchPlaceInfo.name,
+            address: searchPlaceInfo.roadAddress,
+            category: category
+        )
+        bindLinkButton(url: searchPlaceInfo.url)
+        configureButton()
         updateMarkerIcon(isSelected: true)
+    }
+    
+    /// 지도로 보기에서 마커를 선택했을 때의 바텀시트를 구성합니다.
+    /// - Parameters:
+    ///   - bookmarkSummary: 지도의 북마크 요약 정보
+    ///   - bookmarkType: 북마크 타입
+    ///   - marker: 선택된 마커
+    func configurePlaceBottomSheet(
+        bookmarkSummary: BookmarkSummaryModel,
+        bookmarkType: BookmarkType,
+        marker: NMFMarker
+    ) {
+        self.bookmarkSummary = bookmarkSummary
+        self.placeName = bookmarkSummary.name
+        self.bookmarkType = bookmarkType
+        self.marker = marker
+        let category = PlaceCategoryList(rawValue: bookmarkSummary.category)?.description ?? .empty
+        
+        placeInformationView.configurePlaceInfomation(
+            placeName: bookmarkSummary.name,
+            address: bookmarkSummary.roadAddress,
+            category: category
+        )
+        bindLinkButton(url: bookmarkSummary.url)
+        configureButton()
+        updateMarkerIcon(isSelected: true)
+    }
+    
+    private func configureButton() {
+        switch bookmarkType {
+        case .standard:
+            saveBookmarkButton.isHidden = false
+        case .want:
+            wishBookmarkButton.isHidden = false
+        case .gone:
+            doneBookmarkButton.isHidden = false
+        }
     }
     
     private func configureContentView() {
@@ -198,7 +260,9 @@ extension PlaceBottomSheet {
         bottomSheetView.addSubviews([sheetBar,
                                      baseStackView, linkButton])
         [placeInformationView,
-         saveBookmarkButton].forEach {
+         saveBookmarkButton,
+         wishBookmarkButton,
+         doneBookmarkButton].forEach {
             baseStackView.addArrangedSubview($0)
         }
         
@@ -265,26 +329,38 @@ extension PlaceBottomSheet {
         saveBookmarkButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in
-                guard let self = self else { return }
+                guard let self = self, let searchPlaceInfo else { return }
                 
-                let bottomSheetVC = BookmarkBottomSheetVC()
-                let data = BookmarkCardModel(id: 0,
-                                             thumbnailImage: .empty,
-                                             placeName: placeName,
-                                             categoryName: categoryName,
-                                             starCount: 0,
-                                             address: address,
-                                             groupType: "WANT",
-                                             withPeople: .empty,
-                                             relLink1: .empty,
-                                             relLink2: .empty,
-                                             relLink3: .empty,
-                                             infoHidden: false) // TODO: - 북마크 저장 정보 조회 및 저장 서버연결
-                bottomSheetVC.configureSheetData(with: data)
+                let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
+                bottomSheetVC.configureInitialData(with: searchPlaceInfo)
                 
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 self.present(bottomSheetVC, animated: true)
             })
+            .disposed(by: bag)
+        
+        wishBookmarkButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                guard let bookmarkSummary = owner.bookmarkSummary else { return }
+                let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: true)
+                bottomSheetVC.configureSheetData(with: bookmarkSummary)
+                bottomSheetVC.modalPresentationStyle = .overFullScreen
+                
+                owner.present(bottomSheetVC, animated: true)
+            }
+            .disposed(by: bag)
+        
+        doneBookmarkButton.rx.tap
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                guard let bookmarkSummary = owner.bookmarkSummary else { return }
+                let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: true)
+                bottomSheetVC.configureSheetData(with: bookmarkSummary)
+                bottomSheetVC.modalPresentationStyle = .overFullScreen
+                
+                owner.present(bottomSheetVC, animated: true)
+            }
             .disposed(by: bag)
     }
     
