@@ -58,7 +58,7 @@ struct BookmarkPlaceInfo: Codable {
     let kakaoPid: String
     let name: String
     let url: String
-    let categoryGroupCode: String
+    let categoryGroupCode: String?
     let kakaoCategoryName: String
     let category: String
     let subCategory: String

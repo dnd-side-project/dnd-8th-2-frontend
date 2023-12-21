@@ -18,8 +18,8 @@ struct SearchPlaceKeywordResponseModel: Codable {
 
 struct SearchPlaceKeywordListContent: Codable {
     let kakaoPID, name, url: String
-    let thumbnailImage: String?
-    let categoryGroupCode, kakaoCategoryName, category, subCategory: String
+    let thumbnailImage, categoryGroupCode: String?
+    let kakaoCategoryName, category, subCategory: String
     let phone, lotNumberAddress, roadAddress: String
     let lng, lat: String
     let type: String?
