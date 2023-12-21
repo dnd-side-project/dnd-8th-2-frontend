@@ -234,7 +234,7 @@ extension BookmarkHistoryVC: BookmarkCardAction {
     }
     
     func showBottomSheet(index: Int) {
-        let bottomSheetVC = BookmarkBottomSheetVC()
+        let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: true)
         let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         

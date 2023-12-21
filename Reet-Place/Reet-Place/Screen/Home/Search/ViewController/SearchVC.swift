@@ -590,7 +590,7 @@ extension SearchVC: BookmarkCardAction {
     }
     
     private func showBottomSheet(index: Int) {
-        let bottomSheetVC = BookmarkBottomSheetVC()
+        let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
         // TODO: - 북마크 바텀 카드 정보 값 대응
         let cardInfo = viewModel.output.searchResult.list.value[index]
         print("장소 정보 호출: ", cardInfo)

@@ -144,13 +144,25 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
     private let viewModel: BookmarkBottomSheetVM = .init()
     
     private var urlField : [ReetTextField] = []
-    var isBookmarking = true
+    private let isBookmarking: Bool
     
     private var bottomSheetData: BookmarkCardModel?
     
     let deletedBookmarkId: PublishSubject<Int> = .init()
     let modifiedBookmarkInfo: PublishSubject<BookmarkInfo> = .init()
     
+    
+    // MARK: - Initialize
+    
+    init(isBookmarking: Bool) {
+        self.isBookmarking = isBookmarking
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
