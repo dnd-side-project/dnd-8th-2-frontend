@@ -30,3 +30,22 @@ struct SearchPlaceListContent: Codable {
         case bookmarkID = "bookmarkId"
     }
 }
+
+extension SearchPlaceListContent {
+    func toBookmarkSavePlace() -> BookmarkSavePlaceModel {
+        return .init(
+            kakaoPlaceId: kakaoPID,
+            name: name,
+            url: url,
+            kakaoCategoryName: kakaoCategoryName,
+            categoryGroupCode: categoryGroupCode,
+            category: category,
+            subCategory: subCategory,
+            phone: phone,
+            lotNumberAddress: lotNumberAddress,
+            roadAddress: roadAddress,
+            lat: lat,
+            lng: lng
+        )
+    }
+}

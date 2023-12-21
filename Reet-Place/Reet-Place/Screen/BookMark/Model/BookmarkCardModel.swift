@@ -22,3 +22,21 @@ struct BookmarkCardModel {
     
     var infoHidden: Bool = true
 }
+
+extension BookmarkCardModel {
+    static var empty: BookmarkCardModel {
+        return .init(
+            id: 0,
+            thumbnailImage: nil,
+            placeName: .empty,
+            categoryName: .empty,
+            starCount: 1,
+            address: .empty,
+            groupType: .empty,
+            withPeople: nil,
+            relLink1: nil,
+            relLink2: nil,
+            relLink3: nil
+        )
+    }
+}
