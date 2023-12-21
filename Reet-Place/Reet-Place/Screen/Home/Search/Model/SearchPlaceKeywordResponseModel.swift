@@ -32,3 +32,24 @@ struct SearchPlaceKeywordListContent: Codable {
         case rate
     }
 }
+
+extension SearchPlaceKeywordListContent {
+    func toSearchPlaceListContent() -> SearchPlaceListContent {
+        return .init(
+            kakaoPID: kakaoPID,
+            name: name,
+            url: url,
+            kakaoCategoryName: kakaoCategoryName,
+            category: category,
+            subCategory: subCategory,
+            categoryGroupCode: categoryGroupCode,
+            phone: phone,
+            lotNumberAddress: lotNumberAddress,
+            roadAddress: roadAddress,
+            lat: lat,
+            lng: lng,
+            type: type,
+            bookmarkID: bookmarkID
+        )
+    }
+}
