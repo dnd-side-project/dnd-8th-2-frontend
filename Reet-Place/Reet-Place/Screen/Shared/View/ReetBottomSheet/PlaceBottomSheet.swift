@@ -227,6 +227,12 @@ extension PlaceBottomSheet {
     }
     
     private func configureButton() {
+        [saveBookmarkButton,
+         wishBookmarkButton,
+         doneBookmarkButton].forEach {
+            $0.isHidden = true
+        }
+        
         switch bookmarkType {
         case .standard:
             saveBookmarkButton.isHidden = false
@@ -339,6 +345,7 @@ extension PlaceBottomSheet {
                     .subscribe { owner, bookmarkType in
                         owner.bookmarkType = bookmarkType
                         owner.updateMarkerIcon(isSelected: true)
+                        owner.configureButton()
                         owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 157.0)
                     }
                     .disposed(by: bag)
