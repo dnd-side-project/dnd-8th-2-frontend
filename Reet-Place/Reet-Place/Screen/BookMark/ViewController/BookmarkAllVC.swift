@@ -50,6 +50,7 @@ class BookmarkAllVC: BaseNavigationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.input.page.accept(0)
         viewModel.getBookmarkList(type: .all)
     }
     
