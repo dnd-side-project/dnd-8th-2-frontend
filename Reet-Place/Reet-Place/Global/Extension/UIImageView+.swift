@@ -10,7 +10,7 @@ import Kingfisher
 
 extension UIImageView {
     
-    func setImage(with urlString: String, placeholder: UIImage) {
+    func setImage(with urlString: String, placeholder: UIImage? = nil) {
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
             switch result {
             case .success(let value):

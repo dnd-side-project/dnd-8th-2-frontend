@@ -76,7 +76,7 @@ extension BookmarkCardTVC {
         
         if let thumbnailImage = cardInfo.thumbnailImage {
             thumbnailImageView.isHidden = false
-            thumbnailImageView.setImage(with: thumbnailImage, placeholder: UIImage())
+            thumbnailImageView.setImage(with: thumbnailImage)
         } else {
             thumbnailImageView.isHidden = true
         }
