@@ -83,10 +83,7 @@ final class BookmarkMapVC: BaseNavigationViewController {
                 let bottomSheetVC = PlaceBottomSheet()
                 bottomSheetVC.modalPresentationStyle = .overFullScreen
                 bottomSheetVC.configurePlaceBottomSheet(
-                    placeName: summary.name,
-                    address: summary.roadAddress,
-                    category: summary.category,
-                    urlLink: summary.url,
+                    bookmarkSummary: summary,
                     bookmarkType: bookmarkType,
                     marker: marker
                 )

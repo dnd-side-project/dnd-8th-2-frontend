@@ -52,6 +52,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.input.page.accept(0)
         viewModel.getBookmarkList(type: .done)
     }
     
@@ -234,7 +235,7 @@ extension BookmarkHistoryVC: BookmarkCardAction {
     }
     
     func showBottomSheet(index: Int) {
-        let bottomSheetVC = BookmarkBottomSheetVC()
+        let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: true)
         let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         

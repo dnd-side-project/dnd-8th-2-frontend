@@ -151,17 +151,15 @@ class PlaceInfoView: BaseView {
         categoryLabel.text = cardInfo.categoryName
         
         // 사용자의 장소 저장 분류
-        var groupIconImage: UIImage?
         // TODO: - 서버 연결 후 저장 그룹 enum 타입 관리 및 localized 처리
         switch cardInfo.groupType {
         case "WANT":
-            groupIconImage = AssetsImages.cardWishChip20
+            groupIconImageView.image = AssetsImages.cardWishChip20
         case "DONE":
-            groupIconImage = AssetsImages.cardHistoryChip20
+            groupIconImageView.image = AssetsImages.cardHistoryChip20
         default:
-            groupIconImage = nil
+            groupIconImageView.image = nil
         }
-        groupIconImageView.image = groupIconImage
         
         // 사용자 별점
         var starsText: String = .empty
@@ -187,10 +185,12 @@ class PlaceInfoView: BaseView {
         baseStackView.setCustomSpacing(cardInfo.groupType == .empty ? 0.0 : 8.0, after: addressStackView)
         
         let urlList = [cardInfo.relLink1, cardInfo.relLink2, cardInfo.relLink3].compactMap { $0 }
-        registeredLabel.text = "등록된 정보 (\(urlList.count))"
+        registeredLabel.text = "작성한 메모"
         toggleStackView.isHidden = cardInfo.infoHidden
         isActivateToggleStackView(active: urlList.count != 0)
         isExpandMoreImageView(expand: !cardInfo.infoHidden)
+        
+        registeredStackView.isHidden = (cardInfo.withPeople == nil && urlList.isEmpty)
         
         // 함께할 사람들
         if let withPeople = cardInfo.withPeople {
@@ -205,7 +205,6 @@ class PlaceInfoView: BaseView {
             relatedUrlLabel.isHidden = false
             urlViewList[index].isHidden = false
         }
-
     }
     
     /// PlaceInfoView를 사용하는 셀(Cell)의 재사용 함수에서 호출되는 PlaceInfoView 재사용 함수

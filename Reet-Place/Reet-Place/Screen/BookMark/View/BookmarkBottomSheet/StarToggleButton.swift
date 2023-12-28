@@ -85,10 +85,8 @@ final class StarToggleButton: BaseView {
     }
     
     func setStarCount(_ count: Int) {
-        var starCount = 1
-        if count > 3 { starCount = 3 }
-        selectedStarCount = starCount
-        switch starCount {
+        selectedStarCount = count > 3 ? 3 : count
+        switch selectedStarCount {
         case 1:
             oneStarBtn.isSelected = true
         case 2:

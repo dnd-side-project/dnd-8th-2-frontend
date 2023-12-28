@@ -144,10 +144,7 @@ extension HomeVC {
                     bottomSheetVC.modalPresentationStyle = .custom
                     bottomSheetVC.modalPresentationStyle = .overFullScreen
                     
-                    bottomSheetVC.configurePlaceBottomSheet(placeName: placeInfo.name,
-                                                            address: placeInfo.roadAddress,
-                                                            category: placeInfo.category,
-                                                            urlLink: placeInfo.url,
+                    bottomSheetVC.configurePlaceBottomSheet(searchPlaceInfo: placeInfo,
                                                             bookmarkType: bookmarkType,
                                                             marker: marker)
                     

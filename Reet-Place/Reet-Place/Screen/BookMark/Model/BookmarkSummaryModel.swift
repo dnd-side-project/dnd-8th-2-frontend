@@ -9,6 +9,7 @@ import Foundation
 
 struct BookmarkSummaryModel {
     let id: Int
+    let thumbnailImage: String?
     let type: String
     let name: String
     let url: String
@@ -18,4 +19,25 @@ struct BookmarkSummaryModel {
     let roadAddress: String
     let lat: Double
     let lng: Double
+    let rate: Int
+    let people: String?
+    let relLink1: String?
+    let relLink2: String?
+    let relLink3: String?
+    
+    func toBookmarkCardModel() -> BookmarkCardModel {
+        return .init(
+            id: id,
+            thumbnailImage: thumbnailImage,
+            placeName: name,
+            categoryName: category,
+            starCount: rate,
+            address: roadAddress,
+            groupType: type,
+            withPeople: people,
+            relLink1: relLink1,
+            relLink2: relLink2,
+            relLink3: relLink3
+        )
+    }
 }

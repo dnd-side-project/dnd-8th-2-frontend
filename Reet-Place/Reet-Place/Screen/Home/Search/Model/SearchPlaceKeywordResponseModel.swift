@@ -18,8 +18,8 @@ struct SearchPlaceKeywordResponseModel: Codable {
 
 struct SearchPlaceKeywordListContent: Codable {
     let kakaoPID, name, url: String
-    let thumbnailImage: String?
-    let categoryGroupCode, kakaoCategoryName, category, subCategory: String
+    let thumbnailImage, categoryGroupCode: String?
+    let kakaoCategoryName, category, subCategory: String
     let phone, lotNumberAddress, roadAddress: String
     let lng, lat: String
     let type: String?
@@ -30,5 +30,26 @@ struct SearchPlaceKeywordListContent: Codable {
         case name, url, thumbnailImage, categoryGroupCode, kakaoCategoryName, category, subCategory, phone, lotNumberAddress, roadAddress, lat, lng, type
         case bookmarkID = "bookmarkId"
         case rate
+    }
+}
+
+extension SearchPlaceKeywordListContent {
+    func toSearchPlaceListContent() -> SearchPlaceListContent {
+        return .init(
+            kakaoPID: kakaoPID,
+            name: name,
+            url: url,
+            kakaoCategoryName: kakaoCategoryName,
+            category: category,
+            subCategory: subCategory,
+            categoryGroupCode: categoryGroupCode,
+            phone: phone,
+            lotNumberAddress: lotNumberAddress,
+            roadAddress: roadAddress,
+            lat: lat,
+            lng: lng,
+            type: type,
+            bookmarkID: bookmarkID
+        )
     }
 }
