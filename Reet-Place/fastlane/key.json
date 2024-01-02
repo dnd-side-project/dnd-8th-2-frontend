@@ -1,0 +1,7 @@
+{
+  "key_id": "ABKQCS2K93",
+  "issuer_id": "95802945-ed43-4c01-bb93-fb127ea864e1",
+  "key": "-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgW0vADgbTbrxkpCNEiIjAH+4UF0lzOKBStezR58dsb0KgCgYIKoZIzj0DAQehRANCAAT0yA7sy6FMOBLQbDk79IqRnKez5eyrIC6kJ/EUl2GPIrTB/66Z4a1BvfYxceFT3LcxzLQowfL9uGBE5rjSiloD\n-----END PRIVATE KEY-----",
+  "duration": 1200,
+  "in_house": false
+}
