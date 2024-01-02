@@ -13,6 +13,25 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### sync_certificate_device
+
+```sh
+[bundle exec] fastlane sync_certificate_device
+```
+
+
+
+### sync_device_info
+
+```sh
+[bundle exec] fastlane sync_device_info
+```
+
+
+
+----
+
+
 ## iOS
 
 ### ios beta

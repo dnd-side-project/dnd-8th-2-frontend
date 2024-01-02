@@ -4,6 +4,8 @@ storage_mode("git")
 
 type("development") # The default type, can be: appstore, adhoc, enterprise or development
 
+force_for_new_devices(true)
+
 app_identifier(["ac.dnd.Reet-Place"])
 username("k2hop1210@gmail.com") # Your Apple Developer Portal username
 

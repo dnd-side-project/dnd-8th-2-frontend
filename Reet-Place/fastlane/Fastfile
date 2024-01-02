@@ -34,3 +34,14 @@ platform :ios do
     )
   end
 end
+
+lane :sync_certificate_device do
+  sync_device_info
+  match(type:"development")
+end
+
+lane :sync_device_info do
+  register_devices(
+    devices_file: "fastlane/Devicefile"
+  )
+end
