@@ -71,6 +71,7 @@ struct AssetsImages {
     static let link = UIImage(named: "Link")?.withRenderingMode(.alwaysOriginal)
     static let addFolder = UIImage(named: "AddFolder")?.withRenderingMode(.alwaysOriginal)
     static let delete = UIImage(named: "Delete16")?.withRenderingMode(.alwaysOriginal)
+    static let starFolder = UIImage(named: "StarFolder")?.withRenderingMode(.alwaysOriginal)
     
     // CategoryFilter
     static let refresh = UIImage(named: "Refresh")?.withRenderingMode(.alwaysTemplate)

@@ -12,6 +12,10 @@
 		0E05F0012A4C7DE5008A20F4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0002A4C7DE5008A20F4 /* OnboardingView.swift */; };
 		0E05F0032A4D8707008A20F4 /* FirstTypeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */; };
 		0E05F0052A4D8787008A20F4 /* OtherTypeOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */; };
+		0E1B62CD2B315AB900C1E609 /* BookmarkSummaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62CC2B315AB900C1E609 /* BookmarkSummaryModel.swift */; };
+		0E1B62CF2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62CE2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift */; };
+		0E1B62D12B3174FE00C1E609 /* DeleteAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62D02B3174FE00C1E609 /* DeleteAccountModel.swift */; };
+		0E1B62D32B332D2C00C1E609 /* BookmarkSaveRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B62D22B332D2C00C1E609 /* BookmarkSaveRequestModel.swift */; };
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
@@ -45,6 +49,8 @@
 		0EAFCFDC2A2888700023A738 /* SelectBoxTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAFCFDB2A2888700023A738 /* SelectBoxTVC.swift */; };
 		0EB8D81229FF8C0E00E79BA4 /* PopUpType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */; };
 		0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */; };
+		0EDD36B12B29FB8400D44F06 /* BookmarkMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */; };
+		0EDD36B32B29FDEA00D44F06 /* BookmarkMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */; };
 		0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */; };
 		0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED227029F8CB6800C8102E /* CheckboxButton.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
@@ -209,6 +215,10 @@
 		0E05F0022A4D8707008A20F4 /* FirstTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTypeOnboardingView.swift; sourceTree = "<group>"; };
 		0E05F0042A4D8787008A20F4 /* OtherTypeOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTypeOnboardingView.swift; sourceTree = "<group>"; };
 		0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceDebug.entitlements"; sourceTree = "<group>"; };
+		0E1B62CC2B315AB900C1E609 /* BookmarkSummaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSummaryModel.swift; sourceTree = "<group>"; };
+		0E1B62CE2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSummaryResponseModel.swift; sourceTree = "<group>"; };
+		0E1B62D02B3174FE00C1E609 /* DeleteAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModel.swift; sourceTree = "<group>"; };
+		0E1B62D22B332D2C00C1E609 /* BookmarkSaveRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSaveRequestModel.swift; sourceTree = "<group>"; };
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
@@ -242,6 +252,8 @@
 		0EAFCFDB2A2888700023A738 /* SelectBoxTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBoxTVC.swift; sourceTree = "<group>"; };
 		0EB8D81129FF8C0E00E79BA4 /* PopUpType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpType.swift; sourceTree = "<group>"; };
 		0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletedVC.swift; sourceTree = "<group>"; };
+		0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVC.swift; sourceTree = "<group>"; };
+		0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVM.swift; sourceTree = "<group>"; };
 		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
 		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
@@ -475,6 +487,9 @@
 				0E502B782A919DEE002C71F2 /* BookmarkCountResponseModel.swift */,
 				0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */,
 				0E5AF36C2B1B8CEF003E7223 /* BookmarkModifyRequestModel.swift */,
+				0E1B62CC2B315AB900C1E609 /* BookmarkSummaryModel.swift */,
+				0E1B62CE2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift */,
+				0E1B62D22B332D2C00C1E609 /* BookmarkSaveRequestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -485,6 +500,7 @@
 				0EAD37D929E6F13600C3EA38 /* BookmarkVM.swift */,
 				0EA432E229A113CE00C4D47F /* BookmarkCardListVM.swift */,
 				0E5AF36A2B1B829C003E7223 /* BookmarkBottomSheetVM.swift */,
+				0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -749,6 +765,7 @@
 		3C2AEF572990CAB200E36342 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */,
 				3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */,
 				0E8CA697299FC63300F98C15 /* BookmarkAllVC.swift */,
 				0EA432D829A0894400C4D47F /* BookmarkWishlistVC.swift */,
@@ -1115,6 +1132,7 @@
 			children = (
 				A4D09ECE299F9D10004DEE97 /* UserInfoMenu.swift */,
 				3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */,
+				0E1B62D02B3174FE00C1E609 /* DeleteAccountModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1377,6 +1395,7 @@
 				3C4DA53F2A56518900274692 /* LoginVC.swift in Sources */,
 				0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */,
 				3C2784162A0A652E0095B706 /* ReetMenuTarBarCVC.swift.swift in Sources */,
+				0E1B62CD2B315AB900C1E609 /* BookmarkSummaryModel.swift in Sources */,
 				A4AABE6F299BC0D400BA9D37 /* AssetFonts.swift in Sources */,
 				3C09F6962A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift in Sources */,
 				3C72D9302B34074800AF2190 /* CoreDataEntityList.swift in Sources */,
@@ -1443,6 +1462,8 @@
 				3C04A7C32A4C072B00A31FA3 /* PlaceInfoView.swift in Sources */,
 				A4917E022996A4D300DF2A65 /* AssetColors.swift in Sources */,
 				3C09F69A2A5F936600B6B0BF /* EmptyEntity.swift in Sources */,
+				0E1B62CF2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift in Sources */,
+				0E1B62D32B332D2C00C1E609 /* BookmarkSaveRequestModel.swift in Sources */,
 				0E502B792A919DEE002C71F2 /* BookmarkCountResponseModel.swift in Sources */,
 				A49515F129A0764400A12EE1 /* UserProfileView.swift in Sources */,
 				3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */,
@@ -1457,6 +1478,7 @@
 				A4EFC099299E608500B066AF /* BaseNavigationViewController.swift in Sources */,
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
 				3C14917A2A6A403400B499B8 /* MarkerExtendedStackView.swift in Sources */,
+				0E1B62D12B3174FE00C1E609 /* DeleteAccountModel.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
 				0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */,
@@ -1466,6 +1488,8 @@
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
 				3C423F2B29AAF649003B7B7D /* CategoryChipButton.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
+				3C9256762A1CE2DF0011B093 /* CategoryDetailShoppingDataSource.swift in Sources */,
+				0EDD36B32B29FDEA00D44F06 /* BookmarkMapVM.swift in Sources */,
 				3C976C8129AA61110002F8A7 /* PlaceCategoryList.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
 				0EA432E729A13EBE00C4D47F /* RelatedURLButton.swift in Sources */,
@@ -1486,6 +1510,7 @@
 				3C2AF0D929913FF000E36342 /* SceneDelegate.swift in Sources */,
 				3CE5B0EE2B2754FC0080F606 /* BookmarkCardAction.swift in Sources */,
 				0E05F0012A4C7DE5008A20F4 /* OnboardingView.swift in Sources */,
+				0EDD36B12B29FB8400D44F06 /* BookmarkMapVC.swift in Sources */,
 				A4EFC095299E50DF00B066AF /* KeychainManager.swift in Sources */,
 				A4917E172996A8B300DF2A65 /* ButtonDisabledColorProvider.swift in Sources */,
 				3C27841D2A0A6F1B0095B706 /* TabPlaceCategoryList.swift in Sources */,
@@ -1678,16 +1703,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceDebug.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C9U8778A7W;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Reet-Place/Support/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 받습니다";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 받습니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 받습니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1696,9 +1728,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ac.dnd.Reet-Place";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development ac.dnd.Reet-Place";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1708,15 +1745,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Reet-Place/Support/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 받습니다";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 받습니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 받습니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1725,9 +1769,14 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ac.dnd.Reet-Place";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore ac.dnd.Reet-Place";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

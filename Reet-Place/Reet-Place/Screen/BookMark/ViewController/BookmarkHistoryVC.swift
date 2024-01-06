@@ -52,6 +52,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.input.page.accept(0)
         viewModel.getBookmarkList(type: .done)
     }
     
@@ -70,6 +71,7 @@ class BookmarkHistoryVC: BaseNavigationViewController {
     override func bindInput() {
         super.bindInput()
         
+        bindButton()
     }
     
     override func bindOutput() {
@@ -127,9 +129,19 @@ extension BookmarkHistoryVC {
 }
 
 
-// MARK: - Output
+// MARK: - Bind
 
 extension BookmarkHistoryVC {
+    
+    private func bindButton() {
+        viewOnMapBtn.rx.tap
+            .withUnretained(self)
+            .bind { owner, _ in
+                let bookmarkMapVC = BookmarkMapVC(bookmarkType: .done)
+                bookmarkMapVC.pushWithHidesReetPlaceTabBar()
+            }
+            .disposed(by: bag)
+    }
     
     private func bindBookmarkHistory() {
         viewModel.output.bookmarkList
@@ -223,7 +235,7 @@ extension BookmarkHistoryVC: BookmarkCardAction {
     }
     
     func showBottomSheet(index: Int) {
-        let bottomSheetVC = BookmarkBottomSheetVC()
+        let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: true)
         let cardInfo = viewModel.output.bookmarkList.value[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         

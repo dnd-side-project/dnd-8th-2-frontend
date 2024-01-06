@@ -27,6 +27,7 @@ final class BookmarkBottomSheetVM: BaseViewModel {
     struct Output {
         var isSuccessDelete: PublishSubject<Bool> = .init()
         var isSuccessModify: PublishSubject<BookmarkInfo> = .init()
+        var isSuccessSave: PublishSubject<BookmarkType> = .init()
     }
     
     // MARK: - Life Cycle
@@ -58,6 +59,34 @@ extension BookmarkBottomSheetVM {
 // MARK: - Networking
 
 extension BookmarkBottomSheetVM {
+    
+    func saveBookmark(searchPlaceInfo: SearchPlaceListContent, modifyInfo: BookmarkCardModel) {
+        let path = "/api/bookmarks"
+        let resource = URLResource<BookmarkInfo>(path: path)
+        let requestModel = BookmarkSaveRequestModel(
+            place: searchPlaceInfo.toBookmarkSavePlace(),
+            type: modifyInfo.groupType,
+            rate: modifyInfo.starCount,
+            people: modifyInfo.withPeople,
+            relLink1: modifyInfo.relLink1,
+            relLink2: modifyInfo.relLink2,
+            relLink3: modifyInfo.relLink3
+        )
+        
+        requestSaveBookmark(urlResource: resource, parameter: requestModel)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    let bookmarkType = BookmarkType(rawValue: data.type) ?? .standard
+                    owner.output.isSuccessSave.onNext(bookmarkType)
+                case .failure(let error):
+                    print(error)
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
     
     func deleteBookmark(id: Int) {
         let path = "/api/bookmarks/\(id)"
@@ -153,6 +182,37 @@ extension BookmarkBottomSheetVM {
                     case .success(let data):
                         observer.onNext(.success(data))
                         
+                    case .failure(let error):
+                        dump(error)
+                        guard let error = response.response else { return }
+                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
+                    }
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+    private func requestSaveBookmark<T>(urlResource: URLResource<T>, parameter: Encodable) -> Observable<Result<T, APIError>> where T : Decodable {
+        Observable<Result<T, APIError>>.create { observer in
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
+            
+            let task = AF.request(urlResource.resultURL,
+                                  method: .post,
+                                  parameters: parameter,
+                                  encoder: JSONParameterEncoder.default,
+                                  headers: headers,
+                                  interceptor: AuthInterceptor())
+                .validate(statusCode: 200...399)
+                .responseDecodable(of: T.self) { response in
+                    debugPrint(response)
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(.success(data))
                     case .failure(let error):
                         dump(error)
                         guard let error = response.response else { return }

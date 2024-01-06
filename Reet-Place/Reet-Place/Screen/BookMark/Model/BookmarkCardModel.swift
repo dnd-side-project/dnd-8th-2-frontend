@@ -9,7 +9,7 @@ import Foundation
 
 struct BookmarkCardModel {
     let id: Int
-    let thumbnailImage: String
+    let thumbnailImage: String?
     let placeName: String
     let categoryName: String
     let starCount: Int
@@ -21,4 +21,22 @@ struct BookmarkCardModel {
     let relLink3: String?
     
     var infoHidden: Bool = true
+}
+
+extension BookmarkCardModel {
+    static var empty: BookmarkCardModel {
+        return .init(
+            id: 0,
+            thumbnailImage: nil,
+            placeName: .empty,
+            categoryName: .empty,
+            starCount: 1,
+            address: .empty,
+            groupType: .empty,
+            withPeople: nil,
+            relLink1: nil,
+            relLink2: nil,
+            relLink3: nil
+        )
+    }
 }

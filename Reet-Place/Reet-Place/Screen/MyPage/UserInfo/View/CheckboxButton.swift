@@ -7,10 +7,14 @@
 
 import UIKit
 
+import RxSwift
+
 import Then
 import SnapKit
 
 class CheckboxButton: UIButton {
+    
+    // MARK: - UI Components
     
     private let stackView = UIStackView()
         .then {
@@ -21,22 +25,30 @@ class CheckboxButton: UIButton {
             $0.axis = .horizontal
         }
     
-    let checkImageView = UIImageView(image: AssetsImages.deselectedCheckbox)
+    private let checkImageView = UIImageView(image: AssetsImages.deselectedCheckbox)
         .then {
             $0.contentMode = .scaleAspectFit
         }
     
-    let reasonLabel = BaseAttributedLabel(font: .body2,
+    private let reasonLabel = BaseAttributedLabel(font: .body2,
                                           text: .empty,
                                           alignment: .left,
                                           color: AssetColors.black)
     
+    
+    // MARK: - Properties
+    
     override var isSelected: Bool {
         didSet {
             checkImageView.image = isSelected ? AssetsImages.selectedCheckbox : AssetsImages.deselectedCheckbox
+            isSelectedSubject.onNext(isSelected)
         }
     }
     
+    let isSelectedSubject: PublishSubject<Bool> = .init()
+    
+    
+    // MARK: - Initialize
     
     init(frame: CGRect = .zero, with title: String?) {
         super.init(frame: frame)
@@ -47,6 +59,9 @@ class CheckboxButton: UIButton {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    // MARK: - Methods
     
     private func configureButton(with title: String?) {
         addSubview(stackView)
@@ -71,7 +86,7 @@ class CheckboxButton: UIButton {
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    @objc func buttonTapped() {
-        isSelected = !isSelected
+    @objc private func buttonTapped() {
+        isSelected.toggle()
     }
 }

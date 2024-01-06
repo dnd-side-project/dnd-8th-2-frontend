@@ -88,7 +88,7 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
             thumbnailImageView.layer.borderWidth = 0.0
             
             // TODO: - UIImageView+의 setImage 함수 placeholder 파라미터 추가 됨 (임시 코드 - UIImage() 삽입)
-            thumbnailImageView.setImage(with: typeInfo.thumbnailUrlString, placeholder: UIImage())
+            thumbnailImageView.setImage(with: typeInfo.thumbnailUrlString)
         } else {
             thumbnailImageView.contentMode = .scaleAspectFit
             thumbnailImageView.layer.borderWidth = 1.0

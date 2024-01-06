@@ -5,23 +5,18 @@
 //  Created by Kim HeeJae on 2023/07/11.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
-// MARK: - DeleteAccount RequestModel
-
-struct DeleteAccountRequestModel{
-    let surveyType: DeleteAccountSurveyType
-    let description: String
+struct DeleteAccountRequestModel {
+    let data: [DeleteAccountModel]
 }
-
-// MARK: - Paramters
 
 extension DeleteAccountRequestModel {
     var parameter: Parameters {
         return [
-            "surveyType": surveyType.rawValue,
-            "description": description
+            "data": data.map { $0.parameter }
         ]
     }
 }
+

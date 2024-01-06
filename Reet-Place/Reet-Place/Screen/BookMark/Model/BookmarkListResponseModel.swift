@@ -24,9 +24,9 @@ struct BookmarkInfo: Codable {
     let member: BookmarkUserInfo
     let place: BookmarkPlaceInfo
     let type: String
-    let thumbnailImage: String
+    let thumbnailImage: String?
     let rate: Int
-    let people: String
+    let people: String?
     let relLink1: String?
     let relLink2: String?
     let relLink3: String?
@@ -58,7 +58,7 @@ struct BookmarkPlaceInfo: Codable {
     let kakaoPid: String
     let name: String
     let url: String
-    let categoryGroupCode: String
+    let categoryGroupCode: String?
     let kakaoCategoryName: String
     let category: String
     let subCategory: String

@@ -565,8 +565,20 @@ extension SearchVC: BookmarkCardAction {
     private func actionDefaultPlaceInfoCell(index: Int, row: Int) {
         switch row {
         case 0:
-            // TODO: - 검색결과 북마크 추가 기능
-            print("북마크(추가) 메뉴 선택")
+            let searchPlaceInfo = viewModel.output.searchResult.list.value[index]
+            let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
+            bottomSheetVC.configureInitialData(with: searchPlaceInfo.toSearchPlaceListContent())
+            
+            bottomSheetVC.savedBookmarkType
+                .withUnretained(self)
+                .subscribe { owner, _ in
+                    // TODO: - 저장 완료 후 검색 결과 리스트 업데이트 방식 논의 필요
+                    owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 20.0)
+                }
+                .disposed(by: bag)
+            
+            bottomSheetVC.modalPresentationStyle = .overFullScreen
+            present(bottomSheetVC, animated: true)
         case 1:
             // TODO: - 장소공유 기능
             print("공유하기 메뉴 선택")
@@ -589,7 +601,7 @@ extension SearchVC: BookmarkCardAction {
     }
     
     private func showBottomSheet(index: Int) {
-        let bottomSheetVC = BookmarkBottomSheetVC()
+        let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
         // TODO: - 북마크 바텀 카드 정보 값 대응
         let cardInfo = viewModel.output.searchResult.list.value[index]
         print("장소 정보 호출: ", cardInfo)

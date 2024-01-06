@@ -117,7 +117,11 @@ extension BookmarkCardListVM {
                     
                     owner.output.isLastPage.accept(data.last)
                     owner.input.page.accept(page + 1)
-                    owner.output.bookmarkList.accept(originBookmarkList + bookmarkList)
+                    if page == 0 {
+                        owner.output.bookmarkList.accept(bookmarkList)
+                    } else {
+                        owner.output.bookmarkList.accept(originBookmarkList + bookmarkList)
+                    }
                 case .failure(let error):
                     owner.apiError.onNext(error)
                 }
