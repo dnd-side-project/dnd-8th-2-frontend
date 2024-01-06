@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 문화생활
 enum CategoryDetailCultureList: String {
     case theater = "영화관"
     case driveInTheater = "자동차 극장"

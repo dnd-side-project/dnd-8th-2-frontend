@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 카페
 enum CategoryDetailCafeList: String {
     case bookCafe = "북카페"
     case comicBookCafe = "만화카페"

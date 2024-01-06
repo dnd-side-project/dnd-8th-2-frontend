@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 포토부스
 enum CategoryDetailPhotoBoothList: String {
     case lifefourcuts = "인생네컷"
     case photosignature = "포토시그니처"

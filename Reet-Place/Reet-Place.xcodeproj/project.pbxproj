@@ -874,12 +874,12 @@
 			children = (
 				3C9256652A1CCAE90011B093 /* CategoryDetailFoodList.swift */,
 				3CF3EAB72A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift */,
+				3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */,
 				3C9256692A1CD0090011B093 /* CategoryDetailActivityList.swift */,
 				3C92566D2A1CDE9F0011B093 /* CategoryDetailPhotoBoothList.swift */,
 				3C9256732A1CE26B0011B093 /* CategoryDetailShoppingList.swift */,
 				3C9256792A1CE40F0011B093 /* CategoryDetailCafeList.swift */,
 				3C92567F2A1CE5B00011B093 /* CategoryDetailCultureList.swift */,
-				3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */,
 			);
 			path = CategoryDetail;
 			sourceTree = "<group>";

@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 식당
 enum CategoryDetailRestaurantList: String {
-    // 식당
     case koreanFood = "한식"
     case chineseFood = "중식"
     case japaneseFood = "일식"

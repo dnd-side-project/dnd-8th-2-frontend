@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 식도락
 enum CategoryDetailFoodList: String {
     case restaurant = "식당"
     case bar = "주점"
@@ -31,7 +32,7 @@ extension CategoryDetailFoodList: CustomStringConvertible {
 // MARK: - 음식 하위 항목
 
 extension CategoryDetailFoodList {
-    var items: [String] {
+    var categoryDetailList: [String] {
         switch self {
         case .restaurant:
             return CategoryDetailRestaurantList.allCases.map { $0.rawValue }
