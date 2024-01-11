@@ -5,6 +5,7 @@
 //  Created by Aaron Lee on 2023/02/16.
 //
 
+import SafariServices
 import UIKit
 
 import SnapKit
@@ -148,11 +149,21 @@ extension MyPageVC {
                     owner.navigationController?
                         .pushViewController(vc, animated: true)
                     
-                case .qna, .servicePolicy, .privacyPoilcy:
+                // TODO: - qna 추가
+                case .qna:
                     let vc = menu.createVC()
                     
                     owner.navigationController?
                         .pushViewController(vc, animated: true)
+                    
+                case .servicePolicy, .privacyPoilcy:
+                    guard let url = menu.url else { return }
+                    let safariVC = SFSafariViewController(url: url)
+                    
+                    safariVC.preferredBarTintColor = AssetColors.white
+                    safariVC.preferredControlTintColor = AssetColors.primary500
+                    
+                    owner.present(safariVC, animated: true)
                     
                 case .signout:
                     let alert = UIAlertController(title: .empty,
