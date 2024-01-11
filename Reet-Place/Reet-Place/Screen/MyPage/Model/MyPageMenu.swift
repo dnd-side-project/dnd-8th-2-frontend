@@ -14,15 +14,14 @@ enum MyPageMenu: String {
     case userInfo = "UserInfo"
     case signout = "Signout"
     
+    // TODO: - qna 추가
     static let unAuthenticated = [
-        MyPageMenu.qna,
         MyPageMenu.servicePolicy,
         MyPageMenu.privacyPoilcy
     ]
     
     static let authenticated = [
         MyPageMenu.userInfo,
-        MyPageMenu.qna,
         MyPageMenu.servicePolicy,
         MyPageMenu.privacyPoilcy,
         MyPageMenu.signout
@@ -73,6 +72,21 @@ extension MyPageMenu {
             return UserInfoVC()
         case .signout:
             return UIViewController()
+        }
+    }
+}
+
+// MARK: - URL
+
+extension MyPageMenu {
+    var url: URL? {
+        switch self {
+        case .servicePolicy:
+            return URL(string: "https://wo-ogie.notion.site/fdbb5946fc7940a6a4cf8610431c1a25?pvs=4")
+        case .privacyPoilcy:
+            return URL(string: "https://wo-ogie.notion.site/5e9ca7c31738431089b5aeffd7423039?pvs=4")
+        default:
+            return nil
         }
     }
 }
