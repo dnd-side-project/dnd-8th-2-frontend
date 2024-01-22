@@ -119,8 +119,8 @@ extension KeychainManager {
     
     /// 업데이트를 통해 갱신된 토큰을 로컬에 저장
     func updateToken(updatedToken: UpdateTokenResponseModel) {
-        save(key: .accessToken, value: updatedToken.accessToken)
-        save(key: .refreshToken, value: updatedToken.refreshToken)
+        update(key: .accessToken, value: updatedToken.accessToken)
+        update(key: .refreshToken, value: updatedToken.refreshToken)
     }
     
     /// 로컬 디바이스에 저장된 사용자의 기본정보 모두 제거
