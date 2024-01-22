@@ -15,9 +15,13 @@ import SnapKit
 
 import Kingfisher
 
-class BookmarkVC: BaseNavigationViewController {
+final class BookmarkVC: BaseNavigationViewController {
     
     // MARK: - UI components
+    
+    override var alias: String {
+        "Bookmark"
+    }
     
     private let bookmarkTypeCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -35,10 +39,6 @@ class BookmarkVC: BaseNavigationViewController {
     private let requestLoginView = RequestLoginView()
     
     private let induceBookmarkView = InduceBookmarkView()
-    
-    override var alias: String {
-        "Bookmark"
-    }
     
     
     // MARK: - Variables and Properties

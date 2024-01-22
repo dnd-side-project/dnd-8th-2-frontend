@@ -17,6 +17,7 @@ import Then
 final class BookmarkListVC: BaseNavigationViewController {
     
     // MARK: - UI components
+    
     override var alias: String {
         switch bookmarkType {
         case .all:
