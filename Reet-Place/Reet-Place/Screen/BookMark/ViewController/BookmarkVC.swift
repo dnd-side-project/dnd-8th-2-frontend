@@ -194,7 +194,7 @@ extension BookmarkVC {
         allBookmarkBtn.rx.tap
             .bind(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                let bookmarkAllVC = BookmarkAllVC()
+                let bookmarkAllVC = BookmarkListVC(type: .all)
                 self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
             })
             .disposed(by: bag)
@@ -303,21 +303,17 @@ extension BookmarkVC: UICollectionViewDelegate {
         guard let wishListInfo = wishListInfo,
               let historyInfo = historyInfo else { return }
         
-        switch indexPath.row {
-        case 0:
-            if wishListInfo.cnt == 0 { return }
-            let bookmarkWishlistVC = BookmarkWishlistVC()
-            self.navigationController?.pushViewController(bookmarkWishlistVC, animated: true)
-        case 1:
-            if historyInfo.cnt == 0 { return }
-            let bookmarkHistoryVC = BookmarkHistoryVC()
-            self.navigationController?.pushViewController(bookmarkHistoryVC, animated: true)
-        default:
-            let bookmarkAllVC = BookmarkAllVC()
-            self.navigationController?.pushViewController(bookmarkAllVC, animated: true)
+        var bookmarkSearchType: BookmarkSearchType = .want
+        
+        if indexPath.row == 0 {
+            guard wishListInfo.cnt != 0 else { return }
+        } else {
+            guard historyInfo.cnt != 0 else { return }
+            bookmarkSearchType = .done
         }
         
-        
+        let bookmarkListVC = BookmarkListVC(type: bookmarkSearchType)
+        navigationController?.pushViewController(bookmarkListVC, animated: true)
     }
     
 }
