@@ -33,7 +33,47 @@ extension TabPlaceCategoryList: CustomStringConvertible {
     }
 }
 
+// MARK: - Category Detail
+
 extension TabPlaceCategoryList {
+    var categoryDetailList: [String] {
+        switch self {
+        case .food:
+            return CategoryDetailRestaurantList.allCases.map { $0.rawValue }
+        case .activity:
+            return CategoryDetailActivityList.allCases.map { $0.rawValue }
+        case .photoBooth:
+            return CategoryDetailPhotoBoothList.allCases.map { $0.rawValue }
+        case .shopping:
+            return CategoryDetailShoppingList.allCases.map { $0.rawValue }
+        case .cafe:
+            return CategoryDetailCafeList.allCases.map { $0.rawValue }
+        case .culture:
+            return CategoryDetailCultureList.allCases.map { $0.rawValue }
+        default:
+            return []
+        }
+    }
+    
+    var categoryDetailParameterList: [String] {
+        switch self {
+        case .food:
+            return CategoryDetailRestaurantList.allCases.map { $0.parameterCategory }
+        case .activity:
+            return CategoryDetailActivityList.allCases.map { $0.parameterCategory }
+        case .photoBooth:
+            return CategoryDetailPhotoBoothList.allCases.map { $0.parameterCategory }
+        case .shopping:
+            return CategoryDetailShoppingList.allCases.map { $0.parameterCategory }
+        case .cafe:
+            return CategoryDetailCafeList.allCases.map { $0.parameterCategory }
+        case .culture:
+            return CategoryDetailCultureList.allCases.map { $0.parameterCategory }
+        default:
+            return []
+        }
+    }
+    
     // TODO: - 카테고리별 검색기록 더미 데이터 삭제
     var list: [String] {
         switch self {
@@ -51,29 +91,6 @@ extension TabPlaceCategoryList {
             return ["어글리 베이커리"]
         case .culture:
             return ["용산 메가박스", "CGV 강남점"]
-        }
-    }
-}
-
-// MARK: - Functions
-
-extension TabPlaceCategoryList {
-    func createCategoryDetailView() -> CategoryDetailView? {
-        switch self {
-        case .all:
-            return nil
-        case .food:
-            return CategoryDetailFoodView(tabCategory: .food)
-        case .activity:
-            return CategoryDetailActivityView(tabCategory: .activity)
-        case .photoBooth:
-            return CategoryDetailPhotoBoothView(tabCategory: .photoBooth)
-        case .shopping:
-            return CategoryDetailShoppingView(tabCategory: .shopping)
-        case .cafe:
-            return CategoryDetailCafeView(tabCategory: .cafe)
-        case .culture:
-            return CategoryDetailCultureView(tabCategory: .culture)
         }
     }
 }

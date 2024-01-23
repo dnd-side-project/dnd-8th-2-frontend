@@ -137,7 +137,6 @@ class SearchVC: BaseViewController {
     // MARK: - Variables and Properties
     
     private let viewModel = SearchVM()
-    private let searchPlaceKeywordResultList: [SearchPlaceKeywordListContent] = []
     
     var delegateSearchPlaceAction: SearchPlaceAction?
     

@@ -137,8 +137,9 @@ extension SearchHistoryListCVC {
             keywordHistoryList.map { [KeywordHistoryDataSource(items: $0)] }
         }
         
-        keywordHistoryDataSource.bind(to: searchHistoryTableView.rx.items(dataSource: dataSource))
-        .disposed(by: bag)
+        keywordHistoryDataSource
+            .bind(to: searchHistoryTableView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
         
         keywordHistoryList
             .subscribe(onNext: { [weak self] items in
