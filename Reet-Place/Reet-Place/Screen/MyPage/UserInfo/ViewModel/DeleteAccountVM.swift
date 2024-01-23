@@ -30,6 +30,7 @@ final class DeleteAccountVM: BaseViewModel {
     struct Output {
         var deleteEnabled = BehaviorRelay<Bool>(value: false)
         var isUnlinkSuccess = PublishRelay<Bool>()
+        var loginType = PublishRelay<LoginType>()
     }
     
     // MARK: - Life Cycle
@@ -69,12 +70,12 @@ extension DeleteAccountVM: Output {
 
 extension DeleteAccountVM {
     
-    /// VC에서 회원탈퇴 요청
-    func requestDeleteAccount() {
+    /// 회원탈퇴 요청
+    /// - Parameter identifier: 카카오 회원 - Access Token / 애플 회원 - Authorization Code
+    func requestDeleteAccount(identifier: String) {
         let path = "/api/auth/unlink"
         let resource = URLResource<EmptyEntity>(path: path)
         let deleteAccountReason = createDeleteAccountRequestModel()
-        guard let identifier = KeychainManager.shared.read(for: .identifier) else { return }
         
         requestUnlink(urlResource: resource, parameter: deleteAccountReason.parameter, identifier: identifier)
             .withUnretained(self)
@@ -88,6 +89,7 @@ extension DeleteAccountVM {
                     print("탈퇴 실패")
                     print(error)
                     owner.apiError.onNext(error)
+                    owner.output.isUnlinkSuccess.accept(false)
                 }
             })
             .disposed(by: bag)
@@ -132,6 +134,17 @@ extension DeleteAccountVM {
 // MARK: - Custom Method
 
 extension DeleteAccountVM {
+    
+    /// 회원탈퇴를 진행하기 위해 로그인 타입을 확인
+    func checkLoginTypeForUnlink() {
+        guard let loginTypeString = KeychainManager.shared.read(for: .loginType),
+              let loginType = LoginType(rawValue: loginTypeString) else {
+            output.isUnlinkSuccess.accept(false)
+            return
+        }
+        
+        output.loginType.accept(loginType)
+    }
     
     /// 탈퇴 사유 선택
     /// - Parameter type: 선택한 사유 type
