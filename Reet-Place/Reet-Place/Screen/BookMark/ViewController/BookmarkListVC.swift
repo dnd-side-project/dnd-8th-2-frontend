@@ -1,26 +1,32 @@
 //
-//  BookmarkWishlistVC.swift
+//  BookmarkListVC.swift
 //  Reet-Place
 //
-//  Created by 김태현 on 2023/02/18.
+//  Created by 김태현 on 1/22/24.
 //
 
 import SafariServices
 import UIKit
 
-import SnapKit
-import Then
-
 import RxSwift
 import RxCocoa
 
+import SnapKit
+import Then
 
-class BookmarkWishlistVC: BaseNavigationViewController {
+final class BookmarkListVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
     override var alias: String {
-        "BookmarkWishlist"
+        switch bookmarkType {
+        case .all:
+            "BookmarkAll"
+        case .want:
+            "BookmarkWishlist"
+        case .done:
+            "BookmarkHistory"
+        }
     }
     
     private let filterView = BookmarkFilterView()
@@ -39,7 +45,22 @@ class BookmarkWishlistVC: BaseNavigationViewController {
     
     // MARK: - Variables and Properties
     
-    private let viewModel: BookmarkCardListVM = BookmarkCardListVM(type: .want)
+    private let viewModel: BookmarkCardListVM
+    private let bookmarkType: BookmarkSearchType
+    
+    
+    // MARK: - Initialize
+    
+    init(type: BookmarkSearchType) {
+        self.bookmarkType = type
+        self.viewModel = BookmarkCardListVM(type: type)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     // MARK: - Life Cycle
@@ -53,7 +74,7 @@ class BookmarkWishlistVC: BaseNavigationViewController {
         super.viewWillAppear(animated)
         
         viewModel.input.page.accept(0)
-        viewModel.getBookmarkList(type: .want)
+        viewModel.getBookmarkList(type: bookmarkType)
     }
     
     override func configureView() {
@@ -77,21 +98,27 @@ class BookmarkWishlistVC: BaseNavigationViewController {
     override func bindOutput() {
         super.bindOutput()
         
-        bindBookmarkWishList()
+        bindBookmarkAll()
     }
     
     // MARK: - Functions
-    
-    
-}
 
+}
 
 // MARK: - Configure
 
-extension BookmarkWishlistVC {
+extension BookmarkListVC {
     
     private func configureContentView() {
-        title = "BookmarkWishlist".localized
+        switch bookmarkType {
+        case .all:
+            title = "BookmarkAll".localized
+        case .want:
+            title = "BookmarkWishlist".localized
+        case .done:
+            title = "BookmarkHistory".localized
+        }
+        
         navigationBar.style = .left
         
         view.addSubviews([tableView, filterView, viewOnMapBtn])
@@ -102,7 +129,7 @@ extension BookmarkWishlistVC {
 
 // MARK: - Layout
 
-extension BookmarkWishlistVC {
+extension BookmarkListVC {
     
     private func configureLayout() {
         filterView.snp.makeConstraints {
@@ -131,19 +158,19 @@ extension BookmarkWishlistVC {
 
 // MARK: - Bind
 
-extension BookmarkWishlistVC {
+extension BookmarkListVC {
     
     private func bindButton() {
         viewOnMapBtn.rx.tap
             .withUnretained(self)
             .bind { owner, _ in
-                let bookmarkMapVC = BookmarkMapVC(bookmarkType: .want)
+                let bookmarkMapVC = BookmarkMapVC(bookmarkType: owner.bookmarkType)
                 bookmarkMapVC.pushWithHidesReetPlaceTabBar()
             }
             .disposed(by: bag)
     }
     
-    private func bindBookmarkWishList() {
+    private func bindBookmarkAll() {
         viewModel.output.bookmarkList
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -154,12 +181,13 @@ extension BookmarkWishlistVC {
             })
             .disposed(by: bag)
     }
+    
 }
 
 
 // MARK: - UITableViewDelegate
 
-extension BookmarkWishlistVC: UITableViewDelegate {
+extension BookmarkListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         50.0
     }
@@ -167,7 +195,7 @@ extension BookmarkWishlistVC: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if tableView.contentOffset.y > tableView.contentSize.height - tableView.bounds.size.height {
             if !viewModel.output.isPaging.value && !viewModel.output.isLastPage.value {
-                viewModel.getBookmarkList(type: .want)
+                viewModel.getBookmarkList(type: bookmarkType)
             }
         }
     }
@@ -176,7 +204,7 @@ extension BookmarkWishlistVC: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension BookmarkWishlistVC: UITableViewDataSource {
+extension BookmarkListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.output.bookmarkList.value.count
     }
@@ -196,7 +224,7 @@ extension BookmarkWishlistVC: UITableViewDataSource {
 
 // MARK: - BookmarkCardAction Delegate
 
-extension BookmarkWishlistVC: BookmarkCardAction {
+extension BookmarkListVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
         var card = viewModel.output.bookmarkList.value
