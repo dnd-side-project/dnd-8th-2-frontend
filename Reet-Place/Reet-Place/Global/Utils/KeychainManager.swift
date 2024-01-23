@@ -141,7 +141,6 @@ extension KeychainManager {
       
       case appleUserAuthID
       case kakaoToken
-      case identifier
       
       case loginType
       
