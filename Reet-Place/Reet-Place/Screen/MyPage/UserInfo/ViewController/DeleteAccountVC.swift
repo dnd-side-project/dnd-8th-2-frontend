@@ -13,7 +13,10 @@ import Then
 import RxSwift
 import RxCocoa
 
-class DeleteAccountVC: BaseNavigationViewController {
+import AuthenticationServices
+import KakaoSDKAuth
+
+final class DeleteAccountVC: BaseNavigationViewController {
     
     // MARK: - UI components
     
@@ -123,23 +126,38 @@ class DeleteAccountVC: BaseNavigationViewController {
         
         bindDeleteBtnEnabled()
         bindOtherReasonBtn()
+        bindUnlinkResult()
+        bindLoginType()
     }
     
     // MARK: - Functions
     
     @objc private func deleteAccount() {
         viewModel.input.otherDescription.accept(otherTextField.text)
-        viewModel.requestDeleteAccount()
-        guard let popUpVC = presentedViewController else { return }
-        
-        popUpVC.dismiss(animated: false) {
-            let accountDeletedVC = AccountDeletedVC()
-            
-            accountDeletedVC.modalPresentationStyle = .overFullScreen
-            self.present(accountDeletedVC, animated: false)
-        }
+        viewModel.checkLoginTypeForUnlink()
     }
     
+    /// 애플 Revoke를 위한 Authorization Code 재발급
+    private func requestAppleLoginForAuthorizationCode() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self as? ASAuthorizationControllerPresentationContextProviding
+        authorizationController.performRequests()
+    }
+    
+    /// 카카오 연결 해제를 위한 Access Token 재발급
+    private func refreshKakaoToken() {
+        AuthApi.shared.refreshToken { [weak self] newOauthToken, error in
+            if let newOauthToken = newOauthToken {
+                self?.viewModel.requestDeleteAccount(identifier: newOauthToken.accessToken)
+            } else if let error = error {
+                self?.showErrorAlert(error.localizedDescription)
+            }
+        }
+    }
 }
 
 
@@ -227,7 +245,9 @@ extension DeleteAccountVC {
         deleteBtn.rx.tap
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.showPopUp(popUpType: .withdrawal, targetVC: owner, confirmBtnAction: #selector(owner.deleteAccount))
+                owner.showPopUp(popUpType: .withdrawal, 
+                                targetVC: owner,
+                                confirmBtnAction: #selector(owner.deleteAccount))
             })
             .disposed(by: bag)
     }
@@ -282,6 +302,35 @@ extension DeleteAccountVC {
             .disposed(by: bag)
     }
     
+    private func bindUnlinkResult() {
+        viewModel.output.isUnlinkSuccess
+            .withUnretained(self)
+            .bind(onNext: { owner, isSuccess in
+                if isSuccess {
+                    let accountDeletedVC = AccountDeletedVC()
+                    
+                    accountDeletedVC.modalPresentationStyle = .overFullScreen
+                    owner.present(accountDeletedVC, animated: false)
+                } else {
+                    owner.showToast(message: "UnlinkFailed".localized, bottomViewHeight: 20.0)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindLoginType() {
+        viewModel.output.loginType
+            .withUnretained(self)
+            .bind(onNext: { owner, loginType in
+                switch loginType {
+                case .apple:
+                    owner.requestAppleLoginForAuthorizationCode()
+                case .kakao:
+                    owner.refreshKakaoToken()
+                }
+            })
+            .disposed(by: bag)
+    }
 }
 
 
@@ -319,4 +368,22 @@ extension DeleteAccountVC {
             })
             .disposed(by: bag)
     }
+}
+
+// MARK: - ASAuthorizationController Delegate
+
+extension DeleteAccountVC: ASAuthorizationControllerDelegate {
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+              let authorizationCode = appleIDCredential.authorizationCode,
+              let parsedAuthorizationCode = String(data: authorizationCode, encoding: .utf8) else { return }
+        
+        viewModel.requestDeleteAccount(identifier: parsedAuthorizationCode)
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        showErrorAlert("LoginAppleFailMessage".localized)
+    }
+    
 }
