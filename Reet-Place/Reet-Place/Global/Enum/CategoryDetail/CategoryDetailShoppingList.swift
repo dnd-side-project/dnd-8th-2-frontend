@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 쇼핑
 enum CategoryDetailShoppingList: String {
     case departmentStore = "백화점"
     case mart = "마트"

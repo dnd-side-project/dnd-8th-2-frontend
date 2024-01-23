@@ -8,7 +8,6 @@
 import UIKit
 
 enum PlaceCategoryList: String {
-    case filter
     case reetPlaceHot
     case food
     case activity
@@ -34,7 +33,7 @@ enum PlaceCategoryList: String {
         case "CULTURE":
             self = .culture
         default:
-            self = .filter
+            self = .reetPlaceHot
         }
     }
 }
@@ -62,8 +61,6 @@ extension PlaceCategoryList: CustomStringConvertible {
             return "카페"
         case .culture:
             return "문화생활"
-        default:
-            return .empty
         }
     }
 }
@@ -87,8 +84,6 @@ extension PlaceCategoryList {
             return "CAFE"
         case .culture:
             return "CULTURE"
-        default:
-            return .empty
         }
     }
     
@@ -110,8 +105,6 @@ extension PlaceCategoryList {
             return CategoryDetailCafeList.allCases.map { $0.parameterCategory }
         case .culture:
             return CategoryDetailCultureList.allCases.map { $0.parameterCategory }
-        default:
-            return []
         }
     }
 }

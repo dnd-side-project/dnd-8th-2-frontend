@@ -24,41 +24,13 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
     struct Output {
         var loading = BehaviorRelay<Bool>(value: false)
         
-        var tabPlaceCategoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
+        var tabPlaceCategoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases.filter { $0 != .all })
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
-            tabPlaceCategoryList.map {
-                [TabPlaceCategoryListDataSource(items: $0.filter { $0 != .all })]
-            }
+            tabPlaceCategoryList.map { [TabPlaceCategoryListDataSource(items: $0)] }
         }
         
-        var categoryDetailFoodList: BehaviorRelay<Array<CategoryDetailFoodList>> = BehaviorRelay(value: CategoryDetailFoodList.allCases)
-        var categoryDetailFoodDataSource: Observable<Array<CategoryDetailFoodDataSource>> {
-            categoryDetailFoodList.map { $0.map { CategoryDetailFoodDataSource(header: $0.description, items: $0.items) } }
-        }
-        
-        var categoryDetailActivityList: BehaviorRelay<Array<CategoryDetailActivityList>> = BehaviorRelay(value: CategoryDetailActivityList.allCases)
-        var categoryDetailActivityDataSource: Observable<Array<CategoryDetailActivityDataSource>> {
-            categoryDetailActivityList.map { [CategoryDetailActivityDataSource(items: $0)] }
-        }
-        
-        var categoryDetailPhotoBoothList: BehaviorRelay<Array<CategoryDetailPhotoBoothList>> = BehaviorRelay(value: CategoryDetailPhotoBoothList.allCases)
-        var categoryDetailPhotoBoothDataSource: Observable<Array<CategoryDetailPhotoBoothDataSource>> {
-            categoryDetailPhotoBoothList.map { [CategoryDetailPhotoBoothDataSource(items: $0)] }
-        }
-        
-        var categoryDetailShoppingList: BehaviorRelay<Array<CategoryDetailShoppingList>> = BehaviorRelay(value: CategoryDetailShoppingList.allCases)
-        var categoryDetailShoppingDataSource: Observable<Array<CategoryDetailShoppingDataSource>> {
-            categoryDetailShoppingList.map { [CategoryDetailShoppingDataSource(items: $0)] }
-        }
-        
-        var categoryDetailCafeList: BehaviorRelay<Array<CategoryDetailCafeList>> = BehaviorRelay(value: CategoryDetailCafeList.allCases)
-        var categoryDetailCafeDataSource: Observable<Array<CategoryDetailCafeDataSource>> {
-            categoryDetailCafeList.map { [CategoryDetailCafeDataSource(items: $0)] }
-        }
-        
-        var categoryDetailCultureList: BehaviorRelay<Array<CategoryDetailCultureList>> = BehaviorRelay(value: CategoryDetailCultureList.allCases)
-        var categoryDetailCultureDataSource: Observable<Array<CategoryDetailCultureDataSource>> {
-            categoryDetailCultureList.map { [CategoryDetailCultureDataSource(items: $0)] }
+        var categoryDetailListDataSource: Observable<Array<CategoryDetailListDataSource>> {
+            tabPlaceCategoryList.map { [CategoryDetailListDataSource(items: $0)] }
         }
     }
     
@@ -72,6 +44,27 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
     deinit {
         bag = DisposeBag()
     }
+    
+    // MARK: - Functions
+    
+    func getCategoryDetailDataSource(targetCategory: TabPlaceCategoryList) -> Observable<Array<CategoryDetailDataSource>> {
+        switch targetCategory {
+        case .food:
+            return BehaviorRelay(value: CategoryDetailFoodList.allCases).map {
+                $0.map { CategoryDetailDataSource(header: $0.description,
+                                                  items: $0.categoryDetailList,
+                                                  parameterCategory: $0.parameterCategory) }
+            }
+            
+        default:
+            return Observable<Array<CategoryDetailDataSource>>
+                .just([CategoryDetailDataSource(header: .empty,
+                                                items: targetCategory.categoryDetailList,
+                                                parameterCategory: targetCategory.categoryDetailParameterList)])
+
+        }
+    }
+    
 }
 
 // MARK: - Input

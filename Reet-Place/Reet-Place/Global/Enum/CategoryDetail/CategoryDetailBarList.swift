@@ -11,8 +11,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 주점
 enum CategoryDetailBarList: String {
-    // 주점
     case hofCookingBar = "호프, 요리주점"
     case izakaya = "이자카야"
     case cartBar = "포장마차"

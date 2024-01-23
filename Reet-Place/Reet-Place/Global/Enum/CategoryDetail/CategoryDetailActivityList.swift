@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+/// 액티비티
 enum CategoryDetailActivityList: String {
     case bowlingAlley = "볼링장"
     case pcRoom = "피시방"

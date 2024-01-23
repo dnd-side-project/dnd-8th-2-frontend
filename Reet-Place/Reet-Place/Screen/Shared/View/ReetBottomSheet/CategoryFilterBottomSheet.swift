@@ -24,17 +24,11 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
             $0.configureMenuBarCollectionView(customSectionInset: UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 20.0))
         }
     
-    private let categoryDetailScrollView = UIScrollView()
+    private let categoryDetailListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         .then {
-            $0.showsHorizontalScrollIndicator = false
             $0.isPagingEnabled = true
-        }
-    private let categoryDetailStackView = UIStackView()
-        .then {
-            $0.spacing = 0
-            $0.axis = .horizontal
-            $0.distribution = .fill
-            $0.alignment = .fill
+            $0.showsHorizontalScrollIndicator = false
+            $0.register(CategoryDetailListCVC.self, forCellWithReuseIdentifier: CategoryDetailListCVC.className)
         }
     
     private let buttonStackView = UIStackView()
@@ -63,6 +57,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
         super.configureView()
         
         configureFilterBottomSheet()
+        configureCategoryDetailListCollectionView()
     }
     
     override func layoutView() {
@@ -74,6 +69,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     override func bindInput() {
         super.bindInput()
         
+        bindInputMenuTabBarView()
         bindCategoryDetailScrollView()
         bindButton()
     }
@@ -81,7 +77,19 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     override func bindOutput() {
         super.bindOutput()
         
-        bindMenuTabBarView()
+        bindOutputMenuTabBarView()
+        bindCategoryDetailListCollectionView()
+    }
+    
+    // MARK: - Functions
+    
+    private func checkCategoryFilterSetting() {
+        switch KeychainManager.shared.read(for: .accessToken) == nil {
+        case true: // 비 로그인
+            configureLocalFilterSettings()
+        case false: // 로그인
+            configureLocalFilterSettings()
+        }
     }
     
 }
@@ -94,6 +102,28 @@ extension CategoryFilterBottomSheet {
         sheetStyle = .h420
     }
     
+    private func configureLocalFilterSettings() {
+        // TODO: - 비로그인 사용자가 설정한 카테고리 조회 기능 구현(CoreData)
+        if let data = CoreDataManager.shared.get(targetEntity: .categoryDetail) {
+            for i in 0..<data.count {
+                print(data[i].value(forKey: .empty))
+            }
+        }
+    }
+    
+    private func configureCategoryDetailListCollectionView() {
+        let categoryDetailListCollectionViewHeight = 277.0
+        
+        let layout = UICollectionViewFlowLayout()
+            .then {
+                $0.scrollDirection = .horizontal
+                $0.minimumLineSpacing = 0.0
+                $0.minimumInteritemSpacing = 0.0
+                $0.itemSize = CGSize(width: screenWidth, height: categoryDetailListCollectionViewHeight)
+            }
+        categoryDetailListCollectionView.collectionViewLayout = layout
+    }
+    
 }
 
 // MARK: - Layout
@@ -101,43 +131,25 @@ extension CategoryFilterBottomSheet {
 extension CategoryFilterBottomSheet {
     
     private func configureLayout() {
+        // Add Subviews
         view.addSubviews([menuTabBarView,
-                          categoryDetailScrollView,
+                          categoryDetailListCollectionView,
                           buttonStackView])
-        categoryDetailScrollView.addSubviews([categoryDetailStackView])
+        
         [resetButton, saveButton].forEach {
             buttonStackView.addArrangedSubview($0)
         }
         
-        TabPlaceCategoryList.allCases.forEach {
-            if let categoryDetailView = $0.createCategoryDetailView() {
-                
-                categoryDetailStackView.addArrangedSubview(categoryDetailView)
-                categoryDetailView.snp.makeConstraints {
-                    $0.width.equalTo(view.frame.size.width)
-                    $0.height.equalTo(categoryDetailStackView)
-                }
-                
-                categoryDetailView.bindCategoryDetailList(viewModel: viewModel, bag: bag)
-                categoryDetailView.bindCollectionView(bag: bag)
-            }
-        }
-        
+        // Make Constraints
         menuTabBarView.snp.makeConstraints {
             $0.top.equalTo(bottomSheetView.snp.top).offset(23.0)
             $0.horizontalEdges.equalTo(bottomSheetView)
         }
         
-        categoryDetailScrollView.snp.makeConstraints {
+        categoryDetailListCollectionView.snp.makeConstraints {
             $0.top.equalTo(menuTabBarView.snp.bottom)
             $0.horizontalEdges.equalTo(bottomSheetView)
-
             $0.bottom.equalTo(buttonStackView.snp.top).offset(-4.0)
-        }
-        categoryDetailStackView.snp.makeConstraints {
-            $0.width.equalTo(screenWidth * CGFloat(TabPlaceCategoryList.allCases.count - 1))
-            $0.height.equalTo(categoryDetailScrollView)
-            $0.edges.equalTo(categoryDetailScrollView)
         }
         
         buttonStackView.snp.makeConstraints {
@@ -156,7 +168,7 @@ extension CategoryFilterBottomSheet {
 
 extension CategoryFilterBottomSheet {
     
-    private func bindCategoryDetailScrollView() {
+    private func bindInputMenuTabBarView() {
         menuTabBarView.menuBarCollectionView.rx.itemSelected
             .asDriver()
             .drive(onNext: { [weak self] indexPath in
@@ -165,7 +177,20 @@ extension CategoryFilterBottomSheet {
                 self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
                 
                 let offset = CGFloat(indexPath.row) * self.screenWidth
-                self.categoryDetailScrollView.scrollToHorizontalOffset(offset: offset)
+                self.categoryDetailListCollectionView.scrollToHorizontalOffset(offset: offset)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindCategoryDetailScrollView() {
+        categoryDetailListCollectionView.rx.willEndDragging
+            .asDriver()
+            .drive(onNext: { [weak self] velocity, targetContentOffset in
+                guard let self = self else { return }
+                
+                let menuIndex = Int(targetContentOffset.pointee.x / self.categoryDetailListCollectionView.frame.width)
+                let indexPath = IndexPath(item: menuIndex, section: 0)
+                self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             })
             .disposed(by: bag)
     }
@@ -176,23 +201,7 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                for subview in self.categoryDetailStackView.subviews {
-                    if subview is CategoryDetailView {
-                        let categoryDetailView = subview as! CategoryDetailView
-                        
-                        let sectionRange = categoryDetailView.categoryDetailCollectionView.numberOfSections
-                        for section in 0..<sectionRange {
-                            let indexRange = categoryDetailView.categoryDetailCollectionView.numberOfItems(inSection: section)
-                            for index in 0..<indexRange {
-                                guard let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: section)) as? CategoryChipCVC
-                                else { continue }
-                                if cell.isSelected {
-                                    cell.isSelected = false
-                                }
-                            }
-                        }
-                    }
-                }
+                // TODO: - 리셋버튼 클릭시 선택된 카테고리 원상태로 복구 기능 리팩토링
             })
             .disposed(by: bag)
         
@@ -201,29 +210,7 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                var selectedCategoryList: [String] = []
-                for subview in self.categoryDetailStackView.subviews {
-                    if subview is CategoryDetailView {
-                        let categoryDetailView = subview as! CategoryDetailView
-                        
-                        let sectionRange = categoryDetailView.categoryDetailCollectionView.numberOfSections
-                        for section in 0..<sectionRange {
-                            let indexRange = categoryDetailView.categoryDetailCollectionView.numberOfItems(inSection: section)
-                            for index in 0..<indexRange {
-                                guard let cell = categoryDetailView.categoryDetailCollectionView.cellForItem(at: IndexPath(item: index, section: section)) as? DetailCategoryChipCVC
-                                else { continue }
-                                if cell.isSelected {
-                                    if let title = cell.getDetailCategoryTitle() {
-                                        selectedCategoryList.append(title)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                // TODO: - HomeVC에서 검색을 위해 키워드값 넘겨주기
-                print(selectedCategoryList)
+                // TODO: - 저장버튼 클릭시 선택된 카테고리 조회 기능 리팩토링
                 
                 self.dismissBottomSheet()
             })
@@ -236,7 +223,7 @@ extension CategoryFilterBottomSheet {
 
 extension CategoryFilterBottomSheet {
     
-    private func bindMenuTabBarView() {
+    private func bindOutputMenuTabBarView() {
         let dataSource = RxCollectionViewSectionedReloadDataSource<TabPlaceCategoryListDataSource> { _,
             collectionView,
             indexPath,
@@ -254,6 +241,27 @@ extension CategoryFilterBottomSheet {
         
         viewModel.output.tabPlaceCategoryDataSources
             .bind(to: menuTabBarView.menuBarCollectionView.rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+    }
+    
+    private func bindCategoryDetailListCollectionView() {
+        let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailListDataSource> { _,
+            collectionView,
+            indexPath,
+            categoryType in
+            
+            guard let cell = collectionView
+                .dequeueReusableCell(withReuseIdentifier: CategoryDetailListCVC.className,
+                                     for: indexPath) as? CategoryDetailListCVC else {
+                fatalError("Cannot deqeue cells named CategoryDetailListCVC")
+            }
+            cell.configureCategoryDetailListCVC(categoryType: categoryType, viewModel: self.viewModel)
+            
+            return cell
+        }
+        
+        viewModel.output.categoryDetailListDataSource
+            .bind(to: categoryDetailListCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
     }
     
