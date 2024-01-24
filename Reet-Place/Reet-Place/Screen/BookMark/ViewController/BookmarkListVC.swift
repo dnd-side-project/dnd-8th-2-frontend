@@ -21,11 +21,11 @@ final class BookmarkListVC: BaseNavigationViewController {
     override var alias: String {
         switch bookmarkType {
         case .all:
-            "BookmarkAll"
+            return "BookmarkAll"
         case .want:
-            "BookmarkWishlist"
+            return "BookmarkWishlist"
         case .done:
-            "BookmarkHistory"
+            return "BookmarkHistory"
         }
     }
     

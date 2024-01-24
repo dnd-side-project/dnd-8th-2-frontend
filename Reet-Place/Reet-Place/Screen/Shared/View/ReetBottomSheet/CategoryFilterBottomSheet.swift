@@ -104,7 +104,7 @@ extension CategoryFilterBottomSheet {
     
     private func configureLocalFilterSettings() {
         // TODO: - 비로그인 사용자가 설정한 카테고리 조회 기능 구현(CoreData)
-        if let data = CoreDataManager.shared.get(targetEntity: .categoryDetail) {
+        if let data = CoreDataManager.shared.get(targetEntity: .categoryFilter) {
             for i in 0..<data.count {
                 print(data[i].value(forKey: .empty))
             }
