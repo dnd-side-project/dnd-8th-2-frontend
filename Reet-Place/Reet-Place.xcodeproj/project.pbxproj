@@ -158,9 +158,13 @@
 		3CCB07A829F908C8003EC058 /* CategoryFilterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07A729F908C8003EC058 /* CategoryFilterBottomSheet.swift */; };
 		3CCB07AA29F90D4F003EC058 /* ReetTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07A929F90D4F003EC058 /* ReetTextButton.swift */; };
 		3CCB07AC29F90D90003EC058 /* ReetTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07AB29F90D90003EC058 /* ReetTextButtonStyle.swift */; };
+		3CDD84F12B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD84F02B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift */; };
+		3CDD84F32B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD84F22B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift */; };
 		3CE3C47B2A458A180097FB63 /* SearchHistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3C47A2A458A180097FB63 /* SearchHistoryTVC.swift */; };
 		3CE3CC3D2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3CC3C2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift */; };
 		3CE5B0EE2B2754FC0080F606 /* BookmarkCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */; };
+		3CE967482B4C0D27009F86FD /* DetailCategoryChipAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE967472B4C0D27009F86FD /* DetailCategoryChipAction.swift */; };
+		3CE9674A2B4C18B4009F86FD /* CategoryDetailListAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE967492B4C18B4009F86FD /* CategoryDetailListAction.swift */; };
 		3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */; };
 		3CEC2FBC298FEAB20057D813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBB298FEAB20057D813 /* Assets.xcassets */; };
 		3CEC2FBF298FEAB20057D813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */; };
@@ -359,10 +363,14 @@
 		3CCB07A729F908C8003EC058 /* CategoryFilterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBottomSheet.swift; sourceTree = "<group>"; };
 		3CCB07A929F90D4F003EC058 /* ReetTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextButton.swift; sourceTree = "<group>"; };
 		3CCB07AB29F90D90003EC058 /* ReetTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextButtonStyle.swift; sourceTree = "<group>"; };
+		3CDD84F02B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoryFilter+CoreDataProperties.swift"; path = "/Users/kennadi/Documents/iOS_Xcode/dnd-8th-2-frontend/Reet-Place/Reet-Place/Global/CoreData/CategoryFilter+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		3CDD84F22B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CategoryFilter+CoreDataClass.swift"; path = "/Users/kennadi/Documents/iOS_Xcode/dnd-8th-2-frontend/Reet-Place/Reet-Place/Global/CoreData/CategoryFilter+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		3CE3C47A2A458A180097FB63 /* SearchHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTVC.swift; sourceTree = "<group>"; };
 		3CE3CC3C2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceKeywordResponseModel.swift; sourceTree = "<group>"; };
 		3CE41BF2782741A8F3679072 /* Pods-Reet-Place.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reet-Place.release.xcconfig"; path = "Target Support Files/Pods-Reet-Place/Pods-Reet-Place.release.xcconfig"; sourceTree = "<group>"; };
 		3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCardAction.swift; sourceTree = "<group>"; };
+		3CE967472B4C0D27009F86FD /* DetailCategoryChipAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCategoryChipAction.swift; sourceTree = "<group>"; };
+		3CE967492B4C18B4009F86FD /* CategoryDetailListAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailListAction.swift; sourceTree = "<group>"; };
 		3CEC2FAF298FEAAF0057D813 /* Reet-Place.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reet-Place.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEC2FB2298FEAAF0057D813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CEC2FBB298FEAB20057D813 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -579,6 +587,7 @@
 		3C2AED162990B3C200E36342 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				3CE9673A2B4C07DB009F86FD /* CoreData */,
 				A4EFC08E299E4CFA00B066AF /* Assets */,
 				3C2AED482990B3C200E36342 /* Class */,
 				A4EFC0A4299E74F600B066AF /* Datasource */,
@@ -671,7 +680,6 @@
 				A4EFC094299E50DF00B066AF /* KeychainManager.swift */,
 				3C2AED442990B3C200E36342 /* PaddingLabel.swift */,
 				3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */,
-				3C72D92D2B34043D00AF2190 /* CoreDataManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1000,10 +1008,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3CE9673A2B4C07DB009F86FD /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3CDD84F22B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift */,
+				3CDD84F02B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift */,
+				3C72D92A2B3401F200AF2190 /* ReetPlace.xcdatamodeld */,
+				3C72D92D2B34043D00AF2190 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		3CEC2FA6298FEAAF0057D813 = {
 			isa = PBXGroup;
 			children = (
-				3C72D92A2B3401F200AF2190 /* ReetPlace.xcdatamodeld */,
 				3CEC2FB1298FEAAF0057D813 /* Reet-Place */,
 				3CEC2FB0298FEAAF0057D813 /* Products */,
 				426C5A93E80862113AD29D49 /* Pods */,
@@ -1095,6 +1113,8 @@
 				A4917E162996A8B300DF2A65 /* ButtonDisabledColorProvider.swift */,
 				A4EFC0A2299E724E00B066AF /* ForegroundColorProvider.swift */,
 				3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */,
+				3CE967472B4C0D27009F86FD /* DetailCategoryChipAction.swift */,
+				3CE967492B4C18B4009F86FD /* CategoryDetailListAction.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1402,6 +1422,7 @@
 				0E5AF36D2B1B8CEF003E7223 /* BookmarkModifyRequestModel.swift in Sources */,
 				A4EFC09E299E6F0100B066AF /* DefaultCategoryTVC.swift in Sources */,
 				0E5AF36B2B1B829C003E7223 /* BookmarkBottomSheetVM.swift in Sources */,
+				3CE967482B4C0D27009F86FD /* DetailCategoryChipAction.swift in Sources */,
 				3C3091352B47FB7300FFA7EF /* ModificationCategoryFilterRequestModel.swift in Sources */,
 				A4EFC08D299E48AD00B066AF /* MyPageVM.swift in Sources */,
 				3C9256802A1CE5B00011B093 /* CategoryDetailCultureList.swift in Sources */,
@@ -1454,6 +1475,7 @@
 				3C04A7C32A4C072B00A31FA3 /* PlaceInfoView.swift in Sources */,
 				A4917E022996A4D300DF2A65 /* AssetColors.swift in Sources */,
 				3C09F69A2A5F936600B6B0BF /* EmptyEntity.swift in Sources */,
+				3CDD84F12B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift in Sources */,
 				0E1B62CF2B315AD000C1E609 /* BookmarkSummaryResponseModel.swift in Sources */,
 				0E1B62D32B332D2C00C1E609 /* BookmarkSaveRequestModel.swift in Sources */,
 				0E502B792A919DEE002C71F2 /* BookmarkCountResponseModel.swift in Sources */,
@@ -1480,7 +1502,6 @@
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
 				3C423F2B29AAF649003B7B7D /* CategoryChipButton.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
-				3C9256762A1CE2DF0011B093 /* CategoryDetailShoppingDataSource.swift in Sources */,
 				0EDD36B32B29FDEA00D44F06 /* BookmarkMapVM.swift in Sources */,
 				3C976C8129AA61110002F8A7 /* PlaceCategoryList.swift in Sources */,
 				3C2AED602990B3C200E36342 /* UILabel+.swift in Sources */,
@@ -1491,6 +1512,7 @@
 				3C2AED8E2990B3C300E36342 /* Service.swift in Sources */,
 				3C2AF0D12990DFAC00E36342 /* BookmarkVC.swift in Sources */,
 				3C2AED5D2990B3C200E36342 /* UIString+.swift in Sources */,
+				3CDD84F32B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift in Sources */,
 				3C27841F2A0A740F0095B706 /* CategoryFilterBottomSheetVM.swift in Sources */,
 				3CCB07AC29F90D90003EC058 /* ReetTextButtonStyle.swift in Sources */,
 				3C04A7C72A51ACB000A31FA3 /* SearchHistoryListDataSource.swift in Sources */,
@@ -1513,6 +1535,7 @@
 				3CF70D022A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				0EFE7C4329B1F6590051E72D /* InduceBookmarkView.swift in Sources */,
 				0E502B752A919963002C71F2 /* BookmarkSearchType.swift in Sources */,
+				3CE9674A2B4C18B4009F86FD /* CategoryDetailListAction.swift in Sources */,
 				0EA432E529A136A700C4D47F /* WithPeopleView.swift in Sources */,
 				3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */,
 				3CFBC6FF2A64FF5C00540C7F /* DetailCategoryChipCVC.swift in Sources */,
