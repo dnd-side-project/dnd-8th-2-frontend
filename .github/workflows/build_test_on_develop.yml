@@ -19,4 +19,4 @@ jobs:
     - name: Start Xcode build test 🏗️
       run: |
         pod install --repo-update --clean-install --project-directory=Reet-Place/
-        xcodebuild build -workspace Reet-Place/Reet-Place.xcworkspace -scheme Reet-Place -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
+        xcodebuild build -workspace Reet-Place/Reet-Place.xcworkspace
