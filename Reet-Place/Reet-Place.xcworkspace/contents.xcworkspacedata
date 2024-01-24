@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kennadi/Documents/iOS_Xcode/dnd-8th-2-frontend/Reet-Place/Reet-Place/Global/CoreData/CategoryFilter+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/kennadi/Documents/iOS_Xcode/dnd-8th-2-frontend/Reet-Place/Reet-Place/Global/CoreData/CategoryFilter+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:Reet-Place.xcodeproj">
    </FileRef>
    <FileRef
