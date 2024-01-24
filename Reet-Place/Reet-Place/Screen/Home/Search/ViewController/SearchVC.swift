@@ -573,7 +573,7 @@ extension SearchVC: BookmarkCardAction {
                 .withUnretained(self)
                 .subscribe { owner, _ in
                     // TODO: - 저장 완료 후 검색 결과 리스트 업데이트 방식 논의 필요
-                    owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 20.0)
+                    owner.showToast(message: "BookmarkSaved".localized)
                 }
                 .disposed(by: bag)
             
@@ -581,7 +581,7 @@ extension SearchVC: BookmarkCardAction {
             present(bottomSheetVC, animated: true)
         case 1:
             UIPasteboard.general.string = searchPlaceInfo.url
-            showToast(message: "LinkCopied".localized, bottomViewHeight: 20.0)
+            showToast(message: "LinkCopied".localized)
         default:
             break
         }
@@ -594,7 +594,7 @@ extension SearchVC: BookmarkCardAction {
             showBottomSheet(index: index)
         case 1:
             UIPasteboard.general.string = searchPlaceInfo.url
-            showToast(message: "LinkCopied".localized, bottomViewHeight: 20.0)
+            showToast(message: "LinkCopied".localized)
         case 2:
             print("TODO: - Delete Bookmark API to be call")
         default:

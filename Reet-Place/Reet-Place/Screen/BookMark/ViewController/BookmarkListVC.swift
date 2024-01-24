@@ -244,7 +244,7 @@ extension BookmarkListVC: BookmarkCardAction {
             if row == 1 {
                 let card = self.viewModel.output.bookmarkList.value[index]
                 UIPasteboard.general.string = card.placeDetailURL
-                self.showToast(message: "LinkCopied".localized, bottomViewHeight: 0.0)
+                self.showToast(message: "LinkCopied".localized)
             }
             
             if row == 2 {

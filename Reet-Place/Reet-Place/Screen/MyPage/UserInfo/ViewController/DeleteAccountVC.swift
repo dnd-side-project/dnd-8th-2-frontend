@@ -312,7 +312,7 @@ extension DeleteAccountVC {
                     accountDeletedVC.modalPresentationStyle = .overFullScreen
                     owner.present(accountDeletedVC, animated: false)
                 } else {
-                    owner.showToast(message: "UnlinkFailed".localized, bottomViewHeight: 20.0)
+                    owner.showToast(message: "UnlinkFailed".localized)
                 }
             })
             .disposed(by: bag)
