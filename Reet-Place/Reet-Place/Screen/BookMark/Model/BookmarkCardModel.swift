@@ -11,6 +11,7 @@ struct BookmarkCardModel {
     let id: Int
     let thumbnailImage: String?
     let placeName: String
+    let placeDetailURL: String
     let categoryName: String
     let starCount: Int
     let address: String
@@ -29,6 +30,7 @@ extension BookmarkCardModel {
             id: 0,
             thumbnailImage: nil,
             placeName: .empty,
+            placeDetailURL: .empty,
             categoryName: .empty,
             starCount: 1,
             address: .empty,

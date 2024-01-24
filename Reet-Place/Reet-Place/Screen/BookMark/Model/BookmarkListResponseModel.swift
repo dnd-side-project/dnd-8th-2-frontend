@@ -35,6 +35,7 @@ struct BookmarkInfo: Codable {
         return .init(id: id,
                      thumbnailImage: thumbnailImage,
                      placeName: place.name,
+                     placeDetailURL: place.url,
                      categoryName: place.category,
                      starCount: rate,
                      address: place.roadAddress,

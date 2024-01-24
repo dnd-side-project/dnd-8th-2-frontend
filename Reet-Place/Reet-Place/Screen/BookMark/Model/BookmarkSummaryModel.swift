@@ -30,6 +30,7 @@ struct BookmarkSummaryModel {
             id: id,
             thumbnailImage: thumbnailImage,
             placeName: name,
+            placeDetailURL: url,
             categoryName: category,
             starCount: rate,
             address: roadAddress,
