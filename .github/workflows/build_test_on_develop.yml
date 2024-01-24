@@ -20,4 +20,4 @@ jobs:
       run: |
         cd Reet-Place
         pod install --repo-update --clean-install
-        xcodebuild build -workspace Reet-Place.xcworkspace -scheme Reet-Place -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
+        xcodebuild build -workspace Reet-Place.xcworkspace -scheme Reet-Place -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest' CODE_SIGNING_ALLOWED=No
