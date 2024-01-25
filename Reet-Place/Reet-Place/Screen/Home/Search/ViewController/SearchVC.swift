@@ -192,13 +192,11 @@ class SearchVC: BaseViewController {
     
     private func requestSearchPlaceKeyword(requestPage: Int) {
         if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
-            if let keyword = searchTextField.text {
+            if let keyword = searchTextField.text, !keyword.isEmpty {
                 viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
                                                                                                  lng: curLocationCoordinate.longitude,
                                                                                                  placeKeword: keyword,
                                                                                                  page: requestPage))
-            } else {
-                self.showErrorAlert("SearchResultEmptyContent".localized)
             }
         } else {
             self.showErrorAlert("FailGetCurLocationCoordinate".localized)
