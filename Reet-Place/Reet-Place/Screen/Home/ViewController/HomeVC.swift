@@ -17,7 +17,7 @@ import SnapKit
 import NMapsMap
 import CoreLocation
 
-class HomeVC: BaseViewController {
+final class HomeVC: BaseViewController {
     
     // MARK: - UI components
     
@@ -281,10 +281,10 @@ extension HomeVC {
                 guard let self = self else { return }
                 
                 switch locationManager.authorizationStatus {
-                case .authorizedAlways,
-                    .authorizedWhenInUse:
+                case .authorizedAlways, .authorizedWhenInUse:
                     print("위치 서비스 On 상태")
-                    locationManager.requestLocation()
+                    let currentPositionMode = mapView.positionMode
+                    mapView.positionMode = currentPositionMode == .direction ? .disabled : .direction
                 default:
                     print("위치 서비스 Off 상태")
                     locationManager.requestWhenInUseAuthorization()
@@ -367,12 +367,11 @@ extension HomeVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            if let coordinate = locationManager.location?.coordinate {
-                print(coordinate)
-                mapView.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude))) // TODO: - 현재위치 조회 오류(미국 쿠퍼티노로 조회) 문제 수정
-            } else {
-                print("get current coordinate error")
-            }
+            let coordinate = location.coordinate
+            print(coordinate)
+            manager.stopUpdatingLocation()
+        } else {
+            print("get current coordinate error")
         }
     }
     
