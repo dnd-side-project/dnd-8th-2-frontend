@@ -145,27 +145,26 @@ extension LoginVC {
     
     private func bindButton() {
         loginKakaoButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.viewModel.requestKakaoLogin()
+            .withUnretained(self)
+            .throttle(.seconds(2), latest: false, scheduler: MainScheduler.asyncInstance)
+            .bind(onNext: { owner, _ in
+                owner.viewModel.requestKakaoLogin()
             })
             .disposed(by: bag)
         
         loginAppleButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.handleAuthorizationAppleIDButtonPress()
+            .withUnretained(self)
+            .throttle(.seconds(2), latest: false, scheduler: MainScheduler.asyncInstance)
+            .bind(onNext: { owner, _ in
+                owner.handleAuthorizationAppleIDButtonPress()
             })
             .disposed(by: bag)
         
         loginLaterButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
                 KeychainManager.shared.save(key: .isFirst, value: "NO")
-                dismissVCByPresentingVC()
+                owner.dismissVCByPresentingVC()
             })
             .disposed(by: bag)
     }
