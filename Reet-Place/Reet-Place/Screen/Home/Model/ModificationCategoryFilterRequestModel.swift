@@ -14,19 +14,12 @@ struct ModificationCategoryFilterRequestModel: Codable {
     let contents: [PlaceCategoryModel]
 }
 
-// MARK: - PlaceCategory Model
-
-struct PlaceCategoryModel: Codable {
-    var category: String
-    var subCategory: [String]
-}
-
 // MARK: - Paramters
 
 extension ModificationCategoryFilterRequestModel {
     var parameter: Parameters {
         return [
-            "contents": contents
+            "contents": contents.map { $0.parameter }
         ]
     }
 }
