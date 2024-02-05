@@ -85,6 +85,7 @@ extension MyPageVM {
                 switch result {
                 case .success:
                     KeychainManager.shared.removeAllKeys()
+                    CoreDataManager.shared.initialLocalCategoryFilterSelection()
                     owner.output.accessToken.accept(KeychainManager.shared.read(for: .accessToken))
                 case .failure(let error):
                     owner.apiError.onNext(error)
