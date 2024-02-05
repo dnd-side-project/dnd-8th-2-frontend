@@ -58,7 +58,6 @@ class LoginVC: BaseViewController {
     
     override func configureView() {
         super.configureView()
-        
     }
     
     override func layoutView() {
