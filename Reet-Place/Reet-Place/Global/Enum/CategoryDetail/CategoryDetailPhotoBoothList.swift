@@ -20,7 +20,6 @@ enum CategoryDetailPhotoBoothList: String {
     case monomansion = "모노맨션"
     case rgbphotostudio = "RGB포토"
     case photoism = "포토이즘"
-    case instantPhoto = "즉석사진"
 }
 
 // MARK: - Case Iterable
@@ -54,8 +53,6 @@ extension CategoryDetailPhotoBoothList {
             return "RGB_PHOTO"
         case .photoism:
             return "PHOTOISM"
-        case .instantPhoto:
-            return .empty // TODO: - 해당 항목 추가 요청(추가 된 항목)
         }
     }
 }
