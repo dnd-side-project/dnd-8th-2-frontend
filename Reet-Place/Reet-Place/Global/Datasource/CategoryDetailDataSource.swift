@@ -10,7 +10,7 @@ import RxDataSources
 struct CategoryDetailDataSource {
     let header: String
     var items: [Item]
-    var parameterCategory: [String]
+    var parameterDetailCategory: [String]
 }
 
 extension CategoryDetailDataSource: SectionModelType {
