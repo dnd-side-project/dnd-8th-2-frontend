@@ -11,6 +11,6 @@ import UIKit
 protocol DetailCategoryChipAction {
     
     /// 세부 카테고리 칩 버튼을 클릭했을 때 호출
-    func updateSubCategorySelection(category: String ,isSelected: Bool)
+    func updateSubCategorySelection(subCategory: String, isSelected: Bool) -> Bool
     
 }
