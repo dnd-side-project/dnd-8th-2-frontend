@@ -150,15 +150,20 @@ extension CoreDataManager {
             return false
         }
     }
-      
-    /// 기본설정(전체선택 상태)로 초기화
-    func resetSubCategorySelection() {
+    
+    /// CategoryFilter Entity 안에 내용을 모두 삭제
+    func deleteCategoryFilterSelection() {
         if let managedObjectList = fetchManagedObjectList(targetEntity: .categoryFilter) {
             managedObjectList.forEach {
                 managedObjectContext.delete($0)
             }
             print("\(CoreDataEntityList.categoryFilter.name) Entity is Cleaned")
         }
+    }
+      
+    /// 기본설정(전체선택 상태)로 초기화
+    func resetSubCategorySelection() {
+        deleteCategoryFilterSelection()
         
         // 동일값 중복 저장 금지 설정
         managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -178,7 +183,8 @@ extension CoreDataManager {
         print("Initialized CategoryFilter")
     }
     
-    private func addCategoryFilter(placeCategory: PlaceCategoryModel) {
+    /// PlaceCategory 모델에 있는 카테고리와 세부 카테고리를 CategoryFilter Entity에 추가
+    func addCategoryFilter(placeCategory: PlaceCategoryModel) {
         if let entity = getEntityDescription(targetEntity: CoreDataEntityList.categoryFilter) {
             let managedObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
             managedObject.setValue(placeCategory.category, forKeyPath: #keyPath(CategoryFilter.category))
