@@ -34,6 +34,8 @@ class CategoryDetailListCVC : BaseCollectionViewCell {
     
     var bag = DisposeBag()
     
+    private var categoryType: TabPlaceCategoryList?
+    
     // MARK: - Life Cycle
     
     override func prepareForReuse() {
@@ -55,7 +57,6 @@ class CategoryDetailListCVC : BaseCollectionViewCell {
     }
     
     // MARK: - Functions
-    
 }
 
 // MARK: - Configure
@@ -63,8 +64,13 @@ class CategoryDetailListCVC : BaseCollectionViewCell {
 extension CategoryDetailListCVC {
     
     /// 세부 카테고리 목록 콜렉션 뷰와 관련된 설정을 하는 함수
-    func configureCategoryDetailListCVC(categoryType: TabPlaceCategoryList, viewModel: CategoryFilterBottomSheetVM) {
-        bindCategoryDetailCollectionView(categoryType: categoryType, viewModel: viewModel)
+    func configureCategoryDetailListCVC(categoryType: TabPlaceCategoryList,
+                                        detailCategoryDataSource: Observable<Array<CategoryDetailDataSource>>,
+                                        detailCategorySelectionInfo: PlaceCategoryModel) {
+        self.categoryType = categoryType
+        
+        bindCategoryDetailCollectionView(detailCategoryDataSource: detailCategoryDataSource,
+                                         detailCategorySelectionList: detailCategorySelectionInfo.subCategory)
         
         switch categoryType {
         case .food:
@@ -112,20 +118,27 @@ extension CategoryDetailListCVC {
 
 extension CategoryDetailListCVC {
     
-    private func bindCategoryDetailCollectionView(categoryType: TabPlaceCategoryList, viewModel: CategoryFilterBottomSheetVM) {
+    private func bindCategoryDetailCollectionView(detailCategoryDataSource: Observable<Array<CategoryDetailDataSource>>,
+                                                  detailCategorySelectionList: [String]) {
         let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailDataSource>( configureCell: {
             dataSource,
             collectionView,
             indexPath,
-            categoryDetail in
+            detailCategory in
             
             guard let cell = collectionView
                 .dequeueReusableCell(withReuseIdentifier: DetailCategoryChipCVC.className,
                                      for: indexPath) as? DetailCategoryChipCVC else {
                 fatalError("Cannot deqeue cells named DetailCategoryChipCVC")
             }
-            cell.configureDetailPlaceCategoryChipCVC(detailCategoryTitle: categoryDetail,
-                                                     detailCategoryParameter: dataSource[indexPath.section].parameterCategory[indexPath.item])
+            
+            let detailCategoryParameter = dataSource[indexPath.section].parameterDetailCategory[indexPath.item]
+            let isSelected = detailCategorySelectionList.contains(detailCategoryParameter)
+            
+            cell.configureDetailPlaceCategoryChipCVC(detailCategoryTitle: detailCategory,
+                                                     detailCategoryParameter: detailCategoryParameter,
+                                                     isSelected: isSelected,
+                                                     delegateDetailCategoryChipAction: self)
             
             return cell
         }, configureSupplementaryView: {
@@ -145,9 +158,24 @@ extension CategoryDetailListCVC {
             return header
           })
         
-        viewModel.getCategoryDetailDataSource(targetCategory: categoryType)
+        detailCategoryDataSource
             .bind(to: categoryDetailCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
+    }
+    
+}
+
+// MARK: - DetailCategoryChipAction Delegate
+
+extension CategoryDetailListCVC: DetailCategoryChipAction {
+    
+    func updateSubCategorySelection(subCategory: String, isSelected: Bool) -> Bool {
+        guard let categoryType else { return false }
+        
+        return CoreDataManager.shared.updateSubCategory(category: categoryType.parameterCategory,
+                                                        subCategory: subCategory,
+                                                        isSelected: isSelected,
+                                                        currentViewController: findViewController())
     }
     
 }

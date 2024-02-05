@@ -32,6 +32,15 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
         var categoryDetailListDataSource: Observable<Array<CategoryDetailListDataSource>> {
             tabPlaceCategoryList.map { [CategoryDetailListDataSource(items: $0)] }
         }
+        
+        var placeCategorySelectionList: [PlaceCategoryModel] {
+            TabPlaceCategoryList.allCases
+                .filter { $0 != .all }
+                .map {
+                    PlaceCategoryModel(category: $0.parameterCategory,
+                                       subCategory: CoreDataManager.shared.fetchSubCategoryList(targetTabPlace: $0))
+                }
+        }
     }
     
     // MARK: - Life Cycle
@@ -53,18 +62,17 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
             return BehaviorRelay(value: CategoryDetailFoodList.allCases).map {
                 $0.map { CategoryDetailDataSource(header: $0.description,
                                                   items: $0.categoryDetailList,
-                                                  parameterCategory: $0.parameterCategory) }
+                                                  parameterDetailCategory: $0.parameterCategory) }
             }
             
         default:
             return Observable<Array<CategoryDetailDataSource>>
                 .just([CategoryDetailDataSource(header: .empty,
                                                 items: targetCategory.categoryDetailList,
-                                                parameterCategory: targetCategory.categoryDetailParameterList)])
+                                                parameterDetailCategory: targetCategory.categoryDetailParameterList)])
 
         }
     }
-    
 }
 
 // MARK: - Input

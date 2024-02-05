@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import RxGesture
 
 import SnapKit
 import Then
@@ -70,28 +69,19 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
         super.bindInput()
         
         bindInputMenuTabBarView()
-        bindCategoryDetailScrollView()
+        bindInputCategoryDetailListCollectionView()
         bindButton()
+        bindDimmedView()
     }
     
     override func bindOutput() {
         super.bindOutput()
         
         bindOutputMenuTabBarView()
-        bindCategoryDetailListCollectionView()
+        bindOutputCategoryDetailListCollectionView()
     }
     
     // MARK: - Functions
-    
-    private func checkCategoryFilterSetting() {
-        switch KeychainManager.shared.read(for: .accessToken) == nil {
-        case true: // 비 로그인
-            configureLocalFilterSettings()
-        case false: // 로그인
-            configureLocalFilterSettings()
-        }
-    }
-    
 }
 
 // MARK: - Configure
@@ -100,15 +90,6 @@ extension CategoryFilterBottomSheet {
     
     private func configureFilterBottomSheet() {
         sheetStyle = .h420
-    }
-    
-    private func configureLocalFilterSettings() {
-        // TODO: - 비로그인 사용자가 설정한 카테고리 조회 기능 구현(CoreData)
-        if let data = CoreDataManager.shared.get(targetEntity: .categoryFilter) {
-            for i in 0..<data.count {
-                print(data[i].value(forKey: .empty))
-            }
-        }
     }
     
     private func configureCategoryDetailListCollectionView() {
@@ -182,7 +163,7 @@ extension CategoryFilterBottomSheet {
             .disposed(by: bag)
     }
     
-    private func bindCategoryDetailScrollView() {
+    private func bindInputCategoryDetailListCollectionView() {
         categoryDetailListCollectionView.rx.willEndDragging
             .asDriver()
             .drive(onNext: { [weak self] velocity, targetContentOffset in
@@ -201,7 +182,8 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                // TODO: - 리셋버튼 클릭시 선택된 카테고리 원상태로 복구 기능 리팩토링
+                CoreDataManager.shared.resetSubCategorySelection()
+                categoryDetailListCollectionView.reloadData()
             })
             .disposed(by: bag)
         
@@ -210,9 +192,17 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                // TODO: - 저장버튼 클릭시 선택된 카테고리 조회 기능 리팩토링
-                
+                CoreDataManager.shared.saveManagedObjectContext()
                 self.dismissBottomSheet()
+            })
+            .disposed(by: bag)
+    }
+    
+    private func bindDimmedView() {
+        dimmedView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                CoreDataManager.shared.rollbackManagedObjectContext()
             })
             .disposed(by: bag)
     }
@@ -244,7 +234,7 @@ extension CategoryFilterBottomSheet {
             .disposed(by: bag)
     }
     
-    private func bindCategoryDetailListCollectionView() {
+    private func bindOutputCategoryDetailListCollectionView() {
         let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailListDataSource> { _,
             collectionView,
             indexPath,
@@ -255,7 +245,16 @@ extension CategoryFilterBottomSheet {
                                      for: indexPath) as? CategoryDetailListCVC else {
                 fatalError("Cannot deqeue cells named CategoryDetailListCVC")
             }
-            cell.configureCategoryDetailListCVC(categoryType: categoryType, viewModel: self.viewModel)
+            
+            let viewModel = self.viewModel
+            
+            let placeCategorySelectionInfo = viewModel.output.placeCategorySelectionList.first(where: { $0.category == categoryType.parameterCategory })
+                ?? PlaceCategoryModel(category: categoryType.parameterCategory,
+                                      subCategory: categoryType.categoryDetailParameterList)
+            
+            cell.configureCategoryDetailListCVC(categoryType: categoryType,
+                                                detailCategoryDataSource: viewModel.getCategoryDetailDataSource(targetCategory: categoryType),
+                                                detailCategorySelectionInfo: placeCategorySelectionInfo)
             
             return cell
         }
