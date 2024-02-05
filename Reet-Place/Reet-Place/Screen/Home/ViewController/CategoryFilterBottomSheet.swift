@@ -43,6 +43,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     // MARK: - Variables and Properties
     
     private let viewModel = CategoryFilterBottomSheetVM()
+    private var isLoginUser: Bool = false
     
     // MARK: - Life Cycle
     
@@ -55,6 +56,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     override func configureView() {
         super.configureView()
         
+        configureLoginUserPlaceCategorySelectionList()
         configureFilterBottomSheet()
         configureCategoryDetailListCollectionView()
     }
@@ -87,6 +89,24 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
 // MARK: - Configure
 
 extension CategoryFilterBottomSheet {
+    
+    private func configureLoginUserPlaceCategorySelectionList() {
+        // 로그인한 사용자의 경우
+        if KeychainManager.shared.read(for: .accessToken) != nil {
+            isLoginUser = true
+            CoreDataManager.shared.deleteCategoryFilterSelection()
+            
+            let dispatchGroup = DispatchGroup()
+            viewModel.output.tabPlaceCategoryList.value.forEach {
+                dispatchGroup.enter()
+                viewModel.requestCategoryFilterList(category: $0, dispatchGroup: dispatchGroup)
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                self.categoryDetailListCollectionView.reloadData()
+            }
+        }
+    }
     
     private func configureFilterBottomSheet() {
         sheetStyle = .h420
@@ -192,8 +212,12 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                CoreDataManager.shared.saveManagedObjectContext()
-                self.dismissBottomSheet()
+                if isLoginUser {
+                    viewModel.requestModifyCategoryFilterList(currentViewController: self)
+                } else {
+                    CoreDataManager.shared.saveManagedObjectContext()
+                    self.dismissBottomSheet()
+                }
             })
             .disposed(by: bag)
     }

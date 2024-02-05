@@ -73,6 +73,7 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
 
         }
     }
+    
 }
 
 // MARK: - Input
@@ -85,4 +86,50 @@ extension CategoryFilterBottomSheetVM: Input {
 
 extension CategoryFilterBottomSheetVM: Output {
     func bindOutput() {}
+}
+
+// MARK: - Networking
+
+extension CategoryFilterBottomSheetVM {
+    
+    func requestCategoryFilterList(category: TabPlaceCategoryList, dispatchGroup: DispatchGroup) {
+        let parameterCategory = category.parameterCategory
+        
+        let path = "/api/places/category?category=\(parameterCategory)"
+        let resource = URLResource<CategoryFilterResponseModel>(path: path)
+        
+        apiSession.requestGet(urlResource: resource)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    CoreDataManager.shared.addCategoryFilter(placeCategory: PlaceCategoryModel(category: parameterCategory, subCategory: data.contents))
+                    dispatchGroup.leave()
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    func requestModifyCategoryFilterList(currentViewController: CategoryFilterBottomSheet) {
+        let placeCategoryList = ModificationCategoryFilterRequestModel(contents: output.placeCategorySelectionList)
+        
+        let path = "/api/places/category"
+        let resource = URLResource<EmptyEntity>(path: path)
+        
+        apiSession.requestPut(urlResource: resource, parameter: placeCategoryList.parameter)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(_):
+                    currentViewController.dismissBottomSheet()
+                case .failure(let error):
+                    currentViewController.showErrorAlert("SaveSelectedCategoryFailed".localized)
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
 }
