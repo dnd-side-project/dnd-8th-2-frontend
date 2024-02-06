@@ -231,13 +231,6 @@ extension HomeVC {
 extension HomeVC {
     
     private func bindCollectionView() {
-        placeCategoryCollectionView.rx.modelSelected(PlaceCategoryList.self)
-            .withUnretained(self)
-            .bind(onNext: { owner, category in
-                print(category)
-            })
-            .disposed(by: bag)
-        
         placeCategoryCollectionView.rx.itemSelected
             .withUnretained(self)
             .bind(onNext: { owner, indexPath in
