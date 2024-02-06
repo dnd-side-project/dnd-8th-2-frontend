@@ -18,6 +18,7 @@ struct SearchPlaceListResponseModel: Codable {
 struct SearchPlaceListContent: Codable {
     let kakaoPID, name: String
     let url: String
+    let thumbnailImage: String?
     let kakaoCategoryName, category, subCategory: String
     let categoryGroupCode: String?
     let phone, lotNumberAddress, roadAddress, lat, lng: String
@@ -26,7 +27,7 @@ struct SearchPlaceListContent: Codable {
 
     enum CodingKeys: String, CodingKey {
         case kakaoPID = "kakaoPid"
-        case name, url, categoryGroupCode, kakaoCategoryName, category, subCategory, phone, lotNumberAddress, roadAddress, lat, lng, type
+        case name, url, thumbnailImage, categoryGroupCode, kakaoCategoryName, category, subCategory, phone, lotNumberAddress, roadAddress, lat, lng, type
         case bookmarkID = "bookmarkId"
     }
 }

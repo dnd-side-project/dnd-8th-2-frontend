@@ -39,6 +39,7 @@ extension SearchPlaceKeywordListContent {
             kakaoPID: kakaoPID,
             name: name,
             url: url,
+            thumbnailImage: thumbnailImage,
             kakaoCategoryName: kakaoCategoryName,
             category: category,
             subCategory: subCategory,
