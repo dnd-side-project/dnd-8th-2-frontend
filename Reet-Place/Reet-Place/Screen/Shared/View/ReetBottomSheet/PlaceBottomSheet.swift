@@ -49,10 +49,27 @@ final class PlaceBottomSheet: BaseViewController {
             $0.alignment = .fill
             $0.spacing = 19.0
         }
+    private let placeInformationStackView = UIStackView()
+        .then {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.alignment = .center
+            $0.spacing = 12.0
+        }
+    private let thumbnailImageView = UIImageView()
+        .then {
+            $0.image = AssetsImages.placeResultThumbnail
+            
+            $0.contentMode = .scaleAspectFill
+            $0.layer.borderColor = AssetColors.gray300.cgColor
+            $0.layer.cornerRadius = 4.0
+            $0.layer.masksToBounds = true
+        }
     private let placeInformationView = PlaceInformationView()
     private let linkButton = UIButton()
         .then {
             $0.setImage(AssetsImages.link?.withTintColor(AssetColors.gray500), for: .normal)
+            $0.isUserInteractionEnabled = false
         }
     
     private let saveBookmarkButton = ReetButton(with: "SaveBookmark".localized,
@@ -190,6 +207,9 @@ extension PlaceBottomSheet {
         self.marker = marker
         let category = PlaceCategoryList(rawValue: searchPlaceInfo.category)?.description ?? .empty
         
+        if let thumbnailImage = searchPlaceInfo.thumbnailImage {
+            thumbnailImageView.setImage(with: thumbnailImage, placeholder: AssetsImages.placeResultThumbnail)
+        }
         placeInformationView.configurePlaceInfomation(
             placeName: searchPlaceInfo.name,
             address: searchPlaceInfo.roadAddress,
@@ -265,7 +285,12 @@ extension PlaceBottomSheet {
                           bottomSheetView])
         bottomSheetView.addSubviews([sheetBar,
                                      baseStackView, linkButton])
-        [placeInformationView,
+        
+        [thumbnailImageView,
+         placeInformationView].forEach {
+            placeInformationStackView.addArrangedSubview($0)
+        }
+        [placeInformationStackView,
          saveBookmarkButton,
          wishBookmarkButton,
          doneBookmarkButton].forEach {
@@ -293,6 +318,9 @@ extension PlaceBottomSheet {
             $0.top.equalTo(bottomSheetView.snp.top).offset(23.0)
             $0.horizontalEdges.equalTo(bottomSheetView).inset(20.0)
         }
+        thumbnailImageView.snp.makeConstraints {
+            $0.width.height.equalTo(56.0)
+        }
         linkButton.snp.makeConstraints {
             $0.width.height.equalTo(20.0)
             $0.top.trailing.equalTo(placeInformationView)
@@ -317,12 +345,12 @@ extension PlaceBottomSheet {
     }
     
     private func bindLinkButton(url: String) {
-        linkButton.rx.tap
+        placeInformationStackView.rx.tapGesture()
             .asDriver()
-            .drive(onNext: { [weak self] in
-                guard let self = self else { return }
+            .drive(onNext: { [weak self] _ in
+                guard let self = self,
+                      let url = URL(string: url) else { return }
                 
-                guard let url = URL(string: url) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.preferredBarTintColor = AssetColors.white
                 safariViewController.preferredControlTintColor = AssetColors.primary500
