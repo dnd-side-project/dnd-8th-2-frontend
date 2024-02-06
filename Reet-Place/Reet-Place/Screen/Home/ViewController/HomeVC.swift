@@ -63,6 +63,7 @@ class HomeVC: BaseViewController {
                 }
             $0.collectionViewLayout = layout
             
+            $0.allowsMultipleSelection = false
             $0.showsHorizontalScrollIndicator = false
             $0.clipsToBounds = true
             
@@ -240,7 +241,12 @@ extension HomeVC {
         placeCategoryCollectionView.rx.itemSelected
             .withUnretained(self)
             .bind(onNext: { owner, indexPath in
-                // TODO: - 카테고리 버튼 연결
+                let selectedCategory = PlaceCategoryList.allCases[indexPath.row]
+                
+                let latitude = owner.mapView.latitude.description
+                let longitude = owner.mapView.longitude.description
+                
+                owner.viewModel.requestSearchPlaces(category: selectedCategory, latitude: latitude, longitude: longitude)
             })
             .disposed(by: bag)
     }
@@ -325,7 +331,6 @@ extension HomeVC {
                 fatalError("Cannot deqeue cells named PlaceCategoryChipCVC")
             }
             cell.configurePlaceCategoryChipCVC(placeCategory: categoryType)
-            cell.delegate = self
             
             return cell
         }
@@ -378,19 +383,6 @@ extension HomeVC: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("get location failed", error)
-    }
-    
-}
-
-// MARK: - CategoryChipCVC Action Delegate
-
-extension HomeVC: CategoryChipCVCAction {
-    
-    func tapCategoryChip(selectedCategory: PlaceCategoryList) {
-        let latitude = mapView.latitude.description
-        let longitude = mapView.longitude.description
-        
-        viewModel.requestSearchPlaces(targetSearchPlace: SearchPlaceListRequestModel(lat: latitude, lng: longitude, category: selectedCategory.parameterPlace, subCategory: selectedCategory.parameterSubCategoryList))
     }
     
 }
