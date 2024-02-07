@@ -77,9 +77,6 @@ class SearchVC: BaseViewController {
             $0.textColor = AssetColors.black
         }
     private let removeAllKeywordButton = ReetTextButton(with: "RemoveAllKeywords".localized, for: .tertiary)
-        .then {
-            $0.isEnabled = false
-        }
     
     private let historyCategoryTabBarView = ReetMenuTabBarView()
         .then {
@@ -174,6 +171,7 @@ class SearchVC: BaseViewController {
         bindTextField()
         bindInputHistoryCategoryTabBarView()
         bindKeywordHistoryListCollectionScrollView()
+        bindInputSearchResultTableView()
     }
     
     override func bindOutput() {
@@ -181,19 +179,38 @@ class SearchVC: BaseViewController {
         
         bindOutputHistoryCategoryTabBarView()
         bindSearchHistroyListCollectionView()
-        bindSearchResultTableView()
+        bindOutputSearchResultTableView()
     }
     
     // MARK: - Functions
     
+    private func searchPlaceKeyword() {
+        searchResultTableView.scrollToTop()
+        requestSearchPlaceKeyword(requestPage: 1)
+        isShowSearchResultUI(show: true)
+    }
+    
     private func isShowSearchResultUI(show: Bool) {
-        searchResultEmptyStackView.isHidden = show ? false : true
-        searchResultTableView.isHidden = show ? false : true
+        if !show {
+            updateSearchHistoryListStatus()
+            searchHistoryListCollectionView.scrollToTop()
+        }
+        
+        cancelButton.isHidden = !show
+        searchResultEmptyStackView.isHidden = !show
+        searchResultTableView.isHidden = !show
+    }
+    
+    private func updateSearchHistoryListStatus() {
+        viewModel.output.searchHistory.keywordList.accept(CoreDataManager.shared.getKeywordHistoryList())
+        searchHistoryListCollectionView.reloadData()
     }
     
     private func requestSearchPlaceKeyword(requestPage: Int) {
         if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
             if let keyword = searchTextField.text, !keyword.isEmpty {
+                CoreDataManager.shared.saveSearchKeyword(toSaveKeyword: keyword)
+                
                 viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
                                                                                                  lng: curLocationCoordinate.longitude,
                                                                                                  placeKeword: keyword,
@@ -336,60 +353,68 @@ extension SearchVC {
     
     private func bindButton() {
         backButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                self.popVC()
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.popVC()
             })
             .disposed(by: bag)
         
         searchButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.searchResultTableView.scrollToTop()
-                self.requestSearchPlaceKeyword(requestPage: 1)
-                self.isShowSearchResultUI(show: true)
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.searchPlaceKeyword()
             })
             .disposed(by: bag)
         
         cancelButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.searchTextField.text = .empty
+                owner.cancelButton.isHidden = true
+                owner.searchButton.isEnabled = false
+                owner.goToTopButton.isHidden = true
                 
-                self.searchTextField.text = .empty
-                self.cancelButton.isHidden = true
-                self.searchButton.isEnabled = false
-                self.goToTopButton.isHidden = true
-                
-                self.isShowSearchResultUI(show: false)
+                owner.isShowSearchResultUI(show: false)
+            })
+            .disposed(by: bag)
+        
+        removeAllKeywordButton.rx.tap
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                if CoreDataManager.shared.deleteAllSearchKeyword() {
+                    owner.updateSearchHistoryListStatus()
+                }
             })
             .disposed(by: bag)
         
         goToTopButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.searchResultTableView.scrollToTop()
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.searchResultTableView.scrollToTop()
             })
             .disposed(by: bag)
     }
     
     private func bindTextField() {
         searchTextField.rx.controlEvent(.editingDidBegin)
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.searchTextField.layer.borderColor = AssetColors.primary500.cgColor
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.searchTextField.layer.borderColor = AssetColors.primary500.cgColor
             })
             .disposed(by: bag)
         
         searchTextField.rx.controlEvent(.editingDidEnd)
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.searchTextField.layer.borderColor = AssetColors.gray300.cgColor
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.searchTextField.layer.borderColor = AssetColors.gray300.cgColor
+            })
+            .disposed(by: bag)
+        
+        searchTextField.rx.controlEvent([.editingDidEndOnExit])
+            .asObservable()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.searchPlaceKeyword()
             })
             .disposed(by: bag)
         
@@ -401,7 +426,6 @@ extension SearchVC {
                 guard let self = self,
                 let changedText = text else { return }
                 
-                self.cancelButton.isHidden = changedText.count > 0 ? false : true
                 self.searchButton.isEnabled = changedText.count > 0
                 self.isShowSearchResultUI(show: changedText.count > 0)
             })
@@ -435,6 +459,30 @@ extension SearchVC {
             .disposed(by: bag)
     }
     
+    private func bindInputSearchResultTableView() {
+        searchResultTableView.rx.didScroll
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                let offsetY = self.searchResultTableView.contentOffset.y
+                let contentHeight = self.searchResultTableView.contentSize.height
+                let height = self.searchResultTableView.frame.height
+                
+                if offsetY > (contentHeight - height) {
+                    if owner.viewModel.output.searchResult.isPaging.value == false &&
+                        owner.viewModel.output.searchResult.lastPage.value == false {
+                        owner.requestSearchPlaceKeyword(requestPage: owner.viewModel.output.searchResult.page + 1)
+                    }
+                }
+            })
+            .disposed(by: bag)
+        
+        searchResultTableView.rx.willBeginDragging
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.view.endEditing(true)
+            })
+            .disposed(by: bag)
+    }
 }
 
 // MARK: - Output
@@ -473,7 +521,9 @@ extension SearchVC {
                                      for: indexPath) as? SearchHistoryListCVC else {
                 fatalError("Cannot deqeue cells named SearchHistoryListCVC")
             }
-            cell.configureSearchHistoryListCVC(categoryType: categoryType, viewModel: self.viewModel)
+            cell.configureSearchHistoryListCVC(categoryType: categoryType,
+                                               delegateSearchHistoryListAction: self,
+                                               delegateSearchHistoryAction: self)
             
             return cell
         }
@@ -481,9 +531,19 @@ extension SearchVC {
         viewModel.output.searchHistory.dataSource
             .bind(to: searchHistoryListCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
+        
+        viewModel.output.searchHistory.keywordList
+            .withUnretained(self)
+            .subscribe(onNext: { owner, list in
+                
+                print(list.count > 0)
+                
+                owner.removeAllKeywordButton.isEnabled = list.count > 0
+            })
+            .disposed(by: bag)
     }
     
-    private func bindSearchResultTableView() {
+    private func bindOutputSearchResultTableView() {
         let dataSource = RxTableViewSectionedReloadDataSource<SearchResultDataSource> { _,
             tableView,
             indexPath,
@@ -513,23 +573,6 @@ extension SearchVC {
                     owner.view.sendSubviewToBack(owner.searchResultEmptyStackView)
                     owner.goToTopButton.isHidden = false
                     owner.searchResultTableView.reloadData()
-                }
-            })
-            .disposed(by: bag)
-        
-        searchResultTableView.rx.didScroll
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                let offsetY = self.searchResultTableView.contentOffset.y
-                let contentHeight = self.searchResultTableView.contentSize.height
-                let height = self.searchResultTableView.frame.height
-                
-                if offsetY > (contentHeight - height) {
-                    if self.viewModel.output.searchResult.isPaging.value == false &&
-                        self.viewModel.output.searchResult.lastPage.value == false {
-                        self.requestSearchPlaceKeyword(requestPage: self.viewModel.output.searchResult.page + 1)
-                    }
                 }
             })
             .disposed(by: bag)
@@ -615,6 +658,29 @@ extension SearchVC: BookmarkCardAction {
 
         bottomSheetVC.modalPresentationStyle = .overFullScreen
         present(bottomSheetVC, animated: false)
+    }
+    
+}
+
+// MARK: - SearchHistoryList Action
+
+extension SearchVC: SearchHistoryListAction {
+    
+    func didTapKeyword(keyword: String) {
+        searchTextField.text = keyword
+        searchPlaceKeyword()
+    }
+    
+}
+
+// MARK: - SearchHistory Action
+
+extension SearchVC: SearchHistoryAction {
+    
+    func didTapRemoveButton(keyword: String) {
+        if CoreDataManager.shared.deleteSearchKeyword(targetKeyword: keyword) {
+            updateSearchHistoryListStatus()
+        }
     }
     
 }
