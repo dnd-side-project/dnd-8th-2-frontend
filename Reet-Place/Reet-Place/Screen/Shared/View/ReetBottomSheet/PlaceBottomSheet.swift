@@ -106,7 +106,7 @@ final class PlaceBottomSheet: BaseViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         
-        modalPresentationStyle = .overFullScreen
+        modalPresentationStyle = .overCurrentContext
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -276,7 +276,9 @@ extension PlaceBottomSheet {
         view.layer.shadowOpacity = 0.4
         view.layer.shadowRadius = 16.0
         view.layer.shadowOffset = CGSize(width: 0, height: -2.0)
-        view.layer.masksToBounds = false
+        
+        view.layer.masksToBounds = true
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
 }
