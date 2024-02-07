@@ -32,6 +32,9 @@ final class HomeVM: BaseViewModel {
         }
         
         var searchPlaceList = PublishRelay<SearchPlaceListResponseModel>()
+        var placeResultListDataSource: Observable<Array<PlaceResultListDataSource>> {
+            searchPlaceList.map { [PlaceResultListDataSource(items: $0.contents)] }
+        }
     }
     
     // MARK: - Life Cycle
