@@ -14,7 +14,7 @@ import RxSwift
 import RxGesture
 import RxCocoa
 
-class BookmarkBottomSheetVC: ReetBottomSheet {
+final class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // MARK: - UI components
     
@@ -480,6 +480,7 @@ extension BookmarkBottomSheetVC {
         // 수정하기 버튼
         modifyBtn.rx.tap
             .withUnretained(self)
+            .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
             .bind(onNext: { owner, _ in
                 guard let modifiedData = owner.getModifiedBookmarkData() else { return }
                 owner.viewModel.modifyBookmark(modifyInfo: modifiedData)
@@ -488,18 +489,19 @@ extension BookmarkBottomSheetVC {
         
         // 삭제하기 버튼
         deleteBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.showPopUp(popUpType: .deleteBookmark,
-                               targetVC: self,
-                               confirmBtnAction: #selector(self.deleteBookmark))
+            .withUnretained(self)
+            .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
+            .bind(onNext: { owner, _ in
+                owner.showPopUp(popUpType: .deleteBookmark,
+                               targetVC: owner,
+                               confirmBtnAction: #selector(owner.deleteBookmark))
             })
             .disposed(by: bag)
         
         // 저장하기 버튼
         saveBtn.rx.tap
             .withUnretained(self)
+            .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
             .bind(onNext: { owner, _ in
                 guard let searchPlaceInfo = owner.searchPlaceInfo,
                       let modifiedData = owner.getModifiedBookmarkData() else { return }

@@ -163,6 +163,7 @@ extension BookmarkListVC {
     private func bindButton() {
         viewOnMapBtn.rx.tap
             .withUnretained(self)
+            .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
             .bind { owner, _ in
                 let bookmarkMapVC = BookmarkMapVC(bookmarkType: owner.bookmarkType)
                 bookmarkMapVC.pushWithHidesReetPlaceTabBar()
