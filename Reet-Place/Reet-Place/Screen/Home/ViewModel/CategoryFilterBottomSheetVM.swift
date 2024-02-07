@@ -23,6 +23,7 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
     struct Input {}
     struct Output {
         var loading = BehaviorRelay<Bool>(value: false)
+        var isLoginUser = KeychainManager.shared.read(for: .accessToken) != nil
         var isModifySuccess = PublishRelay<Bool>()
         
         var tabPlaceCategoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases.filter { $0 != .all })
