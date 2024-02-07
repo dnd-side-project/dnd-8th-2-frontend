@@ -44,6 +44,8 @@ class CoreDataManager {
     
     private lazy var managedObjectContext = persistentContainer.viewContext
     
+    private let searchHistoryKeywordsMax: Int = 20
+    
     // MARK: - Life Cycle
     
     private init() { }
@@ -189,6 +191,107 @@ extension CoreDataManager {
             let managedObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
             managedObject.setValue(placeCategory.category, forKeyPath: #keyPath(CategoryFilter.category))
             managedObject.setValue(placeCategory.subCategory, forKeyPath: #keyPath(CategoryFilter.subCategory))
+        }
+    }
+    
+}
+
+// MARK: - SearchHistory Action
+
+extension CoreDataManager {
+    
+    /// 키워드 검색기록 목록 반환
+    func getKeywordHistoryList() -> [String] {
+        if let searchHistoryObjectList = fetchSearchHistoryObjectList() {
+            var keywordHistoryList: [String] = []
+            
+            searchHistoryObjectList.forEach {
+                if let keyword = $0.value(forKey: #keyPath(SearchHistory.keyword)) as? String {
+                    keywordHistoryList.append(keyword)
+                }
+            }
+            return keywordHistoryList
+        } else {
+            return []
+        }
+    }
+    
+    /// 키워드 검색기록 SearchHistory ManagedObject 목록 반환
+    func fetchSearchHistoryObjectList() -> [NSManagedObject]? {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: CoreDataEntityList.searchHistory.name)
+        
+        // 키워드 검색 시간 순으로 정렬
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(SearchHistory.time), ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        do {
+            let searchHistoryObjectList = try managedObjectContext.fetch(fetchRequest)
+            return searchHistoryObjectList
+        } catch {
+            print("fetch \(CoreDataEntityList.searchHistory.name) Entity error")
+            print(error.localizedDescription)
+            
+            return nil
+        }
+    }
+    
+    /// 키워드 검색기록 저장
+    func saveSearchKeyword(toSaveKeyword keyword: String) {
+        // 같은 키워드 중복 저장 금지 설정
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        if let entity = getEntityDescription(targetEntity: .searchHistory),
+           let objectList = fetchSearchHistoryObjectList() {
+            let keywordHistoryList = getKeywordHistoryList()
+            
+            // 최대 저장 개수 초과시 가장 오래된 키워드 삭제
+            if objectList.count >= searchHistoryKeywordsMax,
+               keywordHistoryList.contains(keyword) == false {
+                let toDeleteObjectList = objectList.dropFirst(searchHistoryKeywordsMax - 1)
+                toDeleteObjectList.forEach {
+                    managedObjectContext.delete($0)
+                }
+            }
+            
+            let managedObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
+            managedObject.setValue(keyword, forKeyPath: #keyPath(SearchHistory.keyword))
+            managedObject.setValue(Date(), forKeyPath: #keyPath(SearchHistory.time))
+            
+            saveManagedObjectContext()
+        } else {
+            print("Save SearchKeyword error!")
+        }
+    }
+    
+    /// 특정한 키워드 검색기록 삭제
+    func deleteSearchKeyword(targetKeyword: String) -> Bool {
+        if let objectList = fetchSearchHistoryObjectList() {
+            for object in objectList {
+                if let curkeyword = object.value(forKey: #keyPath(SearchHistory.keyword)) as? String {
+                    if curkeyword == targetKeyword {
+                        managedObjectContext.delete(object)
+                        break
+                    }
+                }
+            }
+            saveManagedObjectContext()
+            
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    /// 모든 키워드 검색기록 삭제
+    func deleteAllSearchKeyword() -> Bool {
+        if let objectList = fetchSearchHistoryObjectList() {
+            objectList.forEach {
+                managedObjectContext.delete($0)
+            }
+            saveManagedObjectContext()
+            
+            return true
+        } else {
+            return false
         }
     }
     
