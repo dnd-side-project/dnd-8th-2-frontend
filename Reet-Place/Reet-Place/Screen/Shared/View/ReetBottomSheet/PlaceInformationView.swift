@@ -15,13 +15,21 @@ class PlaceInformationView: BaseView {
     
     // MARK: - UI components
     
-    private let placeNameLabel = BaseAttributedLabel(font: .h4,
+    private let baseStackView = UIStackView()
+        .then {
+            $0.axis = .vertical
+            $0.distribution = .fill
+            $0.alignment = .leading
+            $0.spacing = 8.0
+        }
+    
+    private var placeNameLabel = BaseAttributedLabel(font: .h4,
                                         text: "PlaceName",
                                         alignment: .left,
                                         color: AssetColors.black)
     
     /// address, border, category 들어가는 stackView
-    let addressStackView = UIStackView()
+    private let addressStackView = UIStackView()
         .then {
             $0.spacing = 8.0
             $0.distribution = .fill
@@ -44,6 +52,22 @@ class PlaceInformationView: BaseView {
     // MARK: - Variables and Properties
     
     // MARK: - Life Cycle
+    
+    init(frame: CGRect = .zero,
+         placeNameFont: AssetFonts = .h4,
+         addressFont: AssetFonts = .caption,
+         categoryFont: AssetFonts = .caption) {
+        placeNameLabel = BaseAttributedLabel(font: placeNameFont,
+                                             text: "PlaceName",
+                                             alignment: .left,
+                                             color: AssetColors.black)
+        
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func configureView() {
         super.configureView()
@@ -81,29 +105,33 @@ extension PlaceInformationView {
 extension PlaceInformationView {
     
     private func configureLayout() {
-        addSubviews([placeNameLabel,
-                    addressStackView])
+        // Add Subviews
+        addSubviews([baseStackView])
+        
+        [placeNameLabel,
+         addressStackView].forEach {
+            baseStackView.addArrangedSubview($0)
+        }
+
         [addressLabel, addressBorder, categoryLabel].forEach {
             addressStackView.addArrangedSubview($0)
         }
         
-        
-        self.snp.makeConstraints {
-            $0.height.equalTo(50)
+        // Make Constraints
+        snp.makeConstraints {
+            $0.height.equalTo(50.0)
         }
         
-        placeNameLabel.snp.makeConstraints {
-            $0.top.equalTo(self)
-            $0.leading.equalTo(self)
+        baseStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
         addressStackView.snp.makeConstraints {
-            $0.leading.equalTo(self)
-            $0.bottom.equalTo(self)
+            $0.height.equalTo(14.0)
         }
         addressBorder.snp.makeConstraints {
-            $0.height.equalTo(8.0)
             $0.width.equalTo(1.0)
+            $0.height.equalTo(8.0)
         }
     }
     
