@@ -49,10 +49,27 @@ final class PlaceBottomSheet: BaseViewController {
             $0.alignment = .fill
             $0.spacing = 19.0
         }
+    private let placeInformationStackView = UIStackView()
+        .then {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.alignment = .center
+            $0.spacing = 12.0
+        }
+    private let thumbnailImageView = UIImageView()
+        .then {
+            $0.image = AssetsImages.placeResultThumbnail
+            
+            $0.contentMode = .scaleAspectFill
+            $0.layer.borderColor = AssetColors.gray300.cgColor
+            $0.layer.cornerRadius = 4.0
+            $0.layer.masksToBounds = true
+        }
     private let placeInformationView = PlaceInformationView()
     private let linkButton = UIButton()
         .then {
             $0.setImage(AssetsImages.link?.withTintColor(AssetColors.gray500), for: .normal)
+            $0.isUserInteractionEnabled = false
         }
     
     private let saveBookmarkButton = ReetButton(with: "SaveBookmark".localized,
@@ -85,6 +102,16 @@ final class PlaceBottomSheet: BaseViewController {
     private var marker: NMFMarker?
     
     // MARK: - Life Cycle
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        modalPresentationStyle = .overCurrentContext
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -179,23 +206,22 @@ final class PlaceBottomSheet: BaseViewController {
 extension PlaceBottomSheet {
     
     /// 장소바텀시트에 표시될 정보 값 입력 및 마커 상태 업데이트
-    func configurePlaceBottomSheet(
-        searchPlaceInfo: SearchPlaceListContent,
-        bookmarkType: BookmarkType,
-        marker: NMFMarker
-    ) {
-        self.searchPlaceInfo = searchPlaceInfo
-        self.placeName = searchPlaceInfo.name
-        self.bookmarkType = bookmarkType
+    func configurePlaceBottomSheet(placeInfo: SearchPlaceListContent, marker: NMFMarker?) {
+        self.searchPlaceInfo = placeInfo
+        self.placeName = placeInfo.name
+        self.bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)
         self.marker = marker
-        let category = PlaceCategoryList(rawValue: searchPlaceInfo.category)?.description ?? .empty
         
+        let category = PlaceCategoryList(rawValue: placeInfo.category).name
+        if let thumbnailImage = placeInfo.thumbnailImage {
+            thumbnailImageView.setImage(with: thumbnailImage, placeholder: AssetsImages.placeResultThumbnail)
+        }
         placeInformationView.configurePlaceInfomation(
-            placeName: searchPlaceInfo.name,
-            address: searchPlaceInfo.roadAddress,
+            placeName: placeInfo.name,
+            address: placeInfo.roadAddress,
             category: category
         )
-        bindLinkButton(url: searchPlaceInfo.url)
+        bindLinkButton(url: placeInfo.url)
         configureButton()
         updateMarkerIcon(isSelected: true)
     }
@@ -214,7 +240,7 @@ extension PlaceBottomSheet {
         self.placeName = bookmarkSummary.name
         self.bookmarkType = bookmarkType
         self.marker = marker
-        let category = PlaceCategoryList(rawValue: bookmarkSummary.category)?.description ?? .empty
+        let category = PlaceCategoryList(rawValue: bookmarkSummary.category).name
         
         placeInformationView.configurePlaceInfomation(
             placeName: bookmarkSummary.name,
@@ -250,7 +276,9 @@ extension PlaceBottomSheet {
         view.layer.shadowOpacity = 0.4
         view.layer.shadowRadius = 16.0
         view.layer.shadowOffset = CGSize(width: 0, height: -2.0)
-        view.layer.masksToBounds = false
+        
+        view.layer.masksToBounds = true
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
 }
@@ -265,7 +293,12 @@ extension PlaceBottomSheet {
                           bottomSheetView])
         bottomSheetView.addSubviews([sheetBar,
                                      baseStackView, linkButton])
-        [placeInformationView,
+        
+        [thumbnailImageView,
+         placeInformationView].forEach {
+            placeInformationStackView.addArrangedSubview($0)
+        }
+        [placeInformationStackView,
          saveBookmarkButton,
          wishBookmarkButton,
          doneBookmarkButton].forEach {
@@ -293,6 +326,9 @@ extension PlaceBottomSheet {
             $0.top.equalTo(bottomSheetView.snp.top).offset(23.0)
             $0.horizontalEdges.equalTo(bottomSheetView).inset(20.0)
         }
+        thumbnailImageView.snp.makeConstraints {
+            $0.width.height.equalTo(56.0)
+        }
         linkButton.snp.makeConstraints {
             $0.width.height.equalTo(20.0)
             $0.top.trailing.equalTo(placeInformationView)
@@ -317,12 +353,12 @@ extension PlaceBottomSheet {
     }
     
     private func bindLinkButton(url: String) {
-        linkButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                guard let self = self else { return }
+        placeInformationStackView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self,
+                      let url = URL(string: url) else { return }
                 
-                guard let url = URL(string: url) else { return }
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.preferredBarTintColor = AssetColors.white
                 safariViewController.preferredControlTintColor = AssetColors.primary500

@@ -135,6 +135,8 @@
 		3C4F12BA2B490D9F00184F16 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4F12B92B490D9F00184F16 /* Array+.swift */; };
 		3C5C8BCF2B70D0770035BC0C /* CategoryFilterResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C8BCE2B70D0770035BC0C /* CategoryFilterResponseModel.swift */; };
 		3C5C8BD12B7119AD0035BC0C /* PlaceCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C8BD02B7119AD0035BC0C /* PlaceCategoryModel.swift */; };
+		3C5C8BD32B71FBEB0035BC0C /* PlaceResultListCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C8BD22B71FBEA0035BC0C /* PlaceResultListCVC.swift */; };
+		3C5C8BD52B7206780035BC0C /* PlaceResultListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C8BD42B7206780035BC0C /* PlaceResultListDataSource.swift */; };
 		3C72D92C2B3401F200AF2190 /* ReetPlace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C72D92A2B3401F200AF2190 /* ReetPlace.xcdatamodeld */; };
 		3C72D92E2B34043D00AF2190 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C72D92D2B34043D00AF2190 /* CoreDataManager.swift */; };
 		3C72D9302B34074800AF2190 /* CoreDataEntityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C72D92F2B34074800AF2190 /* CoreDataEntityList.swift */; };
@@ -341,6 +343,8 @@
 		3C4F12B92B490D9F00184F16 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		3C5C8BCE2B70D0770035BC0C /* CategoryFilterResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterResponseModel.swift; sourceTree = "<group>"; };
 		3C5C8BD02B7119AD0035BC0C /* PlaceCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCategoryModel.swift; sourceTree = "<group>"; };
+		3C5C8BD22B71FBEA0035BC0C /* PlaceResultListCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceResultListCVC.swift; sourceTree = "<group>"; };
+		3C5C8BD42B7206780035BC0C /* PlaceResultListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceResultListDataSource.swift; sourceTree = "<group>"; };
 		3C72D92B2B3401F200AF2190 /* ReetPlace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ReetPlace.xcdatamodel; sourceTree = "<group>"; };
 		3C72D92D2B34043D00AF2190 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3C72D92F2B34074800AF2190 /* CoreDataEntityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntityList.swift; sourceTree = "<group>"; };
@@ -834,6 +838,7 @@
 				3CFBC6FE2A64FF5C00540C7F /* DetailCategoryChipCVC.swift */,
 				3CFBC7002A65013000540C7F /* PlaceCategoryChipCVC.swift */,
 				3C8FB2712B3AC4780022B441 /* CategoryDetailListCVC.swift */,
+				3C5C8BD22B71FBEA0035BC0C /* PlaceResultListCVC.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1242,6 +1247,7 @@
 				3C04A7C62A51ACB000A31FA3 /* SearchHistoryListDataSource.swift */,
 				3C8FB26F2B3AC0980022B441 /* CategoryDetailListDataSource.swift */,
 				3C0047642B3D5896009B547D /* CategoryDetailDataSource.swift */,
+				3C5C8BD42B7206780035BC0C /* PlaceResultListDataSource.swift */,
 			);
 			path = Datasource;
 			sourceTree = "<group>";
@@ -1382,6 +1388,7 @@
 				3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */,
 				3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */,
 				3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */,
+				3C5C8BD52B7206780035BC0C /* PlaceResultListDataSource.swift in Sources */,
 				3C4AE3422AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift in Sources */,
 				0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */,
 				3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */,
@@ -1479,6 +1486,7 @@
 				A49515F129A0764400A12EE1 /* UserProfileView.swift in Sources */,
 				3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */,
 				3C2AED7A2990B3C300E36342 /* Loadable.swift in Sources */,
+				3C5C8BD32B71FBEB0035BC0C /* PlaceResultListCVC.swift in Sources */,
 				3CE3CC3D2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift in Sources */,
 				3C8FB2722B3AC4780022B441 /* CategoryDetailListCVC.swift in Sources */,
 				A4EFC09B299E6C9900B066AF /* LoginView.swift in Sources */,

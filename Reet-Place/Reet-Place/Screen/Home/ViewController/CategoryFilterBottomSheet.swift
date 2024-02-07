@@ -170,14 +170,14 @@ extension CategoryFilterBottomSheet {
     
     private func bindInputMenuTabBarView() {
         menuTabBarView.menuBarCollectionView.rx.itemSelected
-            .asDriver()
-            .drive(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
+            .withUnretained(self)
+            .bind(onNext: { owner, indexPath in
+                owner.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, 
+                                                                      animated: true,
+                                                                      scrollPosition: .centeredHorizontally)
                 
-                self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-                
-                let offset = CGFloat(indexPath.row) * self.screenWidth
-                self.categoryDetailListCollectionView.scrollToHorizontalOffset(offset: offset)
+                let offset = CGFloat(indexPath.row) * owner.screenWidth
+                owner.categoryDetailListCollectionView.scrollToHorizontalOffset(offset: offset)
             })
             .disposed(by: bag)
     }
@@ -190,7 +190,9 @@ extension CategoryFilterBottomSheet {
                 
                 let menuIndex = Int(targetContentOffset.pointee.x / self.categoryDetailListCollectionView.frame.width)
                 let indexPath = IndexPath(item: menuIndex, section: 0)
-                self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                self.menuTabBarView.menuBarCollectionView.selectItem(at: indexPath, 
+                                                                     animated: true,
+                                                                     scrollPosition: .centeredHorizontally)
             })
             .disposed(by: bag)
     }

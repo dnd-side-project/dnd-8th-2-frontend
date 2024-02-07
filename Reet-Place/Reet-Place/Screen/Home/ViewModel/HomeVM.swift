@@ -32,6 +32,9 @@ final class HomeVM: BaseViewModel {
         }
         
         var searchPlaceList = PublishRelay<SearchPlaceListResponseModel>()
+        var placeResultListDataSource: Observable<Array<PlaceResultListDataSource>> {
+            searchPlaceList.map { [PlaceResultListDataSource(items: $0.contents)] }
+        }
     }
     
     // MARK: - Life Cycle
@@ -62,11 +65,22 @@ extension HomeVM: Output {
 
 extension HomeVM {
     
-    func requestSearchPlaces(targetSearchPlace: SearchPlaceListRequestModel) {
+    func requestSearchPlaces(category: PlaceCategoryList, latitude: String, longitude: String) {
         let path = "/api/places"
         let resource = URLResource<SearchPlaceListResponseModel>(path: path)
         
-        apiSession.requestPost(urlResource: resource, parameter: targetSearchPlace.parameter)
+        var searchPlaceListRequestModel = SearchPlaceListRequestModel(lat: latitude, 
+                                                                      lng: longitude,
+                                                                      category: category.parameterPlace,
+                                                                      subCategory: [])
+        
+        // 비로그인 사용자의 경우
+        if KeychainManager.shared.read(for: .accessToken) == nil,
+           category != .reetPlaceHot {
+            searchPlaceListRequestModel.subCategory = CoreDataManager.shared.fetchSubCategoryList(targetTabPlace: TabPlaceCategoryList(rawValue: category.parameterPlace))
+        }
+        
+        apiSession.requestPost(urlResource: resource, parameter: searchPlaceListRequestModel.parameter)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {

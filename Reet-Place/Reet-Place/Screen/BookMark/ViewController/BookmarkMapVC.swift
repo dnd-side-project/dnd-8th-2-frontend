@@ -21,13 +21,11 @@ final class BookmarkMapVC: BaseNavigationViewController {
     
     private let mapView: NMFMapView = .init()
     
-    
     // MARK: - Variables and Properties
     
     private let viewModel: BookmarkMapVM = .init()
     private let bookmarkType: BookmarkSearchType
     private var markers: [NMFMarker] = .init()
-    
     
     // MARK: - Initialize
     
@@ -39,7 +37,6 @@ final class BookmarkMapVC: BaseNavigationViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     // MARK: - Life Cycle
     
@@ -71,7 +68,7 @@ final class BookmarkMapVC: BaseNavigationViewController {
     
     private func configureMarkers(from summaries: [BookmarkSummaryModel]) {
         summaries.forEach { summary in
-            guard let bookmarkType = BookmarkType(rawValue: summary.type) else { return }
+            let bookmarkType = BookmarkType(rawValue: summary.type)
             
             let marker = NMFMarker()
             marker.position = NMGLatLng(lat: summary.lat, lng: summary.lng)
@@ -115,7 +112,6 @@ final class BookmarkMapVC: BaseNavigationViewController {
     
 }
 
-
 // MARK: - Configure
 
 extension BookmarkMapVC {
@@ -136,7 +132,6 @@ extension BookmarkMapVC {
     }
     
 }
-
 
 // MARK: - Layout
 
