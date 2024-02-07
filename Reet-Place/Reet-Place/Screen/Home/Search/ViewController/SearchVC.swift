@@ -91,6 +91,7 @@ class SearchVC: BaseViewController {
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
             $0.register(SearchHistoryListCVC.self, forCellWithReuseIdentifier: SearchHistoryListCVC.className)
+            $0.isScrollEnabled = false // TODO: - '검색 카테고리 메뉴바' 제거를 고려한 임시 스크롤 금지 수정
         }
     
     private let searchResultTableView = UITableView(frame: .zero, style: .plain)
@@ -295,12 +296,17 @@ extension SearchVC {
         }
         
         historyCategoryTabBarView.snp.makeConstraints {
-            $0.top.equalTo(titleStackView.snp.bottom).offset(16.0)
+//            $0.top.equalTo(titleStackView.snp.bottom).offset(16.0)
+            $0.top.equalTo(titleStackView.snp.bottom).offset(0.0) // TODO: - '검색 카테고리 메뉴바' 제거를 고려한 임시 레이아웃 수정
             $0.horizontalEdges.equalTo(view)
+        }
+        historyCategoryTabBarView.menuBarCollectionView.snp.updateConstraints {
+            $0.height.equalTo(0.0) // TODO: - 1차 출시는 카테고리 구별 없는 검색기록으로 진행. 추후 업데이트 반영 필요
         }
         
         searchHistoryListCollectionView.snp.makeConstraints {
-            $0.top.equalTo(historyCategoryTabBarView.snp.bottom).offset(16.0)
+//            $0.top.equalTo(historyCategoryTabBarView.snp.bottom).offset(16.0) // TODO: - '검색 카테고리 메뉴바' 제거를 고려한 임시 레이아웃 수정
+            $0.top.equalTo(historyCategoryTabBarView.snp.bottom).offset(0.0)
             $0.horizontalEdges.bottom.equalTo(view)
         }
         
