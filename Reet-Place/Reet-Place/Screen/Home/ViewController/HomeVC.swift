@@ -88,7 +88,7 @@ final class HomeVC: BaseViewController {
             $0.collectionViewLayout = layout
             
             $0.showsHorizontalScrollIndicator = false
-            $0.clipsToBounds = true
+            $0.clipsToBounds = false
             
             $0.register(PlaceResultListCVC.self, forCellWithReuseIdentifier: PlaceResultListCVC.className)
         }

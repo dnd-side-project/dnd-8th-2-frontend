@@ -125,10 +125,6 @@ extension PlaceInformationView {
         baseStackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        addressStackView.snp.makeConstraints {
-            $0.height.equalTo(14.0)
-        }
         addressBorder.snp.makeConstraints {
             $0.width.equalTo(1.0)
             $0.height.equalTo(8.0)

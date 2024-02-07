@@ -21,7 +21,7 @@ class PlaceResultListCVC: BaseCollectionViewCell {
         .then {
             $0.axis = .horizontal
             $0.distribution = .fill
-            $0.alignment = .center
+            $0.alignment = .top
             $0.spacing = 12.0
         }
     private let thumbnailImageView = UIImageView()
@@ -85,7 +85,7 @@ extension PlaceResultListCVC {
     private func configureContentView() {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 8.0
-        contentView.layer.masksToBounds = true
+        contentView.addShadow()
     }
     
 }
@@ -103,6 +103,9 @@ extension PlaceResultListCVC {
         
         baseStackView.snp.makeConstraints {
             $0.edges.equalTo(contentView).inset(12.0)
+        }
+        placeInformationView.snp.updateConstraints {
+            $0.height.equalTo(46.0)
         }
         thumbnailImageView.snp.makeConstraints {
             $0.width.height.equalTo(56.0)
