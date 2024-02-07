@@ -72,12 +72,16 @@ extension PlaceResultListCVC {
             thumbnailImageView.setImage(with: thumbnailImage, placeholder: AssetsImages.placeResultThumbnail)
         }
         
+        var simpleAddress: String = .empty
         let addressList = placeResultInfo.lotNumberAddress.split(separator: " ")
-        let city = addressList[1]
-        let dong = addressList[2]
+        if let city = addressList[safe: 11],
+           let dong = addressList[safe: 21] {
+            simpleAddress = city + " " + dong
+        }
+        
         placeInformationView.configurePlaceInfomation(
             placeName: placeResultInfo.name,
-            address: city + " " + dong,
+            address: simpleAddress,
             category: PlaceCategoryList(rawValue: placeResultInfo.category).name
         )
     }
