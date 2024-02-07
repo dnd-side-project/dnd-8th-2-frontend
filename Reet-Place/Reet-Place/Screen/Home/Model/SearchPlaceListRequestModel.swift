@@ -12,7 +12,7 @@ import Alamofire
 
 struct SearchPlaceListRequestModel: Codable {
     let lat, lng, category: String
-    let subCategory: [String]
+    var subCategory: [String]
 }
 
 // MARK: - Paramters

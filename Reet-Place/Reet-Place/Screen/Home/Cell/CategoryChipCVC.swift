@@ -13,12 +13,6 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-/// 카테고리 칩과 관련된 액션을 정의
-protocol CategoryChipCVCAction {
-    /// 선택된 카테고리 종류를 파라미터 값으로 전달 및 액션 구현
-    func tapCategoryChip(selectedCategory: PlaceCategoryList)
-}
-
 class CategoryChipCVC: BaseCollectionViewCell {
     
     // MARK: - UI components
@@ -52,8 +46,6 @@ class CategoryChipCVC: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        placeCategoryButton.title = .empty
     }
     
     // MARK: - Functions

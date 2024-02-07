@@ -20,7 +20,7 @@ enum TabPlaceCategoryList: String {
     case cafe = "카페"
     case culture = "문화생활"
     
-    init?(rawValue: String) {
+    init(rawValue: String) {
         switch rawValue {
         case "ALL":
             self = .all

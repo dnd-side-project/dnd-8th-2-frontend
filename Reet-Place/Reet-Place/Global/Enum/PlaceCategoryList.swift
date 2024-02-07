@@ -16,7 +16,7 @@ enum PlaceCategoryList: String {
     case cafe
     case culture
     
-    init?(rawValue: String) {
+    init(rawValue: String) {
         switch rawValue {
         case "REET_PLACE_POPULAR":
             self = .reetPlaceHot
@@ -44,8 +44,8 @@ extension PlaceCategoryList: CaseIterable {}
 
 // MARK: - Custom String Convertible
 
-extension PlaceCategoryList: CustomStringConvertible {
-    var description: String {
+extension PlaceCategoryList {
+    var name: String {
         switch self {
         case .reetPlaceHot:
             return "👀 릿플 인기"

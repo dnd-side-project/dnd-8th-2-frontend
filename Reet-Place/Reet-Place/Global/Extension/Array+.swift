@@ -14,4 +14,9 @@ extension Array where Element: Comparable {
         return self.count == other.count && self.sorted() == other.sorted()
     }
     
+    /// safe로 전달받는 인덱스 값이 유효한 경우 해당되는 값 반환 / 아닌 경우 nil 반환
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+    
 }
