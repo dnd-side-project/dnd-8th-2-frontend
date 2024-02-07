@@ -192,13 +192,11 @@ class SearchVC: BaseViewController {
     
     private func requestSearchPlaceKeyword(requestPage: Int) {
         if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
-            if let keyword = searchTextField.text {
+            if let keyword = searchTextField.text, !keyword.isEmpty {
                 viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
                                                                                                  lng: curLocationCoordinate.longitude,
                                                                                                  placeKeword: keyword,
                                                                                                  page: requestPage))
-            } else {
-                self.showErrorAlert("SearchResultEmptyContent".localized)
             }
         } else {
             self.showErrorAlert("FailGetCurLocationCoordinate".localized)
@@ -563,9 +561,9 @@ extension SearchVC: BookmarkCardAction {
     }
     
     private func actionDefaultPlaceInfoCell(index: Int, row: Int) {
+        let searchPlaceInfo = viewModel.output.searchResult.list.value[index]
         switch row {
         case 0:
-            let searchPlaceInfo = viewModel.output.searchResult.list.value[index]
             let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
             bottomSheetVC.configureInitialData(with: searchPlaceInfo.toSearchPlaceListContent())
             
@@ -573,26 +571,28 @@ extension SearchVC: BookmarkCardAction {
                 .withUnretained(self)
                 .subscribe { owner, _ in
                     // TODO: - 저장 완료 후 검색 결과 리스트 업데이트 방식 논의 필요
-                    owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 20.0)
+                    owner.showToast(message: "BookmarkSaved".localized)
                 }
                 .disposed(by: bag)
             
             bottomSheetVC.modalPresentationStyle = .overFullScreen
             present(bottomSheetVC, animated: true)
         case 1:
-            // TODO: - 장소공유 기능
-            print("공유하기 메뉴 선택")
+            UIPasteboard.general.string = searchPlaceInfo.url
+            showToast(message: "LinkCopied".localized)
         default:
             break
         }
     }
     
     private func actionBookmarkCell(index: Int, row: Int) {
+        let searchPlaceInfo = viewModel.output.searchResult.list.value[index]
         switch row {
         case 0:
             showBottomSheet(index: index)
         case 1:
-            print("TODO: - Copy Link to be call")
+            UIPasteboard.general.string = searchPlaceInfo.url
+            showToast(message: "LinkCopied".localized)
         case 2:
             print("TODO: - Delete Bookmark API to be call")
         default:

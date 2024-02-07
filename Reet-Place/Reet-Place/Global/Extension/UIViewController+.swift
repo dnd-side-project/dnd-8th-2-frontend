@@ -103,8 +103,12 @@ extension UIViewController {
       embededViewController.removeFromParent()
     }
       
-    /// Toast Message 노출
-    func showToast(message: String, bottomViewHeight: Double) {
+    
+    /// Toast Message를 노출합니다.
+    /// - Parameters:
+    ///   - message: 노출할 메세지
+    ///   - bottomViewHeight: Toast 메세지 아래에 추가로 View가 존재할 시 해당 View의 높이
+    func showToast(message: String, bottomViewHeight: Double = 0.0) {
         
         let toastLabel = BaseAttributedLabel(font: .body2,
                                              text: message,

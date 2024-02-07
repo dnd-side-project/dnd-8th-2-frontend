@@ -43,7 +43,6 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
     // MARK: - Variables and Properties
     
     private let viewModel = CategoryFilterBottomSheetVM()
-    private var isLoginUser: Bool = false
     
     // MARK: - Life Cycle
     
@@ -81,6 +80,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
         
         bindOutputMenuTabBarView()
         bindOutputCategoryDetailListCollectionView()
+        bindCategoryFilterModifyStatus()
     }
     
     // MARK: - Functions
@@ -91,9 +91,8 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
 extension CategoryFilterBottomSheet {
     
     private func configureLoginUserPlaceCategorySelectionList() {
-        // 로그인한 사용자의 경우
-        if KeychainManager.shared.read(for: .accessToken) != nil {
-            isLoginUser = true
+        // 로그인한 사용자의 경우 사용자 필터정보 서버조회 작업 추가 수행
+        if viewModel.output.isLoginUser {
             CoreDataManager.shared.deleteCategoryFilterSelection()
             
             let dispatchGroup = DispatchGroup()
@@ -214,8 +213,8 @@ extension CategoryFilterBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                if isLoginUser {
-                    viewModel.requestModifyCategoryFilterList(currentViewController: self)
+                if viewModel.output.isLoginUser {
+                    viewModel.requestModifyCategoryFilterList()
                 } else {
                     CoreDataManager.shared.saveManagedObjectContext()
                     self.dismissBottomSheet()
@@ -261,7 +260,7 @@ extension CategoryFilterBottomSheet {
     }
     
     private func bindOutputCategoryDetailListCollectionView() {
-        let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailListDataSource> { _,
+        let dataSource = RxCollectionViewSectionedReloadDataSource<CategoryDetailListDataSource> {  _ ,
             collectionView,
             indexPath,
             categoryType in
@@ -272,14 +271,12 @@ extension CategoryFilterBottomSheet {
                 fatalError("Cannot deqeue cells named CategoryDetailListCVC")
             }
             
-            let viewModel = self.viewModel
-            
-            let placeCategorySelectionInfo = viewModel.output.placeCategorySelectionList.first(where: { $0.category == categoryType.parameterCategory })
+            let placeCategorySelectionInfo = self.viewModel.output.placeCategorySelectionList.first(where: { $0.category == categoryType.parameterCategory })
                 ?? PlaceCategoryModel(category: categoryType.parameterCategory,
                                       subCategory: categoryType.categoryDetailParameterList)
             
             cell.configureCategoryDetailListCVC(categoryType: categoryType,
-                                                detailCategoryDataSource: viewModel.getCategoryDetailDataSource(targetCategory: categoryType),
+                                                detailCategoryDataSource: self.viewModel.getCategoryDetailDataSource(targetCategory: categoryType),
                                                 detailCategorySelectionInfo: placeCategorySelectionInfo)
             
             return cell
@@ -290,4 +287,17 @@ extension CategoryFilterBottomSheet {
             .disposed(by: bag)
     }
     
+    private func bindCategoryFilterModifyStatus() {
+        viewModel.output.isModifySuccess
+            .withUnretained(self)
+            .bind(onNext: { owner, isModifySuccess in
+                switch isModifySuccess {
+                case true:
+                    owner.dismissBottomSheet()
+                case false:
+                    owner.showErrorAlert("SaveSelectedCategoryFailed".localized)
+                }
+            })
+            .disposed(by: bag)
+    }
 }

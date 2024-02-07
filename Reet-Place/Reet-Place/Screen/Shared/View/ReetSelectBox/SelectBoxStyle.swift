@@ -17,7 +17,7 @@ extension SelectBoxStyle {
     var selectTitle: [String] {
         switch self {
         case .defaultPlaceInfo:
-            return ["북마크", "공유하기"]
+            return ["북마크", "링크복사"]
         case .bookmarked:
             return ["북마크 수정", "링크복사", "북마크 삭제"]
         }

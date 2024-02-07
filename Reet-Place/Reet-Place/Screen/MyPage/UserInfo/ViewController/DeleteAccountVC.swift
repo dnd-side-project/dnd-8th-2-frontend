@@ -244,6 +244,7 @@ extension DeleteAccountVC {
     private func bindBtn() {
         deleteBtn.rx.tap
             .withUnretained(self)
+            .throttle(.seconds(2), latest: false, scheduler: MainScheduler.asyncInstance)
             .bind(onNext: { owner, _ in
                 owner.showPopUp(popUpType: .withdrawal, 
                                 targetVC: owner,
@@ -312,7 +313,7 @@ extension DeleteAccountVC {
                     accountDeletedVC.modalPresentationStyle = .overFullScreen
                     owner.present(accountDeletedVC, animated: false)
                 } else {
-                    owner.showToast(message: "UnlinkFailed".localized, bottomViewHeight: 20.0)
+                    owner.showToast(message: "UnlinkFailed".localized)
                 }
             })
             .disposed(by: bag)
