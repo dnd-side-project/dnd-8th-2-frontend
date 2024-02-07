@@ -20,7 +20,6 @@ enum CategoryDetailActivityList: String {
     case sportsFacility = "체육시설"
     case boardGameCafe = "보드게임 카페"
     case escapeRoom = "방탈출"
-    case gameArcade = "게임장"
     case coinSingingRoom = "코인 노래방"
 }
 
@@ -49,14 +48,12 @@ extension CategoryDetailActivityList {
             return "BILLIARDS"
         case .singingRoom:
             return "KARAOKE"
-        case .sportsFacility: // TODO: 해당 항목 존재 서버와 확인
-            return "PARK" // TODO: 임시설정 변경
+        case .sportsFacility:
+            return "SPORTS"
         case .boardGameCafe:
             return "BOARD_GAME"
-        case .escapeRoom: // TODO: 해당 항목 존재 서버와 확인
-            return "ROLLER" // TODO: 임시설정 변경
-        case .gameArcade:
-            return "BOWLING"
+        case .escapeRoom:
+            return "ROOM_ESCAPE"
         case .coinSingingRoom:
             return "COIN_KARAOKE"
         }

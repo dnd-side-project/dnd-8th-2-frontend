@@ -96,9 +96,7 @@ extension PlaceCategoryList {
         case .activity:
             return CategoryDetailActivityList.allCases.map { $0.parameterCategory }
         case .photoBooth:
-            return CategoryDetailPhotoBoothList.allCases
-                .filter{ $0 != .instantPhoto } // TODO: - 해당 항목 추가 요청(추가 된 항목)
-                .map { $0.parameterCategory }
+            return CategoryDetailPhotoBoothList.allCases.map { $0.parameterCategory }
         case .shopping:
             return CategoryDetailShoppingList.allCases.map { $0.parameterCategory }
         case .cafe:

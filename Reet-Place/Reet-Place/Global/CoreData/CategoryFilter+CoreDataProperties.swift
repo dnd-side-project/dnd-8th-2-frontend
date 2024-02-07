@@ -13,7 +13,7 @@ import CoreData
 extension CategoryFilter {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CategoryFilter> {
-        return NSFetchRequest<CategoryFilter>(entityName: "CategoryFilter")
+        return NSFetchRequest<CategoryFilter>(entityName: CoreDataEntityList.categoryFilter.name)
     }
 
     @NSManaged public var category: String?

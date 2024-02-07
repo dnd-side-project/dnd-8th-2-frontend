@@ -25,7 +25,6 @@ struct APISession: APIService {
                                   interceptor: AuthInterceptor())
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
-                    debugPrint(response)
                     switch response.result {
                     case .success(let data):
                         observer.onNext(.success(data))
@@ -88,6 +87,36 @@ struct APISession: APIService {
                                  method: .post,
                                  headers: headers,
                                  interceptor: AuthInterceptor())
+                .validate(statusCode: 200...399)
+                .responseDecodable(of: T.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(.success(data))
+                    case .failure:
+                        observer.onNext(urlResource.judgeError(statusCode: response.response?.statusCode ?? -1))
+                        showErrorAlert()
+                    }
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+    
+    /// HTTP Method [PUT]
+    func requestPut<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> {
+        Observable<Result<T, APIError>>.create { observer in
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.contentType("application/json"))
+            
+            let task = AF.request(urlResource.resultURL,
+                                  method: .put,
+                                  parameters: parameter,
+                                  encoding: JSONEncoding.default,
+                                  headers: headers,
+                                  interceptor: AuthInterceptor())
                 .validate(statusCode: 200...399)
                 .responseDecodable(of: T.self) { response in
                     switch response.result {

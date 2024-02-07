@@ -80,14 +80,10 @@ class OnboardingVC: BaseViewController {
     
     // MARK: - Life Cycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func configureView() {
         super.configureView()
         
+        CoreDataManager.shared.initialLocalCategoryFilterSelection()
         configureContentView()
         configureProgress()
     }

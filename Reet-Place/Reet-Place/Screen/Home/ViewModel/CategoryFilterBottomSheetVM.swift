@@ -23,6 +23,8 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
     struct Input {}
     struct Output {
         var loading = BehaviorRelay<Bool>(value: false)
+        var isLoginUser = KeychainManager.shared.read(for: .accessToken) != nil
+        var isModifySuccess = PublishRelay<Bool>()
         
         var tabPlaceCategoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases.filter { $0 != .all })
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
@@ -31,6 +33,15 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
         
         var categoryDetailListDataSource: Observable<Array<CategoryDetailListDataSource>> {
             tabPlaceCategoryList.map { [CategoryDetailListDataSource(items: $0)] }
+        }
+        
+        var placeCategorySelectionList: [PlaceCategoryModel] {
+            TabPlaceCategoryList.allCases
+                .filter { $0 != .all }
+                .map {
+                    PlaceCategoryModel(category: $0.parameterCategory,
+                                       subCategory: CoreDataManager.shared.fetchSubCategoryList(targetTabPlace: $0))
+                }
         }
     }
     
@@ -53,14 +64,14 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
             return BehaviorRelay(value: CategoryDetailFoodList.allCases).map {
                 $0.map { CategoryDetailDataSource(header: $0.description,
                                                   items: $0.categoryDetailList,
-                                                  parameterCategory: $0.parameterCategory) }
+                                                  parameterDetailCategory: $0.parameterCategory) }
             }
             
         default:
             return Observable<Array<CategoryDetailDataSource>>
                 .just([CategoryDetailDataSource(header: .empty,
                                                 items: targetCategory.categoryDetailList,
-                                                parameterCategory: targetCategory.categoryDetailParameterList)])
+                                                parameterDetailCategory: targetCategory.categoryDetailParameterList)])
 
         }
     }
@@ -77,4 +88,50 @@ extension CategoryFilterBottomSheetVM: Input {
 
 extension CategoryFilterBottomSheetVM: Output {
     func bindOutput() {}
+}
+
+// MARK: - Networking
+
+extension CategoryFilterBottomSheetVM {
+    
+    func requestCategoryFilterList(category: TabPlaceCategoryList, dispatchGroup: DispatchGroup) {
+        let parameterCategory = category.parameterCategory
+        
+        let path = "/api/places/category?category=\(parameterCategory)"
+        let resource = URLResource<CategoryFilterResponseModel>(path: path)
+        
+        apiSession.requestGet(urlResource: resource)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    CoreDataManager.shared.addCategoryFilter(placeCategory: PlaceCategoryModel(category: parameterCategory, subCategory: data.contents))
+                    dispatchGroup.leave()
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    func requestModifyCategoryFilterList() {
+        let placeCategoryList = ModificationCategoryFilterRequestModel(contents: output.placeCategorySelectionList)
+        
+        let path = "/api/places/category"
+        let resource = URLResource<EmptyEntity>(path: path)
+        
+        apiSession.requestPut(urlResource: resource, parameter: placeCategoryList.parameter)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(_):
+                    owner.output.isModifySuccess.accept(true)
+                case .failure(let error):
+                    owner.output.isModifySuccess.accept(false)
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
 }

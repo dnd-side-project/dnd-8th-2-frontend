@@ -44,187 +44,151 @@ class CoreDataManager {
     
     private lazy var managedObjectContext = persistentContainer.viewContext
     
-//    private let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
-//    lazy var context = appDelegate.persistentContainer.viewContext
-    
     // MARK: - Life Cycle
     
     private init() { }
     
-    // MARK: - Core Data Saving, Updating support
-
+    // MARK: - Core Data CRUD
     
+    /// EntityList에 정의된 이름 중 특정한 Entity 반환
+    func getEntityDescription(targetEntity: CoreDataEntityList) -> NSEntityDescription? {
+        return NSEntityDescription.entity(forEntityName: targetEntity.name, in: managedObjectContext) ?? nil
+    }
     
-    
-    
-    func saveCategoryFilter(placeCategory: PlaceCategoryModel) {
-        // 동일값 중복 저장 금지 설정
-        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        // 1
-        guard let entity = NSEntityDescription.entity(forEntityName: CoreDataEntityList.categoryFilter.name, in: managedObjectContext)
-        else {
-            print("Get CategoryFilter Entity Error!")
-            return
-        }
-        
-        // 2
-        let managedObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
-        managedObject.setValue(placeCategory.category, forKeyPath: #keyPath(CategoryFilter.category))
-        managedObject.setValue(placeCategory.subCategory, forKeyPath: #keyPath(CategoryFilter.subCategory))
-        
-        // 3
+    /// EntityList에 정의된 이름 중 특정한 Entity에 대한 managedObject List를 반환
+    func fetchManagedObjectList(targetEntity: CoreDataEntityList) -> [NSManagedObject]? {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: targetEntity.name)
         do {
-          try managedObjectContext.save()
+            let objectList = try managedObjectContext.fetch(fetchRequest)
+            return objectList
         } catch {
-            print("could not save value in Core Data")
+            print("Fetch \(targetEntity.name) Entity ManagedObjectList Error")
             print(error.localizedDescription)
+            return nil
         }
     }
     
-    func update(targetPlaceCategoryModel: PlaceCategoryModel) {
-        let fetchRequest = CategoryFilter.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(CategoryFilter.category), targetPlaceCategoryModel.category)
-        do {
-            let result = try managedObjectContext.fetch(fetchRequest)
-            let toUpdateManagedObject = result[0]
-            toUpdateManagedObject.setValue(targetPlaceCategoryModel.subCategory, forKey: #keyPath(CategoryFilter.subCategory))
-            
-            print("Update SubCategoryList Success")
-        } catch {
-            print("fetch \(targetPlaceCategoryModel.category) error")
-        }
-    }
-    
-    
-    
-    func saveSettings() {
+    /// 현재 managedObjectContext 상태의 변경사항을 저장
+    func saveManagedObjectContext() {
         do {
             try managedObjectContext.save()
-            print("save success")
         } catch {
-            print("Save CategoryFilter Settings Error")
+            print("Save ManagedObjectContext Error")
             print(error.localizedDescription)
         }
     }
     
-    func cancelSettings() {
+    /// managedObjectContext의 변경사항을 저장하지 않고 원상복구
+    func rollbackManagedObjectContext() {
         managedObjectContext.rollback()
-        print("CoreData Rollback(cancel save data) called")
-        
-//        do {
-//            try managedObjectContext.rollback()
-//        } catch {
-//            print("Cancel Settings Error")
-//            print(error.localizedDescription)
-//        }
     }
     
+}
+
+// MARK: - CategoryFilterBottomSheet Action
+
+extension CoreDataManager {
     
-    
-    /// CategoryFilter에 저장되어있는 'category' 항목의 하위 카테고리 목록 반환
-    func fetch(targetTabPlace: TabPlaceCategoryList) -> [String] {
+    /// CategoryFilter Entity에 저장되어있는 'category' 항목의 하위 카테고리 목록 반환
+    func fetchSubCategoryList(targetTabPlace: TabPlaceCategoryList) -> [String] {
         let fetchRequest = CategoryFilter.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(CategoryFilter.category), targetTabPlace.parameterCategory)
         do {
             let result = try managedObjectContext.fetch(fetchRequest)
-            return result[0].subCategory ?? []
+            return result.count > 0 ? result[0].subCategory ?? [] : []
         } catch {
             print("fetch \(targetTabPlace.parameterCategory) error")
             return []
         }
     }
     
-    
-    
-    
-    func initLocalCategoryFilterSettings() {
-        if let managedObjectList = get(targetEntity: .categoryFilter) {
-            managedObjectList.forEach {
-                do {
-                    managedObjectContext.delete($0)
-                    try managedObjectContext.save()
-                    
-                } catch {
-                    print("targetManagedObject Delete Failed")
-                    print(error.localizedDescription)
-                }
+    /// 세부 카테고리 선택 상태값 업데이트
+    func updateSubCategory(category: String, subCategory: String, isSelected: Bool, currentViewController: UIViewController?) -> Bool {
+        let fetchRequest = CategoryFilter.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(CategoryFilter.category), category)
+        do {
+            let result = try managedObjectContext.fetch(fetchRequest)
+            if result.count == 0 {
+                addCategoryFilter(placeCategory: PlaceCategoryModel(category: category, subCategory: [subCategory]))
+                return true
             }
             
+            let toUpdateManagedObject = result[0]
+            
+            let subCategoryList = toUpdateManagedObject.subCategory
+            var toUpdateSubCategoryList = isSelected ? [subCategory] : []
+            
+            switch isSelected {
+            case true:
+                // Detail Category 중복저장 방지
+                subCategoryList?.forEach {
+                    if !toUpdateSubCategoryList.contains($0) {
+                        toUpdateSubCategoryList.append($0)
+                    }
+                }
+            case false:
+                subCategoryList?.forEach {
+                    if $0 != subCategory {
+                        toUpdateSubCategoryList.append($0)
+                    }
+                }
+                
+                // 최소 1개 이상 저장 필수조건 설정
+                if toUpdateSubCategoryList.count == 0 {
+                    if let vc = currentViewController {
+                        vc.showToast(message: "CannotSelectNothing".localized, bottomViewHeight: 40.0)
+                    }
+                    return false
+                }
+            }
+            toUpdateManagedObject.setValue(toUpdateSubCategoryList, forKey: #keyPath(CategoryFilter.subCategory))
+            
+            return true
+        } catch {
+            print("Fetch \(category) List error")
+            
+            return false
+        }
+    }
+    
+    /// CategoryFilter Entity 안에 내용을 모두 삭제
+    func deleteCategoryFilterSelection() {
+        if let managedObjectList = fetchManagedObjectList(targetEntity: .categoryFilter) {
+            managedObjectList.forEach {
+                managedObjectContext.delete($0)
+            }
             print("\(CoreDataEntityList.categoryFilter.name) Entity is Cleaned")
         }
+    }
+      
+    /// 기본설정(전체선택 상태)로 초기화
+    func resetSubCategorySelection() {
+        deleteCategoryFilterSelection()
+        
+        // 동일값 중복 저장 금지 설정
+        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         TabPlaceCategoryList.allCases
             .filter { $0 != .all }
             .forEach {
-                saveCategoryFilter(placeCategory: PlaceCategoryModel(category: $0.parameterCategory,
-                                                                            subCategory: [$0.categoryDetailParameterList[0]]))
+                addCategoryFilter(placeCategory: PlaceCategoryModel(category: $0.parameterCategory,
+                                                                     subCategory: $0.categoryDetailParameterList))
             }
-        
-        print("Initialize CategoryFilter!")
     }
     
-    
-    
-    
-    
-    
-    func save(targetEntity: CoreDataEntityList, value: Bool, key: String) {
-//        let context = persistentContainer.viewContext
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-        
-//        // 1. Get NSManagedObjectContext
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-//            return
-//        }
-//        let managedObjectContext = appDelegate.persistentContainer.viewContext
-        
-        
-        
-        // 1. Get NSManagedObjectContext
-//        let managedObjectContext = persistentContainer.viewContext
-        // 동일값 중복 저장 금지 설정
-        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        // 2. Get Entity by NSManagedObjectContext
-        guard let entity = NSEntityDescription.entity(forEntityName: targetEntity.name, in: managedObjectContext)
-        else {
-            print("Get Entity Error!")
-            return
-        }
-
-        // 3. Create NSManagedObject
-        let managedObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
-        
-        // 4. Set the Search Keyword
-        managedObject.setValue(value, forKeyPath: key)
-        
-        // 5. Save NSManagedObjectContext which modified
-        do {
-          try managedObjectContext.save()
-        } catch {
-            print("could not save value in Core Data")
-            print(error.localizedDescription)
-        }
+    /// 세부 카테고리 전체선택 상태으로 초기화
+    func initialLocalCategoryFilterSelection() {
+        resetSubCategorySelection()
+        saveManagedObjectContext()
+        print("Initialized CategoryFilter")
     }
-
-    func get(targetEntity: CoreDataEntityList) -> [NSManagedObject]? {
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: targetEntity.name)
-        do {
-            let objectList = try managedObjectContext.fetch(fetchRequest)
-            return objectList
-        } catch {
-            print(error.localizedDescription)
-            return nil
+    
+    /// PlaceCategory 모델에 있는 카테고리와 세부 카테고리를 CategoryFilter Entity에 추가
+    func addCategoryFilter(placeCategory: PlaceCategoryModel) {
+        if let entity = getEntityDescription(targetEntity: CoreDataEntityList.categoryFilter) {
+            let managedObject = NSManagedObject(entity: entity, insertInto: managedObjectContext)
+            managedObject.setValue(placeCategory.category, forKeyPath: #keyPath(CategoryFilter.category))
+            managedObject.setValue(placeCategory.subCategory, forKeyPath: #keyPath(CategoryFilter.subCategory))
         }
     }
     

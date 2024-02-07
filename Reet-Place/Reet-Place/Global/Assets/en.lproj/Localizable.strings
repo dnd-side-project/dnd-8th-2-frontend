@@ -29,6 +29,8 @@ SearchByDistrict = "시/군/구로 검색";
 // Filter Bottom Sheet
 ResetSelectedCategory = "재설정";
 SaveSelectedCategory = "저장하기";
+CannotSelectNothing = "최소 1개 이상의 카테고리를 선택해야 합니다";
+SaveSelectedCategoryFailed = "카테고리 설정 저장에 실패했습니다";
 
 // Search
 SearchPlaceKeyword = "어디로 가볼래요?";
