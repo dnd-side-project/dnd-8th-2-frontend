@@ -227,6 +227,7 @@ class BookmarkBottomSheetVC: ReetBottomSheet {
             id: bottomSheetData.id,
             thumbnailImage: bottomSheetData.thumbnailImage,
             placeName: bottomSheetData.placeName,
+            placeDetailURL: bottomSheetData.placeDetailURL,
             categoryName: bottomSheetData.categoryName,
             starCount: starToggleBtn.selectedStarCount,
             address: bottomSheetData.address,

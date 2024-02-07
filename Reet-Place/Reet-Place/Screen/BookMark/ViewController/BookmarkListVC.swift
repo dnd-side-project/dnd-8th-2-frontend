@@ -242,7 +242,9 @@ extension BookmarkListVC: BookmarkCardAction {
             }
             
             if row == 1 {
-                print("TODO: - Copy Link to be call")
+                let card = self.viewModel.output.bookmarkList.value[index]
+                UIPasteboard.general.string = card.placeDetailURL
+                self.showToast(message: "LinkCopied".localized)
             }
             
             if row == 2 {
