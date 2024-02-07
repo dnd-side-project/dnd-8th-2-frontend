@@ -26,9 +26,9 @@ class SearchHistoryTVC: BaseTableViewCell {
             $0.spacing = 8.0
         }
     private let keywordLabel = BaseAttributedLabel(font: .body1,
-                                           text: .empty,
-                                           alignment: .left,
-                                           color: AssetColors.black)
+                                                   text: .empty,
+                                                   alignment: .left,
+                                                   color: AssetColors.black)
     private let removeButton = UIButton()
         .then {
             $0.setImage(AssetsImages.cancelContained, for: .normal)
@@ -43,7 +43,15 @@ class SearchHistoryTVC: BaseTableViewCell {
     
     var bag = DisposeBag()
     
+    var delegateSearchHistoryAction: SearchHistoryAction?
+    
     // MARK: - Life Cycle
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        contentView.backgroundColor = isHighlighted ? AssetColors.gray100 : AssetColors.white
+    }
     
     override func configureView() {
         super.configureView()
@@ -58,14 +66,10 @@ class SearchHistoryTVC: BaseTableViewCell {
         configureLayout()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
-
     // MARK: - Function
     
-    func configureSearchHistoryTVC(keywordHistory: String) {
+    func configureSearchHistoryTVC(keywordHistory: String, delegateSearchHistoryAction: SearchHistoryAction) {
+        self.delegateSearchHistoryAction = delegateSearchHistoryAction
         keywordLabel.text = keywordHistory
     }
     
@@ -94,9 +98,9 @@ extension SearchHistoryTVC {
         }
         
         baseStackView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalTo(contentView)
+            $0.top.equalTo(contentView)
+            $0.horizontalEdges.equalTo(contentView).inset(20.0)
         }
-        
         removeButton.snp.makeConstraints {
             $0.width.height.equalTo(24.0)
         }
@@ -105,7 +109,7 @@ extension SearchHistoryTVC {
             $0.height.equalTo(0.5)
             $0.top.equalTo(baseStackView.snp.bottom)
             $0.horizontalEdges.equalTo(baseStackView)
-            $0.bottom.equalTo(contentView)
+            $0.bottom.equalTo(contentView.snp.bottom)
         }
     }
  
@@ -117,11 +121,12 @@ extension SearchHistoryTVC {
     
     private func bindButton() {
         removeButton.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                // TODO: - 키워드 삭제 기능 추가
-                print(self.keywordLabel.text, ": 키워드 기록 삭제")
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                if let delegate = owner.delegateSearchHistoryAction,
+                   let keyword = owner.keywordLabel.text {
+                    delegate.didTapRemoveButton(keyword: keyword)
+                }
             })
             .disposed(by: bag)
     }
