@@ -209,10 +209,10 @@ extension PlaceBottomSheet {
     func configurePlaceBottomSheet(placeInfo: SearchPlaceListContent, marker: NMFMarker?) {
         self.searchPlaceInfo = placeInfo
         self.placeName = placeInfo.name
-        self.bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)!
+        self.bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)
         self.marker = marker
         
-        let category = PlaceCategoryList(rawValue: placeInfo.category)!.name
+        let category = PlaceCategoryList(rawValue: placeInfo.category).name
         if let thumbnailImage = placeInfo.thumbnailImage {
             thumbnailImageView.setImage(with: thumbnailImage, placeholder: AssetsImages.placeResultThumbnail)
         }
@@ -240,7 +240,7 @@ extension PlaceBottomSheet {
         self.placeName = bookmarkSummary.name
         self.bookmarkType = bookmarkType
         self.marker = marker
-        let category = PlaceCategoryList(rawValue: bookmarkSummary.category)!.name
+        let category = PlaceCategoryList(rawValue: bookmarkSummary.category).name
         
         placeInformationView.configurePlaceInfomation(
             placeName: bookmarkSummary.name,

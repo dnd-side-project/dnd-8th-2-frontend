@@ -78,7 +78,7 @@ extension PlaceResultListCVC {
         placeInformationView.configurePlaceInfomation(
             placeName: placeResultInfo.name,
             address: city + " " + dong,
-            category: PlaceCategoryList(rawValue: placeResultInfo.category)!.name
+            category: PlaceCategoryList(rawValue: placeResultInfo.category).name
         )
     }
     

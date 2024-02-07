@@ -16,7 +16,7 @@ enum PlaceCategoryList: String {
     case cafe
     case culture
     
-    init?(rawValue: String) {
+    init(rawValue: String) {
         switch rawValue {
         case "REET_PLACE_POPULAR":
             self = .reetPlaceHot

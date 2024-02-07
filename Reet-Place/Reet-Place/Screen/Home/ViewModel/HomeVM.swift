@@ -77,7 +77,7 @@ extension HomeVM {
         // 비로그인 사용자의 경우
         if KeychainManager.shared.read(for: .accessToken) == nil,
            category != .reetPlaceHot {
-            searchPlaceListRequestModel.subCategory = CoreDataManager.shared.fetchSubCategoryList(targetTabPlace: TabPlaceCategoryList(rawValue: category.parameterPlace)!)
+            searchPlaceListRequestModel.subCategory = CoreDataManager.shared.fetchSubCategoryList(targetTabPlace: TabPlaceCategoryList(rawValue: category.parameterPlace))
         }
         
         apiSession.requestPost(urlResource: resource, parameter: searchPlaceListRequestModel.parameter)

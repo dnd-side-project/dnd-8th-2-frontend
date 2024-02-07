@@ -190,7 +190,7 @@ extension HomeVC {
                 let marker = NMFMarker()
                 marker.position = NMGLatLng(lat: Double(placeInfo.lat)!, lng: Double(placeInfo.lng)!)
                 
-                let bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)!
+                let bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)
                 marker.iconImage = NMFOverlayImage(image: MarkerType.round(bookmarkType.markerState).image)
                 marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                     self.presentPlaceBottomSheet(placeInfo: placeInfo)

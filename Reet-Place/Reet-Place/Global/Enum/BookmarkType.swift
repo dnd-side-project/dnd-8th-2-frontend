@@ -13,7 +13,7 @@ enum BookmarkType: String {
     case want // 가보고 싶어요
     case gone // 다녀왔어요
     
-    init?(rawValue: String) {
+    init(rawValue: String) {
         switch rawValue {
         case "WANT":
             self = .want

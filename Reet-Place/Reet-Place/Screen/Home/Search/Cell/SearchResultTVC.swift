@@ -129,7 +129,7 @@ extension SearchResultTVC {
         
         // 2. 징소정보
         placeNameLabel.text = placeInformation.name
-        categoryLabel.text = PlaceCategoryList(rawValue: placeInformation.category)?.name
+        categoryLabel.text = PlaceCategoryList(rawValue: placeInformation.category).name
         addressLabel.text = placeInformation.roadAddress
     }
     
