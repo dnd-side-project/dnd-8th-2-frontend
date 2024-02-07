@@ -186,9 +186,14 @@ extension HomeVC {
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let self = self else { return }
             
-            searchPlaceList.contents.forEach { placeInfo in
+            searchPlaceList.contents.forEach { [weak self] placeInfo in
+                guard let self = self else { return }
+                
                 let marker = NMFMarker()
-                marker.position = NMGLatLng(lat: Double(placeInfo.lat)!, lng: Double(placeInfo.lng)!)
+                if let latitude = Double(placeInfo.lat),
+                   let longitude = Double(placeInfo.lng) {
+                    marker.position = NMGLatLng(lat: latitude, lng: longitude)
+                }
                 
                 let bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)
                 marker.iconImage = NMFOverlayImage(image: MarkerType.round(bookmarkType.markerState).image)
