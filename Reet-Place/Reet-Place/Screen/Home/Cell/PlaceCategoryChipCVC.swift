@@ -29,7 +29,7 @@ extension PlaceCategoryChipCVC {
     func configurePlaceCategoryChipCVC(placeCategory: PlaceCategoryList) {
         categoryType = placeCategory
         
-        placeCategoryButton.configureButton(with: placeCategory.description, for: .primary)
+        placeCategoryButton.configureButton(with: placeCategory.name, for: .primary)
         placeCategoryButton.isSelected = isSelected
         placeCategoryButton.isUserInteractionEnabled = false
     }

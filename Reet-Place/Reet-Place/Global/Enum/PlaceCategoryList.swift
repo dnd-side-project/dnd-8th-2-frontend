@@ -44,8 +44,8 @@ extension PlaceCategoryList: CaseIterable {}
 
 // MARK: - Custom String Convertible
 
-extension PlaceCategoryList: CustomStringConvertible {
-    var description: String {
+extension PlaceCategoryList {
+    var name: String {
         switch self {
         case .reetPlaceHot:
             return "👀 릿플 인기"
