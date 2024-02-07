@@ -103,6 +103,16 @@ final class PlaceBottomSheet: BaseViewController {
     
     // MARK: - Life Cycle
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        modalPresentationStyle = .overFullScreen
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -196,26 +206,22 @@ final class PlaceBottomSheet: BaseViewController {
 extension PlaceBottomSheet {
     
     /// 장소바텀시트에 표시될 정보 값 입력 및 마커 상태 업데이트
-    func configurePlaceBottomSheet(
-        searchPlaceInfo: SearchPlaceListContent,
-        bookmarkType: BookmarkType,
-        marker: NMFMarker
-    ) {
-        self.searchPlaceInfo = searchPlaceInfo
-        self.placeName = searchPlaceInfo.name
-        self.bookmarkType = bookmarkType
+    func configurePlaceBottomSheet(placeInfo: SearchPlaceListContent, marker: NMFMarker?) {
+        self.searchPlaceInfo = placeInfo
+        self.placeName = placeInfo.name
+        self.bookmarkType = BookmarkType(rawValue: placeInfo.type ?? .empty)!
         self.marker = marker
-        let category = PlaceCategoryList(rawValue: searchPlaceInfo.category)?.description ?? .empty
         
-        if let thumbnailImage = searchPlaceInfo.thumbnailImage {
+        let category = PlaceCategoryList(rawValue: placeInfo.category)!.name
+        if let thumbnailImage = placeInfo.thumbnailImage {
             thumbnailImageView.setImage(with: thumbnailImage, placeholder: AssetsImages.placeResultThumbnail)
         }
         placeInformationView.configurePlaceInfomation(
-            placeName: searchPlaceInfo.name,
-            address: searchPlaceInfo.roadAddress,
+            placeName: placeInfo.name,
+            address: placeInfo.roadAddress,
             category: category
         )
-        bindLinkButton(url: searchPlaceInfo.url)
+        bindLinkButton(url: placeInfo.url)
         configureButton()
         updateMarkerIcon(isSelected: true)
     }
@@ -234,7 +240,7 @@ extension PlaceBottomSheet {
         self.placeName = bookmarkSummary.name
         self.bookmarkType = bookmarkType
         self.marker = marker
-        let category = PlaceCategoryList(rawValue: bookmarkSummary.category)?.description ?? .empty
+        let category = PlaceCategoryList(rawValue: bookmarkSummary.category)!.name
         
         placeInformationView.configurePlaceInfomation(
             placeName: bookmarkSummary.name,
@@ -346,8 +352,8 @@ extension PlaceBottomSheet {
     
     private func bindLinkButton(url: String) {
         placeInformationStackView.rx.tapGesture()
-            .asDriver()
-            .drive(onNext: { [weak self] _ in
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
                 guard let self = self,
                       let url = URL(string: url) else { return }
                 
