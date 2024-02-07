@@ -23,6 +23,7 @@ final class CategoryFilterBottomSheetVM: BaseViewModel {
     struct Input {}
     struct Output {
         var loading = BehaviorRelay<Bool>(value: false)
+        var isModifySuccess = PublishRelay<Bool>()
         
         var tabPlaceCategoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases.filter { $0 != .all })
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
@@ -112,7 +113,7 @@ extension CategoryFilterBottomSheetVM {
             .disposed(by: bag)
     }
     
-    func requestModifyCategoryFilterList(currentViewController: CategoryFilterBottomSheet) {
+    func requestModifyCategoryFilterList() {
         let placeCategoryList = ModificationCategoryFilterRequestModel(contents: output.placeCategorySelectionList)
         
         let path = "/api/places/category"
@@ -123,9 +124,9 @@ extension CategoryFilterBottomSheetVM {
             .subscribe(onNext: { owner, result in
                 switch result {
                 case .success(_):
-                    currentViewController.dismissBottomSheet()
+                    owner.output.isModifySuccess.accept(true)
                 case .failure(let error):
-                    currentViewController.showErrorAlert("SaveSelectedCategoryFailed".localized)
+                    owner.output.isModifySuccess.accept(false)
                     owner.apiError.onNext(error)
                 }
             })

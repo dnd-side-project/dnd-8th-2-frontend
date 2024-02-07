@@ -81,6 +81,7 @@ class CategoryFilterBottomSheet: ReetBottomSheet {
         
         bindOutputMenuTabBarView()
         bindOutputCategoryDetailListCollectionView()
+        bindCategoryFilterModifyStatus()
     }
     
     // MARK: - Functions
@@ -213,7 +214,7 @@ extension CategoryFilterBottomSheet {
                 guard let self = self else { return }
                 
                 if isLoginUser {
-                    viewModel.requestModifyCategoryFilterList(currentViewController: self)
+                    viewModel.requestModifyCategoryFilterList()
                 } else {
                     CoreDataManager.shared.saveManagedObjectContext()
                     self.dismissBottomSheet()
@@ -288,4 +289,17 @@ extension CategoryFilterBottomSheet {
             .disposed(by: bag)
     }
     
+    private func bindCategoryFilterModifyStatus() {
+        viewModel.output.isModifySuccess
+            .withUnretained(self)
+            .bind(onNext: { owner, isModifySuccess in
+                switch isModifySuccess {
+                case true:
+                    owner.dismissBottomSheet()
+                case false:
+                    owner.showErrorAlert("SaveSelectedCategoryFailed".localized)
+                }
+            })
+            .disposed(by: bag)
+    }
 }
