@@ -53,7 +53,7 @@ class SearchHistoryListCVC : BaseCollectionViewCell {
     
     var bag = DisposeBag()
     
-    var delegateSearchHistoryListAction: SearchHistoryListAction?
+    private var delegateSearchHistoryListAction: SearchHistoryListAction?
     
     // MARK: - Life Cycle
     
@@ -128,14 +128,15 @@ extension SearchHistoryListCVC {
         let dataSource = RxTableViewSectionedReloadDataSource<KeywordHistoryDataSource> { _,
             tableView,
             indexPath,
-            keyword in
+            searchHistoryContent in
 
             guard let cell = tableView
                 .dequeueReusableCell(withIdentifier: SearchHistoryTVC.className,
                                      for: indexPath) as? SearchHistoryTVC else {
                 fatalError("Cannot deqeue cells named SearchHistoryTVC")
             }
-            cell.configureSearchHistoryTVC(keywordHistory: keyword.description, delegateSearchHistoryAction: delegate)
+            cell.configureSearchHistoryTVC(searchHistoryContent: searchHistoryContent,
+                                           delegateSearchHistoryAction: delegate)
 
             return cell
         }
@@ -166,11 +167,11 @@ extension SearchHistoryListCVC {
             })
             .disposed(by: bag)
         
-        searchHistoryTableView.rx.modelSelected(String.self)
+        searchHistoryTableView.rx.modelSelected(SearchHistoryContent.self)
             .withUnretained(self)
-            .bind(onNext: { owner, keyword in
-                owner.delegateSearchHistoryListAction?.didTapKeyword(keyword: keyword)
-                viewModel.output.searchHistory.isUpdated.accept(true)
+            .bind(onNext: { owner, searchHistoryContent in
+                owner.delegateSearchHistoryListAction?.didTapKeyword(searchHistoryContent: searchHistoryContent)
+                viewModel.output.searchHistory.isNeedUpdated.accept(true)
             })
             .disposed(by: bag)
         

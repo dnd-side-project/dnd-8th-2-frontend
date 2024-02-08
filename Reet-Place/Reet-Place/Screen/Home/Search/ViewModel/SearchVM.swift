@@ -36,7 +36,7 @@ final class SearchVM: BaseViewModel {
     
     /// 장소검색 키워드 히스토리
     struct SearchHistory {
-        var keywordList: BehaviorRelay<Array<String>> = BehaviorRelay(value: CoreDataManager.shared.getKeywordHistoryList())
+        var keywordList: PublishRelay<Array<SearchHistoryContent>> = PublishRelay<Array<SearchHistoryContent>>()
         var isUpdated: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         var list: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)

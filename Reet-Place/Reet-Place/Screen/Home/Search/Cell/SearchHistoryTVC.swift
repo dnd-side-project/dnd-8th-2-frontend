@@ -43,7 +43,8 @@ class SearchHistoryTVC: BaseTableViewCell {
     
     var bag = DisposeBag()
     
-    var delegateSearchHistoryAction: SearchHistoryAction?
+    private var searchHistoryContent: SearchHistoryContent?
+    private var delegateSearchHistoryAction: SearchHistoryAction?
     
     // MARK: - Life Cycle
     
@@ -68,9 +69,12 @@ class SearchHistoryTVC: BaseTableViewCell {
     
     // MARK: - Function
     
-    func configureSearchHistoryTVC(keywordHistory: String, delegateSearchHistoryAction: SearchHistoryAction) {
+    func configureSearchHistoryTVC(searchHistoryContent: SearchHistoryContent, 
+                                   delegateSearchHistoryAction: SearchHistoryAction) {
+        self.searchHistoryContent = searchHistoryContent
         self.delegateSearchHistoryAction = delegateSearchHistoryAction
-        keywordLabel.text = keywordHistory
+        
+        keywordLabel.text = searchHistoryContent.query
     }
     
 }
@@ -124,8 +128,8 @@ extension SearchHistoryTVC {
             .withUnretained(self)
             .bind(onNext: { owner, _ in
                 if let delegate = owner.delegateSearchHistoryAction,
-                   let keyword = owner.keywordLabel.text {
-                    delegate.didTapRemoveButton(keyword: keyword)
+                   let searchHistoryContent = owner.searchHistoryContent {
+                    delegate.didTapRemoveKeywordButton(searchHistoryContent: searchHistoryContent)
                 }
             })
             .disposed(by: bag)

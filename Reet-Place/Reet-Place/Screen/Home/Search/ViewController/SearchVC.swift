@@ -377,9 +377,7 @@ extension SearchVC {
         removeAllKeywordButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                if CoreDataManager.shared.deleteAllSearchKeyword() {
-                    owner.viewModel.output.searchHistory.isUpdated.accept(true)
-                }
+                owner.viewModel.deleteSearchHistory()
             })
             .disposed(by: bag)
         
@@ -661,8 +659,8 @@ extension SearchVC: BookmarkCardAction {
 
 extension SearchVC: SearchHistoryListAction {
     
-    func didTapKeyword(keyword: String) {
-        searchTextField.text = keyword
+    func didTapKeyword(searchHistoryContent: SearchHistoryContent) {
+        searchTextField.text = searchHistoryContent.query
         startSearchPlaceKeyword()
     }
     
@@ -672,10 +670,8 @@ extension SearchVC: SearchHistoryListAction {
 
 extension SearchVC: SearchHistoryAction {
     
-    func didTapRemoveButton(keyword: String) {
-        if CoreDataManager.shared.deleteSearchKeyword(targetKeyword: keyword) {
-            viewModel.output.searchHistory.isUpdated.accept(true)
-        }
+    func didTapRemoveKeywordButton(searchHistoryContent: SearchHistoryContent) {
+        viewModel.deleteKeyword(searchHistoryContent: searchHistoryContent)
     }
     
 }

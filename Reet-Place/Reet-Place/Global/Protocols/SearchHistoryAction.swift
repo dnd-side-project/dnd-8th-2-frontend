@@ -11,6 +11,6 @@ import UIKit
 protocol SearchHistoryAction {
     
     /// 개별 검색기록 지우기 버튼을 클릭했을 때 호출
-    func didTapRemoveButton(keyword: String)
+    func didTapRemoveKeywordButton(searchHistoryContent: SearchHistoryContent)
     
 }

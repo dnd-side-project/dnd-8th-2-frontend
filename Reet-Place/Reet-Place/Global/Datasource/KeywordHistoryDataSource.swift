@@ -12,7 +12,7 @@ struct KeywordHistoryDataSource {
 }
 
 extension KeywordHistoryDataSource: SectionModelType {
-    typealias Item = String
+    typealias Item = SearchHistoryContent
     
     init(original: KeywordHistoryDataSource, items: [Item]) {
         self = original

@@ -11,6 +11,6 @@ import UIKit
 protocol SearchHistoryListAction {
     
     /// 검색기록 키워드를 클릭했을 때 호출
-    func didTapKeyword(keyword: String)
+    func didTapKeyword(searchHistoryContent: SearchHistoryContent)
     
 }
