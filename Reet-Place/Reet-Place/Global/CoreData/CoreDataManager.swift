@@ -201,13 +201,14 @@ extension CoreDataManager {
 extension CoreDataManager {
     
     /// 키워드 검색기록 목록 반환
-    func getKeywordHistoryList() -> [String] {
+    func getKeywordHistoryList() -> [SearchHistoryContent] {
         if let searchHistoryObjectList = fetchSearchHistoryObjectList() {
-            var keywordHistoryList: [String] = []
+            var keywordHistoryList: [SearchHistoryContent] = []
             
             searchHistoryObjectList.forEach {
-                if let keyword = $0.value(forKey: #keyPath(SearchHistory.keyword)) as? String {
-                    keywordHistoryList.append(keyword)
+                if let keyword = $0.value(forKey: #keyPath(SearchHistory.keyword)) as? String,
+                   let time = $0.value(forKey: #keyPath(SearchHistory.time)) as? Date {
+                    keywordHistoryList.append(SearchHistoryContent(id: 0, query: keyword, createdAt: time.toString()))
                 }
             }
             return keywordHistoryList
@@ -241,7 +242,8 @@ extension CoreDataManager {
         
         if let entity = getEntityDescription(targetEntity: .searchHistory),
            let objectList = fetchSearchHistoryObjectList() {
-            let keywordHistoryList = getKeywordHistoryList()
+            let searchHistoryContentList = getKeywordHistoryList()
+            let keywordHistoryList = searchHistoryContentList.map { $0.query }
             
             // 최대 저장 개수 초과시 가장 오래된 키워드 삭제
             if objectList.count >= searchHistoryKeywordsMax,
