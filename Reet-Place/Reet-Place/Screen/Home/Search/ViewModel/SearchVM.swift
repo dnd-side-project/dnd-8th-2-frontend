@@ -37,7 +37,8 @@ final class SearchVM: BaseViewModel {
     /// 장소검색 키워드 히스토리
     struct SearchHistory {
         var keywordList: PublishRelay<Array<SearchHistoryContent>> = PublishRelay<Array<SearchHistoryContent>>()
-        var isUpdated: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var isNeedUpdated: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var isUpdatedWithoutScroll: PublishRelay<Bool> = PublishRelay()
         
         var list: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
         var dataSource: Observable<Array<SearchHistoryListDataSource>> {
@@ -69,8 +70,34 @@ final class SearchVM: BaseViewModel {
     
     // MARK: - Functions
     
-    func updateKeywordHistory() {
-        output.searchHistory.keywordList.accept(CoreDataManager.shared.getKeywordHistoryList())
+    /// 로그인 유무에 따른 사용자의 검색기록 목록 조회 요청
+    func updateSearchHistory() {
+        switch output.isLoginUser {
+        case true:
+            requestSearchHistory()
+        case false:
+            output.searchHistory.keywordList.accept(CoreDataManager.shared.getKeywordHistoryList())
+        }
+    }
+    
+    /// 로그인 유무에 따른 사용자의 전체 검색기록 삭제
+    func deleteSearchHistory() {
+        switch output.isLoginUser {
+        case true:
+            requestDeleteSearchHistory()
+        case false:
+            output.searchHistory.isNeedUpdated.accept(CoreDataManager.shared.deleteAllSearchKeyword())
+        }
+    }
+    
+    /// 로그인 유무에 따른 특정 키워드 삭제 요청
+    func deleteKeyword(searchHistoryContent: SearchHistoryContent) {
+        switch output.isLoginUser {
+        case true:
+            requestDeleteKeyword(keywordID: searchHistoryContent.id)
+        case false:
+            output.searchHistory.isUpdatedWithoutScroll.accept(CoreDataManager.shared.deleteSearchKeyword(targetKeyword: searchHistoryContent.query))
+        }
     }
 }
 
@@ -86,10 +113,75 @@ extension SearchVM: Output {
     func bindOutput() {}
 }
 
-// MARK: - Networking
+// MARK: - Networking SearchHistory
 
 extension SearchVM {
     
+    /// 로그인한 사용자의 검색기록 목록 조회
+    func requestSearchHistory() {
+        let path = "/api/search/history"
+        let resource = URLResource<SearchHistoryResponseModel>(path: path)
+        
+        apiSession.requestGet(urlResource: resource)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(let data):
+                    owner.output.searchHistory.keywordList.accept(data.contents)
+                case .failure(let error):
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    /// 전체 검색기록 삭제
+    func requestDeleteSearchHistory() {
+        let path = "/api/search/history"
+        let resource = URLResource<EmptyEntity>(path: path)
+        
+        apiSession.requestDelete(urlResource: resource)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(_):
+                    owner.output.searchHistory.isNeedUpdated.accept(true)
+                case .failure(let error):
+                    owner.output.searchHistory.isNeedUpdated.accept(false)
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    /// 선택한 키워드 삭제
+    func requestDeleteKeyword(keywordID searchId: Int) {
+        let searchId = String(searchId)
+        
+        let path = "/api/search/history/\(searchId)"
+        let resource = URLResource<EmptyEntity>(path: path)
+        
+        apiSession.requestDelete(urlResource: resource)
+            .withUnretained(self)
+            .subscribe(onNext: { owner, result in
+                switch result {
+                case .success(_):
+                    owner.output.searchHistory.isUpdatedWithoutScroll.accept(true)
+                case .failure(let error):
+                    owner.output.searchHistory.isUpdatedWithoutScroll.accept(false)
+                    owner.apiError.onNext(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
+// MARK: - Networking SearchPlaceKeyword
+
+extension SearchVM {
+    
+    /// 주어진 좌표를 중심으로 해당 키워드와 연관된 장소목록 조회
     func requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel) {
         let path = "/api/places/search"
         let resource = URLResource<SearchPlaceKeywordResponseModel>(path: path)

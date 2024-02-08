@@ -149,12 +149,22 @@ extension SearchHistoryListCVC {
             .bind(to: searchHistoryTableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
         
-        viewModel.output.searchHistory.isUpdated
+        viewModel.output.searchHistory.isNeedUpdated
             .withUnretained(self)
-            .subscribe(onNext: { owner, isUpdated in
-                if isUpdated {
+            .subscribe(onNext: { owner, isNeedUpdated in
+                if isNeedUpdated {
                     owner.searchHistoryTableView.scrollToTop()
-                    viewModel.updateKeywordHistory()
+                    viewModel.updateSearchHistory()
+                    owner.searchHistoryTableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.searchHistory.isUpdatedWithoutScroll
+            .withUnretained(self)
+            .subscribe(onNext: { owner, isDeleteSuccess in
+                if isDeleteSuccess {
+                    viewModel.updateSearchHistory()
                     owner.searchHistoryTableView.reloadData()
                 }
             })

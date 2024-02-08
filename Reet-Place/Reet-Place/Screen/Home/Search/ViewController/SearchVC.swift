@@ -156,6 +156,7 @@ class SearchVC: BaseViewController {
         super.configureView()
         
         configureSearchTextField()
+        configureSearchHistory()
     }
     
     override func layoutView() {
@@ -192,10 +193,7 @@ class SearchVC: BaseViewController {
     }
     
     private func isShowSearchResultUI(show: Bool) {
-        if !show {
-            viewModel.output.searchHistory.isUpdated.accept(true)
-            searchHistoryListCollectionView.scrollToTop()
-        }
+        viewModel.output.searchHistory.isNeedUpdated.accept(!show)
         
         cancelButton.isHidden = !show
         searchResultEmptyStackView.isHidden = !show
@@ -204,8 +202,12 @@ class SearchVC: BaseViewController {
     
     private func requestSearchPlaceKeyword(requestPage: Int) {
         if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
-            if let keyword = searchTextField.text, !keyword.isEmpty {
-                CoreDataManager.shared.saveSearchKeyword(toSaveKeyword: keyword)
+            if let keyword = searchTextField.text?.trimmingCharacters(in: .whitespaces), !keyword.isEmpty {
+                searchTextField.text = keyword
+                
+                if !viewModel.output.isLoginUser {
+                    CoreDataManager.shared.saveSearchKeyword(toSaveKeyword: keyword)
+                }
                 
                 viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
                                                                                                  lng: curLocationCoordinate.longitude,
@@ -242,6 +244,14 @@ extension SearchVC {
                 $0.itemSize = CGSize(width: searchHistoryListCollectionView.frame.size.width, height: searchHistoryListCollectionView.frame.size.height)
             }
         searchHistoryListCollectionView.collectionViewLayout = layout
+    }
+    
+    private func configureSearchHistory() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.01) { [weak self] in
+            guard let self = self else { return }
+            
+            self.viewModel.output.searchHistory.isNeedUpdated.accept(true)
+        }
     }
     
 }
