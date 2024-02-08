@@ -179,12 +179,13 @@ class SearchVC: BaseViewController {
         
         bindOutputHistoryCategoryTabBarView()
         bindSearchHistroyListCollectionView()
+        bindSearchHistroy()
         bindOutputSearchResultTableView()
     }
     
     // MARK: - Functions
     
-    private func searchPlaceKeyword() {
+    private func startSearchPlaceKeyword() {
         searchResultTableView.scrollToTop()
         requestSearchPlaceKeyword(requestPage: 1)
         isShowSearchResultUI(show: true)
@@ -192,18 +193,13 @@ class SearchVC: BaseViewController {
     
     private func isShowSearchResultUI(show: Bool) {
         if !show {
-            updateSearchHistoryListStatus()
+            viewModel.output.searchHistory.isUpdated.accept(true)
             searchHistoryListCollectionView.scrollToTop()
         }
         
         cancelButton.isHidden = !show
         searchResultEmptyStackView.isHidden = !show
         searchResultTableView.isHidden = !show
-    }
-    
-    private func updateSearchHistoryListStatus() {
-        viewModel.output.searchHistory.keywordList.accept(CoreDataManager.shared.getKeywordHistoryList())
-        searchHistoryListCollectionView.reloadData()
     }
     
     private func requestSearchPlaceKeyword(requestPage: Int) {
@@ -362,7 +358,7 @@ extension SearchVC {
         searchButton.rx.tap
             .withUnretained(self)
             .bind(onNext: { owner, _ in
-                owner.searchPlaceKeyword()
+                owner.startSearchPlaceKeyword()
             })
             .disposed(by: bag)
         
@@ -382,7 +378,7 @@ extension SearchVC {
             .withUnretained(self)
             .bind(onNext: { owner, _ in
                 if CoreDataManager.shared.deleteAllSearchKeyword() {
-                    owner.updateSearchHistoryListStatus()
+                    owner.viewModel.output.searchHistory.isUpdated.accept(true)
                 }
             })
             .disposed(by: bag)
@@ -414,7 +410,7 @@ extension SearchVC {
             .asObservable()
             .withUnretained(self)
             .subscribe(onNext: { owner, _ in
-                owner.searchPlaceKeyword()
+                owner.startSearchPlaceKeyword()
             })
             .disposed(by: bag)
         
@@ -521,7 +517,7 @@ extension SearchVC {
                                      for: indexPath) as? SearchHistoryListCVC else {
                 fatalError("Cannot deqeue cells named SearchHistoryListCVC")
             }
-            cell.configureSearchHistoryListCVC(categoryType: categoryType,
+            cell.configureSearchHistoryListCVC(viewModel: self.viewModel,
                                                delegateSearchHistoryListAction: self,
                                                delegateSearchHistoryAction: self)
             
@@ -531,13 +527,12 @@ extension SearchVC {
         viewModel.output.searchHistory.dataSource
             .bind(to: searchHistoryListCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
-        
+    }
+    
+    private func bindSearchHistroy() {
         viewModel.output.searchHistory.keywordList
             .withUnretained(self)
             .subscribe(onNext: { owner, list in
-                
-                print(list.count > 0)
-                
                 owner.removeAllKeywordButton.isEnabled = list.count > 0
             })
             .disposed(by: bag)
@@ -668,7 +663,7 @@ extension SearchVC: SearchHistoryListAction {
     
     func didTapKeyword(keyword: String) {
         searchTextField.text = keyword
-        searchPlaceKeyword()
+        startSearchPlaceKeyword()
     }
     
 }
@@ -679,7 +674,7 @@ extension SearchVC: SearchHistoryAction {
     
     func didTapRemoveButton(keyword: String) {
         if CoreDataManager.shared.deleteSearchKeyword(targetKeyword: keyword) {
-            updateSearchHistoryListStatus()
+            viewModel.output.searchHistory.isUpdated.accept(true)
         }
     }
     

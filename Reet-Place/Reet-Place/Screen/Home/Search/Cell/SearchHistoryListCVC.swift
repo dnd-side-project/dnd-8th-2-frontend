@@ -81,12 +81,13 @@ class SearchHistoryListCVC : BaseCollectionViewCell {
 extension SearchHistoryListCVC {
     
     /// 검색기록 테이블 뷰 내용을 설정하는 함수
-    func configureSearchHistoryListCVC(categoryType: TabPlaceCategoryList,
+    func configureSearchHistoryListCVC(viewModel: SearchVM,
                                        delegateSearchHistoryListAction: SearchHistoryListAction,
                                        delegateSearchHistoryAction delegate: SearchHistoryAction) {
         self.delegateSearchHistoryListAction = delegateSearchHistoryListAction
         
-        bindSearchHistroyTableView(categoryType: categoryType, delegateSearchHistoryAction: delegate)
+        bindSearchHistroyTableView(viewModel: viewModel, 
+                                   delegateSearchHistoryAction: delegate)
     }
     
 }
@@ -122,7 +123,8 @@ extension SearchHistoryListCVC {
 
 extension SearchHistoryListCVC {
     
-    private func bindSearchHistroyTableView(categoryType: TabPlaceCategoryList, delegateSearchHistoryAction delegate: SearchHistoryAction) {
+    private func bindSearchHistroyTableView(viewModel: SearchVM, 
+                                            delegateSearchHistoryAction delegate: SearchHistoryAction) {
         let dataSource = RxTableViewSectionedReloadDataSource<KeywordHistoryDataSource> { _,
             tableView,
             indexPath,
@@ -138,19 +140,29 @@ extension SearchHistoryListCVC {
             return cell
         }
         
-        let keywordHistoryList: BehaviorRelay<Array<String>> = BehaviorRelay(value: CoreDataManager.shared.getKeywordHistoryList())
         var keywordHistoryDataSource: Observable<Array<KeywordHistoryDataSource>> {
-            keywordHistoryList.map { [KeywordHistoryDataSource(items: $0)] }
+            viewModel.output.searchHistory.keywordList.map { [KeywordHistoryDataSource(items: $0)] }
         }
         
         keywordHistoryDataSource
             .bind(to: searchHistoryTableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
         
-        keywordHistoryList
+        viewModel.output.searchHistory.isUpdated
             .withUnretained(self)
-            .subscribe(onNext: { owner, items in
-                owner.searchHistoryTableView.isHidden = items.count == 0 ? true : false
+            .subscribe(onNext: { owner, isUpdated in
+                if isUpdated {
+                    owner.searchHistoryTableView.scrollToTop()
+                    viewModel.updateKeywordHistory()
+                    owner.searchHistoryTableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.searchHistory.keywordList
+            .withUnretained(self)
+            .subscribe(onNext: { owner, list in
+                owner.searchHistoryTableView.isHidden = list.count == 0
             })
             .disposed(by: bag)
         
@@ -158,6 +170,7 @@ extension SearchHistoryListCVC {
             .withUnretained(self)
             .bind(onNext: { owner, keyword in
                 owner.delegateSearchHistoryListAction?.didTapKeyword(keyword: keyword)
+                viewModel.output.searchHistory.isUpdated.accept(true)
             })
             .disposed(by: bag)
         

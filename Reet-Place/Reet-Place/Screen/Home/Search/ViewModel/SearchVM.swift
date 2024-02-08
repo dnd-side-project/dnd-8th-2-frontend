@@ -22,6 +22,8 @@ final class SearchVM: BaseViewModel {
     
     struct Input {}
     struct Output {
+        var isLoginUser = KeychainManager.shared.read(for: .accessToken) != nil
+        
         var categoryHistoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
             categoryHistoryList.map { [TabPlaceCategoryListDataSource(items: $0)] }
@@ -35,6 +37,7 @@ final class SearchVM: BaseViewModel {
     /// 장소검색 키워드 히스토리
     struct SearchHistory {
         var keywordList: BehaviorRelay<Array<String>> = BehaviorRelay(value: CoreDataManager.shared.getKeywordHistoryList())
+        var isUpdated: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         var list: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
         var dataSource: Observable<Array<SearchHistoryListDataSource>> {
@@ -62,6 +65,12 @@ final class SearchVM: BaseViewModel {
     
     deinit {
         bag = DisposeBag()
+    }
+    
+    // MARK: - Functions
+    
+    func updateKeywordHistory() {
+        output.searchHistory.keywordList.accept(CoreDataManager.shared.getKeywordHistoryList())
     }
 }
 
