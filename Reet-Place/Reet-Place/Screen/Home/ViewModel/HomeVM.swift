@@ -65,6 +65,7 @@ extension HomeVM: Output {
 
 extension HomeVM {
     
+    /// 주어진 좌표를 중심으로 해당 카테고리와 관련된 장소목록 조회
     func requestSearchPlaces(category: PlaceCategoryList, latitude: String, longitude: String) {
         let path = "/api/places"
         let resource = URLResource<SearchPlaceListResponseModel>(path: path)
