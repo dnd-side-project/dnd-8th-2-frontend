@@ -142,6 +142,7 @@ PrivacyPoilcyTitle = "개인정보처리방침";
 
 // MARK: - Bottom Sheet
 SaveBookmark = "저장하기";
+GoToLogin = "로그인하러 가기";
 
 
 // MARK: - Alert
