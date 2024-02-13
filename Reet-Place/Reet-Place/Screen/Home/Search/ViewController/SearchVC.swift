@@ -203,6 +203,10 @@ class SearchVC: BaseViewController {
         }
     }
     
+    @objc private func goToLogin() {
+        let loginVC = LoginVC()
+        loginVC.pushWithHidesReetPlaceTabBar()
+    }
 }
 
 // MARK: - Configure
@@ -564,19 +568,28 @@ extension SearchVC: BookmarkCardAction {
         let searchPlaceInfo = viewModel.output.searchResult.list.value[index]
         switch row {
         case 0:
-            let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
-            bottomSheetVC.configureInitialData(with: searchPlaceInfo.toSearchPlaceListContent())
+            let isAuthenticated = viewModel.output.isAuthenticated.value
             
-            bottomSheetVC.savedBookmarkType
-                .withUnretained(self)
-                .subscribe { owner, _ in
-                    // TODO: - 저장 완료 후 검색 결과 리스트 업데이트 방식 논의 필요
-                    owner.showToast(message: "BookmarkSaved".localized)
-                }
-                .disposed(by: bag)
+            if isAuthenticated {
+                let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
+                bottomSheetVC.configureInitialData(with: searchPlaceInfo.toSearchPlaceListContent())
+                
+                bottomSheetVC.savedBookmarkType
+                    .withUnretained(self)
+                    .subscribe { owner, _ in
+                        // TODO: - 저장 완료 후 검색 결과 리스트 업데이트 방식 논의 필요
+                        owner.showToast(message: "BookmarkSaved".localized)
+                    }
+                    .disposed(by: bag)
+                
+                bottomSheetVC.modalPresentationStyle = .overFullScreen
+                present(bottomSheetVC, animated: true)
+            } else {
+                showPopUp(popUpType: .goToLogin,
+                          targetVC: self,
+                          confirmBtnAction: #selector(goToLogin))
+            }
             
-            bottomSheetVC.modalPresentationStyle = .overFullScreen
-            present(bottomSheetVC, animated: true)
         case 1:
             UIPasteboard.general.string = searchPlaceInfo.url
             showToast(message: "LinkCopied".localized)
