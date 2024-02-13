@@ -259,6 +259,7 @@
 		0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVM.swift; sourceTree = "<group>"; };
 		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
 		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
+		0EF6EA3F2B7B27C000B0A75E /* Reet-PlaceRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceRelease.entitlements"; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* StarToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarToggleButton.swift; sourceTree = "<group>"; };
@@ -1041,6 +1042,7 @@
 		3CEC2FB1298FEAAF0057D813 /* Reet-Place */ = {
 			isa = PBXGroup;
 			children = (
+				0EF6EA3F2B7B27C000B0A75E /* Reet-PlaceRelease.entitlements */,
 				0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */,
 				3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */,
 				3C2AED8F2990B69700E36342 /* Support */,
@@ -1726,7 +1728,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceDebug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1765,9 +1767,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceRelease.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
