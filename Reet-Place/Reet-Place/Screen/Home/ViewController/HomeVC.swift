@@ -168,6 +168,13 @@ extension HomeVC {
     
     private func configureMapView() {
         mapView.touchDelegate = self
+        locationManager.startUpdatingLocation()
+        if let initialLocation = locationManager.location?.coordinate{
+            let initialCameraPosition = NMGLatLng(lat: initialLocation.latitude, lng: initialLocation.longitude)
+            let initialCameraUpdate = NMFCameraUpdate(scrollTo: initialCameraPosition)
+            mapView.moveCamera(initialCameraUpdate)
+        }
+        locationManager.stopUpdatingLocation()
     }
     
     private func configureLocationManager() {
