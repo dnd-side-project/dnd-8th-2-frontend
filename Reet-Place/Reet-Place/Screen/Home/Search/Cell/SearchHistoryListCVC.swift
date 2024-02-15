@@ -18,9 +18,10 @@ class SearchHistoryListCVC : BaseCollectionViewCell {
     
     // MARK: - UI components
     
-    private let searchHistoryTableView = UITableView(frame: .zero, style: .plain)
+    let searchHistoryTableView = UITableView(frame: .zero, style: .plain)
         .then {
             $0.rowHeight = 48.0
+            $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.register(SearchHistoryTVC.self, forCellReuseIdentifier: SearchHistoryTVC.className)
         }
@@ -52,6 +53,8 @@ class SearchHistoryListCVC : BaseCollectionViewCell {
     
     var bag = DisposeBag()
     
+    private var delegateSearchHistoryListAction: SearchHistoryListAction?
+    
     // MARK: - Life Cycle
     
     override func prepareForReuse() {
@@ -71,7 +74,6 @@ class SearchHistoryListCVC : BaseCollectionViewCell {
     }
     
     // MARK: - Functions
-    
 }
 
 // MARK: - Configure
@@ -79,8 +81,13 @@ class SearchHistoryListCVC : BaseCollectionViewCell {
 extension SearchHistoryListCVC {
     
     /// 검색기록 테이블 뷰 내용을 설정하는 함수
-    func configureSearchHistoryListCVC(categoryType: TabPlaceCategoryList, viewModel: SearchVM) {
-        bindSearchHistroyTableView(categoryType: categoryType, viewModel: viewModel)
+    func configureSearchHistoryListCVC(viewModel: SearchVM,
+                                       delegateSearchHistoryListAction: SearchHistoryListAction,
+                                       delegateSearchHistoryAction delegate: SearchHistoryAction) {
+        self.delegateSearchHistoryListAction = delegateSearchHistoryListAction
+        
+        bindSearchHistroyTableView(viewModel: viewModel, 
+                                   delegateSearchHistoryAction: delegate)
     }
     
 }
@@ -108,7 +115,7 @@ extension SearchHistoryListCVC {
         }
         searchHistoryTableView.snp.makeConstraints {
             $0.verticalEdges.equalTo(contentView)
-            $0.horizontalEdges.equalTo(contentView).inset(20.0)
+            $0.horizontalEdges.equalTo(contentView)
         }
     }
     
@@ -116,36 +123,72 @@ extension SearchHistoryListCVC {
 
 extension SearchHistoryListCVC {
     
-    private func bindSearchHistroyTableView(categoryType: TabPlaceCategoryList, viewModel: SearchVM) {
+    private func bindSearchHistroyTableView(viewModel: SearchVM, 
+                                            delegateSearchHistoryAction delegate: SearchHistoryAction) {
         let dataSource = RxTableViewSectionedReloadDataSource<KeywordHistoryDataSource> { _,
             tableView,
             indexPath,
-            keyword in
+            searchHistoryContent in
 
             guard let cell = tableView
                 .dequeueReusableCell(withIdentifier: SearchHistoryTVC.className,
                                      for: indexPath) as? SearchHistoryTVC else {
                 fatalError("Cannot deqeue cells named SearchHistoryTVC")
             }
-            cell.configureSearchHistoryTVC(keywordHistory: keyword.description)
+            cell.configureSearchHistoryTVC(searchHistoryContent: searchHistoryContent,
+                                           delegateSearchHistoryAction: delegate)
 
             return cell
         }
         
-        let keywordHistoryList: BehaviorRelay<Array<String>> = BehaviorRelay(value: categoryType.list)
         var keywordHistoryDataSource: Observable<Array<KeywordHistoryDataSource>> {
-            keywordHistoryList.map { [KeywordHistoryDataSource(items: $0)] }
+            viewModel.output.searchHistory.keywordList.map { [KeywordHistoryDataSource(items: $0)] }
         }
         
         keywordHistoryDataSource
             .bind(to: searchHistoryTableView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
         
-        keywordHistoryList
-            .subscribe(onNext: { [weak self] items in
-                guard let self = self else { return }
-
-                self.searchHistoryTableView.isHidden = items.count == 0 ? true : false
+        viewModel.output.searchHistory.isNeedUpdated
+            .withUnretained(self)
+            .subscribe(onNext: { owner, isNeedUpdated in
+                if isNeedUpdated {
+                    owner.searchHistoryTableView.scrollToTop()
+                    viewModel.updateSearchHistory()
+                    owner.searchHistoryTableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.searchHistory.isUpdatedWithoutScroll
+            .withUnretained(self)
+            .subscribe(onNext: { owner, isDeleteSuccess in
+                if isDeleteSuccess {
+                    viewModel.updateSearchHistory()
+                    owner.searchHistoryTableView.reloadData()
+                }
+            })
+            .disposed(by: bag)
+        
+        viewModel.output.searchHistory.keywordList
+            .withUnretained(self)
+            .subscribe(onNext: { owner, list in
+                owner.searchHistoryTableView.isHidden = list.count == 0
+            })
+            .disposed(by: bag)
+        
+        searchHistoryTableView.rx.modelSelected(SearchHistoryContent.self)
+            .withUnretained(self)
+            .bind(onNext: { owner, searchHistoryContent in
+                owner.delegateSearchHistoryListAction?.didTapKeyword(searchHistoryContent: searchHistoryContent)
+                viewModel.output.searchHistory.isNeedUpdated.accept(true)
+            })
+            .disposed(by: bag)
+        
+        searchHistoryTableView.rx.willBeginDragging
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
+                owner.findViewController()?.view.endEditing(true)
             })
             .disposed(by: bag)
     }

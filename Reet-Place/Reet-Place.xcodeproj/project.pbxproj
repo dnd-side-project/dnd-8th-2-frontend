@@ -159,6 +159,9 @@
 		3CBE979A29A9041700C0D2FE /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979929A9041700C0D2FE /* TabBarView.swift */; };
 		3CBE979C29A904EF00C0D2FE /* ReetTabBarItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979B29A904EF00C0D2FE /* ReetTabBarItemButton.swift */; };
 		3CBE979E29A90A5800C0D2FE /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBE979D29A90A5800C0D2FE /* TabBarItem.swift */; };
+		3CC9F07B2B7400BB00262B22 /* SearchHistoryAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC9F07A2B7400BB00262B22 /* SearchHistoryAction.swift */; };
+		3CC9F07D2B740B7300262B22 /* SearchHistoryListAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC9F07C2B740B7300262B22 /* SearchHistoryListAction.swift */; };
+		3CC9F07F2B74224B00262B22 /* SearchHistoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC9F07E2B74224B00262B22 /* SearchHistoryResponseModel.swift */; };
 		3CCB07A829F908C8003EC058 /* CategoryFilterBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07A729F908C8003EC058 /* CategoryFilterBottomSheet.swift */; };
 		3CCB07AA29F90D4F003EC058 /* ReetTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07A929F90D4F003EC058 /* ReetTextButton.swift */; };
 		3CCB07AC29F90D90003EC058 /* ReetTextButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCB07AB29F90D90003EC058 /* ReetTextButtonStyle.swift */; };
@@ -259,6 +262,7 @@
 		0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVM.swift; sourceTree = "<group>"; };
 		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
 		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
+		0EF6EA3F2B7B27C000B0A75E /* Reet-PlaceRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceRelease.entitlements"; sourceTree = "<group>"; };
 		0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetBottomSheet.swift; sourceTree = "<group>"; };
 		0EFE7C3729AA504F0051E72D /* BookmarkBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkBottomSheetVC.swift; sourceTree = "<group>"; };
 		0EFE7C3929AA60880051E72D /* StarToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarToggleButton.swift; sourceTree = "<group>"; };
@@ -367,9 +371,14 @@
 		3CBE979929A9041700C0D2FE /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		3CBE979B29A904EF00C0D2FE /* ReetTabBarItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTabBarItemButton.swift; sourceTree = "<group>"; };
 		3CBE979D29A90A5800C0D2FE /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		3CC9F07A2B7400BB00262B22 /* SearchHistoryAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryAction.swift; sourceTree = "<group>"; };
+		3CC9F07C2B740B7300262B22 /* SearchHistoryListAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryListAction.swift; sourceTree = "<group>"; };
+		3CC9F07E2B74224B00262B22 /* SearchHistoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryResponseModel.swift; sourceTree = "<group>"; };
 		3CCB07A729F908C8003EC058 /* CategoryFilterBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBottomSheet.swift; sourceTree = "<group>"; };
 		3CCB07A929F90D4F003EC058 /* ReetTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextButton.swift; sourceTree = "<group>"; };
 		3CCB07AB29F90D90003EC058 /* ReetTextButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetTextButtonStyle.swift; sourceTree = "<group>"; };
+		3CD5586D2B73B715008CD2F8 /* SearchHistory+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistory+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3CD5586E2B73B716008CD2F8 /* SearchHistory+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistory+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3CDD84F02B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryFilter+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3CDD84F22B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoryFilter+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3CE3C47A2A458A180097FB63 /* SearchHistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTVC.swift; sourceTree = "<group>"; };
@@ -1005,6 +1014,7 @@
 			children = (
 				3CE3CC3C2ACFE0AA0027FB5E /* SearchPlaceKeywordResponseModel.swift */,
 				3C4AE3412AFDFE4B001C8EC6 /* SearchPlaceKeywordRequestModel.swift */,
+				3CC9F07E2B74224B00262B22 /* SearchHistoryResponseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1014,6 +1024,8 @@
 			children = (
 				3CDD84F22B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift */,
 				3CDD84F02B4D05440089F7C9 /* CategoryFilter+CoreDataProperties.swift */,
+				3CD5586D2B73B715008CD2F8 /* SearchHistory+CoreDataClass.swift */,
+				3CD5586E2B73B716008CD2F8 /* SearchHistory+CoreDataProperties.swift */,
 				3C72D92A2B3401F200AF2190 /* ReetPlace.xcdatamodeld */,
 				3C72D92D2B34043D00AF2190 /* CoreDataManager.swift */,
 			);
@@ -1041,6 +1053,7 @@
 		3CEC2FB1298FEAAF0057D813 /* Reet-Place */ = {
 			isa = PBXGroup;
 			children = (
+				0EF6EA3F2B7B27C000B0A75E /* Reet-PlaceRelease.entitlements */,
 				0E05F0062A4F10F1008A20F4 /* Reet-PlaceDebug.entitlements */,
 				3CEC2FBD298FEAB20057D813 /* LaunchScreen.storyboard */,
 				3C2AED8F2990B69700E36342 /* Support */,
@@ -1115,6 +1128,8 @@
 				A4EFC0A2299E724E00B066AF /* ForegroundColorProvider.swift */,
 				3CE5B0ED2B2754FC0080F606 /* BookmarkCardAction.swift */,
 				3CE967472B4C0D27009F86FD /* DetailCategoryChipAction.swift */,
+				3CC9F07A2B7400BB00262B22 /* SearchHistoryAction.swift */,
+				3CC9F07C2B740B7300262B22 /* SearchHistoryListAction.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1394,6 +1409,7 @@
 				3C423F2E29AAF734003B7B7D /* CategoryChipStyle.swift in Sources */,
 				3CCB07AA29F90D4F003EC058 /* ReetTextButton.swift in Sources */,
 				3C2AED582990B3C200E36342 /* UserDefaults+.swift in Sources */,
+				3CC9F07B2B7400BB00262B22 /* SearchHistoryAction.swift in Sources */,
 				0E5A514429F6722700C44701 /* PrivacyPolicyVC.swift in Sources */,
 				3CFBC6FD2A61368300540C7F /* SearchPlaceListRequestModel.swift in Sources */,
 				0E5A514029F6720E00C44701 /* SubmitQnaVC.swift in Sources */,
@@ -1473,6 +1489,7 @@
 				3C2AF0DB29914A8C00E36342 /* AssetsImages.swift in Sources */,
 				3CCB07A829F908C8003EC058 /* CategoryFilterBottomSheet.swift in Sources */,
 				3C2AF0D72991397100E36342 /* NavigationType.swift in Sources */,
+				3CC9F07D2B740B7300262B22 /* SearchHistoryListAction.swift in Sources */,
 				3C2AED5C2990B3C200E36342 /* UIView+.swift in Sources */,
 				3C2AF0DD29914CAA00E36342 /* UIFont+.swift in Sources */,
 				3C04A7C32A4C072B00A31FA3 /* PlaceInfoView.swift in Sources */,
@@ -1546,6 +1563,7 @@
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
 				0EAFCFDC2A2888700023A738 /* SelectBoxTVC.swift in Sources */,
 				A4D09EC8299F984A004DEE97 /* UserInfoVC.swift in Sources */,
+				3CC9F07F2B74224B00262B22 /* SearchHistoryResponseModel.swift in Sources */,
 				3C9256742A1CE26B0011B093 /* CategoryDetailShoppingList.swift in Sources */,
 				0EB76CF12B5E5B3100E3FD51 /* BookmarkListVC.swift in Sources */,
 				A417F66F299E8710005E6DA7 /* UserInfomation.swift in Sources */,
@@ -1726,7 +1744,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceDebug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1765,9 +1783,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceRelease.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -18,5 +18,7 @@ protocol APIService {
     
     func requestPut<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>>
     
+    func requestDelete<T: Decodable>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>>
+    
 }
 

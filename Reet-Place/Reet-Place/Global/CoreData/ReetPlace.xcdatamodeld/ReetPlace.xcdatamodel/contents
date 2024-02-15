@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F66" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D56" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CategoryFilter" representedClassName="CategoryFilter" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="subCategory" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+    </entity>
+    <entity name="SearchHistory" representedClassName=".SearchHistory" syncable="YES" codeGenerationType="class">
+        <attribute name="keyword" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="keyword"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>
