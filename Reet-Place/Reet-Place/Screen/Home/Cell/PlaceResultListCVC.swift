@@ -74,8 +74,8 @@ extension PlaceResultListCVC {
         
         var simpleAddress: String = .empty
         let addressList = placeResultInfo.lotNumberAddress.split(separator: " ")
-        if let city = addressList[safe: 11],
-           let dong = addressList[safe: 21] {
+        if let city = addressList[safe: 1],
+           let dong = addressList[safe: 2] {
             simpleAddress = city + " " + dong
         }
         
