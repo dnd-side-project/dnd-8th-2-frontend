@@ -142,6 +142,7 @@ PrivacyPoilcyTitle = "개인정보처리방침";
 
 // MARK: - Bottom Sheet
 SaveBookmark = "저장하기";
+GoToLogin = "로그인하러 가기";
 
 
 // MARK: - Alert
@@ -173,3 +174,16 @@ FourthOnboardingUpper = "북마크 확인";
 FourthOnboardingLower = "불시에 약속 장소를 변경할 일이 생긴다면\n저장한 북마크를 확인해봐요!";
 
 StartReetPlace = "ReetPlace 시작하기";
+
+// MARK: - Pop Up
+DeleteBookmarkPopUpTitle = "북마크를 해제할까요?";
+WithdrawalPopUpTitle = "정말 탈퇴하시겠어요?";
+GoToLoginPopUpTitle = "로그인이 필요한 서비스에요!";
+
+DeleteBookmarkPopUpDesc = "북마크를 해제하시면,\n입력하셨던 내용이 전부 사라집니다.";
+WithdrawalPopUpDesc = "탈퇴 이후 당신의 장소들은\n다시 복구되지 않아요.";
+GoToLoginPopUpDesc = "로그인하고 장소들을 저장하고,\n나만의 지도를 채워보세요.";
+
+DeleteBookmarkPopUpConfirmTitle = "해제";
+WithdrawalPopUpConfirmTitle = "탈퇴";
+GoToLoginPopUpConfirmTitle = "로그인하기";

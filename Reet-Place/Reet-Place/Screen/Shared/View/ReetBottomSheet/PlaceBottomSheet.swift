@@ -100,6 +100,9 @@ final class PlaceBottomSheet: BaseViewController {
     private var bookmarkSummary: BookmarkSummaryModel?
     private var placeName: String = .empty
     private var marker: NMFMarker?
+    private var isAuthenticated: Bool {
+        return KeychainManager.shared.read(for: .accessToken) != nil
+    }
     
     // MARK: - Life Cycle
     
@@ -199,6 +202,10 @@ final class PlaceBottomSheet: BaseViewController {
         return image
     }
     
+    @objc private func goToLogin() {
+        let loginVC = LoginVC()        
+        loginVC.pushWithHidesReetPlaceTabBar()
+    }
 }
 
 // MARK: - Configure
@@ -373,21 +380,27 @@ extension PlaceBottomSheet {
             .drive(onNext: { [weak self] in
                 guard let self = self, let searchPlaceInfo else { return }
                 
-                let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
-                bottomSheetVC.configureInitialData(with: searchPlaceInfo)
-                
-                bottomSheetVC.savedBookmarkType
-                    .withUnretained(self)
-                    .subscribe { owner, bookmarkType in
-                        owner.bookmarkType = bookmarkType
-                        owner.updateMarkerIcon(isSelected: true)
-                        owner.configureButton()
-                        owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 157.0)
-                    }
-                    .disposed(by: bag)
-                
-                bottomSheetVC.modalPresentationStyle = .overFullScreen
-                self.present(bottomSheetVC, animated: true)
+                if isAuthenticated {
+                    let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: false)
+                    bottomSheetVC.configureInitialData(with: searchPlaceInfo)
+                    
+                    bottomSheetVC.savedBookmarkType
+                        .withUnretained(self)
+                        .subscribe { owner, bookmarkType in
+                            owner.bookmarkType = bookmarkType
+                            owner.updateMarkerIcon(isSelected: true)
+                            owner.configureButton()
+                            owner.showToast(message: "BookmarkSaved".localized, bottomViewHeight: 157.0)
+                        }
+                        .disposed(by: bag)
+                    
+                    bottomSheetVC.modalPresentationStyle = .overFullScreen
+                    self.present(bottomSheetVC, animated: true)
+                } else {
+                    self.showPopUp(popUpType: .goToLogin, 
+                                   targetVC: self,
+                                   confirmBtnAction: #selector(goToLogin))
+                }
             })
             .disposed(by: bag)
         

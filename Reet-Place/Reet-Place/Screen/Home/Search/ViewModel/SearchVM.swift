@@ -22,8 +22,8 @@ final class SearchVM: BaseViewModel {
     
     struct Input {}
     struct Output {
+        var isAuthenticated: BehaviorRelay<Bool> = .init(value: KeychainManager.shared.read(for: .accessToken) != nil)
         var isLoginUser = KeychainManager.shared.read(for: .accessToken) != nil
-        
         var categoryHistoryList: BehaviorRelay<Array<TabPlaceCategoryList>> = BehaviorRelay(value: TabPlaceCategoryList.allCases)
         var tabPlaceCategoryDataSources: Observable<Array<TabPlaceCategoryListDataSource>> {
             categoryHistoryList.map { [TabPlaceCategoryListDataSource(items: $0)] }
