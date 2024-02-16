@@ -147,6 +147,21 @@ final class HomeVC: BaseViewController {
     
     // MARK: - Functions
     
+    private func setStartSearchPlaceCategory() {
+        let startIndexPath = IndexPath(item: 0, section: 0)
+        placeCategoryCollectionView.selectItem(at: startIndexPath, animated: false, scrollPosition: .left)
+        
+        requestSearchPlaceCategory(placeCategory: .reetPlaceHot)
+    }
+    
+    private func requestSearchPlaceCategory(placeCategory: PlaceCategoryList) {
+        let latitude = mapView.latitude.description
+        let longitude = mapView.longitude.description
+        viewModel.requestSearchPlaces(category: placeCategory,
+                                            latitude: latitude,
+                                            longitude: longitude)
+    }
+    
     private func presentPlaceBottomSheet(placeInfo: SearchPlaceListContent) {
         let marker = markerList[placeInfo.kakaoPID]
         
@@ -298,12 +313,7 @@ extension HomeVC {
             .withUnretained(self)
             .bind(onNext: { owner, selectedCategory in
                 owner.placeResultListCollectionView.scrollToTop()
-                
-                let latitude = owner.mapView.latitude.description
-                let longitude = owner.mapView.longitude.description
-                owner.viewModel.requestSearchPlaces(category: selectedCategory, 
-                                                    latitude: latitude,
-                                                    longitude: longitude)
+                owner.requestSearchPlaceCategory(placeCategory: selectedCategory)
             })
             .disposed(by: bag)
         
@@ -420,6 +430,8 @@ extension HomeVC {
         viewModel.output.placeCategoryDataSources
             .bind(to: placeCategoryCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
+        
+        setStartSearchPlaceCategory()
     }
     
     private func bindSearchPlaceListResult() {
