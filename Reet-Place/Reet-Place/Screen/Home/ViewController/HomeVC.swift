@@ -157,6 +157,7 @@ final class HomeVC: BaseViewController {
     private func requestSearchPlaceCategory(placeCategory: PlaceCategoryList) {
         let latitude = mapView.latitude.description
         let longitude = mapView.longitude.description
+        
         viewModel.requestSearchPlaces(category: placeCategory,
                                             latitude: latitude,
                                             longitude: longitude)
@@ -184,7 +185,7 @@ extension HomeVC {
     private func configureMapView() {
         mapView.touchDelegate = self
         locationManager.startUpdatingLocation()
-        if let initialLocation = locationManager.location?.coordinate{
+        if let initialLocation = locationManager.location?.coordinate {
             let initialCameraPosition = NMGLatLng(lat: initialLocation.latitude, lng: initialLocation.longitude)
             let initialCameraUpdate = NMFCameraUpdate(scrollTo: initialCameraPosition)
             mapView.moveCamera(initialCameraUpdate)
@@ -345,47 +346,40 @@ extension HomeVC {
     
     private func bindButton() {
         searchButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                self.searchTextField.becomeFirstResponder()
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.searchTextField.becomeFirstResponder()
             })
             .disposed(by: bag)
         
         cancelButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.searchTextField.text = .empty
-                self.searchTextField.becomeFirstResponder()
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.searchTextField.text = .empty
+                owner.searchTextField.becomeFirstResponder()
             })
             .disposed(by: bag)
         
         categoryFilterButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
                 let categoryFilterBottomSheet = CategoryFilterBottomSheet()
                 categoryFilterBottomSheet.modalPresentationStyle = .overFullScreen
-                self.present(categoryFilterBottomSheet, animated: false)
+                owner.present(categoryFilterBottomSheet, animated: false)
             })
             .disposed(by: bag)
         
         currentPositionButton.rx.tap
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                switch locationManager.authorizationStatus {
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                switch owner.locationManager.authorizationStatus {
                 case .authorizedAlways, .authorizedWhenInUse:
-                    print("위치 서비스 On 상태")
-                    let currentPositionMode = mapView.positionMode
-                    mapView.positionMode = currentPositionMode == .direction ? .disabled : .direction
+                    let currentPositionMode = owner.mapView.positionMode
+                    owner.mapView.positionMode = currentPositionMode == .direction ? .disabled : .direction
+                case .notDetermined:
+                    owner.locationManager.requestWhenInUseAuthorization()
                 default:
-                    print("위치 서비스 Off 상태")
-                    locationManager.requestWhenInUseAuthorization()
+                    owner.showPopUpAuthorizeLocation()
                 }
             })
             .disposed(by: bag)
@@ -519,8 +513,8 @@ extension HomeVC: CLLocationManagerDelegate {
 
 extension HomeVC: SearchPlaceAction {
     
-    func getCurrentLocationCoordinate() -> CLLocationCoordinate2D? {
-        return locationManager.location?.coordinate
+    func getLocationManager() -> CLLocationManager {
+        return locationManager
     }
     
 }

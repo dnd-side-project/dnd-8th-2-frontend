@@ -139,7 +139,7 @@ extension UIViewController {
         
     }
     
-    /// Pop Up 노출
+    /// 릿플 스타일(ReetPopUp) 팝업창 노출
     func showPopUp(popUpType: PopUpType, targetVC: UIViewController, confirmBtnAction: Selector) {
         let popUpVC = ReetPopUp()
         
@@ -181,6 +181,13 @@ extension UIViewController {
         showPopUp(popUpType: .authorizeLocation,
                   targetVC: self,
                   confirmBtnAction: #selector(openReetPlaceSettings))
+    }
+    
+    /// 아이폰 설정 앱 - Reet-Place의 설정 화면으로 이동
+    @objc private func openReetPlaceSettings() {
+        if let appSetting = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(appSetting)
+        }
     }
     
 }
