@@ -177,6 +177,7 @@
 		3CF3EAB82A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EAB72A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift */; };
 		3CF3EABA2A3C2A36003B4DE2 /* CategoryDetailBarList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */; };
 		3CF3EABC2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */; };
+		3CF488AB2B836A1E00A3381C /* SearchPlaceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF488AA2B836A1E00A3381C /* SearchPlaceAction.swift */; };
 		3CF70D022A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		3CFBC6FB2A6134C300540C7F /* SearchPlaceListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFBC6FA2A6134C300540C7F /* SearchPlaceListResponseModel.swift */; };
 		3CFBC6FD2A61368300540C7F /* SearchPlaceListRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFBC6FC2A61368300540C7F /* SearchPlaceListRequestModel.swift */; };
@@ -394,6 +395,7 @@
 		3CF3EAB72A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailRestaurantList.swift; sourceTree = "<group>"; };
 		3CF3EAB92A3C2A36003B4DE2 /* CategoryDetailBarList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailBarList.swift; sourceTree = "<group>"; };
 		3CF3EABB2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailHeaderView.swift; sourceTree = "<group>"; };
+		3CF488AA2B836A1E00A3381C /* SearchPlaceAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceAction.swift; sourceTree = "<group>"; };
 		3CF70D012A1BA82300523A74 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		3CFBC6FA2A6134C300540C7F /* SearchPlaceListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceListResponseModel.swift; sourceTree = "<group>"; };
 		3CFBC6FC2A61368300540C7F /* SearchPlaceListRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceListRequestModel.swift; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 				3CE967472B4C0D27009F86FD /* DetailCategoryChipAction.swift */,
 				3CC9F07A2B7400BB00262B22 /* SearchHistoryAction.swift */,
 				3CC9F07C2B740B7300262B22 /* SearchHistoryListAction.swift */,
+				3CF488AA2B836A1E00A3381C /* SearchPlaceAction.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1509,6 +1512,7 @@
 				A4EFC09B299E6C9900B066AF /* LoginView.swift in Sources */,
 				3C2AED5E2990B3C200E36342 /* UIStackView+.swift in Sources */,
 				0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */,
+				3CF488AB2B836A1E00A3381C /* SearchPlaceAction.swift in Sources */,
 				0E05EFFF2A4C75C3008A20F4 /* OnboardingVC.swift in Sources */,
 				0E502B712A91968A002C71F2 /* BookmarkListRequestModel.swift in Sources */,
 				A4EFC099299E608500B066AF /* BaseNavigationViewController.swift in Sources */,

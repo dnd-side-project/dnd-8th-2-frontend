@@ -16,11 +16,6 @@ import RxDataSources
 import Then
 import SnapKit
 
-/// 장소 검색과 관련된 함수를 정의
-protocol SearchPlaceAction {
-    func getCurrentLocationCoordinate() -> CLLocationCoordinate2D?
-}
-
 class SearchVC: BaseViewController {
     
     // MARK: - UI components
