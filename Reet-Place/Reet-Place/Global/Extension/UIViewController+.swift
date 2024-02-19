@@ -176,4 +176,11 @@ extension UIViewController {
         return rootVC
     }
     
+    /// 현재위치 권한설정 알람 팝업창 표시
+    func showPopUpAuthorizeLocation(){
+        showPopUp(popUpType: .authorizeLocation,
+                  targetVC: self,
+                  confirmBtnAction: #selector(openReetPlaceSettings))
+    }
+    
 }

@@ -179,11 +179,14 @@ StartReetPlace = "ReetPlace 시작하기";
 DeleteBookmarkPopUpTitle = "북마크를 해제할까요?";
 WithdrawalPopUpTitle = "정말 탈퇴하시겠어요?";
 GoToLoginPopUpTitle = "로그인이 필요한 서비스에요!";
+AuthorizeLocationPopUpTitle = "위치 권한설정";
 
 DeleteBookmarkPopUpDesc = "북마크를 해제하시면,\n입력하셨던 내용이 전부 사라집니다.";
 WithdrawalPopUpDesc = "탈퇴 이후 당신의 장소들은\n다시 복구되지 않아요.";
 GoToLoginPopUpDesc = "로그인하고 장소들을 저장하고,\n나만의 지도를 채워보세요.";
+AuthorizeLocationPopUpDesc = "현재 위치를 알기 위해서는\n위치 권한설정이 필요해요";
 
 DeleteBookmarkPopUpConfirmTitle = "해제";
 WithdrawalPopUpConfirmTitle = "탈퇴";
 GoToLoginPopUpConfirmTitle = "로그인하기";
+AuthorizeLocationPopUpConfirmTitle = "설정하기";

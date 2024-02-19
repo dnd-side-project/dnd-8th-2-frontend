@@ -11,6 +11,7 @@ enum PopUpType {
     case deleteBookmark
     case withdrawal
     case goToLogin
+    case authorizeLocation
 }
 
 extension PopUpType {
@@ -22,6 +23,8 @@ extension PopUpType {
             return "WithdrawalPopUpTitle".localized
         case .goToLogin:
             return "GoToLoginPopUpTitle".localized
+        case .authorizeLocation:
+            return "AuthorizeLocationPopUpTitle".localized
         }
     }
     
@@ -30,6 +33,8 @@ extension PopUpType {
         case .deleteBookmark:
             return AssetFonts.h4.font
         case .withdrawal, .goToLogin:
+            return AssetFonts.subtitle1.font
+        case .authorizeLocation:
             return AssetFonts.subtitle1.font
         }
     }
@@ -42,6 +47,8 @@ extension PopUpType {
             return "WithdrawalPopUpDesc".localized
         case .goToLogin:
             return "GoToLoginPopUpDesc".localized
+        case .authorizeLocation:
+            return "AuthorizeLocationPopUpDesc".localized
         }
     }
     
@@ -51,6 +58,8 @@ extension PopUpType {
             return AssetFonts.body2.font
         case .withdrawal, .goToLogin:
             return AssetFonts.body1.font
+        case .authorizeLocation:
+            return AssetFonts.body1.font
         }
     }
     
@@ -58,7 +67,7 @@ extension PopUpType {
         switch self {
         case .deleteBookmark:
             return AssetColors.error
-        case .withdrawal, .goToLogin:
+        case .withdrawal, .goToLogin, .authorizeLocation:
             return AssetColors.black
         }
     }
@@ -71,6 +80,8 @@ extension PopUpType {
             return "WithdrawalPopUpConfirmTitle".localized
         case .goToLogin:
             return "GoToLoginPopUpConfirmTitle".localized
+        case .authorizeLocation:
+            return "AuthorizeLocationPopUpConfirmTitle".localized
         }
     }
     
