@@ -147,10 +147,11 @@ final class HomeVC: BaseViewController {
     
     // MARK: - Functions
     
-    private func setStartSearchPlaceCategory() {
+    private func setStartSearchPlaceCategory(latLngNMG location: NMGLatLng) {
         let startIndexPath = IndexPath(item: 0, section: 0)
         placeCategoryCollectionView.selectItem(at: startIndexPath, animated: false, scrollPosition: .left)
         
+        mapView.moveCamera(NMFCameraUpdate(scrollTo: location))
         requestSearchPlaceCategory(placeCategory: .reetPlaceHot)
     }
     
@@ -159,15 +160,18 @@ final class HomeVC: BaseViewController {
         let longitude = mapView.longitude.description
         
         viewModel.requestSearchPlaces(category: placeCategory,
-                                            latitude: latitude,
-                                            longitude: longitude)
+                                      latitude: latitude,
+                                      longitude: longitude)
     }
     
     private func presentPlaceBottomSheet(placeInfo: SearchPlaceListContent) {
         let marker = markerList[placeInfo.kakaoPID]
         
         if let location = marker?.position {
-            mapView.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: location.lat, lng: location.lng)))
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: location.lat, lng: location.lng))
+            cameraUpdate.animation = .easeOut
+            
+            mapView.moveCamera(cameraUpdate)
         }
         
         let bottomSheetVC = PlaceBottomSheet()
@@ -184,13 +188,7 @@ extension HomeVC {
     
     private func configureMapView() {
         mapView.touchDelegate = self
-        locationManager.startUpdatingLocation()
-        if let initialLocation = locationManager.location?.coordinate {
-            let initialCameraPosition = NMGLatLng(lat: initialLocation.latitude, lng: initialLocation.longitude)
-            let initialCameraUpdate = NMFCameraUpdate(scrollTo: initialCameraPosition)
-            mapView.moveCamera(initialCameraUpdate)
-        }
-        locationManager.stopUpdatingLocation()
+        mapView.addCameraDelegate(delegate: self)
     }
     
     private func configureLocationManager() {
@@ -424,8 +422,6 @@ extension HomeVC {
         viewModel.output.placeCategoryDataSources
             .bind(to: placeCategoryCollectionView.rx.items(dataSource: dataSource))
             .disposed(by: bag)
-        
-        setStartSearchPlaceCategory()
     }
     
     private func bindSearchPlaceListResult() {
@@ -475,13 +471,9 @@ extension HomeVC {
     
 }
 
-// MARK: - NaverMap Delegate
+// MARK: - NaverMap TouchDelegate
 
 extension HomeVC: NMFMapViewTouchDelegate {
-    
-    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        print(latlng)
-    }
     
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
         return false
@@ -489,9 +481,44 @@ extension HomeVC: NMFMapViewTouchDelegate {
     
 }
 
+// MARK: - NaverMap CameraDelegate
+
+extension HomeVC: NMFMapViewCameraDelegate {
+    
+    func mapViewCameraIdle(_ mapView: NMFMapView) {
+        let naverLocation = NMGLatLng(lat: 37.35959299999998, lng: 127.10531600000002)
+        let curMapViewLocation = mapView.cameraPosition.target
+        
+        // 현재 지도 위치가 네이버 사옥(지도의 최초 초기화 위치)이 아닌 경우에만 현재 지도의 마지막 위치 저장
+        if !(naverLocation.lat == curMapViewLocation.lat &&
+            naverLocation.lng == curMapViewLocation.lng) {
+            KeychainManager.shared.saveLastPosition(locationCoordinate: curMapViewLocation)
+        }
+    }
+    
+}
+
 // MARK: - CLLocationManager Delegate
 
 extension HomeVC: CLLocationManagerDelegate {
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            if let initialLocation = locationManager.location?.coordinate {
+                let initialCameraPosition = NMGLatLng(lat: initialLocation.latitude, lng: initialLocation.longitude)
+                setStartSearchPlaceCategory(latLngNMG: initialCameraPosition)
+            }
+            locationManager.stopUpdatingLocation()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        default:
+            if let location = KeychainManager.shared.readLastPosition() {
+                setStartSearchPlaceCategory(latLngNMG: location)
+            }
+        }
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
