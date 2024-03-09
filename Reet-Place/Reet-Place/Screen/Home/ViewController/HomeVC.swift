@@ -491,7 +491,7 @@ extension HomeVC: NMFMapViewCameraDelegate {
         
         // 현재 지도 위치가 네이버 사옥(지도의 최초 초기화 위치)이 아닌 경우에만 현재 지도의 마지막 위치 저장
         if !(naverLocation.lat == curMapViewLocation.lat &&
-            naverLocation.lng == curMapViewLocation.lng) {
+             naverLocation.lng == curMapViewLocation.lng) {
             KeychainManager.shared.saveLastPosition(locationCoordinate: curMapViewLocation)
         }
     }
