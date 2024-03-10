@@ -16,11 +16,6 @@ import RxDataSources
 import Then
 import SnapKit
 
-/// 장소 검색과 관련된 함수를 정의
-protocol SearchPlaceAction {
-    func getCurrentLocationCoordinate() -> CLLocationCoordinate2D?
-}
-
 class SearchVC: BaseViewController {
     
     // MARK: - UI components
@@ -201,21 +196,27 @@ class SearchVC: BaseViewController {
     }
     
     private func requestSearchPlaceKeyword(requestPage: Int) {
-        if let curLocationCoordinate = delegateSearchPlaceAction?.getCurrentLocationCoordinate() {
-            if let keyword = searchTextField.text?.trimmingCharacters(in: .whitespaces), !keyword.isEmpty {
-                searchTextField.text = keyword
-                
-                if !viewModel.output.isLoginUser {
-                    CoreDataManager.shared.saveSearchKeyword(toSaveKeyword: keyword)
+        if let locationManager = delegateSearchPlaceAction?.getLocationManager() {
+            switch locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                if let keyword = searchTextField.text?.trimmingCharacters(in: .whitespaces), !keyword.isEmpty,
+                   let coordinate = locationManager.location?.coordinate {
+                    searchTextField.text = keyword
+                    
+                    if !viewModel.output.isLoginUser {
+                        CoreDataManager.shared.saveSearchKeyword(toSaveKeyword: keyword)
+                    }
+                    
+                    viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: coordinate.latitude,
+                                                                                                     lng: coordinate.longitude,
+                                                                                                     placeKeword: keyword,
+                                                                                                     page: requestPage))
                 }
-                
-                viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: curLocationCoordinate.latitude,
-                                                                                                 lng: curLocationCoordinate.longitude,
-                                                                                                 placeKeword: keyword,
-                                                                                                 page: requestPage))
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+            default:
+                showPopUpAuthorizeLocation()
             }
-        } else {
-            self.showErrorAlert("FailGetCurLocationCoordinate".localized)
         }
     }
     

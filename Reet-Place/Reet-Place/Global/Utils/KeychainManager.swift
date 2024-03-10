@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NMapsMap
 
 final class KeychainManager {
     
@@ -130,6 +131,24 @@ extension KeychainManager {
         }
     }
     
+    /// 네이버 지도 상의 마지막 카메라 위치 값을 저장
+    func saveLastPosition(locationCoordinate: NMGLatLng) {
+        save(key: .lastPositionLat, value: locationCoordinate.lat.description)
+        save(key: .lastPositionLng, value: locationCoordinate.lng.description)
+    }
+    
+    /// 사용자가 사용했던 네이버 지도 상의 마지막 카메라 위치 값을 조회
+    func readLastPosition() -> NMGLatLng? {
+        if let latitude = read(for: .lastPositionLat),
+           let longitude = read(for: .lastPositionLng),
+           let latitude = Double(latitude),
+           let longitude = Double(longitude) {
+            return NMGLatLng(lat: Double(latitude), lng: Double(longitude))
+        } else {
+            return nil
+        }
+    }
+    
 }
 
 // MARK: - Keys
@@ -150,6 +169,9 @@ extension KeychainManager {
       case userName
       case memberID
       case email
+      
+      case lastPositionLat
+      case lastPositionLng
   }
   
 }
