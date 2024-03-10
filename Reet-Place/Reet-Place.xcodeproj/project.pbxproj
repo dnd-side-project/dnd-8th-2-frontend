@@ -1753,9 +1753,9 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Reet-Place/Support/Info.plist";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 받습니다";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 받습니다";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 받습니다";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1795,9 +1795,9 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Reet-Place/Support/Info.plist";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 받습니다";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 받습니다";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 받습니다";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

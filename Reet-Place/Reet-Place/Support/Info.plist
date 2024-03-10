@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 위치를 받습니다</string>
+	<string>원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>사용자의 위치를 받습니다</string>
+	<string>원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자의 위치를 받습니다</string>
+	<string>원활한 지도 사용과 위치 기반 장소 검색을 위해 사용자의 위치 정보가 필요합니다.</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>CFBundleURLTypes</key>
