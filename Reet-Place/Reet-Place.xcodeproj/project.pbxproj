@@ -1748,7 +1748,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceDebug.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1790,7 +1790,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Reet-Place/Reet-PlaceRelease.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = C9U8778A7W;
 				GENERATE_INFOPLIST_FILE = YES;

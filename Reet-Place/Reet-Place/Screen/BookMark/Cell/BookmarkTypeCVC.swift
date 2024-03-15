@@ -80,14 +80,14 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
             break
         }
         
-        countLabel.text = String(typeInfo.cnt)
+        // TODO: - 북마크 종류 별 정보 조회 API 수정 시 복구
+        // countLabel.text = String(typeInfo.cnt)
+        countLabel.isHidden = true
         
         // 북마크가 없으면 기본 이미지 노출
         if typeInfo.cnt > 0 {
             thumbnailImageView.contentMode = .scaleAspectFill
             thumbnailImageView.layer.borderWidth = 0.0
-            
-            // TODO: - UIImageView+의 setImage 함수 placeholder 파라미터 추가 됨 (임시 코드 - UIImage() 삽입)
             thumbnailImageView.setImage(with: typeInfo.thumbnailUrlString)
         } else {
             thumbnailImageView.contentMode = .scaleAspectFit

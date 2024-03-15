@@ -86,7 +86,9 @@ class AllBookmarkButton: UIButton {
             stackView.addArrangedSubview($0)
         }
 
-        countLabel.text = String(count)
+        // TODO: - 북마크 종류 별 정보 조회 API 수정 시 복구
+        // countLabel.text = String(count)
+        countLabel.isHidden = true
         
         rightImageView.snp.makeConstraints {
             $0.width.equalTo(rightImageView.snp.height)
