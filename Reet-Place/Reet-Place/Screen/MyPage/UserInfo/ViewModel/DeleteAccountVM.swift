@@ -8,16 +8,14 @@
 import RxSwift
 import RxCocoa
 
-import Alamofire
-
-final class DeleteAccountVM: BaseViewModel {
+final class DeleteAccountVM {
     
     // MARK: - Variables and Properties
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -74,10 +72,13 @@ extension DeleteAccountVM {
     /// - Parameter identifier: 카카오 회원 - Access Token / 애플 회원 - Authorization Code
     func requestDeleteAccount(identifier: String) {
         let path = "/api/auth/unlink"
-        let resource = URLResource<EmptyEntity>(path: path)
         let deleteAccountReason = createDeleteAccountRequestModel()
+        var endPoint = EndPoint<EmptyEntity>(path: path,
+                                             httpMethod: .post,
+                                             body: deleteAccountReason)
+        endPoint.addHeader(name: "identifier", value: identifier)
         
-        requestUnlink(urlResource: resource, parameter: deleteAccountReason.parameter, identifier: identifier)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -93,39 +94,6 @@ extension DeleteAccountVM {
                 }
             })
             .disposed(by: bag)
-    }
-    
-    /// 릿플 서버에 회원탈퇴 요청
-    private func requestUnlink<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?, identifier: String) -> Observable<Result<T, APIError>> {
-        Observable<Result<T, APIError>>.create { observer in
-            var headers = HTTPHeaders()
-            headers.add(.accept("*/*"))
-            headers.add(.contentType("application/json"))
-            headers.add(name: "identifier", value: identifier)
-            
-            let task = AF.request(urlResource.resultURL,
-                                  method: .post,
-                                  parameters: parameter,
-                                  encoding: JSONEncoding.default,
-                                  headers: headers,
-                                  interceptor: AuthInterceptor())
-                .validate(statusCode: 200...399)
-                .responseDecodable(of: T.self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        observer.onNext(.success(data))
-                        
-                    case .failure(let error):
-                        dump(error)
-                        guard let error = response.response else { return }
-                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
-                    }
-                }
-            
-            return Disposables.create {
-                task.cancel()
-            }
-        }
     }
     
 }
@@ -170,9 +138,9 @@ extension DeleteAccountVM {
         selectedSurveyTypeList.forEach { type in
             if type == .other {
                 let description = input.otherDescription.value ?? type.rawValue
-                deleteAccountModelList.append(.init(surveyType: type, description: description))
+                deleteAccountModelList.append(.init(surveyType: type.rawValue, description: description))
             } else {
-                deleteAccountModelList.append(.init(surveyType: type, description: type.rawValue))
+                deleteAccountModelList.append(.init(surveyType: type.rawValue, description: type.rawValue))
             }
         }
         

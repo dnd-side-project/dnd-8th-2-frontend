@@ -8,14 +8,14 @@
 import RxCocoa
 import RxSwift
 
-final class SearchVM: BaseViewModel {
+final class SearchVM {
     
     // MARK: - Variables and Properties
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -120,9 +120,9 @@ extension SearchVM {
     /// 로그인한 사용자의 검색기록 목록 조회
     func requestSearchHistory() {
         let path = "/api/search/history"
-        let resource = URLResource<SearchHistoryResponseModel>(path: path)
+        let endPoint = EndPoint<SearchHistoryResponseModel>(path: path, httpMethod: .get)
         
-        apiSession.requestGet(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -138,9 +138,9 @@ extension SearchVM {
     /// 전체 검색기록 삭제
     func requestDeleteSearchHistory() {
         let path = "/api/search/history"
-        let resource = URLResource<EmptyEntity>(path: path)
+        let endPoint = EndPoint<EmptyEntity>(path: path, httpMethod: .delete)
         
-        apiSession.requestDelete(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -157,11 +157,10 @@ extension SearchVM {
     /// 선택한 키워드 삭제
     func requestDeleteKeyword(keywordID searchId: Int) {
         let searchId = String(searchId)
-        
         let path = "/api/search/history/\(searchId)"
-        let resource = URLResource<EmptyEntity>(path: path)
+        let endPoint = EndPoint<EmptyEntity>(path: path, httpMethod: .delete)
         
-        apiSession.requestDelete(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -184,11 +183,13 @@ extension SearchVM {
     /// 주어진 좌표를 중심으로 해당 키워드와 연관된 장소목록 조회
     func requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel) {
         let path = "/api/places/search"
-        let resource = URLResource<SearchPlaceKeywordResponseModel>(path: path)
+        let endPoint = EndPoint<SearchPlaceKeywordResponseModel>(path: path,
+                                                                 httpMethod: .post,
+                                                                 body: placeKeyword)
         
         output.searchResult.isPaging.accept(true)
         
-        apiSession.requestPost(urlResource: resource, parameter: placeKeyword.parameter)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {

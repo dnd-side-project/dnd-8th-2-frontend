@@ -8,12 +8,12 @@
 import RxCocoa
 import RxSwift
 
-final class BookmarkVM: BaseViewModel {
+final class BookmarkVM {
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -85,9 +85,9 @@ extension BookmarkVM {
     /// 서버에 북마크 개수 요청
     func getBookmarkCount() {
         let path = "/api/bookmarks/counts"
-        let resource = URLResource<BookmarkCountResponseModel>(path: path)
+        let endPoint = EndPoint<BookmarkCountResponseModel>(path: path, httpMethod: .get)
         
-        apiSession.requestGet(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -113,9 +113,9 @@ extension BookmarkVM {
     func getBookmarkList(type: BookmarkSearchType) {
         let page = 0
         let path = "/api/bookmarks?searchType=\(type.rawValue)&page=\(page)&size=10&sort=LATEST"
-        let resource = URLResource<BookmarkListResponseModel>(path: path)
+        let endPoint = EndPoint<BookmarkListResponseModel>(path: path, httpMethod: .get)
         
-        apiSession.requestGet(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {

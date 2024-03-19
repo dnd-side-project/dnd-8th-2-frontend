@@ -10,14 +10,14 @@ import RxSwift
 
 import Alamofire
 
-final class HomeVM: BaseViewModel {
+final class HomeVM {
     
     // MARK: - Variables and Properties
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -68,8 +68,6 @@ extension HomeVM {
     /// 주어진 좌표를 중심으로 해당 카테고리와 관련된 장소목록 조회
     func requestSearchPlaces(category: PlaceCategoryList, latitude: String, longitude: String) {
         let path = "/api/places"
-        let resource = URLResource<SearchPlaceListResponseModel>(path: path)
-        
         var searchPlaceListRequestModel = SearchPlaceListRequestModel(lat: latitude, 
                                                                       lng: longitude,
                                                                       category: category.parameterPlace,
@@ -81,7 +79,11 @@ extension HomeVM {
             searchPlaceListRequestModel.subCategory = CoreDataManager.shared.fetchSubCategoryList(targetTabPlace: TabPlaceCategoryList(rawValue: category.parameterPlace))
         }
         
-        apiSession.requestPost(urlResource: resource, parameter: searchPlaceListRequestModel.parameter)
+        let endPoint = EndPoint<SearchPlaceListResponseModel>(path: path,
+                                                              httpMethod: .post,
+                                                              body: searchPlaceListRequestModel)
+        
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {

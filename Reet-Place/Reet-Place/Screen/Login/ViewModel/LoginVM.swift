@@ -13,14 +13,14 @@ import Alamofire
 import KakaoSDKAuth
 import KakaoSDKUser
 
-final class LoginVM: BaseViewModel {
+final class LoginVM {
     
     // MARK: - Variables and Properties
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -61,11 +61,14 @@ extension LoginVM: Output {
 extension LoginVM {
     
     /// 소셜 로그인 요청 후 리스펀스 된 사용자 정보를 로컬 디바이스에 저장
-    func requestSocialLogin(socialType: LoginType, token: String, nickname: String = .empty) {
+    func requestSocialLogin(socialType: LoginType,
+                            token: String,
+                            nickname: String = .empty) {
         let path = "/api/auth/login/\(socialType.description)\(socialType.headerQuery)\(nickname)"
-        let resource = URLResource<LoginResponseModel>(path: path)
+        var endPoint = EndPoint<LoginResponseModel>(path: path, httpMethod: .post)
+        endPoint.addHeader(name: socialType.headerParamter, value: token)
         
-        requestSocialLogin(urlResource: resource, socialType: socialType, token: token)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -87,36 +90,6 @@ extension LoginVM {
             }
         })
         .disposed(by: bag)
-    }
-    
-    /// 소셜 로그인(카카오, 애플)을 요청
-    func requestSocialLogin<T: Decodable>(urlResource: URLResource<T>, socialType: LoginType, token: String) -> Observable<Result<T, APIError>> {
-        Observable<Result<T, APIError>>.create { observer in
-            var headers = HTTPHeaders()
-            headers.add(.accept("*/*"))
-            headers.add(name: socialType.headerParamter, value: token)
-            
-            let task = AF.request(urlResource.resultURL,
-                                  method: .post,
-                                  encoding: JSONEncoding.default,
-                                  headers: headers)
-                .validate(statusCode: 200...399)
-                .responseDecodable(of: T.self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        observer.onNext(.success(data))
-                        
-                    case .failure(let error):
-                        dump(error)
-                        guard let error = response.response else { return }
-                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
-                    }
-                }
-            
-            return Disposables.create {
-                task.cancel()
-            }
-        }
     }
     
 }

@@ -8,14 +8,14 @@
 import RxCocoa
 import RxSwift
 
-final class CategoryFilterBottomSheetVM: BaseViewModel {
+final class CategoryFilterBottomSheetVM {
     
     // MARK: - Variables and Properties
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -96,11 +96,10 @@ extension CategoryFilterBottomSheetVM {
     
     func requestCategoryFilterList(category: TabPlaceCategoryList, dispatchGroup: DispatchGroup) {
         let parameterCategory = category.parameterCategory
-        
         let path = "/api/places/category?category=\(parameterCategory)"
-        let resource = URLResource<CategoryFilterResponseModel>(path: path)
+        let endPoint = EndPoint<CategoryFilterResponseModel>(path: path, httpMethod: .get)
         
-        apiSession.requestGet(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -116,11 +115,12 @@ extension CategoryFilterBottomSheetVM {
     
     func requestModifyCategoryFilterList() {
         let placeCategoryList = ModificationCategoryFilterRequestModel(contents: output.placeCategorySelectionList)
-        
         let path = "/api/places/category"
-        let resource = URLResource<EmptyEntity>(path: path)
+        let endPoint = EndPoint<EmptyEntity>(path: path,
+                                             httpMethod: .put,
+                                             body: placeCategoryList)
         
-        apiSession.requestPut(urlResource: resource, parameter: placeCategoryList.parameter)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
