@@ -9,14 +9,14 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class BookmarkMapVM: BaseViewModel {
+final class BookmarkMapVM {
     
     // MARK: - Variables and Properties
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -58,9 +58,9 @@ extension BookmarkMapVM {
     
     func getBookmarkSummaries(type: BookmarkSearchType) {
         let path = "/api/bookmarks/all/summaries?searchType=\(type.rawValue)"
-        let resource = URLResource<BookmarkSummaryListResponseModel>(path: path)
+        let endPoint = EndPoint<BookmarkSummaryListResponseModel>(path: path, httpMethod: .get)
         
-        apiSession.requestGet(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe { owner, result in
                 switch result {

@@ -8,9 +8,7 @@
 import RxSwift
 
 protocol BaseViewModel: Input, Output {
-    
-    var apiSession: APIService { get }
-    
+        
     var bag: DisposeBag { get }
     
 }

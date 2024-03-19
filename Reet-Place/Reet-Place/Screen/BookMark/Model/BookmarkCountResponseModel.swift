@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BookmarkCountResponseModel: Codable {
+struct BookmarkCountResponseModel: Decodable {
     let numOfAll: Int
     let numOfWant: Int
     let numOfDone: Int

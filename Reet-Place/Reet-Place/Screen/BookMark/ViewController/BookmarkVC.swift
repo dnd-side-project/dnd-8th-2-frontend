@@ -51,9 +51,6 @@ final class BookmarkVC: BaseNavigationViewController {
     }
     
     private let viewModel = BookmarkVM()
-        
-    private var wishListInfo: TypeInfo?
-    private var historyInfo: TypeInfo?
     
     
     // MARK: - Life Cycle
@@ -244,8 +241,6 @@ extension BookmarkVC {
         viewModel.output.BookmarkWishlistInfo
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
-                owner.wishListInfo = data
-                
                 DispatchQueue.main.async {
                     owner.bookmarkTypeCV.reloadData()
                 }
@@ -256,8 +251,6 @@ extension BookmarkVC {
         viewModel.output.BookmarkHistoryInfo
             .withUnretained(self)
             .subscribe(onNext: { owner, data in
-                owner.historyInfo = data
-                
                 DispatchQueue.main.async {
                     owner.bookmarkTypeCV.reloadData()
                 }
@@ -306,15 +299,12 @@ extension BookmarkVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let wishListInfo = wishListInfo,
-              let historyInfo = historyInfo else { return }
-        
         var bookmarkSearchType: BookmarkSearchType = .want
         
         if indexPath.row == 0 {
-            guard wishListInfo.cnt != 0 else { return }
+            guard viewModel.output.BookmarkWishlistInfo.value.cnt != 0 else { return }
         } else {
-            guard historyInfo.cnt != 0 else { return }
+            guard viewModel.output.BookmarkHistoryInfo.value.cnt != 0 else { return }
             bookmarkSearchType = .done
         }
         
@@ -330,16 +320,12 @@ extension BookmarkVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
-        
-        guard let wishListInfo = wishListInfo,
-              let historyInfo = historyInfo else { return cell }
-        
         if indexPath.row == 0 {
-            cell.configureData(typeInfo: wishListInfo)
+            cell.configureData(typeInfo: viewModel.output.BookmarkWishlistInfo.value)
         }
         
         if indexPath.row == 1 {
-            cell.configureData(typeInfo: historyInfo)
+            cell.configureData(typeInfo: viewModel.output.BookmarkHistoryInfo.value)
         }
         
         return cell

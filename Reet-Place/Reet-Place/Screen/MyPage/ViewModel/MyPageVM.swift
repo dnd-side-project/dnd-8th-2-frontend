@@ -9,14 +9,14 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-final class MyPageVM: BaseViewModel {
+final class MyPageVM {
     
     // MARK: - Variables and Properties
     
     var input: Input = Input()
     var output: Output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     
     var bag = DisposeBag()
@@ -77,9 +77,9 @@ extension MyPageVM {
     /// 릿플 서버에게 로그아웃을 요청
     func requestLogout() {
         let path = "/api/auth/logout"
-        let resource = URLResource<EmptyEntity>(path: path)
+        let endPoint = EndPoint<EmptyEntity>(path: path, httpMethod: .post)
         
-        apiSession.requestPost(urlResource: resource, parameter: nil)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {

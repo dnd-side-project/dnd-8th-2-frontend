@@ -6,24 +6,8 @@
 //
 
 import Foundation
-import Alamofire
 
-// MARK: - SearchPlaceList RequestModel
-
-struct SearchPlaceListRequestModel: Codable {
+struct SearchPlaceListRequestModel: Encodable {
     let lat, lng, category: String
     var subCategory: [String]
-}
-
-// MARK: - Paramters
-
-extension SearchPlaceListRequestModel {
-    var parameter: Parameters {
-        return [
-            "lat": lat,
-            "lng": lng,
-            "category": category,
-            "subCategory": subCategory
-        ]
-    }
 }

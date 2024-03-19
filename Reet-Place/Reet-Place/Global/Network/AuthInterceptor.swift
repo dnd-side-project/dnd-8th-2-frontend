@@ -8,7 +8,7 @@
 import RxSwift
 import Alamofire
 
-class AuthInterceptor: RequestInterceptor {
+final class AuthInterceptor: RequestInterceptor {
     
     // MARK: - Variables and Properties
     
@@ -34,7 +34,7 @@ class AuthInterceptor: RequestInterceptor {
             return
         }
         
-        APIToken.requestUpdateToken()
+        requestUpdateToken()
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -62,4 +62,47 @@ class AuthInterceptor: RequestInterceptor {
             .disposed(by: bag)
     }
     
+}
+
+private extension AuthInterceptor {
+    func requestUpdateToken() -> Observable<Result<Bool, APIError>> {
+        return .create { observer in
+            guard let refreshToken = KeychainManager.shared.read(for: .refreshToken) else {
+                observer.onNext(.failure(.unable))
+                return Disposables.create()
+            }
+            
+            let path = "/api/auth/refresh"
+            var headers = HTTPHeaders()
+            headers.add(.accept("*/*"))
+            headers.add(.authorization(bearerToken: refreshToken))
+            let endPoint = EndPoint<Bool>(path: path, httpMethod: .post, headers: headers)
+            
+            guard let requestURL = endPoint.requestURL else {
+                observer.onNext(.failure(.invalidURL))
+                return Disposables.create()
+            }
+            
+            let task = AF.request(requestURL,
+                                  method: endPoint.httpMethod,
+                                  encoding: URLEncoding.default,
+                                  headers: headers)
+                .validate(statusCode: 200...399)
+                .responseDecodable(of: UpdateTokenResponseModel.self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        KeychainManager.shared.updateToken(updatedToken: data)
+                        observer.onNext(.success(true))
+                        
+                    case .failure(let error):
+                        dump(error)
+                        observer.onNext(.failure(.unable))
+                    }
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
 }

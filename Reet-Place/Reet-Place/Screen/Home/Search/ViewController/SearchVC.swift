@@ -209,7 +209,7 @@ class SearchVC: BaseViewController {
                     
                     viewModel.requestSearchPlaceKeyword(placeKeyword: SearchPlaceKeywordRequestModel(lat: coordinate.latitude,
                                                                                                      lng: coordinate.longitude,
-                                                                                                     placeKeword: keyword,
+                                                                                                     query: keyword,
                                                                                                      page: requestPage))
                 }
             case .notDetermined:

@@ -6,22 +6,10 @@
 //
 
 import Foundation
-import Alamofire
 
 // MARK: - PlaceCategory Model
 
-struct PlaceCategoryModel: Codable {
+struct PlaceCategoryModel: Encodable {
     var category: String
     var subCategory: [String]
-}
-
-// MARK: - Paramters
-
-extension PlaceCategoryModel {
-    var parameter: Parameters {
-        return [
-            "category": category,
-            "subCategory": subCategory
-        ]
-    }
 }

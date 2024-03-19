@@ -9,14 +9,12 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-import Alamofire
-
-final class BookmarkCardListVM: BaseViewModel {
+final class BookmarkCardListVM {
     
     var input = Input()
     var output = Output()
     
-    var apiSession: APIService = APISession()
+    let network: NetworkProtocol = NetworkProvider()
     let apiError = PublishSubject<APIError>()
     private let type: BookmarkSearchType
     
@@ -104,10 +102,10 @@ extension BookmarkCardListVM {
     func getBookmarkList(type: BookmarkSearchType) {
         let page = input.page.value
         let path = "/api/bookmarks?searchType=\(type.rawValue)&page=\(page)&size=10&sort=LATEST"
-        let resource = URLResource<BookmarkListResponseModel>(path: path)
+        let endPoint = EndPoint<BookmarkListResponseModel>(path: path, httpMethod: .get)
         
         output.isPaging.accept(true)
-        apiSession.requestGet(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -130,45 +128,12 @@ extension BookmarkCardListVM {
             .disposed(by: bag)
     }
     
-    /// 릿플 서버에 북마크 리스트 조회 요청
-    private func requestGetBookmarkList<T: Decodable>(urlResource: URLResource<T>, parameter: Parameters?) -> Observable<Result<T, APIError>> {
-        Observable<Result<T, APIError>>.create { observer in
-            var headers = HTTPHeaders()
-            headers.add(.accept("*/*"))
-            headers.add(.contentType("application/json"))
-            
-            let task = AF.request(urlResource.resultURL,
-                                  method: .post,
-                                  parameters: parameter,
-                                  encoding: JSONEncoding.default,
-                                  headers: headers,
-                                  interceptor: AuthInterceptor())
-                .validate(statusCode: 200...399)
-                .responseDecodable(of: T.self) { response in
-                    debugPrint(response)
-                    switch response.result {
-                    case .success(let data):
-                        observer.onNext(.success(data))
-                        
-                    case .failure(let error):
-                        dump(error)
-                        guard let error = response.response else { return }
-                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
-                    }
-                }
-            
-            return Disposables.create {
-                task.cancel()
-            }
-        }
-    }
-    
     func deleteBookmark(index: Int) {
         let id = output.bookmarkList.value[index].id
         let path = "/api/bookmarks/\(id)"
-        let resource = URLResource<EmptyEntity>(path: path)
+        let endPoint = EndPoint<EmptyEntity>(path: path, httpMethod: .delete)
         
-        requestDeleteBookmark(urlResource: resource)
+        network.request(with: endPoint)
             .withUnretained(self)
             .subscribe(onNext: { owner, result in
                 switch result {
@@ -185,35 +150,4 @@ extension BookmarkCardListVM {
             .disposed(by: bag)
     }
     
-    /// 릿플 서버에 해당 북마크 취소 요청
-    private func requestDeleteBookmark<T: Decodable>(urlResource: URLResource<T>) -> Observable<Result<T, APIError>> {
-        Observable<Result<T, APIError>>.create { observer in
-            var headers = HTTPHeaders()
-            headers.add(.accept("*/*"))
-            headers.add(.contentType("application/json"))
-            
-            let task = AF.request(urlResource.resultURL,
-                                  method: .delete,
-                                  encoding: JSONEncoding.default,
-                                  headers: headers,
-                                  interceptor: AuthInterceptor())
-                .validate(statusCode: 200...399)
-                .responseDecodable(of: T.self) { response in
-                    debugPrint(response)
-                    switch response.result {
-                    case .success(let data):
-                        observer.onNext(.success(data))
-                        
-                    case .failure(let error):
-                        dump(error)
-                        guard let error = response.response else { return }
-                        observer.onNext(urlResource.judgeError(statusCode: error.statusCode))
-                    }
-                }
-            
-            return Disposables.create {
-                task.cancel()
-            }
-        }
-    }
 }
