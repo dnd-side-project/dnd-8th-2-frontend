@@ -19,7 +19,7 @@
 		0E2D6F2A29EBBB7D0053CD90 /* BookmarkMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */; };
 		0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */; };
 		0E2D6F5429F140A80053CD90 /* ReetPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */; };
-		0E502B712A91968A002C71F2 /* BookmarkListRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B702A91968A002C71F2 /* BookmarkListRequestModel.swift */; };
+		0E4971E02BA463CF0006BDB1 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4971DF2BA463CF0006BDB1 /* EndPoint.swift */; };
 		0E502B732A9197BB002C71F2 /* BookmarkListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */; };
 		0E502B752A919963002C71F2 /* BookmarkSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B742A919963002C71F2 /* BookmarkSearchType.swift */; };
 		0E502B772A919A54002C71F2 /* BookmarkSortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E502B762A919A54002C71F2 /* BookmarkSortType.swift */; };
@@ -49,6 +49,9 @@
 		0EB8D81429FFFF9D00E79BA4 /* AccountDeletedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */; };
 		0EDD36B12B29FB8400D44F06 /* BookmarkMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */; };
 		0EDD36B32B29FDEA00D44F06 /* BookmarkMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */; };
+		0EE0FA622BA87B9D0001EB53 /* EndPointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0FA612BA87B9D0001EB53 /* EndPointProtocol.swift */; };
+		0EE0FA642BA87BD10001EB53 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0FA632BA87BD10001EB53 /* NetworkProtocol.swift */; };
+		0EE0FA662BA87BED0001EB53 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0FA652BA87BED0001EB53 /* NetworkProvider.swift */; };
 		0EED226B29F8C77900C8102E /* DeleteAccountVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */; };
 		0EED227129F8CB6800C8102E /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED227029F8CB6800C8102E /* CheckboxButton.swift */; };
 		0EFE7C3629AA46CA0051E72D /* ReetBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7C3529AA46CA0051E72D /* ReetBottomSheet.swift */; };
@@ -64,7 +67,6 @@
 		3C04A7C72A51ACB000A31FA3 /* SearchHistoryListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C04A7C62A51ACB000A31FA3 /* SearchHistoryListDataSource.swift */; };
 		3C09F6902A59330E00B6B0BF /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F68F2A59330E00B6B0BF /* LoginVM.swift */; };
 		3C09F6922A59347F00B6B0BF /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6912A59347F00B6B0BF /* LoginResponseModel.swift */; };
-		3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6932A5E599600B6B0BF /* APIToken.swift */; };
 		3C09F6962A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */; };
 		3C09F69A2A5F936600B6B0BF /* EmptyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F6992A5F936600B6B0BF /* EmptyEntity.swift */; };
 		3C09F69C2A5FB9A100B6B0BF /* DeleteAccountRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */; };
@@ -94,9 +96,6 @@
 		3C2AED652990B3C200E36342 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED252990B3C200E36342 /* UIImage+.swift */; };
 		3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED262990B3C200E36342 /* UIColor+.swift */; };
 		3C2AED722990B3C200E36342 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED342990B3C200E36342 /* APIError.swift */; };
-		3C2AED732990B3C200E36342 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED352990B3C200E36342 /* APIService.swift */; };
-		3C2AED752990B3C200E36342 /* APISession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED372990B3C200E36342 /* APISession.swift */; };
-		3C2AED772990B3C200E36342 /* URLResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED392990B3C200E36342 /* URLResource.swift */; };
 		3C2AED782990B3C200E36342 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED3B2990B3C200E36342 /* Output.swift */; };
 		3C2AED792990B3C200E36342 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED3C2990B3C200E36342 /* Input.swift */; };
 		3C2AED7A2990B3C300E36342 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED3D2990B3C200E36342 /* Loadable.swift */; };
@@ -109,7 +108,6 @@
 		3C2AED872990B3C300E36342 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED4E2990B3C200E36342 /* BaseView.swift */; };
 		3C2AED8A2990B3C300E36342 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3C2AED522990B3C200E36342 /* Pretendard-Medium.otf */; };
 		3C2AED8D2990B3C300E36342 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3C2AED552990B3C200E36342 /* Pretendard-SemiBold.otf */; };
-		3C2AED8E2990B3C300E36342 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AED572990B3C200E36342 /* Service.swift */; };
 		3C2AF0CD2990D6BC00E36342 /* ReetPlaceTBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0CC2990D6BC00E36342 /* ReetPlaceTBC.swift */; };
 		3C2AF0D12990DFAC00E36342 /* BookmarkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */; };
 		3C2AF0D52990F7C200E36342 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2AF0D42990F7C200E36342 /* AuthInterceptor.swift */; };
@@ -231,7 +229,7 @@
 		0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMainModel.swift; sourceTree = "<group>"; };
 		0E2D6F2B29EBBD180053CD90 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		0E2D6F5329F140A80053CD90 /* ReetPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReetPopUp.swift; sourceTree = "<group>"; };
-		0E502B702A91968A002C71F2 /* BookmarkListRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListRequestModel.swift; sourceTree = "<group>"; };
+		0E4971DF2BA463CF0006BDB1 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListResponseModel.swift; sourceTree = "<group>"; };
 		0E502B742A919963002C71F2 /* BookmarkSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSearchType.swift; sourceTree = "<group>"; };
 		0E502B762A919A54002C71F2 /* BookmarkSortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkSortType.swift; sourceTree = "<group>"; };
@@ -261,6 +259,9 @@
 		0EB8D81329FFFF9D00E79BA4 /* AccountDeletedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeletedVC.swift; sourceTree = "<group>"; };
 		0EDD36B02B29FB8400D44F06 /* BookmarkMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVC.swift; sourceTree = "<group>"; };
 		0EDD36B22B29FDEA00D44F06 /* BookmarkMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkMapVM.swift; sourceTree = "<group>"; };
+		0EE0FA612BA87B9D0001EB53 /* EndPointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointProtocol.swift; sourceTree = "<group>"; };
+		0EE0FA632BA87BD10001EB53 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
+		0EE0FA652BA87BED0001EB53 /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		0EED226A29F8C77900C8102E /* DeleteAccountVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountVM.swift; sourceTree = "<group>"; };
 		0EED227029F8CB6800C8102E /* CheckboxButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		0EF6EA3F2B7B27C000B0A75E /* Reet-PlaceRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Reet-PlaceRelease.entitlements"; sourceTree = "<group>"; };
@@ -277,7 +278,6 @@
 		3C04A7C62A51ACB000A31FA3 /* SearchHistoryListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryListDataSource.swift; sourceTree = "<group>"; };
 		3C09F68F2A59330E00B6B0BF /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		3C09F6912A59347F00B6B0BF /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
-		3C09F6932A5E599600B6B0BF /* APIToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIToken.swift; sourceTree = "<group>"; };
 		3C09F6952A5E5B2000B6B0BF /* UpdateTokenResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTokenResponseModel.swift; sourceTree = "<group>"; };
 		3C09F6992A5F936600B6B0BF /* EmptyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEntity.swift; sourceTree = "<group>"; };
 		3C09F69B2A5FB9A000B6B0BF /* DeleteAccountRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountRequestModel.swift; sourceTree = "<group>"; };
@@ -307,9 +307,6 @@
 		3C2AED252990B3C200E36342 /* UIImage+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		3C2AED262990B3C200E36342 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		3C2AED342990B3C200E36342 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		3C2AED352990B3C200E36342 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		3C2AED372990B3C200E36342 /* APISession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISession.swift; sourceTree = "<group>"; };
-		3C2AED392990B3C200E36342 /* URLResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLResource.swift; sourceTree = "<group>"; };
 		3C2AED3B2990B3C200E36342 /* Output.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		3C2AED3C2990B3C200E36342 /* Input.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		3C2AED3D2990B3C200E36342 /* Loadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
@@ -322,7 +319,6 @@
 		3C2AED4E2990B3C200E36342 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		3C2AED522990B3C200E36342 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		3C2AED552990B3C200E36342 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
-		3C2AED572990B3C200E36342 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3C2AF0CC2990D6BC00E36342 /* ReetPlaceTBC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReetPlaceTBC.swift; sourceTree = "<group>"; };
 		3C2AF0D02990DFAC00E36342 /* BookmarkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkVC.swift; sourceTree = "<group>"; };
 		3C2AF0D42990F7C200E36342 /* AuthInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
@@ -477,6 +473,15 @@
 			path = ReetPopUp;
 			sourceTree = "<group>";
 		};
+		0E4971E12BA46F790006BDB1 /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				0E4971DF2BA463CF0006BDB1 /* EndPoint.swift */,
+				0EE0FA612BA87B9D0001EB53 /* EndPointProtocol.swift */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
 		0E9122FE299BF1390023EA59 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,7 +509,6 @@
 			children = (
 				0E2D6F2929EBBB7D0053CD90 /* BookmarkMainModel.swift */,
 				0EA432DF29A10F2300C4D47F /* BookmarkCardModel.swift */,
-				0E502B702A91968A002C71F2 /* BookmarkListRequestModel.swift */,
 				0E502B782A919DEE002C71F2 /* BookmarkCountResponseModel.swift */,
 				0E502B722A9197BB002C71F2 /* BookmarkListResponseModel.swift */,
 				0E5AF36C2B1B8CEF003E7223 /* BookmarkModifyRequestModel.swift */,
@@ -605,7 +609,7 @@
 			children = (
 				3CE9673A2B4C07DB009F86FD /* CoreData */,
 				A4EFC08E299E4CFA00B066AF /* Assets */,
-				3C2AED482990B3C200E36342 /* Class */,
+				3C2AED482990B3C200E36342 /* Base */,
 				A4EFC0A4299E74F600B066AF /* Datasource */,
 				3C2AED272990B3C200E36342 /* Enum */,
 				3C2AED172990B3C200E36342 /* Extension */,
@@ -614,7 +618,6 @@
 				A417F66D299E8706005E6DA7 /* Model */,
 				3C2AED332990B3C200E36342 /* Network */,
 				A4917E0F2996A7F700DF2A65 /* Protocols */,
-				3C2AED562990B3C200E36342 /* Service */,
 				3C2AED3E2990B3C200E36342 /* Utils */,
 			);
 			path = Global;
@@ -671,11 +674,10 @@
 			isa = PBXGroup;
 			children = (
 				3C2AED342990B3C200E36342 /* APIError.swift */,
-				3C2AED352990B3C200E36342 /* APIService.swift */,
-				3C2AED372990B3C200E36342 /* APISession.swift */,
 				3C2AF0D42990F7C200E36342 /* AuthInterceptor.swift */,
-				3C09F6932A5E599600B6B0BF /* APIToken.swift */,
-				3C2AED392990B3C200E36342 /* URLResource.swift */,
+				0EE0FA632BA87BD10001EB53 /* NetworkProtocol.swift */,
+				0EE0FA652BA87BED0001EB53 /* NetworkProvider.swift */,
+				0E4971E12BA46F790006BDB1 /* EndPoint */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -700,7 +702,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		3C2AED482990B3C200E36342 /* Class */ = {
+		3C2AED482990B3C200E36342 /* Base */ = {
 			isa = PBXGroup;
 			children = (
 				3C2AED4C2990B3C200E36342 /* BaseCollectionViewCell.swift */,
@@ -713,7 +715,7 @@
 				3C2AED492990B3C200E36342 /* BaseViewController.swift */,
 				3C2AED4B2990B3C200E36342 /* BaseViewModel.swift */,
 			);
-			path = Class;
+			path = Base;
 			sourceTree = "<group>";
 		};
 		3C2AED4F2990B3C200E36342 /* Font */ = {
@@ -725,14 +727,6 @@
 				3C2AED552990B3C200E36342 /* Pretendard-SemiBold.otf */,
 			);
 			path = Font;
-			sourceTree = "<group>";
-		};
-		3C2AED562990B3C200E36342 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				3C2AED572990B3C200E36342 /* Service.swift */,
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		3C2AED8F2990B69700E36342 /* Support */ = {
@@ -1403,7 +1397,6 @@
 				3C40FD822A4A6B3C00D66B49 /* KeywordHistoryDataSource.swift in Sources */,
 				0E912300299BF1450023EA59 /* AllBookmarkButton.swift in Sources */,
 				3C14917E2A6BB29C00B499B8 /* BookmarkType.swift in Sources */,
-				3C09F6942A5E599600B6B0BF /* APIToken.swift in Sources */,
 				3C3AC3002A36EE870023D3DE /* SearchVM.swift in Sources */,
 				3C09F69E2A5FBA5400B6B0BF /* DeleteAccountSurveyType.swift in Sources */,
 				3C5C8BD52B7206780035BC0C /* PlaceResultListDataSource.swift in Sources */,
@@ -1474,11 +1467,11 @@
 				3C14917C2A6A418500B499B8 /* MarkerType.swift in Sources */,
 				A4D09ED4299F9EC4004DEE97 /* UserInfoMenuDataSource.swift in Sources */,
 				0EFE7C3A29AA60880051E72D /* StarToggleButton.swift in Sources */,
+				0EE0FA662BA87BED0001EB53 /* NetworkProvider.swift in Sources */,
 				3CF3EAB82A3C29B9003B4DE2 /* CategoryDetailRestaurantList.swift in Sources */,
 				3C09F6922A59347F00B6B0BF /* LoginResponseModel.swift in Sources */,
 				3CF3EABC2A3C2FA5003B4DE2 /* CategoryDetailHeaderView.swift in Sources */,
 				0EA432E029A10F2300C4D47F /* BookmarkCardModel.swift in Sources */,
-				3C2AED752990B3C200E36342 /* APISession.swift in Sources */,
 				3C92566E2A1CDE9F0011B093 /* CategoryDetailPhotoBoothList.swift in Sources */,
 				3C3A631D2A56A65A00975B56 /* LoginType.swift in Sources */,
 				0E2D6F2C29EBBD180053CD90 /* UIImageView+.swift in Sources */,
@@ -1514,17 +1507,16 @@
 				0EFE7C3F29B05D310051E72D /* ReetTextField.swift in Sources */,
 				3CF488AB2B836A1E00A3381C /* SearchPlaceAction.swift in Sources */,
 				0E05EFFF2A4C75C3008A20F4 /* OnboardingVC.swift in Sources */,
-				0E502B712A91968A002C71F2 /* BookmarkListRequestModel.swift in Sources */,
 				A4EFC099299E608500B066AF /* BaseNavigationViewController.swift in Sources */,
 				A4AABE77299BD86A00BA9D37 /* BaseVerticalScrollViewController.swift in Sources */,
 				3C14917A2A6A403400B499B8 /* MarkerExtendedStackView.swift in Sources */,
 				0E1B62D12B3174FE00C1E609 /* DeleteAccountModel.swift in Sources */,
+				0EE0FA622BA87B9D0001EB53 /* EndPointProtocol.swift in Sources */,
 				A4AABE75299BD3CE00BA9D37 /* String+.swift in Sources */,
 				3C2AED632990B3C200E36342 /* UITextField+.swift in Sources */,
 				0E5A514229F6721900C44701 /* ServicePolicyVC.swift in Sources */,
 				3C0047652B3D5896009B547D /* CategoryDetailDataSource.swift in Sources */,
 				0E67036A29A201F400A5456E /* BookmarkFilterView.swift in Sources */,
-				3C2AED772990B3C200E36342 /* URLResource.swift in Sources */,
 				A4EFC0A1299E715900B066AF /* MyPageMenu.swift in Sources */,
 				3C423F2B29AAF649003B7B7D /* CategoryChipButton.swift in Sources */,
 				A4D09ECF299F9D10004DEE97 /* UserInfoMenu.swift in Sources */,
@@ -1535,7 +1527,6 @@
 				0EFE7C4129B05D3D0051E72D /* ReetTextFieldStyle.swift in Sources */,
 				3C2AED612990B3C200E36342 /* UIButton+.swift in Sources */,
 				3CEC2FB3298FEAAF0057D813 /* AppDelegate.swift in Sources */,
-				3C2AED8E2990B3C300E36342 /* Service.swift in Sources */,
 				3C2AF0D12990DFAC00E36342 /* BookmarkVC.swift in Sources */,
 				3C2AED5D2990B3C200E36342 /* UIString+.swift in Sources */,
 				3CDD84F32B4D05620089F7C9 /* CategoryFilter+CoreDataClass.swift in Sources */,
@@ -1567,6 +1558,7 @@
 				A4EFC08B299E488500B066AF /* MyPageVC.swift in Sources */,
 				0EAFCFDC2A2888700023A738 /* SelectBoxTVC.swift in Sources */,
 				A4D09EC8299F984A004DEE97 /* UserInfoVC.swift in Sources */,
+				0EE0FA642BA87BD10001EB53 /* NetworkProtocol.swift in Sources */,
 				3CC9F07F2B74224B00262B22 /* SearchHistoryResponseModel.swift in Sources */,
 				3C9256742A1CE26B0011B093 /* CategoryDetailShoppingList.swift in Sources */,
 				0EB76CF12B5E5B3100E3FD51 /* BookmarkListVC.swift in Sources */,
@@ -1588,7 +1580,7 @@
 				A4917E072996A5E900DF2A65 /* ReetButton.swift in Sources */,
 				3CBADD3D29A090E7005855B1 /* HomeVC.swift in Sources */,
 				3C2AED792990B3C200E36342 /* Input.swift in Sources */,
-				3C2AED732990B3C200E36342 /* APIService.swift in Sources */,
+				0E4971E02BA463CF0006BDB1 /* EndPoint.swift in Sources */,
 				0EAD37DA29E6F13600C3EA38 /* BookmarkVM.swift in Sources */,
 				3C2AED642990B3C200E36342 /* Date+.swift in Sources */,
 				3C2AED662990B3C200E36342 /* UIColor+.swift in Sources */,
