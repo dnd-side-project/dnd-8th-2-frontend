@@ -16,7 +16,6 @@ final class UserInfoVM: BaseViewModel {
     
     var bag: DisposeBag = DisposeBag()
     
-    var apiSession: APIService = APISession()
     let apiError = PublishSubject<APIError>()
     
     var input: Input = Input()
