@@ -6,20 +6,9 @@
 //
 
 import Foundation
-import Alamofire
 
 // MARK: - ModificationCategoryFilter RequestModel
 
-struct ModificationCategoryFilterRequestModel: Codable {
+struct ModificationCategoryFilterRequestModel: Encodable {
     let contents: [PlaceCategoryModel]
-}
-
-// MARK: - Paramters
-
-extension ModificationCategoryFilterRequestModel {
-    var parameter: Parameters {
-        return [
-            "contents": contents.map { $0.parameter }
-        ]
-    }
 }

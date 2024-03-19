@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BookmarkListResponseModel: Codable {
+struct BookmarkListResponseModel: Decodable {
     let size: Int
     let content: [BookmarkInfo]
     let number: Int
@@ -19,7 +19,7 @@ struct BookmarkListResponseModel: Codable {
     let empty: Bool
 }
 
-struct BookmarkInfo: Codable {
+struct BookmarkInfo: Decodable {
     let id: Int
     let member: BookmarkUserInfo
     let place: BookmarkPlaceInfo
@@ -47,14 +47,14 @@ struct BookmarkInfo: Codable {
     }
 }
 
-struct BookmarkUserInfo: Codable {
+struct BookmarkUserInfo: Decodable {
     let id: Int
     let uid: String
     let loginType: String
     let nickname: String
 }
 
-struct BookmarkPlaceInfo: Codable {
+struct BookmarkPlaceInfo: Decodable {
     let id: Int
     let kakaoPid: String
     let name: String
@@ -69,13 +69,13 @@ struct BookmarkPlaceInfo: Codable {
     let lng: String
 }
 
-struct SortInfo: Codable {
+struct SortInfo: Decodable {
     let empty: Bool
     let unsorted: Bool
     let sorted: Bool
 }
 
-struct PageableInfo: Codable {
+struct PageableInfo: Decodable {
     let offset: Int
     let sort: SortInfo
     let pageSize: Int
