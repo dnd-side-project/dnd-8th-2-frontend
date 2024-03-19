@@ -10,6 +10,8 @@ enum APIError: Error {
     case http(status: Int)
     case unknown(status: Int)
     case unable
+    case invalidURL
+    case invalidResponse
 }
 
 extension APIError: CustomStringConvertible {
@@ -23,6 +25,10 @@ extension APIError: CustomStringConvertible {
             return "Unknown Error: \(status)"
         case .unable:
             return "Use API Unable"
+        case .invalidURL:
+            return "Invalid request URL Error"
+        case .invalidResponse:
+            return "Invalid response Error"
         }
     }
 }
