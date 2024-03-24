@@ -16,6 +16,9 @@ PODS:
   - NMapsGeometry (1.0.1)
   - NMapsMap (3.16.2):
     - NMapsGeometry
+  - ReactorKit (3.2.0):
+    - RxSwift (~> 6.0)
+    - WeakMapTable (~> 1.1)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -31,6 +34,7 @@ PODS:
   - RxSwift (6.5.0)
   - SnapKit (5.6.0)
   - Then (3.0.0)
+  - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -39,6 +43,7 @@ DEPENDENCIES:
   - KakaoSDKUser (<= 2.16)
   - Kingfisher (~> 7.0)
   - NMapsMap
+  - ReactorKit
   - RxCocoa (= 6.5.0)
   - RxDataSources (~> 5.0)
   - RxGesture
@@ -56,6 +61,7 @@ SPEC REPOS:
     - Kingfisher
     - NMapsGeometry
     - NMapsMap
+    - ReactorKit
     - RxCocoa
     - RxDataSources
     - RxGesture
@@ -63,6 +69,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - Then
+    - WeakMapTable
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
@@ -73,6 +80,7 @@ SPEC CHECKSUMS:
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
   NMapsMap: aaa64717249b06ae82c3a3addb3a01f0e33100ab
+  ReactorKit: e8b11d6b9c415405f381669b095c154a05b59eca
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
@@ -80,7 +88,8 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
+  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 6eace9c5f53459f66ad27511b12d74fe7bca04d0
+PODFILE CHECKSUM: 65003312d4883474af61cbcbaac9fb791372e229
 
 COCOAPODS: 1.11.3

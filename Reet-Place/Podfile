@@ -13,6 +13,7 @@ target 'Reet-Place' do
   pod 'RxDataSources', '~> 5.0'
 
   # Others
+  pod 'ReactorKit'
   pod 'Alamofire'
   pod 'SnapKit'
   pod 'Then'
