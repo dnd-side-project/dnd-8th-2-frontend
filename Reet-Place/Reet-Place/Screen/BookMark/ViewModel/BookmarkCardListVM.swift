@@ -114,7 +114,7 @@ final class BookmarkCardListVM: Reactor {
 
 // MARK: - Functions
 
-extension BookmarkCardListVM {
+private extension BookmarkCardListVM {
     
     func deleteBookmark(id: Int) -> Observable<Mutation> {
         let originBookmarkList = currentState.bookmarkList
@@ -153,7 +153,7 @@ extension BookmarkCardListVM {
 
 // MARK: - Networking
 
-extension BookmarkCardListVM {
+private extension BookmarkCardListVM {
     
     func getBookmarkList(type: BookmarkSearchType) -> Observable<Mutation> {
         let page = currentState.page
