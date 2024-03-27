@@ -52,7 +52,6 @@ final class AuthInterceptor: RequestInterceptor {
                         completion(.doNotRetryWithError(error))
                         return
                     }
-                    tabBarVC.showToast(message: "LogoutSuccess".localized, bottomViewHeight: 50.0)
                     myPageVC.updateLoginStatus()
                     
                     print("로그인 만료")
