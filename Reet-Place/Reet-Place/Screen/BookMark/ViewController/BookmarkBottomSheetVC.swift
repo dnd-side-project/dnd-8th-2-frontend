@@ -13,8 +13,9 @@ import Then
 import RxSwift
 import RxGesture
 import RxCocoa
+import ReactorKit
 
-final class BookmarkBottomSheetVC: ReetBottomSheet {
+final class BookmarkBottomSheetVC: ReetBottomSheet, View {
     
     // MARK: - UI components
     
@@ -142,6 +143,7 @@ final class BookmarkBottomSheetVC: ReetBottomSheet {
     // MARK: - Variables and Properties
     
     private let viewModel: BookmarkBottomSheetVM = .init()
+    var disposeBag: DisposeBag = .init()
     
     private var urlField : [ReetTextField] = []
     private let isBookmarking: Bool
@@ -169,6 +171,12 @@ final class BookmarkBottomSheetVC: ReetBottomSheet {
     
     // MARK: - Life Cycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        reactor = viewModel
+    }
+    
     override func configureView() {
         super.configureView()
         
@@ -184,9 +192,41 @@ final class BookmarkBottomSheetVC: ReetBottomSheet {
     override func bindRx() {
         super.bindRx()
         
-        bind()
         bindBtn()
         bindKeyboard()
+    }
+    
+    
+    // MARK: - Bind Reactor
+    
+    func bind(reactor: BookmarkBottomSheetVM) {
+        reactor.state.map { $0.isSuccessDelete }
+            .filter { $0 }
+            .withUnretained(self)
+            .subscribe { owner, _ in
+                guard let id = owner.bookmarkID else { return }
+                owner.dismissBottomSheet()
+                owner.deletedBookmarkId.onNext(id)
+            }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.successModifiedInfo }
+            .skip(1)
+            .withUnretained(self)
+            .subscribe { owner, modifiedInfo in
+                owner.dismissBottomSheet()
+                owner.modifiedBookmarkInfo.onNext(modifiedInfo)
+            }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.savedType }
+            .skip(1)
+            .withUnretained(self)
+            .subscribe { owner, type in
+                owner.dismissBottomSheet()
+                owner.savedBookmarkType.onNext(type)
+            }
+            .disposed(by: disposeBag)
     }
     
     
@@ -209,7 +249,7 @@ final class BookmarkBottomSheetVC: ReetBottomSheet {
     
     @objc func deleteBookmark() {
         guard let id = bookmarkID else { return }
-        viewModel.deleteBookmark(id: id)
+        viewModel.action.onNext(.deleteBookmark(id: id))
     }
     
     func getModifiedBookmarkData() -> BookmarkCardModel? {
@@ -407,35 +447,7 @@ extension BookmarkBottomSheetVC {
 // MARK: - Bind
 
 extension BookmarkBottomSheetVC {
-    
-    private func bind() {
-        viewModel.output.isSuccessDelete
-            .filter { $0 }
-            .withUnretained(self)
-            .subscribe { owner, _ in
-                guard let id = owner.bookmarkID else { return }
-                owner.dismissBottomSheet()
-                owner.deletedBookmarkId.onNext(id)
-            }
-            .disposed(by: bag)
-        
-        viewModel.output.isSuccessModify
-            .withUnretained(self)
-            .subscribe { owner, bookmarkInfo in
-                owner.dismissBottomSheet()
-                owner.modifiedBookmarkInfo.onNext(bookmarkInfo)
-            }
-            .disposed(by: bag)
-        
-        viewModel.output.isSuccessSave
-            .withUnretained(self)
-            .subscribe { owner, bookmarkType in
-                owner.dismissBottomSheet()
-                owner.savedBookmarkType.onNext(bookmarkType)
-            }
-            .disposed(by: bag)
-    }
-    
+
     private func bindKeyboard() {
         // 키보드가 올라올 때
         keyboardWillShow
@@ -471,9 +483,9 @@ extension BookmarkBottomSheetVC {
     private func bindBtn() {
         // 관련 url 추가
         addBtn.rx.tap
-            .bind(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.addUrl()
+            .withUnretained(self)
+            .bind(onNext: { owner, _ in
+                owner.addUrl()
             })
             .disposed(by: bag)
         
@@ -483,7 +495,7 @@ extension BookmarkBottomSheetVC {
             .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
             .bind(onNext: { owner, _ in
                 guard let modifiedData = owner.getModifiedBookmarkData() else { return }
-                owner.viewModel.modifyBookmark(modifyInfo: modifiedData)
+                owner.viewModel.action.onNext(.modifyBookmark(modifiedInfo: modifiedData))
             })
             .disposed(by: bag)
         
@@ -505,7 +517,7 @@ extension BookmarkBottomSheetVC {
             .bind(onNext: { owner, _ in
                 guard let searchPlaceInfo = owner.searchPlaceInfo,
                       let modifiedData = owner.getModifiedBookmarkData() else { return }
-                owner.viewModel.saveBookmark(searchPlaceInfo: searchPlaceInfo, modifyInfo: modifiedData)
+                owner.viewModel.action.onNext(.saveBookmark(searchPlaceInfo: searchPlaceInfo, modifiedInfo: modifiedData))
             })
             .disposed(by: bag)
     }
