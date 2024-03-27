@@ -47,11 +47,28 @@ struct BookmarkInfo: Decodable {
     }
 }
 
+extension BookmarkInfo {
+    static let empty: Self = .init(id: 0,
+                                   member: .empty,
+                                   place: .empty,
+                                   type: .empty,
+                                   thumbnailImage: nil,
+                                   rate: 1,
+                                   people: nil,
+                                   relLink1: nil,
+                                   relLink2: nil,
+                                   relLink3: nil)
+}
+
 struct BookmarkUserInfo: Decodable {
     let id: Int
     let uid: String
     let loginType: String
     let nickname: String
+}
+
+extension BookmarkUserInfo {
+    static let empty: Self = .init(id: 0, uid: .empty, loginType: .empty, nickname: .empty)
 }
 
 struct BookmarkPlaceInfo: Decodable {
@@ -67,6 +84,21 @@ struct BookmarkPlaceInfo: Decodable {
     let roadAddress: String
     let lat: String
     let lng: String
+}
+
+extension BookmarkPlaceInfo {
+    static let empty: Self = .init(id: 0,
+                                   kakaoPid: .empty,
+                                   name: .empty,
+                                   url: .empty,
+                                   categoryGroupCode: nil,
+                                   kakaoCategoryName: .empty,
+                                   category: .empty,
+                                   subCategory: .empty,
+                                   lotNumberAddress: .empty,
+                                   roadAddress: .empty,
+                                   lat: .empty,
+                                   lng: .empty)
 }
 
 struct SortInfo: Decodable {
