@@ -9,13 +9,14 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import ReactorKit
 
 import Then
 import SnapKit
 
 import Kingfisher
 
-final class BookmarkVC: BaseNavigationViewController {
+final class BookmarkVC: BaseNavigationViewController, View {
     
     // MARK: - UI components
     
@@ -51,6 +52,7 @@ final class BookmarkVC: BaseNavigationViewController {
     }
     
     private let viewModel = BookmarkVM()
+    var disposeBag = DisposeBag()
     
     
     // MARK: - Life Cycle
@@ -58,15 +60,14 @@ final class BookmarkVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        reactor = viewModel
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         removeCache()
-        
-        // TODO: - 서버 에러 해결 후 변경
-        viewModel.getBookmarkMock()
+        viewModel.action.onNext(.entering)
     }
     
     override func configureView() {
@@ -81,22 +82,65 @@ final class BookmarkVC: BaseNavigationViewController {
         configureLayout()
     }
     
-    override func bindRx() {
-        super.bindRx()
-        
-    }
-    
     override func bindInput() {
         super.bindInput()
         
         bindBtn()
     }
     
-    override func bindOutput() {
-        super.bindOutput()
+    // MARK: - Bind Reactor
+    
+    func bind(reactor: BookmarkVM) {
+        reactor.state.map { $0.isAuthenticated }
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { owner, isAuthenticated in
+                owner.allBookmarkBtn.isHidden = !isAuthenticated
+                owner.bookmarkTypeCV.isHidden = !isAuthenticated
+                owner.emptyBookmarkView.isHidden = !isAuthenticated
+                owner.induceBookmarkView.isHidden = !isAuthenticated
+                
+                owner.requestLoginView.isHidden = isAuthenticated
+            })
+            .disposed(by: bag)
         
-        bindBookmark()
-        bindType()
+        reactor.state.map { $0.bookmarkTotalCount }
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .subscribe(onNext: { owner, count in
+                owner.allBookmarkBtn.configureButton(for: count > 0 ? .active : .disabled,
+                                                     count: count)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.bookmarkWishInfo }
+            .withUnretained(self)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { owner, data in
+                owner.bookmarkTypeCV.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.bookmarkHistoryInfo }
+            .withUnretained(self)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { owner, data in
+                owner.bookmarkTypeCV.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.bookmarkTotalCount }
+            .map { $0 == 0 }
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { owner, isEmpty in
+                owner.bookmarkTypeCV.isHidden = isEmpty
+                owner.induceBookmarkView.isHidden = isEmpty
+                owner.emptyBookmarkView.isHidden = !isEmpty
+            })
+            .disposed(by: disposeBag)
     }
     
     
@@ -192,6 +236,7 @@ extension BookmarkVC {
 // MARK: - Input
 
 extension BookmarkVC {
+    
     private func bindBtn() {
         // 북마크 모두 보기
         allBookmarkBtn.rx.tap
@@ -218,74 +263,6 @@ extension BookmarkVC {
             })
             .disposed(by: bag)
     }
-}
-
-
-// MARK: - Output
-
-extension BookmarkVC {
-    
-    private func bindBookmark() {
-        // 북마크 All 개수
-        viewModel.output.BookmarkAllCnt
-            .withUnretained(self)
-            .subscribe(onNext: { owner, _ in
-                let allCnt = owner.viewModel.output.BookmarkAllCnt.value
-                
-                owner.allBookmarkBtn.configureButton(for: allCnt > 0 ? .active : .disabled,
-                                                     count: allCnt)
-            })
-            .disposed(by: bag)
-        
-        // 북마크 - 가고싶어요 개수, 이미지
-        viewModel.output.BookmarkWishlistInfo
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
-                DispatchQueue.main.async {
-                    owner.bookmarkTypeCV.reloadData()
-                }
-            })
-            .disposed(by: bag)
-        
-        // 북마크 - 다녀왔어요 개수, 이미지
-        viewModel.output.BookmarkHistoryInfo
-            .withUnretained(self)
-            .subscribe(onNext: { owner, data in
-                DispatchQueue.main.async {
-                    owner.bookmarkTypeCV.reloadData()
-                }
-            })
-            .disposed(by: bag)
-    }
-    
-    private func bindType() {
-        // 로그인 여부 체크
-        viewModel.output.isAuthenticated
-            .withUnretained(self)
-            .bind(onNext: { owner, isAuthenticated in
-                DispatchQueue.main.async {
-                    owner.allBookmarkBtn.isHidden = !isAuthenticated
-                    owner.bookmarkTypeCV.isHidden = !isAuthenticated
-                    owner.emptyBookmarkView.isHidden = !isAuthenticated
-                    owner.induceBookmarkView.isHidden = !isAuthenticated
-                    
-                    owner.requestLoginView.isHidden = isAuthenticated
-                }
-            })
-            .disposed(by: bag)
-        
-        // 북마크 개수가 0개인지 확인
-        viewModel.output.isEmptyBookmark
-            .withUnretained(self)
-            .bind(onNext: { owner, isEmptyBookmark in
-                DispatchQueue.main.async {
-                    owner.bookmarkTypeCV.isHidden = isEmptyBookmark
-                    owner.induceBookmarkView.isHidden = isEmptyBookmark
-                    owner.emptyBookmarkView.isHidden = !isEmptyBookmark
-                }
-            })
-            .disposed(by: bag)
-    }
     
 }
 
@@ -302,9 +279,9 @@ extension BookmarkVC: UICollectionViewDelegate {
         var bookmarkSearchType: BookmarkSearchType = .want
         
         if indexPath.row == 0 {
-            guard viewModel.output.BookmarkWishlistInfo.value.cnt != 0 else { return }
+            guard viewModel.currentState.bookmarkWishInfo.cnt != 0 else { return }
         } else {
-            guard viewModel.output.BookmarkHistoryInfo.value.cnt != 0 else { return }
+            guard viewModel.currentState.bookmarkHistoryInfo.cnt != 0 else { return }
             bookmarkSearchType = .done
         }
         
@@ -320,12 +297,13 @@ extension BookmarkVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkTypeCVC.className, for: indexPath) as? BookmarkTypeCVC else { return UICollectionViewCell() }
+        
         if indexPath.row == 0 {
-            cell.configureData(typeInfo: viewModel.output.BookmarkWishlistInfo.value)
+            cell.configureData(typeInfo: viewModel.currentState.bookmarkWishInfo)
         }
         
         if indexPath.row == 1 {
-            cell.configureData(typeInfo: viewModel.output.BookmarkHistoryInfo.value)
+            cell.configureData(typeInfo: viewModel.currentState.bookmarkHistoryInfo)
         }
         
         return cell
