@@ -68,7 +68,7 @@ class BookmarkTypeCVC: BaseCollectionViewCell {
 
     // MARK: - Function
     
-    func configureData(typeInfo: TypeInfo) {
+    func configureData(typeInfo: BookmarkTypeInfo) {
         switch typeInfo.type {
         case "WANT":
             titleLabel.text = "BookmarkWishlist".localized
