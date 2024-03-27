@@ -9,13 +9,14 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import ReactorKit
 
 import Then
 import SnapKit
 
 import NMapsMap
 
-final class BookmarkMapVC: BaseNavigationViewController {
+final class BookmarkMapVC: BaseNavigationViewController, View {
     
     // MARK: - UI components
     
@@ -26,6 +27,7 @@ final class BookmarkMapVC: BaseNavigationViewController {
     private let viewModel: BookmarkMapVM = .init()
     private let bookmarkType: BookmarkSearchType
     private var markers: [NMFMarker] = .init()
+    var disposeBag = DisposeBag()
     
     // MARK: - Initialize
     
@@ -43,7 +45,8 @@ final class BookmarkMapVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.getBookmarkSummaries(type: bookmarkType)
+        reactor = viewModel
+        viewModel.action.onNext(.entering(bookmarkType))
     }
     
     override func configureView() {
@@ -57,11 +60,17 @@ final class BookmarkMapVC: BaseNavigationViewController {
         
         configureLayout()
     }
+
     
-    override func bindOutput() {
-        super.bindOutput()
-        
-        bindSummaries()
+    // MARK: - Bind Reactor
+    
+    func bind(reactor: BookmarkMapVM) {
+        reactor.state.map { $0.bookmarkSummaries }
+            .withUnretained(self)
+            .subscribe { owner, summaries in
+                owner.configureMarkers(from: summaries)
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Functions
@@ -142,21 +151,6 @@ extension BookmarkMapVC {
             $0.top.equalTo(navigationBar.snp.bottom)
             $0.leading.bottom.trailing.equalTo(view)
         }
-    }
-    
-}
-
-// MARK: - Bind
-
-extension BookmarkMapVC {
-    
-    private func bindSummaries() {
-        viewModel.output.bookmarkSummaries
-            .withUnretained(self)
-            .subscribe { owner, summaries in
-                owner.configureMarkers(from: summaries)
-            }
-            .disposed(by: bag)
     }
     
 }
