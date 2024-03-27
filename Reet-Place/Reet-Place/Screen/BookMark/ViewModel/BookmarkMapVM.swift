@@ -5,73 +5,82 @@
 //  Created by 김태현 on 12/13/23.
 //
 
-import Foundation
 import RxSwift
 import RxCocoa
+import ReactorKit
 
-final class BookmarkMapVM {
+final class BookmarkMapVM: Reactor {
     
-    // MARK: - Variables and Properties
+    // MARK: - Properties
     
-    var input = Input()
-    var output = Output()
-    
-    let network: NetworkProtocol = NetworkProvider()
-    let apiError = PublishSubject<APIError>()
-    
-    var bag = DisposeBag()
-    
-    struct Input {}
-    struct Output {
-        var bookmarkSummaries: BehaviorRelay<[BookmarkSummaryModel]> = BehaviorRelay(value: [])
+    enum Action {
+        case entering(BookmarkSearchType)
     }
     
-    // MARK: - Life Cycle
+    enum Mutation {
+        case loadBookmarkSummaries([BookmarkSummaryModel])
+        case error
+    }
+    
+    struct State {
+        var bookmarkSummaries: [BookmarkSummaryModel] = []
+    }
+    
+    let initialState: State
+    let network: NetworkProtocol
+    
+    
+    // MARK: - Initializer
     
     init() {
-        bindInput()
-        bindOutput()
+        self.initialState = State()
+        self.network = NetworkProvider()
     }
     
-    deinit {
-        bag = DisposeBag()
+    
+    // MARK: - Mutate, Reduce
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .entering(let type):
+            return getBookmarkSummaries(type: type)
+        }
     }
     
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        
+        switch mutation {
+        case .loadBookmarkSummaries(let bookmarkSummaries):
+            newState.bookmarkSummaries = bookmarkSummaries
+        
+        case .error:
+            print("Reactor Error")
+        }
+        
+        return newState
+    }
 }
 
-
-// MARK: - Input
-
-extension BookmarkMapVM {
-    func bindInput() {}
-}
-
-// MARK: - Output
-
-extension BookmarkMapVM {
-    func bindOutput() {}
-}
 
 // MARK: - Networking
 
-extension BookmarkMapVM {
+private extension BookmarkMapVM {
     
-    func getBookmarkSummaries(type: BookmarkSearchType) {
+    func getBookmarkSummaries(type: BookmarkSearchType) -> Observable<Mutation> {
         let path = "/api/bookmarks/all/summaries?searchType=\(type.rawValue)"
         let endPoint = EndPoint<BookmarkSummaryListResponseModel>(path: path, httpMethod: .get)
         
-        network.request(with: endPoint)
-            .withUnretained(self)
-            .subscribe { owner, result in
+        return network.request(with: endPoint)
+            .map { result -> Mutation in
                 switch result {
                 case .success(let summariesReponse):
                     let summaries = summariesReponse.map { $0.toSummary() }
-                    owner.output.bookmarkSummaries.accept(summaries)
-                case .failure(let error):
-                    owner.apiError.onNext(error)
+                    return .loadBookmarkSummaries(summaries)
+                case .failure:
+                    return .error
                 }
             }
-            .disposed(by: bag)
     }
     
 }
