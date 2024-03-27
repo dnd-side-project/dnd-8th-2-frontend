@@ -5,109 +5,131 @@
 //  Created by 김태현 on 12/3/23.
 //
 
-import Foundation
-
 import RxCocoa
 import RxSwift
+import ReactorKit
 
-final class BookmarkBottomSheetVM {
+final class BookmarkBottomSheetVM: Reactor {
     
-    // MARK: - Variables and Properties
+    // MARK: - Properties
     
-    var input = Input()
-    var output = Output()
-    
-    let network: NetworkProtocol = NetworkProvider()
-    let apiError = PublishSubject<APIError>()
-    
-    var bag = DisposeBag()
-    
-    struct Input {}
-    struct Output {
-        var isSuccessDelete: PublishSubject<Bool> = .init()
-        var isSuccessModify: PublishSubject<BookmarkInfo> = .init()
-        var isSuccessSave: PublishSubject<BookmarkType> = .init()
+    enum Action {
+        case deleteBookmark(id: Int)
+        case modifyBookmark(modifiedInfo: BookmarkCardModel)
+        case saveBookmark(searchPlaceInfo: SearchPlaceListContent, modifiedInfo: BookmarkCardModel)
     }
     
-    // MARK: - Life Cycle
+    enum Mutation {
+        case finishDeletion(Bool)
+        case finishModification(modifiedInfo: BookmarkInfo)
+        case finishSave(savedType: BookmarkType)
+        case error
+    }
+    
+    struct State {
+        var isSuccessDelete: Bool = false
+        var successModifiedInfo: BookmarkInfo = .empty
+        var savedType: BookmarkType = .standard
+    }
+    
+    let initialState: State
+    let network: NetworkProtocol
+    
+    
+    // MARK: - Initializer
     
     init() {
-        bindInput()
-        bindOutput()
+        self.initialState = State()
+        self.network = NetworkProvider()
     }
     
-    deinit {
-        bag = DisposeBag()
+    
+    // MARK: - Mutate, Reduce
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .deleteBookmark(let id):
+            deleteBookmark(id: id)
+            
+        case .modifyBookmark(let modifiedInfo):
+            modifyBookmark(modifyInfo: modifiedInfo)
+            
+        case .saveBookmark(let searchPlaceInfo, let modifiedInfo):
+            saveBookmark(searchPlaceInfo: searchPlaceInfo, modifiedInfo: modifiedInfo)
+        }
+    }
+    
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        
+        switch mutation {
+        case .finishDeletion(let isSuccess):
+            newState.isSuccessDelete = isSuccess
+            
+        case .finishModification(let modifiedInfo):
+            newState.successModifiedInfo = modifiedInfo
+            
+        case .finishSave(let savedType):
+            newState.savedType = savedType
+            
+        case .error:
+            print("Reactor Error")
+            break
+        }
+        
+        return newState
     }
     
 }
 
-
-// MARK: - Input
-
-extension BookmarkBottomSheetVM {
-    func bindInput() {}
-}
-
-// MARK: - Output
-
-extension BookmarkBottomSheetVM {
-    func bindOutput() {}
-}
 
 // MARK: - Networking
 
-extension BookmarkBottomSheetVM {
+private extension BookmarkBottomSheetVM {
     
-    func saveBookmark(searchPlaceInfo: SearchPlaceListContent, modifyInfo: BookmarkCardModel) {
+    func saveBookmark(searchPlaceInfo: SearchPlaceListContent, modifiedInfo: BookmarkCardModel) -> Observable<Mutation> {
         let path = "/api/bookmarks"
         let requestModel = BookmarkSaveRequestModel(
             place: searchPlaceInfo.toBookmarkSavePlace(),
-            type: modifyInfo.groupType,
-            rate: modifyInfo.starCount,
-            people: modifyInfo.withPeople,
-            relLink1: modifyInfo.relLink1,
-            relLink2: modifyInfo.relLink2,
-            relLink3: modifyInfo.relLink3
+            type: modifiedInfo.groupType,
+            rate: modifiedInfo.starCount,
+            people: modifiedInfo.withPeople,
+            relLink1: modifiedInfo.relLink1,
+            relLink2: modifiedInfo.relLink2,
+            relLink3: modifiedInfo.relLink3
         )
         let endPoint = EndPoint<BookmarkInfo>(path: path,
                                               httpMethod: .post,
                                               body: requestModel)
         
-        network.request(with: endPoint)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, result in
+        return network.request(with: endPoint)
+            .map { result -> Mutation in
                 switch result {
                 case .success(let data):
                     let bookmarkType = BookmarkType(rawValue: data.type)
-                    owner.output.isSuccessSave.onNext(bookmarkType)
-                case .failure(let error):
-                    print(error)
-                    owner.apiError.onNext(error)
+                    return .finishSave(savedType: bookmarkType)
+                case .failure:
+                    return .error
                 }
-            })
-            .disposed(by: bag)
+            }
     }
     
-    func deleteBookmark(id: Int) {
+    func deleteBookmark(id: Int) -> Observable<Mutation> {
         let path = "/api/bookmarks/\(id)"
         let endPoint = EndPoint<EmptyEntity>(path: path, httpMethod: .delete)
         
-        network.request(with: endPoint)
-            .withUnretained(self)
-            .subscribe(onNext: { owner, result in
+        return network.request(with: endPoint)
+            .map { result -> Mutation in
                 switch result {
                 case .success:
-                    owner.output.isSuccessDelete.onNext(true)
-                case .failure(let error):
-                    print(error)
-                    owner.apiError.onNext(error)
+                    return .finishDeletion(true)
+                case .failure:
+                    return .error
                 }
-            })
-            .disposed(by: bag)
+            }
     }
     
-    func modifyBookmark(modifyInfo: BookmarkCardModel) {
+    func modifyBookmark(modifyInfo: BookmarkCardModel) -> Observable<Mutation> {
         let path = "/api/bookmarks/\(modifyInfo.id)"
         let requestModel = BookmarkModifyRequestModel(
             type: modifyInfo.groupType,
@@ -121,18 +143,15 @@ extension BookmarkBottomSheetVM {
                                               httpMethod: .put,
                                               body: requestModel)
         
-        network.request(with: endPoint)
-            .withUnretained(self)
-            .subscribe { owner, result in
+        return network.request(with: endPoint)
+            .map { result -> Mutation in
                 switch result {
-                case .success(let bookmarkInfo):
-                    owner.output.isSuccessModify.onNext(bookmarkInfo)
-                case .failure(let error):
-                    print(error)
-                    owner.apiError.onNext(error)
+                case .success(let modifiedInfo):
+                    return .finishModification(modifiedInfo: modifiedInfo)
+                case .failure:
+                    return .error
                 }
             }
-            .disposed(by: bag)
     }
     
 }
