@@ -10,12 +10,13 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import ReactorKit
 
 import SnapKit
 import Then
 
-final class BookmarkListVC: BaseNavigationViewController {
-    
+final class BookmarkListVC: BaseNavigationViewController, View {
+        
     // MARK: - UI components
     
     override var alias: String {
@@ -47,6 +48,7 @@ final class BookmarkListVC: BaseNavigationViewController {
     
     private let viewModel: BookmarkCardListVM
     private let bookmarkType: BookmarkSearchType
+    var disposeBag: DisposeBag = .init()
     
     
     // MARK: - Initialize
@@ -68,13 +70,13 @@ final class BookmarkListVC: BaseNavigationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        reactor = viewModel
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.input.page.accept(0)
-        viewModel.getBookmarkList(type: bookmarkType)
+        viewModel.action.onNext(.entering(bookmarkType))
     }
     
     override func configureView() {
@@ -95,13 +97,18 @@ final class BookmarkListVC: BaseNavigationViewController {
         bindButton()
     }
     
-    override func bindOutput() {
-        super.bindOutput()
-        
-        bindBookmarkAll()
-    }
     
-    // MARK: - Functions
+    // MARK: - Bind Reactor
+    
+    func bind(reactor: BookmarkCardListVM) {
+        reactor.state.map { $0.bookmarkList }
+            .withUnretained(self)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { owner, _ in
+                owner.tableView.reloadData()
+            })
+            .disposed(by: bag)
+    }
 
 }
 
@@ -171,18 +178,6 @@ extension BookmarkListVC {
             .disposed(by: bag)
     }
     
-    private func bindBookmarkAll() {
-        viewModel.output.bookmarkList
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            })
-            .disposed(by: bag)
-    }
-    
 }
 
 
@@ -195,8 +190,8 @@ extension BookmarkListVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if tableView.contentOffset.y > tableView.contentSize.height - tableView.bounds.size.height {
-            if !viewModel.output.isPaging.value && !viewModel.output.isLastPage.value {
-                viewModel.getBookmarkList(type: bookmarkType)
+            if !viewModel.currentState.isPaging && !viewModel.currentState.isLastPage {
+                viewModel.action.onNext(.nextPage)
             }
         }
     }
@@ -207,13 +202,13 @@ extension BookmarkListVC: UITableViewDelegate {
 
 extension BookmarkListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.output.bookmarkList.value.count
+        viewModel.currentState.bookmarkList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkCardTVC.className, for: indexPath) as? BookmarkCardTVC else { fatalError("No such Cell") }
         
-        let bookmarkInfo = viewModel.output.bookmarkList.value[indexPath.row]
+        let bookmarkInfo = viewModel.currentState.bookmarkList[indexPath.row]
         cell.configureBookmarkCardTVC(with: bookmarkInfo,
                                       bookmarkCardActionDelegate: self,
                                       index: indexPath.row)
@@ -228,10 +223,9 @@ extension BookmarkListVC: UITableViewDataSource {
 extension BookmarkListVC: BookmarkCardAction {
     
     func infoToggle(index: Int) {
-        var card = viewModel.output.bookmarkList.value
-        card[index].infoHidden.toggle()
-        viewModel.output.bookmarkList.accept(card)
-        tableView.reloadData()
+        var cardList = viewModel.currentState.bookmarkList
+        cardList[index].infoHidden.toggle()
+        viewModel.action.onNext(.togglingInfo(index))
     }
     
     func showMenu(index: Int, location: CGRect, selectMenuType: SelectBoxStyle) {
@@ -243,13 +237,13 @@ extension BookmarkListVC: BookmarkCardAction {
             }
             
             if row == 1 {
-                let card = self.viewModel.output.bookmarkList.value[index]
+                let card = self.viewModel.currentState.bookmarkList[index]
                 UIPasteboard.general.string = card.placeDetailURL
                 self.showToast(message: "LinkCopied".localized)
             }
             
             if row == 2 {
-                self.viewModel.deleteBookmark(index: index)
+                self.viewModel.action.onNext(.deleteBookmark(index: index))
             }
         }
     }
@@ -266,20 +260,20 @@ extension BookmarkListVC: BookmarkCardAction {
     
     func showBottomSheet(index: Int) {
         let bottomSheetVC = BookmarkBottomSheetVC(isBookmarking: true)
-        let cardInfo = viewModel.output.bookmarkList.value[index]
+        let cardInfo = viewModel.currentState.bookmarkList[index]
         bottomSheetVC.configureSheetData(with: cardInfo)
         
         bottomSheetVC.deletedBookmarkId
             .withUnretained(self)
             .subscribe { owner, id in
-                owner.viewModel.deleteBookmark(id: id)
+                owner.viewModel.action.onNext(.removeDeletedBookmark(id: id))
             }
             .disposed(by: bag)
         
         bottomSheetVC.modifiedBookmarkInfo
             .withUnretained(self)
             .subscribe { owner, bookmarkInfo in
-                owner.viewModel.modifyBookmark(info: bookmarkInfo)
+                owner.viewModel.action.onNext(.modifyBookmark(bookmarkInfo))
             }
             .disposed(by: bag)
                 
